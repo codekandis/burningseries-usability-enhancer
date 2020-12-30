@@ -2,5 +2,46 @@
 	"manifest_version": 2,
 	"name": "codekandis/burningseries-usability-enhancer",
 	"version": "development",
-	"description": "This extension enhances the usability of the website `burningseries.co`."
+	"description": "This extension enhances the usability of the website `burningseries.co`.",
+	"icons": {
+		"16": "images/icon-16.png",
+		"24": "images/icon-24.png",
+		"32": "images/icon-32.png",
+		"48": "images/icon-48.png",
+		"64": "images/icon-64.png",
+		"128": "images/icon-128.png"
+	},
+	"permissions": [
+		"storage",
+		"https://api.burningseries-usability-enhancer.codekandis.net/*"
+	],
+	"options_ui": {
+		"page": "optionsUi/templates/page.html",
+		"open_in_tab": false
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"https://bs.to/",
+				"https://burningseries.co/"
+			],
+			"js": [
+				"library/scripts/object.js",
+				"library/scripts/settings.js",
+				"library/scripts/ajaxController.js",
+				"library/scripts/apiUris.js",
+				"library/scripts/apiController.js",
+				"library/scripts/domHelper.js",
+				"sites/landingPage/scripts/series.js",
+				"sites/landingPage/scripts/latestEpisodes.js",
+				"sites/landingPage/scripts/latestEpisodesFilter.js",
+				"sites/landingPage/scripts/landingPage.js",
+				"sites/landingPage/scripts/index.js"
+			],
+			"css": [
+				"sites/landingPage/css/core.css",
+				"sites/landingPage/css/landingPage.css"
+			]
+		}
+	]
 }
