@@ -12,10 +12,36 @@
 		"128": "images/icon-128.png"
 	},
 	"permissions": [
-		"storage"
+		"storage",
+		"https://api.burningseries-usability-enhancer.codekandis.net/*"
 	],
 	"options_ui": {
 		"page": "optionsUi/templates/page.html",
 		"open_in_tab": false
-	}
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"https://bs.to/",
+				"https://burningseries.co/"
+			],
+			"js": [
+				"library/scripts/object.js",
+				"library/scripts/settings.js",
+				"library/scripts/ajaxController.js",
+				"library/scripts/apiUris.js",
+				"library/scripts/apiController.js",
+				"library/scripts/domHelper.js",
+				"sites/landingPage/scripts/series.js",
+				"sites/landingPage/scripts/latestEpisodes.js",
+				"sites/landingPage/scripts/latestEpisodesFilter.js",
+				"sites/landingPage/scripts/landingPage.js",
+				"sites/landingPage/scripts/index.js"
+			],
+			"css": [
+				"sites/landingPage/css/core.css",
+				"sites/landingPage/css/landingPage.css"
+			]
+		}
+	]
 }
