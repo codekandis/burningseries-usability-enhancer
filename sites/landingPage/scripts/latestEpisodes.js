@@ -32,17 +32,15 @@ class LatestEpisodes
 	{
 		this
 			._series
-			.filter(
-				( series ) =>
-				{
-					return series.seriesName === seriesName.toLowerCase();
-				}
-			)
 			.forEach(
-				( series ) =>
+				( series, index ) =>
 				{
-					return series.remove();
+					if ( series.seriesName === seriesName.toLowerCase() )
+					{
+						this._series.splice( index, 1 );
+						series.remove();
+					}
 				}
-			)
+			);
 	}
 }
