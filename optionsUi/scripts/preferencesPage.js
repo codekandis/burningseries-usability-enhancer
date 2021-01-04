@@ -1,5 +1,3 @@
-console.log( 'codekandis/burningseries-latest-episodes-cleaner: optionsUi/scripts/preferencesPage' );
-
 class PreferencesPage
 {
 	constructor( settings, preferencesForm )
