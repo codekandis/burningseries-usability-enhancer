@@ -1,32 +1,37 @@
-console.log( 'codekandis/burningseries-latest-episodes-cleaner: sites/landingPage/scripts/landingPage' );
-
 class LandingPage
 {
 	constructor( settings )
 	{
-		this._settings = settings;
+		this._settings      = settings;
+		this._episodes      = new Episodes( '#newest_episodes ul li, #newest_series ul li' );
+		this._apiController = new ApiController(
+			this._settings.get( 'apiBaseUri' ),
+			this._settings.get( 'apiUserId' ),
+			this._settings.get( 'apiKey' )
+		);
+	}
+
+	_filterEpisodes()
+	{
+		return ( new EpisodesFilter( this._episodes, this._apiController ) )
+			.filter();
+	}
+
+	_addActions()
+	{
+		( new ActionAdder( this._episodes, this._apiController ) )
+			.addActions()
 	}
 
 	execute()
 	{
-		this._filterLatestEpisodes();
-	}
-
-	_filterLatestEpisodes()
-	{
-		const addSeries = ( event ) =>
-		{
-			event.preventDefault();
-		};
-
-		( new LatestEpisodesFilter(
-			new LatestEpisodes(),
-			this._apiController = new ApiController(
-				this._settings.get( 'apiBaseUri' ),
-				this._settings.get( 'apiUserId' ),
-				this._settings.get( 'apiKey' )
-			)
-		) )
-			.filter();
+		this
+			._filterEpisodes()
+			.then(
+				() =>
+				{
+					this._addActions();
+				}
+			);
 	}
 }
