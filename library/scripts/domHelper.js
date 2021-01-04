@@ -1,5 +1,3 @@
-console.log( 'codekandis/burningseries-latest-episodes-cleaner: library/scripts/domHelper' );
-
 class DomHelper
 {
 	static createElementFromString( htmlString, idName = null, classNames = null )

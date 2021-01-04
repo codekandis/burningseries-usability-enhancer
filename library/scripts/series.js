@@ -1,5 +1,3 @@
-console.log( 'codekandis/burningseries-latest-episodes-cleaner: sites/landingPage/scripts/series' );
-
 class Series
 {
 	constructor( seriesContainer )
@@ -8,6 +6,7 @@ class Series
 		this._seriesName      = seriesContainer
 			.querySelector( 'a' )
 			.text
+			.trim()
 			.toLowerCase();
 	}
 

@@ -3,7 +3,7 @@
 	.then(
 		( settings ) =>
 		{
-			( new LandingPage( settings ) )
+			( new AllSeriesPage( settings ) )
 				.execute();
 		}
 	);
