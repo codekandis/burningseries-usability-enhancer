@@ -32,15 +32,35 @@
 				"library/scripts/apiUris.js",
 				"library/scripts/apiController.js",
 				"library/scripts/domHelper.js",
-				"sites/landingPage/scripts/series.js",
-				"sites/landingPage/scripts/latestEpisodes.js",
-				"sites/landingPage/scripts/latestEpisodesFilter.js",
+				"library/scripts/series.js",
+				"library/scripts/episodes.js",
+				"library/scripts/episodesFilter.js",
+				"library/scripts/actionAdder.js",
 				"sites/landingPage/scripts/landingPage.js",
 				"sites/landingPage/scripts/index.js"
 			],
 			"css": [
-				"sites/landingPage/css/core.css",
+				"library/css/core.css",
 				"sites/landingPage/css/landingPage.css"
+			]
+		},
+		{
+			"matches": [
+				"https://bs.to/andere-serien",
+				"https://burningseries.co/andere-serien"
+			],
+			"js": [
+				"library/scripts/object.js",
+				"library/scripts/settings.js",
+				"library/scripts/ajaxController.js",
+				"library/scripts/apiUris.js",
+				"library/scripts/apiController.js",
+				"library/scripts/domHelper.js",
+				"library/scripts/series.js",
+				"library/scripts/episodes.js",
+				"library/scripts/episodesFilter.js",
+				"sites/allSeriesPage/scripts/allSeriesPage.js",
+				"sites/allSeriesPage/scripts/index.js"
 			]
 		}
 	]
