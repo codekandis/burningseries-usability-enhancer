@@ -17,8 +17,21 @@ class AllSeriesPage
 			.filter();
 	}
 
+	_addActions()
+	{
+		( new ActionAdder( this._episodes, this._apiController ) )
+			.addActions()
+	}
+
 	execute()
 	{
-		this._filterEpisodes();
+		this
+			._filterEpisodes()
+			.then(
+				() =>
+				{
+					this._addActions();
+				}
+			);
 	}
 }
