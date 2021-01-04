@@ -1,5 +1,3 @@
-console.log( 'codekandis/burningseries-latest-episodes-cleaner: library/scripts/apiController' );
-
 class ApiController
 {
 	constructor( apiBaseUri, apiUserId, apiKey )
