@@ -1,5 +1,3 @@
-console.log( 'codekandis/burningseries-latest-episodes-cleaner: library/scripts/apiUris' );
-
 class ApiUris
 {
 	constructor( baseUri, userId )
