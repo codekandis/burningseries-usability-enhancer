@@ -1,5 +1,3 @@
-console.log( 'codekandis/burningseries-latest-episodes-cleaner: optionsUi/scripts/scriptsLoader' );
-
 [
 	'../../library/scripts/object.js',
 	'../../library/scripts/settings.js',
