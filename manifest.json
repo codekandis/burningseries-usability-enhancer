@@ -59,8 +59,13 @@
 				"library/scripts/series.js",
 				"library/scripts/episodes.js",
 				"library/scripts/episodesFilter.js",
+				"library/scripts/actionAdder.js",
 				"sites/allSeriesPage/scripts/allSeriesPage.js",
 				"sites/allSeriesPage/scripts/index.js"
+			],
+			"css": [
+				"library/css/core.css",
+				"sites/allSeriesPage/css/allSeriesPage.css"
 			]
 		}
 	]
