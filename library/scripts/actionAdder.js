@@ -6,25 +6,24 @@ class ActionAdder
 		this._apiController = apiController;
 	}
 
-	_getSeriesDenialHandler( element )
+	_getSeriesDenialHandler( series )
 	{
 		return ( event ) =>
 		{
-			const seriesName = element.parentElement.querySelector( 'a' ).text;
 			this
 				._apiController
 				.addUserSeriesDenial(
 					{
 						seriesDenial:
 							{
-								name: seriesName
+								name: series.name
 							}
 					}
 				)
 				.then(
 					( responseData ) =>
 					{
-						this._episodes.remove( seriesName );
+						this._episodes.remove( series.name );
 					}
 				);
 		};
@@ -39,8 +38,8 @@ class ActionAdder
 				( series ) =>
 				{
 					const seriesDenialButton = DomHelper.createElementFromString( '<span class="codekandis-seriesDenialButton">+</span>' );
-					seriesDenialButton.addEventListener( 'click', this._getSeriesDenialHandler( seriesDenialButton ) );
-					series.seriesContainer.insertAdjacentElement(
+					seriesDenialButton.addEventListener( 'click', this._getSeriesDenialHandler( series ) );
+					series.container.insertAdjacentElement(
 						'beforeend',
 						seriesDenialButton
 					);

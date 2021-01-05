@@ -25,14 +25,14 @@ class Episodes
 			);
 	}
 
-	remove( seriesName )
+	remove( name )
 	{
 		this
 			._series
 			.forEach(
 				( series, index ) =>
 				{
-					if ( series.seriesName === seriesName.toLowerCase() )
+					if ( series.name === name.toLowerCase() )
 					{
 						this._series.splice( index, 1 );
 						series.remove();

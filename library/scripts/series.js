@@ -1,27 +1,27 @@
 class Series
 {
-	constructor( seriesContainer )
+	constructor( container )
 	{
-		this._seriesContainer = seriesContainer;
-		this._seriesName      = seriesContainer
+		this._container = container;
+		this._name      = container
 			.querySelector( 'a' )
 			.text
 			.trim()
 			.toLowerCase();
 	}
 
-	get seriesContainer()
+	get container()
 	{
-		return this._seriesContainer;
+		return this._container;
 	}
 
-	get seriesName()
+	get name()
 	{
-		return this._seriesName;
+		return this._name;
 	}
 
 	remove()
 	{
-		this._seriesContainer.remove();
+		this._container.remove();
 	}
 }
