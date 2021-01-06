@@ -28,7 +28,7 @@ class SeriesPage
 
 	_addActions()
 	{
-		( new ActionAdder( this._episodes, this._apiController, false ) )
+		( new ActionAdder( this._episodes, this._apiController, 'beforeend', false ) )
 			.addActions()
 	}
 
