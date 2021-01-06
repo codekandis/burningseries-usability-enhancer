@@ -1,9 +1,10 @@
 class EpisodesFilter
 {
-	constructor( episodes, apiController )
+	constructor( episodes, apiController, removeIfFiltered )
 	{
-		this._episodes      = episodes;
-		this._apiController = apiController;
+		this._episodes         = episodes;
+		this._apiController    = apiController;
+		this._removeIfFiltered = removeIfFiltered;
 	}
 
 	async filter()
@@ -16,15 +17,18 @@ class EpisodesFilter
 					.then(
 						( responseData ) =>
 						{
-							responseData
-								.data
-								.seriesDenials
-								.forEach(
-									( series ) =>
-									{
-										this._episodes.remove( series.name );
-									}
-								)
+							if ( true === this._removeIfFiltered )
+							{
+								responseData
+									.data
+									.seriesDenials
+									.forEach(
+										( series ) =>
+										{
+											this._episodes.remove( series.name );
+										}
+									);
+							}
 							resolveHandler();
 						}
 					);
