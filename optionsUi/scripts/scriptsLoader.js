@@ -1,7 +1,7 @@
 [
-	'../../library/scripts/object.js',
-	'../../library/scripts/settings.js',
-	'../scripts/preferencesPage.js',
+	'../../library/scripts/Object.js',
+	'../../library/scripts/Settings.js',
+	'../scripts/PreferencesPage.js',
 	'../scripts/index.js'
 ].forEach(
 	( scriptUri ) =>
