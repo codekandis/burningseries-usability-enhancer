@@ -28,6 +28,7 @@ class Episodes
 
 	remove( name )
 	{
+		const indices = [];
 		this
 			._series
 			.forEach(
@@ -35,9 +36,17 @@ class Episodes
 				{
 					if ( series.name === name.toLowerCase() )
 					{
-						this._series.splice( index, 1 );
+						indices.push( index );
 						series.remove();
 					}
+				}
+			);
+		indices
+			.reverse()
+			.forEach(
+				( index ) =>
+				{
+					this._series.splice( index, 1 );
 				}
 			);
 	}
