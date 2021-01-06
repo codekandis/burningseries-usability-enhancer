@@ -28,7 +28,7 @@ class LandingPage
 
 	_addActions()
 	{
-		( new ActionAdder( this._episodes, this._apiController, true ) )
+		( new ActionAdder( this._episodes, this._apiController, 'beforeend', true ) )
 			.addActions()
 	}
 
