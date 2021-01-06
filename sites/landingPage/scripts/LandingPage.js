@@ -1,9 +1,9 @@
-class AllSeriesPage
+class LandingPage
 {
 	constructor( settings )
 	{
 		this._settings      = settings;
-		this._episodes      = new Episodes( '#seriesContainer ul li', this._episodeNameHandler );
+		this._episodes      = new Episodes( '#newest_episodes ul li, #newest_series ul li', this._episodeNameHandler );
 		this._apiController = new ApiController(
 			this._settings.get( 'apiBaseUri' ),
 			this._settings.get( 'apiUserId' ),
@@ -28,7 +28,7 @@ class AllSeriesPage
 
 	_addActions()
 	{
-		( new ActionAdder( this._episodes, this._apiController, true ) )
+		( new ActionAdder( this._episodes, this._apiController, 'beforeend', true ) )
 			.addActions()
 	}
 

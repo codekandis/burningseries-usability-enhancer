@@ -1,18 +1,14 @@
 @charset "utf-8";
 
-@import 'latestEpisodes.css';
-@import 'newestSeries.css';
-
-#news .lSPager a {
-	z-index: auto;
-}
-
 .codekandis-seriesDenialButton {
 	display: inline-block;
 	position: absolute;
-	padding: 1px 5px 2px 4px;
-	line-height: 1em;
-	font-size: 12pt;
+	margin-top: 6px;
+	margin-left: -8px;
+	padding: 2px 2px 3px 1px;
+	width: 5px;
+	line-height: 0.5em;
+	font-size: 8pt;
 	font-weight: bold;
 	color: #ffffff;
 	background-color: #0a7191;

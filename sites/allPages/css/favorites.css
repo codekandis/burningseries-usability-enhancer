@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+#other-series-nav ul {
+	position: absolute;
+	left: -136px;
+	width: 900px;
+	column-count: 4;
+	column-gap: 0.5px;
+	column-rule-style: solid;
+	column-rule-width: 1px;
+	column-rule-color: #cccccc;
+}
+
+#other-series-nav ul li {
+	border-left-style: none;
+	border-right-style: none;
+}

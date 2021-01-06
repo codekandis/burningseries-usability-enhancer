@@ -1,9 +1,9 @@
-class SeriesPage
+class SeriesSettingsPage
 {
 	constructor( settings )
 	{
 		this._settings      = settings;
-		this._episodes      = new Episodes( '#sp_left h2', this._episodeNameHandler );
+		this._episodes      = new Episodes( '#waste1 li, #waste2 li', this._episodeNameHandler );
 		this._apiController = new ApiController(
 			this._settings.get( 'apiBaseUri' ),
 			this._settings.get( 'apiUserId' ),
@@ -14,7 +14,6 @@ class SeriesPage
 	_episodeNameHandler( container )
 	{
 		return container
-			.childNodes[ 0 ]
 			.textContent
 			.trim()
 			.toLowerCase();
@@ -22,13 +21,13 @@ class SeriesPage
 
 	_filterEpisodes()
 	{
-		return ( new EpisodesFilter( this._episodes, this._apiController, false ) )
+		return ( new EpisodesFilter( this._episodes, this._apiController, true ) )
 			.filter();
 	}
 
 	_addActions()
 	{
-		( new ActionAdder( this._episodes, this._apiController, false ) )
+		( new ActionAdder( this._episodes, this._apiController, 'afterbegin', true ) )
 			.addActions()
 	}
 

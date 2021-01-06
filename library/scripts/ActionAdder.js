@@ -1,9 +1,10 @@
 class ActionAdder
 {
-	constructor( episodes, apiController, removeIfFiltered )
+	constructor( episodes, apiController, actionPosition, removeIfFiltered )
 	{
 		this._episodes         = episodes;
 		this._apiController    = apiController;
+		this._actionPosition   = actionPosition;
 		this._removeIfFiltered = removeIfFiltered;
 	}
 
@@ -44,7 +45,7 @@ class ActionAdder
 					const seriesDenialButton = DomHelper.createElementFromString( '<span class="codekandis-seriesDenialButton">+</span>' );
 					seriesDenialButton.addEventListener( 'click', this._getSeriesDenialHandler( series ) );
 					series.container.insertAdjacentElement(
-						'beforeend',
+						this._actionPosition,
 						seriesDenialButton
 					);
 				}
