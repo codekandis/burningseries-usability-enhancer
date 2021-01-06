@@ -1,13 +1,9 @@
 class Series
 {
-	constructor( container )
+	constructor( container, nameHandler )
 	{
 		this._container = container;
-		this._name      = container
-			.querySelector( 'a' )
-			.text
-			.trim()
-			.toLowerCase();
+		this._name      = nameHandler( container );
 	}
 
 	get container()
