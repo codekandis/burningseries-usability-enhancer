@@ -3,6 +3,10 @@
 @import 'latestEpisodes.css';
 @import 'newestSeries.css';
 
+#news .lSPager a {
+	z-index: auto;
+}
+
 .codekandis-seriesDenialButton {
 	display: inline-block;
 	position: absolute;
