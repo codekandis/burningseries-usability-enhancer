@@ -91,6 +91,30 @@
 				"library/css/core.css",
 				"sites/seriesPage/css/seriesPage.css"
 			]
+		},
+		{
+			"matches": [
+				"https://bs.to/settings/series",
+				"https://burningseries.co/settings/series"
+			],
+			"js": [
+				"library/scripts/object.js",
+				"library/scripts/settings.js",
+				"library/scripts/ajaxController.js",
+				"library/scripts/apiUris.js",
+				"library/scripts/apiController.js",
+				"library/scripts/domHelper.js",
+				"library/scripts/series.js",
+				"library/scripts/episodes.js",
+				"library/scripts/episodesFilter.js",
+				"library/scripts/actionAdder.js",
+				"sites/seriesSettingsPage/scripts/seriesSettingsPage.js",
+				"sites/seriesSettingsPage/scripts/index.js"
+			],
+			"css": [
+				"library/css/core.css",
+				"sites/seriesSettingsPage/css/seriesSettingsPage.css"
+			]
 		}
 	]
 }
