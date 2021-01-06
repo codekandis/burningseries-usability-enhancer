@@ -1,9 +1,9 @@
-class LandingPage
+class SeriesPage
 {
 	constructor( settings )
 	{
 		this._settings      = settings;
-		this._episodes      = new Episodes( '#newest_episodes ul li, #newest_series ul li', this._episodeNameHandler );
+		this._episodes      = new Episodes( '#sp_left h2', this._episodeNameHandler );
 		this._apiController = new ApiController(
 			this._settings.get( 'apiBaseUri' ),
 			this._settings.get( 'apiUserId' ),
@@ -14,7 +14,7 @@ class LandingPage
 	_episodeNameHandler( container )
 	{
 		return container
-			.querySelector( 'a' )
+			.childNodes[ 0 ]
 			.textContent
 			.trim()
 			.toLowerCase();
@@ -22,13 +22,13 @@ class LandingPage
 
 	_filterEpisodes()
 	{
-		return ( new EpisodesFilter( this._episodes, this._apiController, true ) )
+		return ( new EpisodesFilter( this._episodes, this._apiController, false ) )
 			.filter();
 	}
 
 	_addActions()
 	{
-		( new ActionAdder( this._episodes, this._apiController, true ) )
+		( new ActionAdder( this._episodes, this._apiController, false ) )
 			.addActions()
 	}
 

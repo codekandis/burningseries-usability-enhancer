@@ -1,9 +1,10 @@
 class Episodes
 {
-	constructor( episodesSelector )
+	constructor( selector, nameHandler )
 	{
-		this._episodesSelector = episodesSelector;
-		this._series           = [];
+		this._selector    = selector;
+		this._nameHandler = nameHandler;
+		this._series      = [];
 
 		this._determineEpisodes();
 	}
@@ -16,11 +17,11 @@ class Episodes
 	_determineEpisodes()
 	{
 		document
-			.querySelectorAll( this._episodesSelector )
+			.querySelectorAll( this._selector )
 			.forEach(
 				( series ) =>
 				{
-					this._series.push( new Series( series ) );
+					this._series.push( new Series( series, this._nameHandler ) );
 				}
 			);
 	}
