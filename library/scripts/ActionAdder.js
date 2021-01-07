@@ -1,11 +1,11 @@
 class ActionAdder
 {
-	constructor( episodes, apiController, actionPosition, removeIfFiltered )
+	constructor( episodes, apiController, actionPosition, episodesFilter )
 	{
-		this._episodes         = episodes;
-		this._apiController    = apiController;
-		this._actionPosition   = actionPosition;
-		this._removeIfFiltered = removeIfFiltered;
+		this._episodes       = episodes;
+		this._apiController  = apiController;
+		this._actionPosition = actionPosition;
+		this._episodesFilter = episodesFilter;
 	}
 
 	_getSeriesDenialHandler( series )
@@ -25,10 +25,7 @@ class ActionAdder
 				.then(
 					( responseData ) =>
 					{
-						if ( true === this._removeIfFiltered )
-						{
-							this._episodes.remove( series.name );
-						}
+						this._episodesFilter.filter();
 					}
 				);
 		};
