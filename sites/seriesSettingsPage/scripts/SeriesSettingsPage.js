@@ -25,9 +25,9 @@ class SeriesSettingsPage
 			.filter();
 	}
 
-	_addActions()
+	_addActions( episodesFilter )
 	{
-		( new ActionAdder( this._episodes, this._apiController, 'afterbegin', true ) )
+		( new ActionAdder( this._episodes, this._apiController, 'afterbegin', episodesFilter ) )
 			.addActions()
 	}
 
@@ -36,9 +36,9 @@ class SeriesSettingsPage
 		this
 			._filterEpisodes()
 			.then(
-				() =>
+				( episodesFilter ) =>
 				{
-					this._addActions();
+					this._addActions( episodesFilter );
 				}
 			);
 	}

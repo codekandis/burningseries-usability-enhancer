@@ -5,10 +5,7 @@
 	left: -136px;
 	width: 900px;
 	column-count: 4;
-	column-gap: 1px;
-	column-rule-style: solid;
-	column-rule-width: 1px;
-	column-rule-color: #cccccc;
+	column-gap: 0;
 }
 
 #other-series-nav ul li {
@@ -21,5 +18,5 @@
 
 #other-series-nav ul li a {
 	padding: 0 7px;
-	background-image: linear-gradient(0deg, #cccccc 1px, #cccccc 1px, transparent 1px);
+	background-image: linear-gradient(0deg, #cccccc 1px, #cccccc 1px, transparent 1px), linear-gradient(90deg, #cccccc 1px, #cccccc 1px, transparent 1px);
 }
