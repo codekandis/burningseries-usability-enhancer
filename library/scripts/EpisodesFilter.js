@@ -29,7 +29,7 @@ class EpisodesFilter
 										}
 									);
 							}
-							resolveHandler();
+							resolveHandler( this );
 						}
 					);
 			}
