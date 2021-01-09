@@ -11,6 +11,12 @@ class ApiUris
 		this._userId  = userId;
 	}
 
+	get userSeriesDenials()
+	{
+		return this._baseUri + this._replaceUriPlaceHolders( this._relativeUris.userSeriesDenials );
+	}
+
+
 	get userSeriesDenialsFiltered()
 	{
 		return this._baseUri + this._replaceUriPlaceHolders( this._relativeUris.userSeriesDenialsFiltered );
