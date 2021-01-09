@@ -13,7 +13,7 @@ class EpisodesFilter
 			( resolveHandler, rejectHandler ) =>
 			{
 				this._apiController
-					.readUserSeriesDenials()
+					.readUserSeriesDenialsFiltered( this._episodes.series )
 					.then(
 						( responseData ) =>
 						{
