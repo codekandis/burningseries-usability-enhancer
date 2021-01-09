@@ -17,12 +17,26 @@ class ApiController
 		};
 	}
 
-	async readUserSeriesDenials()
+	async readUserSeriesDenialsFiltered( series )
 	{
+		const requestData = JSON.stringify(
+			{
+				series: series
+					        .map(
+						        ( seriesFetched ) =>
+						        {
+							        return {
+								        name: seriesFetched.name
+							        }
+						        }
+					        )
+			}
+		);
 		return (
-			await this._ajaxController.get(
-				this._apiUris.userSeriesDenials,
-				this._getHeaders()
+			await this._ajaxController.put(
+				this._apiUris.userSeriesDenialsFiltered,
+				this._getHeaders(),
+				requestData
 			)
 		).json();
 	}
