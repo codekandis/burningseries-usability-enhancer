@@ -3,6 +3,7 @@ class ApiUris
 	constructor( baseUri, userId )
 	{
 		this._relativeUris = {
+			userSeriesDenials:         '/users/{{userId}}/series-denials',
 			userSeriesDenialsFiltered: '/users/{{userId}}/series-denials/filtered'
 		};
 
