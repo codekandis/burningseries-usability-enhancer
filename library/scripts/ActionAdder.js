@@ -39,7 +39,7 @@ class ActionAdder
 			.forEach(
 				( series ) =>
 				{
-					const seriesDenialButton = DomHelper.createElementFromString( '<span class="codekandis-seriesDenialButton">+</span>' );
+					const seriesDenialButton = DomHelper.createElementFromString( '<span>+</span>', null, 'codekandis-seriesDenialButton' );
 					seriesDenialButton.addEventListener( 'click', this._getSeriesDenialHandler( series ) );
 					series.container.insertAdjacentElement(
 						this._actionPosition,
