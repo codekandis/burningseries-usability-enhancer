@@ -17,4 +17,26 @@ class DomHelper
 
 		return element;
 	}
+
+	static addEventHandler( selector, event, handler )
+	{
+		document
+			.querySelectorAll( selector )
+			.forEach(
+				( element ) =>
+				{
+					element.addEventListener( event, handler );
+				}
+			);
+	}
+
+	static addEventHandlers( selector, eventHandlerMapping )
+	{
+		eventHandlerMapping.forEach(
+			( eventName, eventHandler ) =>
+			{
+				DomHelper.addEventHandler( selector, eventName, eventHandler );
+			}
+		);
+	}
 }
