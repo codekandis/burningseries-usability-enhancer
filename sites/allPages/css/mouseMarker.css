@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+#codekandis-mouseMarker {
+	position: absolute;
+	display: block;
+	width: 3px;
+	height: 3px;
+	left: 0;
+	top: 0;
+	border-style: solid;
+	border-width: 7px;
+	border-radius: 50%;
+	border-color: #ff0000;
+	z-index: 1000;
+}

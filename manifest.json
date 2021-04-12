@@ -25,6 +25,14 @@
 				"https://bs.to/*",
 				"https://burningseries.co/*"
 			],
+			"js": [
+				"library/scripts/Object.js",
+				"library/scripts/Settings.js",
+				"library/scripts/MouseMarker.js",
+				"library/scripts/MenuHandler.js",
+				"sites/allPages/scripts/AllPages.js",
+				"sites/allPages/scripts/index.js"
+			],
 			"css": [
 				"library/css/core.css",
 				"sites/allPages/css/allPages.css"
@@ -36,8 +44,6 @@
 				"https://burningseries.co/"
 			],
 			"js": [
-				"library/scripts/Object.js",
-				"library/scripts/Settings.js",
 				"library/scripts/AjaxController.js",
 				"library/scripts/ApiUris.js",
 				"library/scripts/ApiController.js",
@@ -60,8 +66,6 @@
 				"https://burningseries.co/andere-serien"
 			],
 			"js": [
-				"library/scripts/Object.js",
-				"library/scripts/Settings.js",
 				"library/scripts/AjaxController.js",
 				"library/scripts/ApiUris.js",
 				"library/scripts/ApiController.js",
@@ -84,8 +88,6 @@
 				"https://burningseries.co/serie/*"
 			],
 			"js": [
-				"library/scripts/Object.js",
-				"library/scripts/Settings.js",
 				"library/scripts/AjaxController.js",
 				"library/scripts/ApiUris.js",
 				"library/scripts/ApiController.js",
@@ -108,8 +110,6 @@
 				"https://burningseries.co/settings/series"
 			],
 			"js": [
-				"library/scripts/Object.js",
-				"library/scripts/Settings.js",
 				"library/scripts/AjaxController.js",
 				"library/scripts/ApiUris.js",
 				"library/scripts/ApiController.js",
