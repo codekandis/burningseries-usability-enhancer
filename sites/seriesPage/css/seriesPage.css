@@ -31,3 +31,13 @@
 .codekandis-seriesDenialButton:hover {
 	background-color: #1596bd;
 }
+
+#codekandis-episodesNavigator ul li {
+	margin-right: 4px;
+	width: 100px;
+}
+
+#codekandis-episodesNavigator ul li.disabled a:hover {
+	background-color: transparent !important;
+	cursor: default;
+}

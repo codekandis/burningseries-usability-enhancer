@@ -29,7 +29,13 @@ class SeriesPage
 	_addActions( episodesFilter )
 	{
 		( new ActionAdder( this._episodes, this._apiController, 'beforeend', episodesFilter ) )
-			.addActions()
+			.addActions();
+	}
+
+	_addNavigation()
+	{
+		( new EpisodesNavigator() )
+			.addNavigation();
 	}
 
 	execute()
@@ -40,6 +46,7 @@ class SeriesPage
 				( episodesFilter ) =>
 				{
 					this._addActions( episodesFilter );
+					this._addNavigation();
 				}
 			);
 	}
