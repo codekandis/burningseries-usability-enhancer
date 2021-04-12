@@ -39,4 +39,14 @@ class DomHelper
 			}
 		);
 	}
+
+	static insertBefore( element, insertion )
+	{
+		element.parentNode.insertBefore( insertion, element );
+	}
+
+	static insertAfter( element, insertion )
+	{
+		element.parentNode.insertAfter( insertion, element );
+	}
 }
