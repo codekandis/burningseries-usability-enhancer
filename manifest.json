@@ -28,6 +28,7 @@
 			"js": [
 				"library/scripts/Object.js",
 				"library/scripts/Settings.js",
+				"library/scripts/MouseMarker.js",
 				"library/scripts/MenuHandler.js",
 				"sites/allPages/scripts/AllPages.js",
 				"sites/allPages/scripts/index.js"
