@@ -1,5 +1,17 @@
 @charset "utf-8";
 
+.serie .frame ul li.watched {
+	background-color: #008000 !important;
+}
+
+.serie .frame ul li.active {
+	background-color: #00a0ff !important;
+}
+
+.serie .frame ul li a:hover {
+	background-color: #ffa000 !important;
+}
+
 .codekandis-seriesDenialButton {
 	display: inline-block;
 	position: absolute;
