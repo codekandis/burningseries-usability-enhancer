@@ -40,17 +40,25 @@ class MouseMarker
 		const eventHandlerMapping = {
 			keydown:   ( event ) =>
 			           {
-				           if ( true === event.ctrlKey )
+				           if ( true === event.ctrlKey && false === event.shiftKey && false === event.altKey )
 				           {
 					           this._show();
+
+					           return;
 				           }
+
+				           this._hide();
 			           },
 			keyup:     ( event ) =>
 			           {
-				           if ( false === event.ctrlKey )
+				           if ( true === event.ctrlKey && false === event.shiftKey && false === event.altKey )
 				           {
-					           this._hide();
+					           this._show();
+
+					           return;
 				           }
+
+				           this._hide();
 			           },
 			mousemove: ( event ) =>
 			           {
