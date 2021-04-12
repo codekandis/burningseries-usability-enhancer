@@ -21,8 +21,8 @@ class MouseMarker
 
 	_move( clientX, clientY )
 	{
-		this._marker.style.left = ( clientX - this._halfWidth ) + 'px';
-		this._marker.style.top  = ( clientY - this._halfHeight ) + 'px';
+		this._marker.style.left = ( clientX - this._halfWidth + scrollX ) + 'px';
+		this._marker.style.top  = ( clientY - this._halfHeight + scrollY ) + 'px';
 	}
 
 	_show()
