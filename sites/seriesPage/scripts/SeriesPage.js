@@ -11,22 +11,6 @@ class SeriesPage
 		);
 	}
 
-	get _isSeasonPage()
-	{
-		let isSeasonPage = false;
-		[
-			/^https:\/\/bs.to\/serie\/.+?\/\d+(?:\/[a-z]+)?\/?$/i,
-			/^https:\/\/burningseries.co\/serie\/.+?\/\d+(?:\/[a-z]+)?\/?$/i
-		].forEach(
-			( regularExpression ) =>
-			{
-				isSeasonPage ||= regularExpression.test( window.location.href );
-			}
-		);
-
-		return isSeasonPage;
-	}
-
 	_episodeNameHandler( container )
 	{
 		return container
@@ -50,8 +34,11 @@ class SeriesPage
 
 	_addNavigation()
 	{
-		( new EpisodesNavigator() )
-			.addNavigation();
+		if ( false === ( new SeasonPageDeterminator( window.location.href ) )._isSeasonPage )
+		{
+			( new EpisodesNavigator() )
+				.addNavigation();
+		}
 	}
 
 	execute()
@@ -62,10 +49,7 @@ class SeriesPage
 				( episodesFilter ) =>
 				{
 					this._addActions( episodesFilter );
-					if ( false === this._isSeasonPage )
-					{
-						this._addNavigation();
-					}
+					this._addNavigation();
 				}
 			);
 	}
