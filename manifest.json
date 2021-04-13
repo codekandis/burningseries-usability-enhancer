@@ -96,6 +96,7 @@
 				"library/scripts/Episodes.js",
 				"library/scripts/EpisodesFilter.js",
 				"library/scripts/ActionAdder.js",
+				"library/scripts/SeasonPageDeterminator.js",
 				"library/scripts/BsToController.js",
 				"library/scripts/EpisodesNavigator.js",
 				"sites/seriesPage/scripts/SeriesPage.js",
