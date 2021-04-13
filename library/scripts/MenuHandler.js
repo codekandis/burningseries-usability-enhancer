@@ -8,18 +8,15 @@ class MenuHandler
 	handle()
 	{
 		const eventHandlerMapping = {
-			click:      ( event ) =>
-			            {
-				            if ( true === event.ctrlKey && true === event.altKey )
-				            {
-					            event.preventDefault();
-					            event.currentTarget.querySelector( 'ul' ).style.display = 'block';
-				            }
-			            },
-			mouseleave: ( event ) =>
-			            {
-				            event.currentTarget.querySelector( 'ul' ).style.display = 'none';
-			            }
+			click: ( event ) =>
+			       {
+				       if ( true === event.ctrlKey && true === event.altKey )
+				       {
+					       event.preventDefault();
+					       const submenu         = event.currentTarget.querySelector( 'ul' );
+					       submenu.style.display = 'block' === submenu.style.display ? 'none' : 'block';
+				       }
+			       }
 		};
 		DomHelper.addEventHandlers( this._selector, eventHandlerMapping );
 	}
