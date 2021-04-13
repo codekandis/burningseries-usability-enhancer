@@ -18,6 +18,14 @@ class DomHelper
 		return element;
 	}
 
+	static createElementsFromString( htmlString )
+	{
+		const container     = document.createElement( 'div' );
+		container.innerHTML = htmlString.trim();
+
+		return container;
+	}
+
 	static addEventHandler( selector, event, handler )
 	{
 		document
