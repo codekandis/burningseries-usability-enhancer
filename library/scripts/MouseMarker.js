@@ -51,13 +51,6 @@ class MouseMarker
 			           },
 			keyup:     ( event ) =>
 			           {
-				           if ( true === event.ctrlKey && false === event.shiftKey && false === event.altKey )
-				           {
-					           this._show();
-
-					           return;
-				           }
-
 				           this._hide();
 			           },
 			mousemove: ( event ) =>
