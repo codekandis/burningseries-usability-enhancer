@@ -35,7 +35,8 @@ class PreferencesPage
 		this._preferencesFormEventHandlerPresets.forEach(
 			( eventName, eventHandler ) =>
 			{
-				this._preferencesForm.addEventListener(
+				DomHelper.addEventHandler(
+					this._preferencesForm,
 					eventName,
 					( event ) =>
 					{

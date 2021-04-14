@@ -59,6 +59,6 @@ class MouseMarker
 			           }
 		}
 
-		DomHelper.addEventHandlers( 'html', eventHandlerMapping );
+		DomHelper.addEventHandlersBySelector( 'html', eventHandlerMapping );
 	}
 }

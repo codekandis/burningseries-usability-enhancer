@@ -26,26 +26,43 @@ class DomHelper
 		return container;
 	}
 
-	static addEventHandler( selector, event, handler )
+	static addEventHandler( element, event, handler )
+	{
+		element.addEventListener( event, handler );
+	}
+
+	static addEventHandlers( element, eventHandlerMapping )
+	{
+		eventHandlerMapping.forEach(
+			( eventName, eventHandler ) =>
+			{
+				DomHelper.addEventHandler( element, eventName, eventHandler );
+			}
+		);
+	}
+
+	static addEventHandlerBySelector( selector, event, handler )
 	{
 		document
 			.querySelectorAll( selector )
 			.forEach(
 				( element ) =>
 				{
-					element.addEventListener( event, handler );
+					DomHelper.addEventHandler( element, event, handler );
 				}
 			);
 	}
 
-	static addEventHandlers( selector, eventHandlerMapping )
+	static addEventHandlersBySelector( selector, eventHandlerMapping )
 	{
-		eventHandlerMapping.forEach(
-			( eventName, eventHandler ) =>
-			{
-				DomHelper.addEventHandler( selector, eventName, eventHandler );
-			}
-		);
+		document
+			.querySelectorAll( selector )
+			.forEach(
+				( element ) =>
+				{
+					DomHelper.addEventHandlers( element, eventHandlerMapping );
+				}
+			);
 	}
 
 	static insertBefore( element, insertion )

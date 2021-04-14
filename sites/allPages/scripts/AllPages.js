@@ -4,7 +4,11 @@ class AllPages
 	{
 		this._settings    = settings;
 		this._mouseMarker = new MouseMarker();
-		this._menuHandler = new MenuHandler( '#other-series-nav' );
+		this._menuHandler = new MenuHandler(
+			[
+				'#other-series-nav'
+			]
+		);
 	}
 
 	execute()
