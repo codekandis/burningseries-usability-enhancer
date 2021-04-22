@@ -41,6 +41,15 @@ class SeriesPage
 		}
 	}
 
+	_scrollToBottom()
+	{
+		if ( false === ( new SeasonPageDeterminator( window.location.href ) )._isSeasonPage )
+		{
+			( new Scroller() )
+				.scrollToElementBottom( document.body );
+		}
+	}
+
 	execute()
 	{
 		this
@@ -50,6 +59,7 @@ class SeriesPage
 				{
 					this._addActions( episodesFilter );
 					this._addNavigation();
+					this._scrollToBottom();
 				}
 			);
 	}
