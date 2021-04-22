@@ -65,6 +65,21 @@ class DomHelper
 			);
 	}
 
+	static appendChild( element, child )
+	{
+		element.appendChild( child );
+	}
+
+	static appendChildren( element, children )
+	{
+		children.forEach(
+			( child ) =>
+			{
+				DomHelper.appendChild( element, child );
+			}
+		)
+	}
+
 	static insertBefore( element, insertion )
 	{
 		element.parentNode.insertBefore( insertion, element );
@@ -72,6 +87,26 @@ class DomHelper
 
 	static insertAfter( element, insertion )
 	{
-		element.parentNode.insertAfter( insertion, element );
+		element.parentNode.insertBefore( insertion, element.nextSibling );
+	}
+
+	static insertBeforeAll( elements, insertion )
+	{
+		elements.forEach(
+			( element ) =>
+			{
+				DomHelper.insertBefore( element, insertion.cloneNode( true ) );
+			}
+		);
+	}
+
+	static insertAfterAll( elements, insertion )
+	{
+		elements.forEach(
+			( element ) =>
+			{
+				DomHelper.insertAfter( element, insertion.cloneNode( true ) );
+			}
+		);
 	}
 }
