@@ -2,16 +2,32 @@ class EpisodesNavigator
 {
 	constructor()
 	{
-		this._navigator = null;
-		this._buttons   = null;
+		this._navigators = null;
 		this._initialize();
 	}
 
 	_initialize()
 	{
-		this._buttons   = DomHelper.createElementFromString( '<ul></ul>' );
-		this._navigator = DomHelper.createElementFromString( '<div></div>', 'codekandis-episodesNavigator', 'frame' );
-		this._navigator.appendChild( this._buttons );
+		this._navigators = [
+			{
+				selector:        '.serie .episode',
+				insertionMethod: DomHelper.insertAfter,
+				container:       DomHelper.createElementFromString( '<div></div>', null, 'codekandis-episodesNavigator frame' ),
+				buttons:         DomHelper.createElementFromString( '<ul></ul>' )
+			},
+			{
+				selector:        '.serie .hoster-tabs.bottom',
+				insertionMethod: DomHelper.insertAfter,
+				container:       DomHelper.createElementFromString( '<div></div>', null, 'codekandis-episodesNavigator frame' ),
+				buttons:         DomHelper.createElementFromString( '<ul></ul>' )
+			}
+		];
+		this._navigators.forEach(
+			( navigator ) =>
+			{
+				navigator.container.appendChild( navigator.buttons );
+			}
+		);
 	}
 
 	async _getEnclosingEpisodesOfSeason( uri )
@@ -166,23 +182,23 @@ class EpisodesNavigator
 
 	addNavigation()
 	{
-		DomHelper.insertBefore(
-			document.querySelector( '.serie .selectors' ),
-			this._navigator
-		);
-
-		const buttons = {
-			previousEpisode: DomHelper.createElementFromString( '<li><a href="#">Previous</a></li>' ),
-			nextEpisode:     DomHelper.createElementFromString( '<li><a href="#">Next</a></li>' )
-		};
-
-		buttons.forEach(
-			( elementName, element ) =>
+		this._navigators.forEach(
+			( navigator ) =>
 			{
-				this._buttons.appendChild( element );
+				const buttons = {
+					previousEpisode: DomHelper.createElementFromString( '<li><a href="#">Previous</a></li>' ),
+					nextEpisode:     DomHelper.createElementFromString( '<li><a href="#">Next</a></li>' )
+				};
+
+				this._addEvents( buttons );
+
+				DomHelper.appendChildren( navigator.buttons, buttons.values() );
+
+				navigator.insertionMethod(
+					document.querySelector( navigator.selector ),
+					navigator.container
+				);
 			}
 		);
-
-		this._addEvents( buttons );
 	}
 }

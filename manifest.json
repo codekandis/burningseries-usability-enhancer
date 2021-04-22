@@ -92,6 +92,7 @@
 				"library/scripts/ApiUris.js",
 				"library/scripts/ApiController.js",
 				"library/scripts/DomHelper.js",
+				"library/scripts/Scroller.js",
 				"library/scripts/Series.js",
 				"library/scripts/Episodes.js",
 				"library/scripts/EpisodesFilter.js",
