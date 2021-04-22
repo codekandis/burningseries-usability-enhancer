@@ -12,6 +12,10 @@
 	background-color: #ffa000 !important;
 }
 
+.serie .episode {
+	margin-bottom: 10px;
+}
+
 .codekandis-seriesDenialButton {
 	display: inline-block;
 	position: absolute;
@@ -32,12 +36,20 @@
 	background-color: #ffa000;
 }
 
-#codekandis-episodesNavigator ul li {
-	margin-right: 4px;
-	width: 100px;
+.codekandis-episodesNavigator {
+	text-align: right;
 }
 
-#codekandis-episodesNavigator ul li.disabled a:hover {
+.codekandis-episodesNavigator ul {
+	display: inline-block;
+}
+
+.codekandis-episodesNavigator ul li {
+	margin-left: 4px !important;
+	width: 100px !important;
+}
+
+.codekandis-episodesNavigator ul li.disabled a:hover {
 	background-color: transparent !important;
 	cursor: default;
 }
