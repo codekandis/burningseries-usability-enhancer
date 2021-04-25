@@ -3,12 +3,13 @@ class LandingPage
 	constructor( settings )
 	{
 		this._settings      = settings;
-		this._episodes      = new Episodes( '#newest_episodes ul li, #newest_series ul li', this._episodeNameHandler );
 		this._apiController = new ApiController(
 			this._settings.get( 'apiBaseUri' ),
 			this._settings.get( 'apiUserId' ),
 			this._settings.get( 'apiKey' )
 		);
+		this._linkExtender  = new LinkExtender( '/Vivo' );
+		this._episodes      = new Episodes( '#newest_episodes ul li, #newest_series ul li', this._episodeNameHandler );
 	}
 
 	_episodeNameHandler( container )
@@ -26,6 +27,13 @@ class LandingPage
 			.filter();
 	}
 
+	_extendEpisodesLinks()
+	{
+		this._linkExtender.extendList(
+			document.querySelectorAll( '#newest_episodes ul li a' )
+		);
+	}
+
 	_addActions( episodesFilter )
 	{
 		( new ActionAdder( this._episodes, this._apiController, 'beforeend', episodesFilter ) )
@@ -39,6 +47,7 @@ class LandingPage
 			.then(
 				( episodesFilter ) =>
 				{
+					this._extendEpisodesLinks();
 					this._addActions( episodesFilter );
 				}
 			);
