@@ -46,7 +46,7 @@ class SeriesPage
 		if ( false === ( new SeasonPageDeterminator( window.location.href ) )._isSeasonPage )
 		{
 			( new Scroller() )
-				.scrollToElementBottom( document.body );
+				.scrollToElementTop( document.querySelector( '.codekandis-episodesNavigator.top' ) );
 		}
 	}
 
