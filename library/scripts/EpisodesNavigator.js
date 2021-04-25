@@ -1,8 +1,10 @@
 class EpisodesNavigator
 {
-	constructor()
+	constructor( linkExtender )
 	{
-		this._navigators = null;
+		this._navigators   = null;
+		this._linkExtender = linkExtender;
+
 		this._initialize();
 	}
 
@@ -44,6 +46,7 @@ class EpisodesNavigator
 								.map(
 									( element ) =>
 									{
+										this._linkExtender.extend( element );
 										return element.href;
 									}
 								)
@@ -110,9 +113,9 @@ class EpisodesNavigator
 
 		this._getEnclosingEpisodesOfSeason( seasons.list[ seasons.currentIndex - 1 ] )
 			.then(
-				( enlosingEpisodes ) =>
+				( enclosingEpisodes ) =>
 				{
-					window.location.href = enlosingEpisodes.last;
+					window.location.href = enclosingEpisodes.last;
 				}
 			);
 	}
@@ -128,9 +131,9 @@ class EpisodesNavigator
 
 		this._getEnclosingEpisodesOfSeason( seasons.list[ seasons.currentIndex + 1 ] )
 			.then(
-				( enlosingEpisodes ) =>
+				( enclosingEpisodes ) =>
 				{
-					window.location.href = enlosingEpisodes.first;
+					window.location.href = enclosingEpisodes.first;
 				}
 			);
 	}
