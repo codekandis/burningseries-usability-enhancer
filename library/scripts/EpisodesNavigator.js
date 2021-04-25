@@ -12,13 +12,13 @@ class EpisodesNavigator
 			{
 				selector:        '.serie .episode',
 				insertionMethod: DomHelper.insertAfter,
-				container:       DomHelper.createElementFromString( '<div></div>', null, 'codekandis-episodesNavigator frame' ),
+				container:       DomHelper.createElementFromString( '<div></div>', null, 'codekandis-episodesNavigator top frame' ),
 				buttons:         DomHelper.createElementFromString( '<ul></ul>' )
 			},
 			{
 				selector:        '.serie .hoster-tabs.bottom',
 				insertionMethod: DomHelper.insertAfter,
-				container:       DomHelper.createElementFromString( '<div></div>', null, 'codekandis-episodesNavigator frame' ),
+				container:       DomHelper.createElementFromString( '<div></div>', null, 'codekandis-episodesNavigator bottom frame' ),
 				buttons:         DomHelper.createElementFromString( '<ul></ul>' )
 			}
 		];
