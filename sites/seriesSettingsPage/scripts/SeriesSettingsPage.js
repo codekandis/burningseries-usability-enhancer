@@ -3,12 +3,12 @@ class SeriesSettingsPage
 	constructor( settings )
 	{
 		this._settings      = settings;
-		this._episodes      = new Episodes( '#waste1 li, #waste2 li', this._episodeNameHandler );
 		this._apiController = new ApiController(
 			this._settings.get( 'apiBaseUri' ),
 			this._settings.get( 'apiUserId' ),
 			this._settings.get( 'apiKey' )
 		);
+		this._episodes      = new Episodes( '#waste1 li, #waste2 li', this._episodeNameHandler );
 	}
 
 	_episodeNameHandler( container )
