@@ -13,7 +13,7 @@
 }
 
 .serie .episode {
-	margin-bottom: 10px;
+	margin-bottom: 1px;
 }
 
 .codekandis-seriesDenialButton {
@@ -38,6 +38,10 @@
 
 .codekandis-episodesNavigator {
 	text-align: right;
+}
+
+.codekandis-episodesNavigator.top {
+	padding-top: 10px;
 }
 
 .codekandis-episodesNavigator ul {
