@@ -29,13 +29,14 @@
 				"library/scripts/Object.js",
 				"library/scripts/Settings.js",
 				"library/scripts/MouseMarker.js",
-				"library/scripts/MenuHandler.js",
-				"sites/allPages/scripts/AllPages.js",
-				"sites/allPages/scripts/index.js"
+				"library/scripts/bs.to/MenuHandler.js",
+				"sites/bs.to/allPages/scripts/AllPages.js",
+				"sites/bs.to/allPages/scripts/index.js"
 			],
 			"css": [
 				"library/css/core.css",
-				"sites/allPages/css/allPages.css"
+				"sites/allSites/css/allSites.css",
+				"sites/bs.to/allPages/css/allPages.css"
 			]
 		},
 		{
@@ -49,16 +50,15 @@
 				"library/scripts/ApiController.js",
 				"library/scripts/DomHelper.js",
 				"library/scripts/LinkExtender.js",
-				"library/scripts/Series.js",
-				"library/scripts/Episodes.js",
-				"library/scripts/EpisodesFilter.js",
-				"library/scripts/ActionAdder.js",
-				"sites/landingPage/scripts/LandingPage.js",
-				"sites/landingPage/scripts/index.js"
+				"library/scripts/bs.to/Series.js",
+				"library/scripts/bs.to/Episodes.js",
+				"library/scripts/bs.to/EpisodesFilter.js",
+				"library/scripts/bs.to/ActionAdder.js",
+				"sites/bs.to/landingPage/scripts/LandingPage.js",
+				"sites/bs.to/landingPage/scripts/index.js"
 			],
 			"css": [
-				"library/css/core.css",
-				"sites/landingPage/css/landingPage.css"
+				"sites/bs.to/landingPage/css/landingPage.css"
 			]
 		},
 		{
@@ -71,16 +71,15 @@
 				"library/scripts/ApiUris.js",
 				"library/scripts/ApiController.js",
 				"library/scripts/DomHelper.js",
-				"library/scripts/Series.js",
-				"library/scripts/Episodes.js",
-				"library/scripts/EpisodesFilter.js",
-				"library/scripts/ActionAdder.js",
-				"sites/allSeriesPage/scripts/AllSeriesPage.js",
-				"sites/allSeriesPage/scripts/index.js"
+				"library/scripts/bs.to/Series.js",
+				"library/scripts/bs.to/Episodes.js",
+				"library/scripts/bs.to/EpisodesFilter.js",
+				"library/scripts/bs.to/ActionAdder.js",
+				"sites/bs.to/allSeriesPage/scripts/AllSeriesPage.js",
+				"sites/bs.to/allSeriesPage/scripts/index.js"
 			],
 			"css": [
-				"library/css/core.css",
-				"sites/allSeriesPage/css/allSeriesPage.css"
+				"sites/bs.to/allSeriesPage/css/allSeriesPage.css"
 			]
 		},
 		{
@@ -95,19 +94,18 @@
 				"library/scripts/DomHelper.js",
 				"library/scripts/LinkExtender.js",
 				"library/scripts/Scroller.js",
-				"library/scripts/Series.js",
-				"library/scripts/Episodes.js",
-				"library/scripts/EpisodesFilter.js",
-				"library/scripts/ActionAdder.js",
-				"library/scripts/SeasonPageDeterminator.js",
-				"library/scripts/BsToController.js",
-				"library/scripts/EpisodesNavigator.js",
-				"sites/seriesPage/scripts/SeriesPage.js",
-				"sites/seriesPage/scripts/index.js"
+				"library/scripts/bs.to/Series.js",
+				"library/scripts/bs.to/Episodes.js",
+				"library/scripts/bs.to/EpisodesFilter.js",
+				"library/scripts/bs.to/ActionAdder.js",
+				"library/scripts/bs.to/SeasonPageDeterminator.js",
+				"library/scripts/bs.to/BsToController.js",
+				"library/scripts/bs.to/EpisodesNavigator.js",
+				"sites/bs.to/seriesPage/scripts/SeriesPage.js",
+				"sites/bs.to/seriesPage/scripts/index.js"
 			],
 			"css": [
-				"library/css/core.css",
-				"sites/seriesPage/css/seriesPage.css"
+				"sites/bs.to/seriesPage/css/seriesPage.css"
 			]
 		},
 		{
@@ -120,16 +118,29 @@
 				"library/scripts/ApiUris.js",
 				"library/scripts/ApiController.js",
 				"library/scripts/DomHelper.js",
-				"library/scripts/Series.js",
-				"library/scripts/Episodes.js",
-				"library/scripts/EpisodesFilter.js",
-				"library/scripts/ActionAdder.js",
-				"sites/seriesSettingsPage/scripts/SeriesSettingsPage.js",
-				"sites/seriesSettingsPage/scripts/index.js"
+				"library/scripts/bs.to/Series.js",
+				"library/scripts/bs.to/Episodes.js",
+				"library/scripts/bs.to/EpisodesFilter.js",
+				"library/scripts/bs.to/ActionAdder.js",
+				"sites/bs.to/seriesSettingsPage/scripts/SeriesSettingsPage.js",
+				"sites/bs.to/seriesSettingsPage/scripts/index.js"
 			],
 			"css": [
-				"library/css/core.css",
-				"sites/seriesSettingsPage/css/seriesSettingsPage.css"
+				"sites/bs.to/seriesSettingsPage/css/seriesSettingsPage.css"
+			]
+		},
+		{
+			"matches": [
+				"https://vivo.sx/*"
+			],
+			"js": [
+				"library/scripts/Object.js",
+				"library/scripts/Settings.js",
+				"library/scripts/DomHelper.js",
+				"library/scripts/MouseMarker.js",
+				"library/scripts/vivo.sx/PlayerActivator.js",
+				"sites/vivo.sx/playerPage/scripts/PlayerPage.js",
+				"sites/vivo.sx/playerPage/scripts/index.js"
 			]
 		}
 	]
