@@ -35,6 +35,7 @@
 			],
 			"css": [
 				"library/css/core.css",
+				"sites/allSites/css/allSites.css",
 				"sites/bs.to/allPages/css/allPages.css"
 			]
 		},
@@ -57,7 +58,6 @@
 				"sites/bs.to/landingPage/scripts/index.js"
 			],
 			"css": [
-				"library/css/core.css",
 				"sites/bs.to/landingPage/css/landingPage.css"
 			]
 		},
@@ -79,7 +79,6 @@
 				"sites/bs.to/allSeriesPage/scripts/index.js"
 			],
 			"css": [
-				"library/css/core.css",
 				"sites/bs.to/allSeriesPage/css/allSeriesPage.css"
 			]
 		},
@@ -106,7 +105,6 @@
 				"sites/bs.to/seriesPage/scripts/index.js"
 			],
 			"css": [
-				"library/css/core.css",
 				"sites/bs.to/seriesPage/css/seriesPage.css"
 			]
 		},
@@ -128,8 +126,21 @@
 				"sites/bs.to/seriesSettingsPage/scripts/index.js"
 			],
 			"css": [
-				"library/css/core.css",
 				"sites/bs.to/seriesSettingsPage/css/seriesSettingsPage.css"
+			]
+		},
+		{
+			"matches": [
+				"https://vivo.sx/*"
+			],
+			"js": [
+				"library/scripts/Object.js",
+				"library/scripts/Settings.js",
+				"library/scripts/DomHelper.js",
+				"library/scripts/MouseMarker.js",
+				"library/scripts/vivo.sx/PlayerActivator.js",
+				"sites/vivo.sx/playerPage/scripts/PlayerPage.js",
+				"sites/vivo.sx/playerPage/scripts/index.js"
 			]
 		}
 	]
