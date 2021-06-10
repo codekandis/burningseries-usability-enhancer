@@ -27,6 +27,7 @@
 			],
 			"js": [
 				"library/scripts/Object.js",
+				"library/scripts/SettingsData.js",
 				"library/scripts/Settings.js",
 				"library/scripts/MouseMarker.js",
 				"library/scripts/bs.to/MenuHandler.js",
@@ -135,6 +136,7 @@
 			],
 			"js": [
 				"library/scripts/Object.js",
+				"library/scripts/SettingsData.js",
 				"library/scripts/Settings.js",
 				"library/scripts/DomHelper.js",
 				"library/scripts/MouseMarker.js",

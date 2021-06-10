@@ -2,26 +2,22 @@ class Settings
 {
 	constructor()
 	{
-		this._settings = {
-			apiBaseUri: 'https://api.burningseries-usability-enhancer.codekandis.net',
-			apiUserId:  '',
-			apiKey:     ''
-		};
+		this._settingsData = new SettingsData();
 	}
 
 	has( name )
 	{
-		return undefined !== this._settings[ name ];
+		return undefined !== this._settingsData[ name ];
 	}
 
 	get( name )
 	{
-		return this._settings[ name ];
+		return this._settingsData[ name ];
 	}
 
 	set( name, value )
 	{
-		this._settings[ name ] = value;
+		this._settingsData[ name ] = value;
 	}
 
 	async load()
@@ -31,9 +27,9 @@ class Settings
 			storedSettings.forEach(
 				( name, value ) =>
 				{
-					if ( undefined !== this._settings[ name ] )
+					if ( undefined !== this._settingsData[ name ] )
 					{
-						this._settings[ name ] = value;
+						this._settingsData[ name ] = value;
 					}
 				}
 			);
@@ -59,7 +55,7 @@ class Settings
 									.then(
 										( settings ) =>
 										{
-											loadHandler( resolvedHandler, this._settings );
+											loadHandler( resolvedHandler, this._settingsData );
 										}
 									);
 							}
@@ -87,10 +83,10 @@ class Settings
 						{
 							const storedSettings = storage.settings ?? {};
 							{
-								this._settings.forEach(
+								this._settingsData.forEach(
 									( name, value ) =>
 									{
-										storedSettings[ name ] = this._settings[ name ];
+										storedSettings[ name ] = this._settingsData[ name ];
 									}
 								);
 							}
