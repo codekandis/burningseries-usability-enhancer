@@ -30,7 +30,7 @@ class SeriesPage
 	_extendEpisodesLinks()
 	{
 		this._linkExtender.extendList(
-			document.querySelectorAll( '.episodes tbody tr td a, #episodes ul li a' )
+			document.querySelectorAll( '.episodes tbody tr td:nth-child( 1 ) a, .episodes tbody tr td:nth-child( 2 ) a:nth-child( 2 ), #episodes ul li a' )
 		);
 	}
 
