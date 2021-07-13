@@ -8,7 +8,7 @@ class LandingPage
 			this._settings.get( 'apiUserId' ),
 			this._settings.get( 'apiKey' )
 		);
-		this._linkExtender  = new LinkExtender( '/Vivo' );
+		this._linkExtender  = new LinkExtender( '/' + this._settings.get( 'defaultPlayer' ) );
 		this._episodes      = new Episodes( '#newest_episodes ul li, #newest_series ul li', this._episodeNameHandler );
 	}
 
