@@ -8,7 +8,7 @@ class SeriesPage
 			this._settings.get( 'apiUserId' ),
 			this._settings.get( 'apiKey' )
 		);
-		this._linkExtender  = new LinkExtender( '/Vivo' );
+		this._linkExtender  = new LinkExtender( '/' + this._settings.get( 'defaultPlayer' ) );
 		this._episodes      = new Episodes( '#sp_left h2', this._episodeNameHandler );
 	}
 
@@ -30,7 +30,7 @@ class SeriesPage
 	_extendEpisodesLinks()
 	{
 		this._linkExtender.extendList(
-			document.querySelectorAll( '.episodes tbody tr td a, #episodes ul li a' )
+			document.querySelectorAll( '.episodes tbody tr td:nth-child( 1 ) a, .episodes tbody tr td:nth-child( 2 ) a:nth-child( 2 ), #episodes ul li a' )
 		);
 	}
 
