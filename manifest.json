@@ -31,6 +31,7 @@
 				"library/scripts/Settings.js",
 				"library/scripts/MouseMarker.js",
 				"library/scripts/bs.to/MenuHandler.js",
+				"library/scripts/bs.to/MenuReorderer.js",
 				"sites/bs.to/allPages/scripts/AllPages.js",
 				"sites/bs.to/allPages/scripts/index.js"
 			],
