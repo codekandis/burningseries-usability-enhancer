@@ -31,6 +31,7 @@
 				"library/scripts/Settings.js",
 				"library/scripts/MouseMarker.js",
 				"library/scripts/bs.to/MenuHandler.js",
+				"library/scripts/bs.to/MenuReorderer.js",
 				"sites/bs.to/allPages/scripts/AllPages.js",
 				"sites/bs.to/allPages/scripts/index.js"
 			],
@@ -128,21 +129,6 @@
 			],
 			"css": [
 				"sites/bs.to/seriesSettingsPage/css/seriesSettingsPage.css"
-			]
-		},
-		{
-			"matches": [
-				"https://vivo.sx/*"
-			],
-			"js": [
-				"library/scripts/Object.js",
-				"library/scripts/SettingsData.js",
-				"library/scripts/Settings.js",
-				"library/scripts/DomHelper.js",
-				"library/scripts/MouseMarker.js",
-				"library/scripts/vivo.sx/PlayerActivator.js",
-				"sites/vivo.sx/playerPage/scripts/PlayerPage.js",
-				"sites/vivo.sx/playerPage/scripts/index.js"
 			]
 		}
 	]

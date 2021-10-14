@@ -1,5 +1,15 @@
 class DomHelper
 {
+	static get INSERT_POSITION_BEFORE()
+	{
+		return 'before';
+	};
+
+	static get INSERT_POSITION_AFTER()
+	{
+		return 'after';
+	};
+
 	static createElementFromString( htmlString, idName = null, classNames = null )
 	{
 		const container     = document.createElement( 'div' );
@@ -90,6 +100,23 @@ class DomHelper
 		element.parentNode.insertBefore( insertion, element.nextSibling );
 	}
 
+	static insert( element, insertion, position )
+	{
+		switch ( position )
+		{
+			case DomHelper.INSERT_POSITION_BEFORE:
+			{
+				DomHelper.insertBefore( element, insertion );
+				break;
+			}
+			case DomHelper.INSERT_POSITION_AFTER:
+			{
+				DomHelper.insertAfter( element, insertion );
+				break;
+			}
+		}
+	}
+
 	static insertBeforeAll( elements, insertion )
 	{
 		elements.forEach(
@@ -106,6 +133,16 @@ class DomHelper
 			( element ) =>
 			{
 				DomHelper.insertAfter( element, insertion.cloneNode( true ) );
+			}
+		);
+	}
+
+	static insertAll( elements, insertion, position )
+	{
+		elements.forEach(
+			( element ) =>
+			{
+				DomHelper.insert( element, insertion.cloneNode( true ), position );
 			}
 		);
 	}
