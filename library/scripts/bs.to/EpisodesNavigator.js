@@ -2,15 +2,16 @@ class EpisodesNavigator
 {
 	constructor( linkExtender )
 	{
-		this._navigators   = null;
-		this._linkExtender = linkExtender;
+		this._buttonNavigators   = null;
+		this._keyboardNavigators = null;
+		this._linkExtender       = linkExtender;
 
 		this._initialize();
 	}
 
 	_initialize()
 	{
-		this._navigators = [
+		this._buttonNavigators = [
 			{
 				selector:        '.serie .episode',
 				insertionMethod: DomHelper.insertAfter,
@@ -24,12 +25,27 @@ class EpisodesNavigator
 				buttons:         DomHelper.createElementFromString( '<ul></ul>' )
 			}
 		];
-		this._navigators.forEach(
+		this._buttonNavigators.forEach(
 			( navigator ) =>
 			{
 				navigator.container.appendChild( navigator.buttons );
 			}
 		);
+
+		this._keyboardNavigators = {
+			previous: {
+				ctrlKey:  true,
+				shiftKey: true,
+				altKey:   false,
+				key:      'ArrowLeft',
+			},
+			next:     {
+				ctrlKey:  true,
+				shiftKey: true,
+				altKey:   false,
+				key:      'ArrowRight',
+			}
+		};
 	}
 
 	async _getEnclosingEpisodesOfSeason( uri )
@@ -138,7 +154,7 @@ class EpisodesNavigator
 			);
 	}
 
-	_addEvents( buttons )
+	_addButtonEvents( buttons )
 	{
 		const nullHandler = ( event ) =>
 		{
@@ -183,9 +199,43 @@ class EpisodesNavigator
 		}
 	}
 
+	_addKeyEvents()
+	{
+		const seasons  = this._seasons;
+		const episodes = this._episodes;
+
+		document.addEventListener(
+			'keydown',
+			( event ) =>
+			{
+				if ( this._keyboardNavigators.previous.ctrlKey === event.getModifierState( 'Control' )
+					&& this._keyboardNavigators.previous.shiftKey === event.getModifierState( 'Shift' )
+					&& this._keyboardNavigators.previous.altKey === event.getModifierState( 'Alt' )
+					&& this._keyboardNavigators.previous.key === event.key )
+				{
+					if ( 0 !== seasons.currentIndex || 0 !== episodes.currentIndex )
+					{
+						this._navigateBackward( seasons, episodes );
+					}
+				}
+
+				if ( this._keyboardNavigators.next.ctrlKey === event.getModifierState( 'Control' )
+					&& this._keyboardNavigators.next.shiftKey === event.getModifierState( 'Shift' )
+					&& this._keyboardNavigators.next.altKey === event.getModifierState( 'Alt' )
+					&& this._keyboardNavigators.next.key === event.key )
+				{
+					if ( seasons.list.length - 1 !== seasons.currentIndex || episodes.list.length - 1 !== episodes.currentIndex )
+					{
+						this._navigateForward( seasons, episodes );
+					}
+				}
+			}
+		);
+	}
+
 	addNavigation()
 	{
-		this._navigators.forEach(
+		this._buttonNavigators.forEach(
 			( navigator ) =>
 			{
 				const buttons = {
@@ -193,7 +243,8 @@ class EpisodesNavigator
 					nextEpisode:     DomHelper.createElementFromString( '<li><a href="#">Next</a></li>' )
 				};
 
-				this._addEvents( buttons );
+				this._addButtonEvents( buttons );
+				this._addKeyEvents();
 
 				DomHelper.appendChildren( navigator.buttons, buttons.values() );
 
