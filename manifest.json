@@ -23,7 +23,13 @@
 		{
 			"matches": [
 				"https://bs.to/*",
-				"https://burningseries.co/*"
+				"https://burningseries.co/*",
+				"https://ingseries.sx/*",
+				"https://ingseries.ac/*",
+				"https://ingseries.vc/*",
+				"https://ingseries.cx/*",
+				"https://ingseries.nz/*",
+				"https://ingseries.se/*"
 			],
 			"js": [
 				"library/scripts/Object.js",
@@ -44,7 +50,13 @@
 		{
 			"matches": [
 				"https://bs.to/",
-				"https://burningseries.co/"
+				"https://burningseries.co/",
+				"https://burningseries.sx/",
+				"https://burningseries.ac/",
+				"https://burningseries.vc/",
+				"https://burningseries.cx/",
+				"https://burningseries.nz/",
+				"https://burningseries.se/"
 			],
 			"js": [
 				"library/scripts/AjaxController.js",
@@ -66,7 +78,13 @@
 		{
 			"matches": [
 				"https://bs.to/andere-serien",
-				"https://burningseries.co/andere-serien"
+				"https://burningseries.co/andere-serien",
+				"https://burningseries.sx/andere-serien",
+				"https://burningseries.ac/andere-serien",
+				"https://burningseries.vc/andere-serien",
+				"https://burningseries.cx/andere-serien",
+				"https://burningseries.nz/andere-serien",
+				"https://burningseries.se/andere-serien"
 			],
 			"js": [
 				"library/scripts/AjaxController.js",
@@ -87,7 +105,13 @@
 		{
 			"matches": [
 				"https://bs.to/serie/*",
-				"https://burningseries.co/serie/*"
+				"https://burningseries.co/serie/*",
+				"https://ingseries.sx/serie/*",
+				"https://ingseries.ac/serie/*",
+				"https://ingseries.vc/serie/*",
+				"https://ingseries.cx/serie/*",
+				"https://ingseries.nz/serie/*",
+				"https://ingseries.se/serie/*"
 			],
 			"js": [
 				"library/scripts/AjaxController.js",
@@ -113,7 +137,13 @@
 		{
 			"matches": [
 				"https://bs.to/settings/series",
-				"https://burningseries.co/settings/series"
+				"https://burningseries.co/settings/series",
+				"https://ingseries.sx/series",
+				"https://ingseries.ac/series",
+				"https://ingseries.vc/series",
+				"https://ingseries.cx/series",
+				"https://ingseries.nz/series",
+				"https://ingseries.se/series"
 			],
 			"js": [
 				"library/scripts/AjaxController.js",
