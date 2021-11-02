@@ -12,8 +12,8 @@
 	background-color: #ffa000 !important;
 }
 
-.serie .episode {
-	margin-bottom: 1px;
+.serie .hoster-tabs.top {
+	margin-top: 0;
 }
 
 .codekandis-seriesDenialButton {
