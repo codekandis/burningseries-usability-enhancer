@@ -36,6 +36,18 @@ class DomHelper
 		return container;
 	}
 
+	static remove( selector )
+	{
+		document
+			.querySelectorAll( selector )
+			.forEach(
+				( element ) =>
+				{
+					element.remove();
+				}
+			);
+	}
+
 	static addEventHandler( element, event, handler )
 	{
 		element.addEventListener( event, handler );

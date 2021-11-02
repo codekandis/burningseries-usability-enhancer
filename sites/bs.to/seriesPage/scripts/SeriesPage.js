@@ -49,6 +49,12 @@ class SeriesPage
 		}
 	}
 
+	_removeDescription()
+	{
+		( new DescriptionRemover( '#description' ) )
+			.remove();
+	}
+
 	_scrollToBottom()
 	{
 		if ( false === ( new SeasonPageDeterminator( window.location.href ) )._isSeasonPage )
@@ -70,6 +76,7 @@ class SeriesPage
 			);
 		this._extendEpisodesLinks();
 		this._addNavigation();
+		this._removeDescription();
 		this._scrollToBottom();
 	}
 }

@@ -124,6 +124,7 @@
 				"library/scripts/bs.to/Episodes.js",
 				"library/scripts/bs.to/EpisodesFilter.js",
 				"library/scripts/bs.to/ActionAdder.js",
+				"library/scripts/bs.to/DescriptionRemover.js",
 				"library/scripts/bs.to/SeasonPageDeterminator.js",
 				"library/scripts/bs.to/BsToController.js",
 				"library/scripts/bs.to/EpisodesNavigator.js",
