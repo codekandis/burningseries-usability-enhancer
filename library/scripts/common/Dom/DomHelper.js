@@ -64,6 +64,45 @@ class DomHelper extends StaticBaseClass
 			);
 	}
 
+	static setAttribute( element, attributeName, attributeValue )
+	{
+		element.setAttribute( attributeName, attributeValue );
+	}
+
+	static setAttributes( element, attributeMapping )
+	{
+		attributeMapping.forEach(
+			( attributeValue, attributeName ) =>
+			{
+				DomHelper.setAttribute( element, attributeName, attributeValue );
+			}
+		);
+	}
+
+	static setAttributeBySelector( selector, attributeName, attributeValue )
+	{
+		document
+			.querySelectorAll( selector )
+			.forEach(
+				( element ) =>
+				{
+					DomHelper.setAttribute( element, attributeName, attributeValue );
+				}
+			);
+	}
+
+	static setAttributesBySelector( selector, attributeMapping )
+	{
+		document
+			.querySelectorAll( selector )
+			.forEach(
+				( element ) =>
+				{
+					DomHelper.setAttributes( element, attributeMapping );
+				}
+			);
+	}
+
 	static addEventHandler( element, eventName, handler )
 	{
 		element.addEventListener( eventName, handler );

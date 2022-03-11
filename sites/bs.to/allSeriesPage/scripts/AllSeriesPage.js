@@ -32,7 +32,7 @@ class AllSeriesPage extends BaseClass
 
 	_addActions( episodesFilter )
 	{
-		( new ActionAdder( this._episodes, this._apiController, DomInsertPositions.BEFORE_END, episodesFilter ) )
+		( new ActionAdder( this._episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, episodesFilter ) )
 			.addActions()
 	}
 

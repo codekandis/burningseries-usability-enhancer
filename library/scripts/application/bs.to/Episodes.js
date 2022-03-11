@@ -25,7 +25,10 @@ class Episodes extends BaseClass
 			.forEach(
 				( series ) =>
 				{
-					this._series.push( new Series( series, this._nameHandler ) );
+					const processedSeries = new Series( series, this._nameHandler );
+					this._series.push( processedSeries );
+
+					DomHelper.setAttribute( processedSeries.container, 'data-is-series', SeriesIsSeries.TRUE );
 				}
 			);
 	}

@@ -1,59 +1,44 @@
 @charset "utf-8";
 
 .serie .frame ul li.watched {
-	background-color: #008000 !important;
+	background-color: var(--color-green) !important;
 }
 
 .serie .frame ul li.active {
-	background-color: #00a0ff !important;
+	background-color: var(--color-blue) !important;
 }
 
 .serie .frame ul li a:hover {
-	background-color: #ffa000 !important;
+	background-color: var(--color-orange) !important;
 }
 
 .serie .hoster-tabs.top {
 	margin-top: 0;
 }
 
-.codekandis-seriesDenialButton {
-	display: inline-block;
-	position: absolute;
-	margin-top: 9px;
-	left: 0;
-	padding: 0 2px 1px 1px;
-	line-height: 1em;
-	font-size: 10pt;
-	font-weight: bold;
-	color: #ffffff;
-	background-color: #0a7191;
-	border-style: none;
-	border-radius: 0 3px 3px 0;
-	cursor: pointer;
+#sp_left .codekandis-button {
+	margin-left: -15px;
+	margin-top: 11px;
 }
 
-.codekandis-seriesDenialButton:hover {
-	background-color: #ffa000;
-}
-
-.codekandis-episodesNavigator {
+.serie .codekandis-episodesNavigator {
 	text-align: right;
 }
 
-.codekandis-episodesNavigator.top {
+.serie .codekandis-episodesNavigator.top {
 	margin-top: 10px;
 }
 
-.codekandis-episodesNavigator ul {
+.serie .codekandis-episodesNavigator ul {
 	display: inline-block;
 }
 
-.codekandis-episodesNavigator ul li {
+.serie .codekandis-episodesNavigator ul li {
 	margin-left: 4px !important;
 	width: 100px !important;
 }
 
-.codekandis-episodesNavigator ul li.disabled a:hover {
+.serie .codekandis-episodesNavigator ul li.disabled a:hover {
 	background-color: transparent !important;
 	cursor: default;
 }

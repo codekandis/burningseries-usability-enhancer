@@ -12,7 +12,7 @@ class SeriesSettingsPage extends BaseClass
 			this._settings.get( 'apiUserId' ),
 			this._settings.get( 'apiKey' )
 		);
-		this._episodes      = new Episodes( '#waste1 li, #waste2 li', this._episodeNameHandler );
+		this._episodes      = new Episodes( '#usrCnt li', this._episodeNameHandler );
 	}
 
 	_episodeNameHandler( container )
