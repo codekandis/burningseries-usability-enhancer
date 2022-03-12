@@ -16,14 +16,7 @@ class ActionAdder
 		{
 			this
 				._apiController
-				.addUserSeriesDenial(
-					{
-						seriesDenial:
-							{
-								name: series.name
-							}
-					}
-				)
+				.addUserSeriesDenial( series )
 				.then(
 					( responseData ) =>
 					{
