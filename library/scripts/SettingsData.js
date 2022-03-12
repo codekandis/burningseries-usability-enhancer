@@ -4,17 +4,9 @@ class SettingsData
 {
 	constructor()
 	{
-		this.apiBaseUri    = 'https://api.burningseries-usability-enhancer.codekandis.net';
-		this.apiUserId     = '';
-		this.apiKey        = '';
-		this.defaultPlayer = '';
-	}
-
-	get permissions()
-	{
-		return {
-			permissions: [],
-			origins:     []
-		}
+		this.apiBaseUri    = 'https://api.burningseries-usability-enhancer.codekandis';
+		this.apiUserId     = '00000000-0000-0000-0000-000000000000';
+		this.apiKey        = '1234';
+		this.defaultPlayer = 'Streamtape';
 	}
 }
