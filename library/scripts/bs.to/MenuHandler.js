@@ -1,3 +1,5 @@
+'use strict';
+
 class MenuHandler
 {
 	constructor( selectors )

@@ -1,3 +1,5 @@
+'use strict';
+
 class Episodes
 {
 	constructor( selector, nameHandler )

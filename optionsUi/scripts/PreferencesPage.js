@@ -1,3 +1,5 @@
+'use strict';
+
 class PreferencesPage
 {
 	constructor( settings, preferencesForm )

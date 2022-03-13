@@ -1,3 +1,5 @@
+'use strict';
+
 class EpisodesFilter
 {
 	constructor( episodes, apiController, removeIfFiltered )

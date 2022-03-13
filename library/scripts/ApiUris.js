@@ -1,3 +1,5 @@
+'use strict';
+
 class ApiUris
 {
 	constructor( baseUri, userId )

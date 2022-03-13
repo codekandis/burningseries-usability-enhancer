@@ -1,3 +1,5 @@
+'use strict';
+
 class ActionAdder
 {
 	constructor( episodes, apiController, actionPosition, episodesFilter )

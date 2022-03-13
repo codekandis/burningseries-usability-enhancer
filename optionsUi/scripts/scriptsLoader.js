@@ -1,3 +1,5 @@
+'use strict';
+
 [
 	'../../library/scripts/Object.js',
 	'../../library/scripts/DomHelper.js',

@@ -1,3 +1,5 @@
+'use strict';
+
 class LandingPage
 {
 	constructor( settings )

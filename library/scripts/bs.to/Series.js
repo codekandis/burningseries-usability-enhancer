@@ -1,3 +1,5 @@
+'use strict';
+
 class Series
 {
 	constructor( container, nameHandler )

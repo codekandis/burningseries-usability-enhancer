@@ -1,3 +1,5 @@
+'use strict';
+
 class DomHelper
 {
 	static get INSERT_POSITION_BEFORE()
