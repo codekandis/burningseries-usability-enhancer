@@ -55,9 +55,9 @@ class DomHelper
 		element.addEventListener( event, handler );
 	}
 
-	static addEventHandlers( element, eventHandlerMapping )
+	static addEventHandlers( element, eventHandlerMappings )
 	{
-		eventHandlerMapping.forEach(
+		eventHandlerMappings.forEach(
 			( eventName, eventHandler ) =>
 			{
 				DomHelper.addEventHandler( element, eventName, eventHandler );
@@ -77,14 +77,14 @@ class DomHelper
 			);
 	}
 
-	static addEventHandlersBySelector( selector, eventHandlerMapping )
+	static addEventHandlersBySelector( selector, eventHandlerMappings )
 	{
 		document
 			.querySelectorAll( selector )
 			.forEach(
 				( element ) =>
 				{
-					DomHelper.addEventHandlers( element, eventHandlerMapping );
+					DomHelper.addEventHandlers( element, eventHandlerMappings );
 				}
 			);
 	}
