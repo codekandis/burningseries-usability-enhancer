@@ -43,7 +43,6 @@
 			],
 			"css": [
 				"library/css/core.css",
-				"sites/allSites/css/allSites.css",
 				"sites/bs.to/allPages/css/allPages.css"
 			]
 		},
