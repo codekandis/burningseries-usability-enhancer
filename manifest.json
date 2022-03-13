@@ -33,11 +33,19 @@
 			],
 			"js": [
 				"library/scripts/Object.js",
+				"library/scripts/DomHelper.js",
+				"library/scripts/AjaxController.js",
+				"library/scripts/ApiUris.js",
+				"library/scripts/ApiController.js",
 				"library/scripts/SettingsData.js",
 				"library/scripts/Settings.js",
 				"library/scripts/MouseMarker.js",
 				"library/scripts/bs.to/MenuHandler.js",
 				"library/scripts/bs.to/MenuReorderer.js",
+				"library/scripts/bs.to/Series.js",
+				"library/scripts/bs.to/Episodes.js",
+				"library/scripts/bs.to/EpisodesFilter.js",
+				"library/scripts/bs.to/ActionAdder.js",
 				"sites/bs.to/allPages/scripts/AllPages.js",
 				"sites/bs.to/allPages/scripts/index.js"
 			],
@@ -58,15 +66,7 @@
 				"https://burningseries.se/"
 			],
 			"js": [
-				"library/scripts/AjaxController.js",
-				"library/scripts/ApiUris.js",
-				"library/scripts/ApiController.js",
-				"library/scripts/DomHelper.js",
 				"library/scripts/LinkExtender.js",
-				"library/scripts/bs.to/Series.js",
-				"library/scripts/bs.to/Episodes.js",
-				"library/scripts/bs.to/EpisodesFilter.js",
-				"library/scripts/bs.to/ActionAdder.js",
 				"sites/bs.to/landingPage/scripts/LandingPage.js",
 				"sites/bs.to/landingPage/scripts/index.js"
 			],
@@ -86,14 +86,6 @@
 				"https://burningseries.se/andere-serien"
 			],
 			"js": [
-				"library/scripts/AjaxController.js",
-				"library/scripts/ApiUris.js",
-				"library/scripts/ApiController.js",
-				"library/scripts/DomHelper.js",
-				"library/scripts/bs.to/Series.js",
-				"library/scripts/bs.to/Episodes.js",
-				"library/scripts/bs.to/EpisodesFilter.js",
-				"library/scripts/bs.to/ActionAdder.js",
 				"sites/bs.to/allSeriesPage/scripts/AllSeriesPage.js",
 				"sites/bs.to/allSeriesPage/scripts/index.js"
 			],
@@ -113,16 +105,8 @@
 				"https://burningseries.se/serie/*"
 			],
 			"js": [
-				"library/scripts/AjaxController.js",
-				"library/scripts/ApiUris.js",
-				"library/scripts/ApiController.js",
-				"library/scripts/DomHelper.js",
 				"library/scripts/LinkExtender.js",
 				"library/scripts/Scroller.js",
-				"library/scripts/bs.to/Series.js",
-				"library/scripts/bs.to/Episodes.js",
-				"library/scripts/bs.to/EpisodesFilter.js",
-				"library/scripts/bs.to/ActionAdder.js",
 				"library/scripts/bs.to/DescriptionRemover.js",
 				"library/scripts/bs.to/SeasonPageDeterminator.js",
 				"library/scripts/bs.to/BsToController.js",
@@ -146,14 +130,6 @@
 				"https://burningseries.se/series"
 			],
 			"js": [
-				"library/scripts/AjaxController.js",
-				"library/scripts/ApiUris.js",
-				"library/scripts/ApiController.js",
-				"library/scripts/DomHelper.js",
-				"library/scripts/bs.to/Series.js",
-				"library/scripts/bs.to/Episodes.js",
-				"library/scripts/bs.to/EpisodesFilter.js",
-				"library/scripts/bs.to/ActionAdder.js",
 				"sites/bs.to/seriesSettingsPage/scripts/SeriesSettingsPage.js",
 				"sites/bs.to/seriesSettingsPage/scripts/index.js"
 			],
