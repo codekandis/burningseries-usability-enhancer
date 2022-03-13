@@ -37,9 +37,9 @@ class MouseMarker
 		this._marker.style.display = 'none';
 	}
 
-	markMouse()
+	_getEventHandlerMappings()
 	{
-		const eventHandlerMapping = {
+		return {
 			keydown:   ( event ) =>
 			           {
 				           if ( true === event.ctrlKey && false === event.shiftKey && false === event.altKey )
@@ -59,8 +59,11 @@ class MouseMarker
 			           {
 				           this._move( event.clientX, event.clientY );
 			           }
-		}
+		};
+	}
 
-		DomHelper.addEventHandlersBySelector( 'html', eventHandlerMapping );
+	markMouse()
+	{
+		DomHelper.addEventHandlersBySelector( 'html', this._getEventHandlerMappings() );
 	}
 }
