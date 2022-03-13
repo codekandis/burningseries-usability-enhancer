@@ -32,6 +32,7 @@
 				"https://burningseries.se/*"
 			],
 			"js": [
+				"library/scripts/String.js",
 				"library/scripts/Object.js",
 				"library/scripts/DomHelper.js",
 				"library/scripts/AjaxController.js",
