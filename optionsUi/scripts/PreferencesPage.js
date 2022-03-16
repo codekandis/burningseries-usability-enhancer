@@ -1,9 +1,11 @@
 'use strict';
 
-class PreferencesPage
+class PreferencesPage extends BaseClass
 {
 	constructor( settings, preferencesForm )
 	{
+		super();
+
 		this._preferencesFormEventHandlerPresets = {
 			submit: this._saveSettings,
 			reset:  this._loadSettings
@@ -35,7 +37,7 @@ class PreferencesPage
 	_addEventHandlersToPreferencesForm()
 	{
 		this._preferencesFormEventHandlerPresets.forEach(
-			( eventName, eventHandler ) =>
+			( eventHandler, eventName ) =>
 			{
 				DomHelper.addEventHandler(
 					this._preferencesForm,

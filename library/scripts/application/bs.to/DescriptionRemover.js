@@ -1,9 +1,11 @@
 'use strict';
 
-class DescriptionRemover
+class DescriptionRemover extends BaseClass
 {
 	constructor( selector )
 	{
+		super();
+
 		this._selector = selector;
 	}
 

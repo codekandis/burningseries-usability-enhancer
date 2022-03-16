@@ -1,9 +1,11 @@
 'use strict';
 
-class EpisodesNavigator
+class EpisodesNavigator extends BaseClass
 {
 	constructor( linkExtender )
 	{
+		super();
+
 		this._buttonNavigators   = null;
 		this._keyboardNavigators = null;
 		this._linkExtender       = linkExtender;
@@ -210,9 +212,9 @@ class EpisodesNavigator
 			'keydown',
 			( event ) =>
 			{
-				if ( this._keyboardNavigators.previous.ctrlKey === event.getModifierState( 'Control' )
-					&& this._keyboardNavigators.previous.shiftKey === event.getModifierState( 'Shift' )
-					&& this._keyboardNavigators.previous.altKey === event.getModifierState( 'Alt' )
+				if ( this._keyboardNavigators.previous.ctrlKey === event.ctrlKey
+					&& this._keyboardNavigators.previous.shiftKey === event.shiftKey
+					&& this._keyboardNavigators.previous.altKey === event.altKey
 					&& this._keyboardNavigators.previous.key === event.key )
 				{
 					if ( 0 !== seasons.currentIndex || 0 !== episodes.currentIndex )
@@ -221,9 +223,9 @@ class EpisodesNavigator
 					}
 				}
 
-				if ( this._keyboardNavigators.next.ctrlKey === event.getModifierState( 'Control' )
-					&& this._keyboardNavigators.next.shiftKey === event.getModifierState( 'Shift' )
-					&& this._keyboardNavigators.next.altKey === event.getModifierState( 'Alt' )
+				if ( this._keyboardNavigators.next.ctrlKey === event.ctrlKey
+					&& this._keyboardNavigators.next.shiftKey === event.shiftKey
+					&& this._keyboardNavigators.next.altKey === event.altKey
 					&& this._keyboardNavigators.next.key === event.key )
 				{
 					if ( seasons.list.length - 1 !== seasons.currentIndex || episodes.list.length - 1 !== episodes.currentIndex )

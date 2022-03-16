@@ -1,9 +1,11 @@
 'use strict';
 
-class Episodes
+class Episodes extends BaseClass
 {
 	constructor( selector, nameHandler )
 	{
+		super();
+
 		this._selector    = selector;
 		this._nameHandler = nameHandler;
 		this._series      = [];

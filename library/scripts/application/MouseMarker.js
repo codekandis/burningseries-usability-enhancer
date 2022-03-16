@@ -1,9 +1,11 @@
 'use strict';
 
-class MouseMarker
+class MouseMarker extends BaseClass
 {
 	constructor()
 	{
+		super();
+
 		this._id         = 'codekandis-mouseMarker';
 		this._halfWidth  = null;
 		this._halfHeight = null;

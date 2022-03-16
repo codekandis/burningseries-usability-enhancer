@@ -1,6 +1,6 @@
 'use strict';
 
-class Scroller
+class Scroller extends BaseClass
 {
 	scrollTo( x, y )
 	{

@@ -1,9 +1,11 @@
 'use strict';
 
-class AllPages
+class AllPages extends BaseClass
 {
 	constructor( settings )
 	{
+		super();
+
 		this._settings      = settings;
 		this._mouseMarker   = new MouseMarker();
 		this._menuHandler   = new MenuHandler(
@@ -16,7 +18,7 @@ class AllPages
 				{
 					selector:       '#other-series-nav',
 					targetSelector: '#menu > li:nth-child(1)',
-					position:       DomHelper.INSERT_POSITION_AFTER
+					position:       DomInsertPositions.AFTER
 				}
 			]
 		);

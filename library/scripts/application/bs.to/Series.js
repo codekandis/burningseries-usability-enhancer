@@ -1,9 +1,11 @@
 'use strict';
 
-class Series
+class Series extends BaseClass
 {
 	constructor( container, nameHandler )
 	{
+		super();
+
 		this._container = container;
 		this._name      = nameHandler( container );
 	}

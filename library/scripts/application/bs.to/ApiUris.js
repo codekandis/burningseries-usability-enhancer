@@ -1,9 +1,11 @@
 'use strict';
 
-class ApiUris
+class ApiUris extends BaseClass
 {
 	constructor( baseUri, userId )
 	{
+		super();
+
 		this._relativeUris = {
 			userSeriesDenials:           '/users/{{userId}}/series-denials',
 			userSeriesDenialsFiltered:   '/users/{{userId}}/series-denials/filtered',

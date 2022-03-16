@@ -1,9 +1,11 @@
 'use strict';
 
-class LinkExtender
+class LinkExtender extends BaseClass
 {
 	constructor( extension )
 	{
+		super();
+
 		this._extension = extension;
 	}
 

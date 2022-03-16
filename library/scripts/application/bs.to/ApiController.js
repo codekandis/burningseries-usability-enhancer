@@ -1,9 +1,11 @@
 'use strict';
 
-class ApiController
+class ApiController extends BaseClass
 {
 	constructor( apiBaseUri, apiUserId, apiKey )
 	{
+		super();
+
 		this._apiBaseUri     = apiBaseUri;
 		this._apiUserId      = apiUserId;
 		this._apiKey         = apiKey;

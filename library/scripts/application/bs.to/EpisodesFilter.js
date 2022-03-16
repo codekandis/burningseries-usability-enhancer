@@ -1,9 +1,11 @@
 'use strict';
 
-class EpisodesFilter
+class EpisodesFilter extends BaseClass
 {
 	constructor( episodes, apiController, removeIfFiltered )
 	{
+		super();
+
 		this._episodes         = episodes;
 		this._apiController    = apiController;
 		this._removeIfFiltered = removeIfFiltered;

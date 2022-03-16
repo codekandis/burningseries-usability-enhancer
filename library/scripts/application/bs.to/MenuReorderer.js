@@ -1,9 +1,11 @@
 'use strict';
 
-class MenuReorderer
+class MenuReorderer extends BaseClass
 {
 	constructor( orderPresets )
 	{
+		super();
+
 		this._orderPresets = orderPresets;
 	}
 

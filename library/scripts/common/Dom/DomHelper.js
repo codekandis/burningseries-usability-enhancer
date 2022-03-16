@@ -1,16 +1,30 @@
 'use strict';
 
-class DomHelper
+class DomHelper extends StaticBaseClass
 {
-	static get INSERT_POSITION_BEFORE()
+	static querySelector( selector, context = null, throwExceptions = true )
 	{
-		return 'before';
-	};
+		const element = ( null === context ? document : context ).querySelector( selector );
 
-	static get INSERT_POSITION_AFTER()
+		if ( null === element && true === throwExceptions )
+		{
+			throw DomElementNotFoundException.with_UNRESOLVABLE_SELECTOR( selector );
+		}
+
+		return element;
+	}
+
+	static querySelectorAll( selector, context = null, throwExceptions = true )
 	{
-		return 'after';
-	};
+		const elements = ( null === context ? document : context ).querySelectorAll( selector );
+
+		if ( 0 === elements.length && true === throwExceptions )
+		{
+			throw DomElementNotFoundException.with_UNRESOLVABLE_SELECTOR( selector );
+		}
+
+		return elements;
+	}
 
 	static createElementFromString( htmlString, idName = null, classNames = null )
 	{
@@ -35,7 +49,7 @@ class DomHelper
 		const container     = document.createElement( 'div' );
 		container.innerHTML = htmlString.trim();
 
-		return container;
+		return container.childNodes;
 	}
 
 	static remove( selector )
@@ -50,41 +64,42 @@ class DomHelper
 			);
 	}
 
-	static addEventHandler( element, event, handler )
+	static addEventHandler( element, eventName, handler )
 	{
-		element.addEventListener( event, handler );
+		element.addEventListener( eventName, handler );
 	}
 
-	static addEventHandlers( element, eventHandlerMappings )
+	static addEventHandlers( element, eventHandlerMapping )
 	{
-		eventHandlerMappings.forEach(
-			( eventName, eventHandler ) =>
+		eventHandlerMapping.forEach(
+			( eventHandler, eventName ) =>
 			{
+
 				DomHelper.addEventHandler( element, eventName, eventHandler );
 			}
 		);
 	}
 
-	static addEventHandlerBySelector( selector, event, handler )
+	static addEventHandlerBySelector( selector, eventName, handler )
 	{
 		document
 			.querySelectorAll( selector )
 			.forEach(
 				( element ) =>
 				{
-					DomHelper.addEventHandler( element, event, handler );
+					DomHelper.addEventHandler( element, eventName, handler );
 				}
 			);
 	}
 
-	static addEventHandlersBySelector( selector, eventHandlerMappings )
+	static addEventHandlersBySelector( selector, eventHandlerMapping )
 	{
 		document
 			.querySelectorAll( selector )
 			.forEach(
 				( element ) =>
 				{
-					DomHelper.addEventHandlers( element, eventHandlerMappings );
+					DomHelper.addEventHandlers( element, eventHandlerMapping );
 				}
 			);
 	}
@@ -118,12 +133,12 @@ class DomHelper
 	{
 		switch ( position )
 		{
-			case DomHelper.INSERT_POSITION_BEFORE:
+			case DomInsertPositions.BEFORE:
 			{
 				DomHelper.insertBefore( element, insertion );
 				break;
 			}
-			case DomHelper.INSERT_POSITION_AFTER:
+			case DomInsertPositions.AFTER:
 			{
 				DomHelper.insertAfter( element, insertion );
 				break;
@@ -159,5 +174,21 @@ class DomHelper
 				DomHelper.insert( element, insertion.cloneNode( true ), position );
 			}
 		);
+	}
+
+	static replaceWith( element, replacement )
+	{
+		element.parentNode.replaceChild( replacement, element );
+	}
+
+	static replaceWithAll( element, replacements )
+	{
+		let lastNode = replacements[ 0 ];
+		DomHelper.replaceWith( element, replacements[ 0 ] );
+		while ( 0 < replacements.length )
+		{
+			DomHelper.insertAfter( lastNode, replacements[ 0 ] );
+			lastNode = lastNode.nextSibling;
+		}
 	}
 }

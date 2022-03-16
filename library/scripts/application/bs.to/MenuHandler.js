@@ -1,9 +1,11 @@
 'use strict';
 
-class MenuHandler
+class MenuHandler extends BaseClass
 {
 	constructor( selectors )
 	{
+		super();
+
 		this._selectors = selectors;
 		this._menus     = {};
 
@@ -70,7 +72,7 @@ class MenuHandler
 	handle()
 	{
 		this._menus.forEach(
-			( selector, menu ) =>
+			( menu, selector ) =>
 			{
 				this._addEventHandlers( selector );
 			}

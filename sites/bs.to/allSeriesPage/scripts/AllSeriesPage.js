@@ -1,9 +1,11 @@
 'use strict';
 
-class AllSeriesPage
+class AllSeriesPage extends BaseClass
 {
 	constructor( settings )
 	{
+		super();
+
 		this._settings      = settings;
 		this._apiController = new ApiController(
 			this._settings.get( 'apiBaseUri' ),
@@ -30,7 +32,7 @@ class AllSeriesPage
 
 	_addActions( episodesFilter )
 	{
-		( new ActionAdder( this._episodes, this._apiController, 'beforeend', episodesFilter ) )
+		( new ActionAdder( this._episodes, this._apiController, DomInsertPositions.BEFORE_END, episodesFilter ) )
 			.addActions()
 	}
 

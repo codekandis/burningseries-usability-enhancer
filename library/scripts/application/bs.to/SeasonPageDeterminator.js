@@ -1,9 +1,11 @@
 'use strict';
 
-class SeasonPageDeterminator
+class SeasonPageDeterminator extends BaseClass
 {
 	constructor( uri )
 	{
+		super();
+
 		this._patterns = [
 			/^https:\/\/bs\.to\/serie\/[0-9a-z\-]+\/?$/i,
 			/^https:\/\/bs\.to\/serie\/[0-9a-z\-]+\/\d+\/?$/i,

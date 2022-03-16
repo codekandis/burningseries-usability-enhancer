@@ -1,9 +1,11 @@
 'use strict';
 
-class BsToController
+class BsToController extends BaseClass
 {
 	constructor()
 	{
+		super();
+
 		this._ajaxController = new AjaxController();
 	}
 

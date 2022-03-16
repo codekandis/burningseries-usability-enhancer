@@ -1,5 +1,7 @@
 'use strict';
 
+DebugMode.enable();
+
 ( new Settings() )
 	.load()
 	.then(

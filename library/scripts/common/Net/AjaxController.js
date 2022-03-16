@@ -1,17 +1,7 @@
 'use strict';
 
-class AjaxController
+class AjaxController extends BaseClass
 {
-	constructor()
-	{
-		this._methods = {
-			get:    'GET',
-			put:    'PUT',
-			post:   'POST',
-			delete: 'DELETE'
-		};
-	}
-
 	_getRequestOptions( method, headers, data = null )
 	{
 		const requestOptions = {
@@ -20,7 +10,7 @@ class AjaxController
 		};
 
 		headers.forEach(
-			( name, value ) =>
+			( value, name ) =>
 			{
 				requestOptions.headers[ name ] = value;
 			}
@@ -38,7 +28,7 @@ class AjaxController
 	{
 		return await fetch(
 			uri,
-			this._getRequestOptions( this._methods.get, headers )
+			this._getRequestOptions( HttpMethods.GET, headers )
 		);
 	}
 
@@ -46,7 +36,7 @@ class AjaxController
 	{
 		return await fetch(
 			uri,
-			this._getRequestOptions( this._methods.put, headers, data )
+			this._getRequestOptions( HttpMethods.PUT, headers, data )
 		);
 	}
 
@@ -54,7 +44,7 @@ class AjaxController
 	{
 		return await fetch(
 			uri,
-			this._getRequestOptions( this._methods.post, headers, data )
+			this._getRequestOptions( HttpMethods.POST, headers, data )
 		);
 	}
 
@@ -62,7 +52,7 @@ class AjaxController
 	{
 		return await fetch(
 			uri,
-			this._getRequestOptions( this._methods.delete, headers )
+			this._getRequestOptions( HttpMethods.DELETE, headers )
 		);
 	}
 }

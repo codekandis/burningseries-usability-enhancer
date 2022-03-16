@@ -1,9 +1,11 @@
 'use strict';
 
-class Settings
+class Settings extends BaseClass
 {
 	constructor()
 	{
+		super();
+
 		this._settingsData = new SettingsData();
 	}
 
@@ -27,7 +29,7 @@ class Settings
 		const loadHandler = ( resolvedHandler, storedSettings ) =>
 		{
 			storedSettings.forEach(
-				( name, value ) =>
+				( value, name ) =>
 				{
 					if ( undefined !== this._settingsData[ name ] )
 					{
@@ -86,7 +88,7 @@ class Settings
 							const storedSettings = storage.settings ?? {};
 							{
 								this._settingsData.forEach(
-									( name, value ) =>
+									( value, name ) =>
 									{
 										storedSettings[ name ] = this._settingsData[ name ];
 									}

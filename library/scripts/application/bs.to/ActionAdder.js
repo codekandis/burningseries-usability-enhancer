@@ -1,9 +1,11 @@
 'use strict';
 
-class ActionAdder
+class ActionAdder extends BaseClass
 {
 	constructor( episodes, apiController, actionPosition, episodesFilter )
 	{
+		super();
+
 		this._episodes       = episodes;
 		this._apiController  = apiController;
 		this._actionPosition = actionPosition;
