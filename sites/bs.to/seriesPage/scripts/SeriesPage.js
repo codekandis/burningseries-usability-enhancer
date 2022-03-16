@@ -25,9 +25,9 @@ class SeriesPage extends BaseClass
 			.toLowerCase();
 	}
 
-	_filterEpisodes()
+	_filterDenials()
 	{
-		return ( new EpisodesFilter( this._episodes, this._apiController, false ) )
+		return ( new DenialsFilter( this._episodes, this._apiController, false ) )
 			.filter();
 	}
 
@@ -38,9 +38,9 @@ class SeriesPage extends BaseClass
 		);
 	}
 
-	_addActions( episodesFilter )
+	_addActions( denialsFilter )
 	{
-		( new ActionAdder( this._episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, episodesFilter ) )
+		( new ActionAdder( this._episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter ) )
 			.addActions();
 	}
 
@@ -71,11 +71,11 @@ class SeriesPage extends BaseClass
 	execute()
 	{
 		this
-			._filterEpisodes()
+			._filterDenials()
 			.then(
-				( episodesFilter ) =>
+				( denialsFilter ) =>
 				{
-					this._addActions( episodesFilter );
+					this._addActions( denialsFilter );
 				}
 			);
 		this._extendEpisodesLinks();

@@ -2,15 +2,15 @@
 
 class ActionAdder extends BaseClass
 {
-	constructor( episodes, apiController, actionPosition, episodesFilter )
+	constructor( episodes, apiController, actionPosition, denialsFilter )
 	{
 		super();
 
 		this._currentButtonActionType = ButtonActionTypes.DENIAL;
 		this._episodes                = episodes;
 		this._apiController           = apiController;
-		this._actionPosition          = actionPosition;
-		this._episodesFilter          = episodesFilter;
+		this._actionPosition = actionPosition;
+		this._denialsFilter  = denialsFilter;
 	}
 
 	_denySeries( series )
@@ -21,7 +21,7 @@ class ActionAdder extends BaseClass
 			.then(
 				( responseData ) =>
 				{
-					this._episodesFilter.filter();
+					this._denialsFilter.filter();
 				}
 			);
 	}

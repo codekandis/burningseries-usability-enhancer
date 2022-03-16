@@ -23,26 +23,26 @@ class SeriesSettingsPage extends BaseClass
 			.toLowerCase();
 	}
 
-	_filterEpisodes()
+	_filterDenials()
 	{
-		return ( new EpisodesFilter( this._episodes, this._apiController, true ) )
+		return ( new DenialsFilter( this._episodes, this._apiController, true ) )
 			.filter();
 	}
 
-	_addActions( episodesFilter )
+	_addActions( denialsFilter )
 	{
-		( new ActionAdder( this._episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, episodesFilter ) )
+		( new ActionAdder( this._episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter ) )
 			.addActions()
 	}
 
 	execute()
 	{
 		this
-			._filterEpisodes()
+			._filterDenials()
 			.then(
-				( episodesFilter ) =>
+				( denialsFilter ) =>
 				{
-					this._addActions( episodesFilter );
+					this._addActions( denialsFilter );
 				}
 			);
 	}

@@ -62,7 +62,7 @@
 				"library/scripts/application/bs.to/SeriesIsSeries.js",
 				"library/scripts/application/bs.to/SeriesIsInterest.js",
 				"library/scripts/application/bs.to/SeriesIsFavorite.js",
-				"library/scripts/application/bs.to/EpisodesFilter.js",
+				"library/scripts/application/bs.to/DenialsFilter.js",
 				"library/scripts/application/bs.to/ButtonActionTypes.js",
 				"library/scripts/application/bs.to/ActionAdder.js",
 				"sites/bs.to/allPages/scripts/AllPages.js",
