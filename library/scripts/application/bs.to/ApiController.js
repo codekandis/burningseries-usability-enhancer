@@ -67,7 +67,8 @@ class ApiController extends BaseClass
 			{
 				seriesDenial:
 					{
-						name: series.name
+						name: series.name,
+						uri:  series.uri
 					}
 			}
 		);
@@ -85,7 +86,7 @@ class ApiController extends BaseClass
 	{
 		return (
 			await this._ajaxController.delete(
-				this._apiUris.userSeriesDenials + '/' + series.id,
+				this._apiUris.userSeriesDenials + '/' + series.denialId,
 				this._getHeaders()
 			)
 		).json();
@@ -132,7 +133,8 @@ class ApiController extends BaseClass
 			{
 				seriesFavorite:
 					{
-						name: series.name
+						name: series.name,
+						uri:  series.uri
 					}
 			}
 		);
@@ -150,7 +152,7 @@ class ApiController extends BaseClass
 	{
 		return (
 			await this._ajaxController.delete(
-				this._apiUris.userSeriesFavorites + '/' + series.id,
+				this._apiUris.userSeriesFavorites + '/' + series.favoriteId,
 				this._getHeaders()
 			)
 		).json();
@@ -197,7 +199,8 @@ class ApiController extends BaseClass
 			{
 				seriesInterest:
 					{
-						name: series.name
+						name: series.name,
+						uri:  series.uri
 					}
 			}
 		);
@@ -215,7 +218,7 @@ class ApiController extends BaseClass
 	{
 		return (
 			await this._ajaxController.delete(
-				this._apiUris.userSeriesInterests + '/' + series.id,
+				this._apiUris.userSeriesInterests + '/' + series.interestId,
 				this._getHeaders()
 			)
 		).json();

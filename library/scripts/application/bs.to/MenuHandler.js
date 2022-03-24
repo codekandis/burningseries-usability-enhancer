@@ -7,28 +7,17 @@ class MenuHandler extends BaseClass
 		super();
 
 		this._selectors = selectors;
-		this._menus     = {};
-
-		this._initialize();
-	}
-
-	_initialize()
-	{
-		this._selectors.forEach(
-			( selector ) =>
-			{
-				const menu              = document.querySelector( selector );
-				this._menus[ selector ] = {
-					menu:           menu,
-					subMenu:        menu.querySelector( 'ul' ),
-					isRightClicked: false
-				};
-			}
-		);
 	}
 
 	_addEventHandlers( selector )
 	{
+		const menu         = document.querySelector( selector );
+		const menuSettings = {
+			menu:           menu,
+			subMenu:        menu.querySelector( 'ul' ),
+			isRightClicked: false
+		};
+
 		const eventHandlerMapping = {
 			contextmenu: ( event ) =>
 			             {
@@ -40,7 +29,7 @@ class MenuHandler extends BaseClass
 
 				             if ( 2 === event.button )
 				             {
-					             this._menus[ selector ].isRightClicked = true;
+					             menuSettings.isRightClicked = true;
 				             }
 			             },
 			mouseup:     ( event ) =>
@@ -49,30 +38,30 @@ class MenuHandler extends BaseClass
 
 				             if ( 2 === event.button )
 				             {
-					             this._menus[ selector ].isRightClicked = false;
+					             menuSettings.isRightClicked = false;
 				             }
 			             },
 			click:       ( event ) =>
 			             {
 				             if (
-					             ( true === this._menus[ selector ].isRightClicked && false === event.ctrlKey && false === event.altKey && false === event.shiftKey )
-					             || ( false === this._menus[ selector ].isRightClicked && true === event.ctrlKey && true === event.altKey && false === event.shiftKey )
+					             ( true === menuSettings.isRightClicked && false === event.ctrlKey && false === event.altKey && false === event.shiftKey )
+					             || ( false === menuSettings.isRightClicked && true === event.ctrlKey && true === event.altKey && false === event.shiftKey )
 				             )
 				             {
 					             event.preventDefault();
 
-					             this._menus[ selector ].subMenu.style.display = 'block' === this._menus[ selector ].subMenu.style.display ? 'none' : 'block';
+					             menuSettings.subMenu.style.display = 'block' === menuSettings.subMenu.style.display ? 'none' : 'block';
 				             }
 			             }
 		}
 
-		DomHelper.addEventHandlers( this._menus[ selector ].menu, eventHandlerMapping );
+		DomHelper.addEventHandlers( menuSettings.menu, eventHandlerMapping );
 	}
 
 	handle()
 	{
-		this._menus.forEach(
-			( menu, selector ) =>
+		this._selectors.forEach(
+			( selector ) =>
 			{
 				this._addEventHandlers( selector );
 			}

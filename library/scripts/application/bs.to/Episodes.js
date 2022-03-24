@@ -2,12 +2,13 @@
 
 class Episodes extends BaseClass
 {
-	constructor( selector, nameHandler )
+	constructor( selector, nameHandler, uriHandler )
 	{
 		super();
 
 		this._selector    = selector;
 		this._nameHandler = nameHandler;
+		this._uriHandler  = uriHandler;
 		this._series      = [];
 
 		this._determineEpisodes();
@@ -18,6 +19,26 @@ class Episodes extends BaseClass
 		return this._series;
 	}
 
+	_findSeries( series )
+	{
+		return this._series.find(
+			( seriesFetched ) =>
+			{
+				return seriesFetched.name === series.name.toLowerCase();
+			}
+		);
+	}
+
+	_findAllSeries( series )
+	{
+		return this._series.filter(
+			( seriesFetched ) =>
+			{
+				return seriesFetched.name === series.name.toLowerCase();
+			}
+		);
+	}
+
 	_determineEpisodes()
 	{
 		document
@@ -25,26 +46,57 @@ class Episodes extends BaseClass
 			.forEach(
 				( series ) =>
 				{
-					const processedSeries = new Series( series, this._nameHandler );
+					const processedSeries    = new Series( series, this._nameHandler, this._uriHandler );
+					processedSeries.isSeries = true;
 					this._series.push( processedSeries );
-
-					DomHelper.setAttribute( processedSeries.container, 'data-is-series', SeriesIsSeries.TRUE );
 				}
 			);
 	}
 
-	remove( name )
+	switchFavorite( series, isFavorite )
+	{
+		const favoriteId = false === isFavorite
+			? null
+			: series.id;
+
+		this._findAllSeries( series )
+			.forEach(
+				( seriesFetched ) =>
+				{
+					seriesFetched.isFavorite = isFavorite;
+					seriesFetched.favoriteId = favoriteId;
+				}
+			);
+	}
+
+	switchInterest( series, isInterest )
+	{
+		const interestId = false === isInterest
+			? null
+			: series.id;
+
+		this._findAllSeries( series )
+			.forEach(
+				( seriesFetched ) =>
+				{
+					seriesFetched.isInterest = isInterest;
+					seriesFetched.interestId = interestId;
+				}
+			);
+	}
+
+	remove( series )
 	{
 		const indices = [];
 		this
 			._series
 			.forEach(
-				( series, index ) =>
+				( seriesFetched, index ) =>
 				{
-					if ( series.name === name.toLowerCase() )
+					if ( seriesFetched.name === series.name.toLowerCase() )
 					{
 						indices.push( index );
-						series.remove();
+						seriesFetched.remove();
 					}
 				}
 			);

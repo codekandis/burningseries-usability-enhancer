@@ -67,6 +67,7 @@ class EpisodesNavigator extends BaseClass
 									( element ) =>
 									{
 										this._linkExtender.extend( element );
+
 										return element.href;
 									}
 								)

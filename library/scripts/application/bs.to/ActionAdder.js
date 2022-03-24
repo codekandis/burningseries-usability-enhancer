@@ -2,15 +2,17 @@
 
 class ActionAdder extends BaseClass
 {
-	constructor( episodes, apiController, actionPosition, denialsFilter )
+	constructor( episodes, apiController, actionPosition, denialsFilter, favoritesSwitcher, interestsSwitcher )
 	{
 		super();
 
 		this._currentButtonActionType = ButtonActionTypes.DENIAL;
 		this._episodes                = episodes;
 		this._apiController           = apiController;
-		this._actionPosition = actionPosition;
-		this._denialsFilter  = denialsFilter;
+		this._actionPosition          = actionPosition;
+		this._denialsFilter           = denialsFilter;
+		this._favoritesSwitcher       = favoritesSwitcher;
+		this._interestsSwitcher       = interestsSwitcher;
 	}
 
 	_denySeries( series )
@@ -28,18 +30,72 @@ class ActionAdder extends BaseClass
 
 	_favorSeries( series )
 	{
-		/**
-		 * @todo Implement.
-		 */
-		throw NotImplementedException.with_METHOD_NAME( 'ActionAdder::_favorSeries()' );
+		switch ( series.isFavorite )
+		{
+			case false:
+			{
+				this
+					._apiController
+					.addUserSeriesFavorite( series )
+					.then(
+						( responseData ) =>
+						{
+							this._favoritesSwitcher.switch();
+						}
+					);
+
+				return;
+			}
+			case true:
+			{
+				this
+					._apiController
+					.deleteUserSeriesFavorite( series )
+					.then(
+						( responseData ) =>
+						{
+							this._favoritesSwitcher.switch();
+						}
+					);
+
+				return;
+			}
+		}
 	}
 
 	_interestSeries( series )
 	{
-		/**
-		 * @todo Implement.
-		 */
-		throw NotImplementedException.with_METHOD_NAME( 'ActionAdder::_interestSeries()' );
+		switch ( series.isInterest )
+		{
+			case false:
+			{
+				this
+					._apiController
+					.addUserSeriesInterest( series )
+					.then(
+						( responseData ) =>
+						{
+							this._interestsSwitcher.switch();
+						}
+					);
+
+				return;
+			}
+			case true:
+			{
+				this
+					._apiController
+					.deleteUserSeriesInterest( series )
+					.then(
+						( responseData ) =>
+						{
+							this._interestsSwitcher.switch();
+						}
+					);
+
+				return;
+			}
+		}
 	}
 
 	_invokeAction( button, series )
@@ -50,19 +106,19 @@ class ActionAdder extends BaseClass
 			{
 				this._denySeries( series );
 
-				break;
+				return;
 			}
 			case ButtonActionTypes.FAVORITE:
 			{
 				this._favorSeries( series );
 
-				break;
+				return;
 			}
 			case ButtonActionTypes.INTEREST:
 			{
 				this._interestSeries( series );
 
-				break;
+				return;
 			}
 		}
 	}
@@ -123,21 +179,19 @@ class ActionAdder extends BaseClass
 			.forEach(
 				( series ) =>
 				{
-					DomHelper.setAttributes(
-						series.container,
-						{
-							'data-is-favorite': SeriesIsFavorite.FALSE,
-							'data-is-interest': SeriesIsInterest.FALSE
-						}
-					);
-
 					const button = DomHelper.createElementFromString(
 						String.format`<button data-action-type="${ 0 }"/>`( this._currentButtonActionType ),
 						null,
 						'codekandis-button'
 					);
-					DomHelper.addEventHandlers( button, this._getButtonEventHandlerMappings( button, series ) )
-					DomHelper.addEventHandlersBySelector( 'html', this._getHtmlEventHandlerMappings( button ) );
+					DomHelper.addEventHandlers(
+						button,
+						this._getButtonEventHandlerMappings( button, series )
+					);
+					DomHelper.addEventHandlersBySelector(
+						'html',
+						this._getHtmlEventHandlerMappings( button )
+					);
 
 					series.container.insertAdjacentElement( this._actionPosition, button );
 				}

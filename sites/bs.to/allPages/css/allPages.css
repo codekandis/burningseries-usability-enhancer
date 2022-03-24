@@ -1,8 +1,8 @@
 @charset "utf-8";
 
 @import 'codekandisButton.css';
-@import 'favorites.css';
 @import 'mouseMarker.css';
+@import 'menu.css';
 
 :root {
 	--color-cyan: #0a7191;

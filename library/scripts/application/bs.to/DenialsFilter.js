@@ -29,7 +29,7 @@ class DenialsFilter extends BaseClass
 									.forEach(
 										( series ) =>
 										{
-											this._episodes.remove( series.name );
+											this._episodes.remove( series );
 										}
 									);
 							}

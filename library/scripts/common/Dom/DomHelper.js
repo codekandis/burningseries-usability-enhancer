@@ -26,7 +26,7 @@ class DomHelper extends StaticBaseClass
 		return elements;
 	}
 
-	static createElementFromString( htmlString, idName = null, classNames = null )
+	static createElementFromString( htmlString, idName = null, classNames = null, dataAttributes = null )
 	{
 		const container     = document.createElement( 'div' );
 		container.innerHTML = htmlString.trim();
@@ -39,6 +39,18 @@ class DomHelper extends StaticBaseClass
 		if ( null !== classNames )
 		{
 			element.setAttribute( 'class', classNames );
+		}
+		if ( null !== dataAttributes )
+		{
+			dataAttributes.forEach(
+				( value, name ) =>
+				{
+					element.setAttribute(
+						String.format`data-${ 0 }`( name ),
+						value
+					);
+				}
+			);
 		}
 
 		return element;
@@ -175,12 +187,14 @@ class DomHelper extends StaticBaseClass
 			case DomInsertPositions.BEFORE:
 			{
 				DomHelper.insertBefore( element, insertion );
-				break;
+
+				return;
 			}
 			case DomInsertPositions.AFTER:
 			{
 				DomHelper.insertAfter( element, insertion );
-				break;
+
+				return;
 			}
 		}
 	}
