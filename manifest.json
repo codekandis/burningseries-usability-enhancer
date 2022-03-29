@@ -13,7 +13,7 @@
 	},
 	"permissions": [
 		"storage",
-		"https://api.burningseries-usability-enhancer.codekandis/*"
+		"https://api.burningseries-usability-enhancer.codekandis.net/*"
 	],
 	"options_ui": {
 		"page": "optionsUi/templates/page.html",
