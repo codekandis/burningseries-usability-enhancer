@@ -1,5 +1,7 @@
+'use strict';
+
 document.addEventListener(
-	'DOMContentLoaded',
+	DocumentDomEvents.DOM_CONTENT_LOADED,
 	( event ) =>
 	{
 		( new Settings() )

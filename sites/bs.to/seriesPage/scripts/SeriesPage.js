@@ -1,30 +1,62 @@
-class SeriesPage
+'use strict';
+
+class SeriesPage extends BaseClass
 {
 	constructor( settings )
 	{
-		this._settings      = settings;
-		this._apiController = new ApiController(
+		super();
+
+		this._settings          = settings;
+		this._apiController     = new ApiController(
 			this._settings.get( 'apiBaseUri' ),
 			this._settings.get( 'apiUserId' ),
 			this._settings.get( 'apiKey' )
 		);
-		this._linkExtender  = new LinkExtender( '/' + this._settings.get( 'defaultPlayer' ) );
-		this._episodes      = new Episodes( '#sp_left h2', this._episodeNameHandler );
+		this._linkExtender      = new LinkExtender( '/' + this._settings.get( 'defaultPlayer' ) );
+		this._episodes          = new Episodes( '#sp_left h2', this._episodeNameHandler, this._episodeUriHandler );
+		this._denialsFilter     = new DenialsFilter( this._episodes, this._apiController, false );
+		this._favoritesSwitcher = new FavoritesSwitcher( this._episodes, this._apiController );
+		this._interestsSwitcher = new InterestsSwitcher( this._episodes, this._apiController );
 	}
 
-	_episodeNameHandler( container )
+	get _episodeNameHandler()
 	{
-		return container
-			.childNodes[ 0 ]
-			.textContent
-			.trim()
-			.toLowerCase();
+		return ( container ) =>
+		{
+			return container
+				.childNodes[ 0 ]
+				.textContent
+				.trim()
+				.toLowerCase();
+		}
 	}
 
-	_filterEpisodes()
+	get _episodeUriHandler()
 	{
-		return ( new EpisodesFilter( this._episodes, this._apiController, false ) )
-			.filter();
+		return ( container ) =>
+		{
+			const extractedUri = /^.+?\/.+?\/(?<uri>serie\/.+?)(?:\/.+)?$/
+				.exec( window.location.href )
+				.groups
+				.uri;
+
+			return String.format`${ 0 }/${ 1 }`( extractedUri, this._settings.get( 'preferredLanguage' ) );
+		}
+	}
+
+	_filterDenials()
+	{
+		return this._denialsFilter.filter();
+	}
+
+	_switchFavorites()
+	{
+		this._favoritesSwitcher.switch();
+	}
+
+	_switchInterests()
+	{
+		this._interestsSwitcher.switch();
 	}
 
 	_extendEpisodesLinks()
@@ -34,9 +66,9 @@ class SeriesPage
 		);
 	}
 
-	_addActions( episodesFilter )
+	_addActions( denialsFilter, favoritesSwitcher, interestsSwitcher )
 	{
-		( new ActionAdder( this._episodes, this._apiController, 'beforeend', episodesFilter ) )
+		( new ActionAdder( this._episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, favoritesSwitcher, interestsSwitcher ) )
 			.addActions();
 	}
 
@@ -67,11 +99,13 @@ class SeriesPage
 	execute()
 	{
 		this
-			._filterEpisodes()
+			._filterDenials()
 			.then(
-				( episodesFilter ) =>
+				( denialsFilter ) =>
 				{
-					this._addActions( episodesFilter );
+					this._addActions( denialsFilter, this._favoritesSwitcher, this._interestsSwitcher );
+					this._switchFavorites();
+					this._switchInterests();
 				}
 			);
 		this._extendEpisodesLinks();

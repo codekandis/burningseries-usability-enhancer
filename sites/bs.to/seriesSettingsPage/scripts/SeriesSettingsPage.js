@@ -1,45 +1,46 @@
-class SeriesSettingsPage
+'use strict';
+
+class SeriesSettingsPage extends BaseClass
 {
 	constructor( settings )
 	{
+		super();
+
 		this._settings      = settings;
 		this._apiController = new ApiController(
 			this._settings.get( 'apiBaseUri' ),
 			this._settings.get( 'apiUserId' ),
 			this._settings.get( 'apiKey' )
 		);
-		this._episodes      = new Episodes( '#waste1 li, #waste2 li', this._episodeNameHandler );
+		this._episodes      = new Episodes( '#usrCnt li', this._episodeNameHandler, this._episodeUriHandler );
 	}
 
-	_episodeNameHandler( container )
+	get _episodeNameHandler()
 	{
-		return container
-			.textContent
-			.trim()
-			.toLowerCase();
+		return ( container ) =>
+		{
+			return container
+				.textContent
+				.trim()
+				.toLowerCase();
+		}
 	}
 
-	_filterEpisodes()
+	get _episodeUriHandler()
 	{
-		return ( new EpisodesFilter( this._episodes, this._apiController, true ) )
-			.filter();
+		return ( container ) =>
+		{
+			return null;
+		}
 	}
 
-	_addActions( episodesFilter )
+	_filterDenials()
 	{
-		( new ActionAdder( this._episodes, this._apiController, 'afterbegin', episodesFilter ) )
-			.addActions()
+		return this._denialsFilter.filter();
 	}
 
 	execute()
 	{
-		this
-			._filterEpisodes()
-			.then(
-				( episodesFilter ) =>
-				{
-					this._addActions( episodesFilter );
-				}
-			);
+		this._filterDenials();
 	}
 }

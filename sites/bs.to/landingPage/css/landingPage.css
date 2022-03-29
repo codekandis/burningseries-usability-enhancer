@@ -1,26 +1,20 @@
 @charset "utf-8";
 
-@import 'latestEpisodes.css';
-@import 'newestSeries.css';
-
 #news .lSPager a {
 	z-index: auto;
 }
 
-.codekandis-seriesDenialButton {
+#newest_series a {
 	display: inline-block;
-	position: absolute;
-	padding: 1px 5px 2px 4px;
-	line-height: 1em;
-	font-size: 12pt;
-	font-weight: bold;
-	color: #ffffff;
-	background-color: #0a7191;
-	border-style: none;
-	border-radius: 0 3px 3px 0;
-	cursor: pointer;
+	width: 415px;
 }
 
-.codekandis-seriesDenialButton:hover {
-	background-color: #ffa000;
+#newest_episodes .codekandis-button {
+	margin-left: -16px;
+	margin-top: 3px;
+}
+
+#newest_series .codekandis-button {
+	margin-left: -15px;
+	margin-top: 4px;
 }

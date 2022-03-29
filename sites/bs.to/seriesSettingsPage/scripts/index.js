@@ -1,3 +1,5 @@
+'use strict';
+
 ( new Settings() )
 	.load()
 	.then(
