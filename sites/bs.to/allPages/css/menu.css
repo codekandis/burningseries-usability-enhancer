@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 #menu > li {
-	width: calc(100% / 3);
+	width: 225px;
 }
 
 #menu > li[data-menu-type='DROPDOWN']:hover ul {
@@ -34,9 +34,9 @@
 }
 
 #menu > li[data-menu-type='DROPDOWN'][data-menu-purpose='SERIES_FAVORITES'] ul {
-	left: -300px;
+	left: -225px;
 }
 
 #menu > li[data-menu-type='DROPDOWN'][data-menu-purpose='SERIES_INTERESTS'] ul {
-	left: -600px;
+	left: -450px;
 }

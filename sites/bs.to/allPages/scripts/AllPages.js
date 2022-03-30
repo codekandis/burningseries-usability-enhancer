@@ -17,7 +17,7 @@ class AllPages extends BaseClass
 		this._mouseMarker           = new MouseMarker();
 		this._menuRemover           = new MenuRemover(
 			[
-				'#menu > li:not( :nth-child( 1 ) )'
+				'#menu > li:nth-child( 6 ), #menu > li:nth-child( 5 ), #menu > li:nth-child( 4 ), #menu > li:nth-child( 3 )'
 			]
 		);
 		this._menuAdder             = new MenuAdder(
