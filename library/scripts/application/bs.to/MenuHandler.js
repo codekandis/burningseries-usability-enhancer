@@ -6,17 +6,20 @@ class MenuHandler extends BaseClass
 	{
 		super();
 
-		this._selectors = selectors;
+		this._selectors  = selectors;
+		this._menuStates = [];
 	}
 
 	_addEventHandlers( selector )
 	{
-		const menu         = document.querySelector( selector );
-		const menuSettings = {
+		const menu      = document.querySelector( selector );
+		const menuState = {
 			menu:           menu,
 			subMenu:        menu.querySelector( 'ul' ),
-			isRightClicked: false
+			isRightClicked: false,
+			isVisible:      false
 		};
+		this._menuStates.push( menuState );
 
 		const eventHandlerMapping = {
 			contextmenu: ( event ) =>
@@ -29,7 +32,7 @@ class MenuHandler extends BaseClass
 
 				             if ( 2 === event.button )
 				             {
-					             menuSettings.isRightClicked = true;
+					             menuState.isRightClicked = true;
 				             }
 			             },
 			mouseup:     ( event ) =>
@@ -38,24 +41,44 @@ class MenuHandler extends BaseClass
 
 				             if ( 2 === event.button )
 				             {
-					             menuSettings.isRightClicked = false;
+					             menuState.isRightClicked = false;
 				             }
 			             },
 			click:       ( event ) =>
 			             {
 				             if (
-					             ( true === menuSettings.isRightClicked && false === event.ctrlKey && false === event.altKey && false === event.shiftKey )
-					             || ( false === menuSettings.isRightClicked && true === event.ctrlKey && true === event.altKey && false === event.shiftKey )
+					             ( true === menuState.isRightClicked && false === event.ctrlKey && false === event.altKey && false === event.shiftKey )
+					             || ( false === menuState.isRightClicked && true === event.ctrlKey && true === event.altKey && false === event.shiftKey )
 				             )
 				             {
 					             event.preventDefault();
 
-					             menuSettings.subMenu.style.display = 'block' === menuSettings.subMenu.style.display ? 'none' : 'block';
+					             if ( false === menuState.isVisible )
+					             {
+						             this._menuStates.forEach(
+							             ( menuStateFetched ) =>
+							             {
+								             if ( true === menuStateFetched.isVisible )
+								             {
+									             menuStateFetched.isVisible             = false;
+									             menuStateFetched.subMenu.style.display = 'none';
+								             }
+							             }
+						             );
+
+						             menuState.isVisible             = true;
+						             menuState.subMenu.style.display = 'block';
+
+						             return;
+					             }
+
+					             menuState.isVisible             = false;
+					             menuState.subMenu.style.display = 'none';
 				             }
 			             }
 		}
 
-		DomHelper.addEventHandlers( menuSettings.menu, eventHandlerMapping );
+		DomHelper.addEventHandlers( menuState.menu, eventHandlerMapping );
 	}
 
 	handle()
