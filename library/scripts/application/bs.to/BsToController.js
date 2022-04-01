@@ -25,7 +25,9 @@ class BsToController extends BaseClass
 									( htmlResponseData ) =>
 									{
 										resolveHandler(
-											DomHelper.createElementsFromString( htmlResponseData )
+											( new DOMParser() )
+												.parseFromString( htmlResponseData, 'text/html' )
+												.querySelectorAll( 'table.episodes tbody tr td:nth-child( 1 ) a' )
 										);
 									}
 								)

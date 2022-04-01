@@ -52,37 +52,6 @@ class EpisodesNavigator extends BaseClass
 		};
 	}
 
-	async _getEnclosingEpisodesOfSeason( uri )
-	{
-		return await new Promise(
-			( resolveHandler, rejectHandler ) =>
-			{
-				( new BsToController() )
-					.readEpisodes( uri )
-					.then(
-						( responseData ) =>
-						{
-							const episodes = [ ...responseData.querySelectorAll( 'table.episodes tbody tr:first-child td:nth-child(1) a, table.episodes tbody tr:last-child td:nth-child(1) a' ) ]
-								.map(
-									( element ) =>
-									{
-										this._linkExtender.extend( element );
-
-										return element.href;
-									}
-								)
-							resolveHandler(
-								{
-									first: episodes[ 0 ],
-									last:  episodes[ 1 ],
-								}
-							);
-						}
-					);
-			}
-		);
-	}
-
 	get _seasons()
 	{
 		const seasonsContainer   = document.querySelector( '#seasons ul' );
@@ -123,6 +92,40 @@ class EpisodesNavigator extends BaseClass
 		}
 	}
 
+	async _getEnclosingEpisodesOfSeason( uri )
+	{
+		return await new Promise(
+			( resolveHandler, rejectHandler ) =>
+			{
+				( new BsToController() )
+					.readEpisodes( uri )
+					.then(
+						( seasonsEpisodes ) =>
+						{
+							const enclosingEpisodes = [
+								seasonsEpisodes[ 0 ],
+								seasonsEpisodes[ seasonsEpisodes.length - 1 ]
+							]
+								.map(
+									( element ) =>
+									{
+										this._linkExtender.extend( element );
+
+										return element.href;
+									}
+								)
+							resolveHandler(
+								{
+									first: enclosingEpisodes[ 0 ],
+									last:  enclosingEpisodes[ 1 ],
+								}
+							);
+						}
+					);
+			}
+		);
+	}
+
 	_navigateBackward( seasons, episodes )
 	{
 		if ( 0 !== episodes.currentIndex )
@@ -159,15 +162,12 @@ class EpisodesNavigator extends BaseClass
 			);
 	}
 
-	_addButtonEvents( buttons )
+	_addButtonEvents( buttons, seasons, episodes )
 	{
 		const nullHandler = ( event ) =>
 		{
 			event.preventDefault();
 		};
-
-		const seasons  = this._seasons;
-		const episodes = this._episodes;
 
 		if ( 0 === seasons.currentIndex && 0 === episodes.currentIndex )
 		{
@@ -204,11 +204,8 @@ class EpisodesNavigator extends BaseClass
 		}
 	}
 
-	_addKeyEvents()
+	_addKeyEvents( seasons, episodes )
 	{
-		const seasons  = this._seasons;
-		const episodes = this._episodes;
-
 		document.addEventListener(
 			'keydown',
 			( event ) =>
@@ -248,8 +245,11 @@ class EpisodesNavigator extends BaseClass
 					nextEpisode:     DomHelper.createElementFromString( '<li><a href="#">Next</a></li>' )
 				};
 
-				this._addButtonEvents( buttons );
-				this._addKeyEvents();
+				const seasons  = this._seasons;
+				const episodes = this._episodes;
+
+				this._addButtonEvents( buttons, seasons, episodes );
+				this._addKeyEvents( seasons, episodes );
 
 				DomHelper.appendChildren( navigator.buttons, buttons.values() );
 
