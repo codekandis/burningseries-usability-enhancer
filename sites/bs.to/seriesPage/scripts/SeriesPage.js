@@ -76,8 +76,8 @@ class SeriesPage extends BaseClass
 	{
 		if ( false === ( new SeasonPageDeterminator( window.location.href ) )._isSeasonPage )
 		{
-			( new EpisodesNavigator( this._linkExtender ) )
-				.addNavigation();
+			( new EpisodesController( this._linkExtender ) )
+				.addActions();
 		}
 	}
 

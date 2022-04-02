@@ -16,4 +16,14 @@ class ButtonActionTypes extends StaticBaseClass
 	{
 		return 'INTEREST';
 	}
+
+	static get WATCH_STATE_TOGGLER()
+	{
+		return 'WATCH_STATE_TOGGLER';
+	}
+
+	static get EPISODE_NAVIGATOR()
+	{
+		return 'EPISODE_NAVIGATOR';
+	}
 }
