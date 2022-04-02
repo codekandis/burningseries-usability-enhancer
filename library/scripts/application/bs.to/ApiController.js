@@ -17,7 +17,7 @@ class ApiController extends BaseClass
 	{
 		return {
 			Authorization:  'Key ' + this._apiKey,
-			'Content-Type': 'application/json; charset=utf-8'
+			'Content-Type': ContentTypes.APPLICATION_JSON_UTF8
 		};
 	}
 

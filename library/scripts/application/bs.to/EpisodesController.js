@@ -1,11 +1,12 @@
 'use strict';
 
-class EpisodesNavigator extends BaseClass
+class EpisodesController extends BaseClass
 {
 	constructor( linkExtender )
 	{
 		super();
 
+		this._bsToController     = new BsToController();
 		this._buttonNavigators   = null;
 		this._keyboardNavigators = null;
 		this._linkExtender       = linkExtender;
@@ -52,37 +53,6 @@ class EpisodesNavigator extends BaseClass
 		};
 	}
 
-	async _getEnclosingEpisodesOfSeason( uri )
-	{
-		return await new Promise(
-			( resolveHandler, rejectHandler ) =>
-			{
-				( new BsToController() )
-					.readEpisodes( uri )
-					.then(
-						( responseData ) =>
-						{
-							const episodes = [ ...responseData.querySelectorAll( 'table.episodes tbody tr:first-child td:nth-child(1) a, table.episodes tbody tr:last-child td:nth-child(1) a' ) ]
-								.map(
-									( element ) =>
-									{
-										this._linkExtender.extend( element );
-
-										return element.href;
-									}
-								)
-							resolveHandler(
-								{
-									first: episodes[ 0 ],
-									last:  episodes[ 1 ],
-								}
-							);
-						}
-					);
-			}
-		);
-	}
-
 	get _seasons()
 	{
 		const seasonsContainer   = document.querySelector( '#seasons ul' );
@@ -123,6 +93,96 @@ class EpisodesNavigator extends BaseClass
 		}
 	}
 
+	async _getEnclosingEpisodesOfSeason( seasonUri )
+	{
+		return await new Promise(
+			( resolveHandler, rejectHandler ) =>
+			{
+				this._bsToController
+					.readEpisodes( seasonUri )
+					.then(
+						( seasonsEpisodes ) =>
+						{
+							const enclosingEpisodes = [
+								seasonsEpisodes[ 0 ],
+								seasonsEpisodes[ seasonsEpisodes.length - 1 ]
+							]
+								.map(
+									( element ) =>
+									{
+										this._linkExtender.extend( element );
+
+										return element.href;
+									}
+								)
+							resolveHandler(
+								{
+									first: enclosingEpisodes[ 0 ],
+									last:  enclosingEpisodes[ 1 ],
+								}
+							);
+						}
+					);
+			}
+		);
+	}
+
+	async _getWatchState( seasonUri, episodeIndex )
+	{
+		return await new Promise(
+			( resolveHandler, rejectHandler ) =>
+			{
+				this._bsToController
+					.readWatchStates( seasonUri )
+					.then(
+						( watchStates ) =>
+						{
+							resolveHandler( watchStates[ episodeIndex ] );
+						}
+					)
+			}
+		);
+	}
+
+	async _setWatchState( button, seasons, episodes )
+	{
+		await this._getWatchState( seasons.list[ seasons.currentIndex ], episodes.currentIndex )
+			.then(
+				( watchState ) =>
+				{
+					const buttonIcon = button.querySelector( 'i' );
+					buttonIcon.classList.toggle( 'fa-eye', !watchState );
+					buttonIcon.classList.toggle( 'fa-eye-slash', watchState );
+				}
+			);
+	}
+
+	async _toggleWatchState( button, seasons, episodes )
+	{
+		const currentSeason = seasons.list[ seasons.currentIndex ];
+
+		await this._getWatchState( currentSeason, episodes.currentIndex )
+			.then(
+				( watchState ) =>
+				{
+					const stateLink = false === watchState
+						? 'watch'
+						: 'unwatch';
+
+					this._bsToController
+						.toggleWatchState(
+							String.format`${ 0 }/${ 1 }:${ 2 }`( currentSeason, stateLink, episodes.currentIndex + 1 )
+						)
+						.then(
+							() =>
+							{
+								this._setWatchState( button, seasons, episodes );
+							}
+						)
+				}
+			);
+	}
+
 	_navigateBackward( seasons, episodes )
 	{
 		if ( 0 !== episodes.currentIndex )
@@ -159,15 +219,21 @@ class EpisodesNavigator extends BaseClass
 			);
 	}
 
-	_addButtonEvents( buttons )
+	_addButtonEvents( buttons, seasons, episodes )
 	{
 		const nullHandler = ( event ) =>
 		{
 			event.preventDefault();
 		};
 
-		const seasons  = this._seasons;
-		const episodes = this._episodes;
+		buttons.watchStateToggler.addEventListener(
+			'click',
+			( event ) =>
+			{
+				event.preventDefault();
+				this._toggleWatchState( buttons.watchStateToggler, seasons, episodes );
+			}
+		);
 
 		if ( 0 === seasons.currentIndex && 0 === episodes.currentIndex )
 		{
@@ -204,11 +270,8 @@ class EpisodesNavigator extends BaseClass
 		}
 	}
 
-	_addKeyEvents()
+	_addKeyEvents( seasons, episodes )
 	{
-		const seasons  = this._seasons;
-		const episodes = this._episodes;
-
 		document.addEventListener(
 			'keydown',
 			( event ) =>
@@ -238,18 +301,29 @@ class EpisodesNavigator extends BaseClass
 		);
 	}
 
-	addNavigation()
+	addActions()
 	{
 		this._buttonNavigators.forEach(
 			( navigator ) =>
 			{
 				const buttons = {
-					previousEpisode: DomHelper.createElementFromString( '<li><a href="#">Previous</a></li>' ),
-					nextEpisode:     DomHelper.createElementFromString( '<li><a href="#">Next</a></li>' )
+					watchStateToggler: DomHelper.createElementFromString(
+						String.format`<li data-action-type="${ 0 }"><a href="#"><i class="fas" /></a></li>`( ButtonActionTypes.WATCH_STATE_TOGGLER )
+					),
+					previousEpisode:   DomHelper.createElementFromString(
+						String.format`<li data-action-type="${ 0 }"><a href="#">Previous</a></li>`( ButtonActionTypes.EPISODE_NAVIGATOR )
+					),
+					nextEpisode:       DomHelper.createElementFromString(
+						String.format`<li data-action-type="${ 0 }"><a href="#">Next</a></li>`( ButtonActionTypes.EPISODE_NAVIGATOR )
+					)
 				};
 
-				this._addButtonEvents( buttons );
-				this._addKeyEvents();
+				const seasons  = this._seasons;
+				const episodes = this._episodes;
+
+				this._setWatchState( buttons.watchStateToggler, seasons, episodes );
+				this._addButtonEvents( buttons, seasons, episodes );
+				this._addKeyEvents( seasons, episodes );
 
 				DomHelper.appendChildren( navigator.buttons, buttons.values() );
 

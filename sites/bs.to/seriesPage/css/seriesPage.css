@@ -35,6 +35,13 @@
 
 .serie .codekandis-episodesNavigator ul li {
 	margin-left: 4px !important;
+}
+
+.serie .codekandis-episodesNavigator ul li[data-action-type="WATCH_STATE_TOGGLER"] {
+	width: 34px !important;
+}
+
+.serie .codekandis-episodesNavigator ul li[data-action-type="EPISODE_NAVIGATOR"] {
 	width: 100px !important;
 }
 
