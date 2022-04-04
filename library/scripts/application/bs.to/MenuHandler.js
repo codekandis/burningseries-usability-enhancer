@@ -2,25 +2,29 @@
 
 class MenuHandler extends BaseClass
 {
-	constructor( selectors )
+	constructor( menuSettings )
 	{
 		super();
 
-		this._selectors  = selectors;
-		this._menuStates = [];
+		this._menuSettings = menuSettings;
+		this._menuStates   = [];
 	}
 
-	_addEventHandlers( selector )
+	_addEventHandlers( menuSetting )
 	{
-		const menu      = document.querySelector( selector );
+		const menu      = document.querySelector( menuSetting.selector );
 		const menuState = {
-			menu:      menu,
-			subMenu:   menu.querySelector( 'ul' ),
-			isVisible: false
+			menu:          menu,
+			menuActivator: document.querySelector(
+				String.format`${ 0 } ${ 1 }`( menuSetting.selector, menuSetting.activatorSelector )
+			),
+			subMenu:       menu.querySelector( 'ul' ),
+			isVisible:     false
 		};
 		this._menuStates.push( menuState );
 
-		DomHelper.addEventHandler( menuState.menu,
+		DomHelper.addEventHandler(
+			menuState.menuActivator,
 			'click',
 			( event ) =>
 			{
@@ -53,10 +57,10 @@ class MenuHandler extends BaseClass
 
 	handle()
 	{
-		this._selectors.forEach(
-			( selector ) =>
+		this._menuSettings.forEach(
+			( menuSetting ) =>
 			{
-				this._addEventHandlers( selector );
+				this._addEventHandlers( menuSetting );
 			}
 		);
 	}

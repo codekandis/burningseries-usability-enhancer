@@ -6,21 +6,29 @@ class AllPages extends BaseClass
 	{
 		super();
 
-		this._settings              = settings;
-		this._apiController         = new ApiController(
+		this._settings        = settings;
+		this._apiController   = new ApiController(
 			this._settings.get( 'apiBaseUri' ),
 			this._settings.get( 'apiUserId' ),
 			this._settings.get( 'apiKey' )
 		);
-		this._favoritesMenuSelector = String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_FAVORITES );
-		this._interestsMenuSelector = String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_INTERESTS );
-		this._mouseMarker           = new MouseMarker();
-		this._menuRemover           = new MenuRemover(
+		this._menuSettings    = {
+			favorites: {
+				selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_FAVORITES ),
+				activatorSelector: '> a'
+			},
+			interests: {
+				selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_INTERESTS ),
+				activatorSelector: '> a'
+			}
+		};
+		this._mouseMarker     = new MouseMarker();
+		this._menuRemover     = new MenuRemover(
 			[
 				'#menu > li:nth-child( 6 ), #menu > li:nth-child( 5 ), #menu > li:nth-child( 4 ), #menu > li:nth-child( 3 )'
 			]
 		);
-		this._menuAdder             = new MenuAdder(
+		this._menuAdder       = new MenuAdder(
 			[
 				{
 					name:           'Favorites',
@@ -42,18 +50,13 @@ class AllPages extends BaseClass
 				}
 			]
 		);
-		this._menuHandler           = new MenuHandler(
-			[
-				this._favoritesMenuSelector,
-				this._interestsMenuSelector
-			]
-		);
-		this._favoritesLoader       = new FavoritesLoader(
-			String.format`${ 0 } ul`( this._favoritesMenuSelector ),
+		this._menuHandler     = new MenuHandler( this._menuSettings );
+		this._favoritesLoader = new FavoritesLoader(
+			String.format`${ 0 } ul`( this._menuSettings.favorites.selector ),
 			this._apiController
 		);
-		this._interestsLoader       = new InterestsLoader(
-			String.format`${ 0 } ul`( this._interestsMenuSelector ),
+		this._interestsLoader = new InterestsLoader(
+			String.format`${ 0 } ul`( this._menuSettings.interests.selector ),
 			this._apiController
 		);
 	}
@@ -108,7 +111,7 @@ class AllPages extends BaseClass
 				( favoritesLoader ) =>
 				{
 					const episodes          = new Episodes(
-						String.format`${ 0 } ul li`( this._favoritesMenuSelector ),
+						String.format`${ 0 } ul li`( this._menuSettings.favorites.selector ),
 						this._episodeNameHandler,
 						this._episodeUriHandler
 					);
@@ -132,7 +135,7 @@ class AllPages extends BaseClass
 				( interestsLoader ) =>
 				{
 					const episodes          = new Episodes(
-						String.format`${ 0 } ul li`( this._interestsMenuSelector ),
+						String.format`${ 0 } ul li`( this._menuSettings.interests.selector ),
 						this._episodeNameHandler,
 						this._episodeUriHandler
 					);
