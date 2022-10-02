@@ -19,17 +19,24 @@
 		"page": "optionsUi/templates/page.html",
 		"open_in_tab": false
 	},
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "{51455496-052f-4d64-b4a4-8c7da562f64f}",
+			"strict_min_version": "42.0"
+		}
+	},
 	"content_scripts": [
 		{
 			"matches": [
 				"https://bs.to/*",
-				"https://burningseries.co/*",
-				"https://burningseries.sx/*",
 				"https://burningseries.ac/*",
-				"https://burningseries.vc/*",
+				"https://burningseries.co/*",
 				"https://burningseries.cx/*",
 				"https://burningseries.nz/*",
-				"https://burningseries.se/*"
+				"https://burningseries.se/*",
+				"https://burningseries.sx/*",
+				"https://burningseries.tw/*",
+				"https://burningseries.vc/*"
 			],
 			"js": [
 				"library/scripts/common/Types/String.js",
