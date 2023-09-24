@@ -4,7 +4,9 @@ class InvalidStaticClassInstantiationException extends Exception
 {
 	static with_CLASS_NAME( className )
 	{
-		return new InvalidStaticClassInstantiationException( String.format`The static class \`${ 0 }\` cannot be instantiated.`( className ) );
+		return new InvalidStaticClassInstantiationException(
+			String.format`The static class \`${ 0 }\` cannot be instantiated.`( className )
+		);
 	}
 
 	static with_OBJECT( obj )

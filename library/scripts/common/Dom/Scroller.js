@@ -14,21 +14,41 @@ class Scroller extends BaseClass
 
 	scrollToElementLeft( element )
 	{
-		window.scrollTo( element.getBoundingClientRect().left, window.scrollY );
+		window.scrollTo(
+			element
+				.getBoundingClientRect()
+				.left,
+			window.scrollY
+		);
 	}
 
 	scrollToElementRight( element )
 	{
-		window.scrollTo( element.getBoundingClientRect().right, window.scrollY );
+		window.scrollTo(
+			element
+				.getBoundingClientRect()
+				.right,
+			window.scrollY
+		);
 	}
 
 	scrollToElementTop( element )
 	{
-		window.scrollTo( window.scrollX, element.getBoundingClientRect().top );
+		window.scrollTo(
+			window.scrollX,
+			element
+				.getBoundingClientRect()
+				.top
+		);
 	}
 
 	scrollToElementBottom( element )
 	{
-		window.scrollTo( window.scrollX, element.getBoundingClientRect().bottom );
+		window.scrollTo(
+			window.scrollX,
+			element
+				.getBoundingClientRect()
+				.bottom
+		);
 	}
 }

@@ -1,20 +1,24 @@
 @charset "utf-8";
 
-#news .lSPager a {
+#news .lSPager a
+{
 	z-index: auto;
 }
 
-#newest_series a {
+#newest_series a
+{
 	display: inline-block;
-	width: 415px;
+	width:   415px;
 }
 
-#newest_episodes .codekandis-button {
+#newest_episodes .codekandis-button
+{
 	margin-left: -16px;
-	margin-top: 3px;
+	margin-top:  3px;
 }
 
-#newest_series .codekandis-button {
+#newest_series .codekandis-button
+{
 	margin-left: -15px;
-	margin-top: 4px;
+	margin-top:  4px;
 }

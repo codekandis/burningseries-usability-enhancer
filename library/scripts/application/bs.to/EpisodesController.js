@@ -56,7 +56,9 @@ class EpisodesController extends BaseClass
 	get _seasons()
 	{
 		const seasonsContainer   = document.querySelector( '#seasons ul' );
-		const seasons            = [ ...seasonsContainer.querySelectorAll( 'li a' ) ]
+		const seasons            = [
+			...seasonsContainer.querySelectorAll( 'li a' )
+		]
 			.map(
 				( element ) =>
 				{
@@ -76,7 +78,9 @@ class EpisodesController extends BaseClass
 	get _episodes()
 	{
 		const episodesContainer   = document.querySelector( '#episodes ul' );
-		const episodes            = [ ...episodesContainer.querySelectorAll( 'li a' ) ]
+		const episodes            = [
+			...episodesContainer.querySelectorAll( 'li a' )
+		]
 			.map(
 				( element ) =>
 				{
@@ -325,7 +329,9 @@ class EpisodesController extends BaseClass
 				this._addButtonEvents( buttons, seasons, episodes );
 				this._addKeyEvents( seasons, episodes );
 
-				DomHelper.appendChildren( navigator.buttons, buttons.values() );
+				DomHelper.appendChildren(
+					navigator.buttons, buttons.values()
+				);
 
 				navigator.insertionMethod(
 					document.querySelector( navigator.selector ),
