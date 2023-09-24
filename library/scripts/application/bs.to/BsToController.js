@@ -26,9 +26,11 @@ class BsToController extends BaseClass
 									{
 										resolveHandler(
 											[
-												...( new DOMParser() )
-													.parseFromString( htmlString, ContentTypes.TEXT_HTML )
-													.querySelectorAll( 'table.episodes tbody tr td:nth-child( 1 ) a' )
+												...DomHelper.querySelectorAll(
+													'table.episodes tbody tr td:nth-child( 1 ) a',
+													( new DOMParser() )
+														.parseFromString( htmlString, ContentTypes.TEXT_HTML )
+												)
 											]
 										);
 									}
@@ -56,9 +58,11 @@ class BsToController extends BaseClass
 									{
 										resolveHandler(
 											[
-												...( new DOMParser() )
-													.parseFromString( htmlString, ContentTypes.TEXT_HTML )
-													.querySelectorAll( 'table.episodes tr' )
+												...DomHelper.querySelectorAll(
+													'table.episodes tr',
+													( new DOMParser() )
+														.parseFromString( htmlString, ContentTypes.TEXT_HTML )
+												)
 											]
 												.map(
 													( episode ) =>

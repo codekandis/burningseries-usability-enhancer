@@ -33,7 +33,8 @@ class ApiController extends BaseClass
 				this._apiUris.userSeriesDenials,
 				this._getHeaders()
 			)
-		).json();
+		)
+			.json();
 	}
 
 	async readUserSeriesDenialsFiltered( series )
@@ -58,7 +59,8 @@ class ApiController extends BaseClass
 				this._getHeaders(),
 				requestData
 			)
-		).json();
+		)
+			.json();
 	}
 
 	async addUserSeriesDenial( series )
@@ -79,7 +81,8 @@ class ApiController extends BaseClass
 				this._getHeaders(),
 				requestData
 			)
-		).json();
+		)
+			.json();
 	}
 
 	async deleteUserSeriesDenial( series )
@@ -89,7 +92,8 @@ class ApiController extends BaseClass
 				this._apiUris.userSeriesDenials + '/' + series.denialId,
 				this._getHeaders()
 			)
-		).json();
+		)
+			.json();
 	}
 
 	async readUserSeriesFavorites()
@@ -99,7 +103,8 @@ class ApiController extends BaseClass
 				this._apiUris.userSeriesFavorites,
 				this._getHeaders()
 			)
-		).json();
+		)
+			.json();
 	}
 
 	async readUserSeriesFavoritesFiltered( series )
@@ -124,7 +129,8 @@ class ApiController extends BaseClass
 				this._getHeaders(),
 				requestData
 			)
-		).json();
+		)
+			.json();
 	}
 
 	async addUserSeriesFavorite( series )
@@ -145,7 +151,8 @@ class ApiController extends BaseClass
 				this._getHeaders(),
 				requestData
 			)
-		).json();
+		)
+			.json();
 	}
 
 	async deleteUserSeriesFavorite( series )
@@ -155,7 +162,8 @@ class ApiController extends BaseClass
 				this._apiUris.userSeriesFavorites + '/' + series.favoriteId,
 				this._getHeaders()
 			)
-		).json();
+		)
+			.json();
 	}
 
 	async readUserSeriesInterests()
@@ -165,7 +173,8 @@ class ApiController extends BaseClass
 				this._apiUris.userSeriesInterests,
 				this._getHeaders()
 			)
-		).json();
+		)
+			.json();
 	}
 
 	async readUserSeriesInterestsFiltered( series )
@@ -190,7 +199,8 @@ class ApiController extends BaseClass
 				this._getHeaders(),
 				requestData
 			)
-		).json();
+		)
+			.json();
 	}
 
 	async addUserSeriesInterest( series )
@@ -211,7 +221,8 @@ class ApiController extends BaseClass
 				this._getHeaders(),
 				requestData
 			)
-		).json();
+		)
+			.json();
 	}
 
 	async deleteUserSeriesInterest( series )
@@ -221,6 +232,7 @@ class ApiController extends BaseClass
 				this._apiUris.userSeriesInterests + '/' + series.interestId,
 				this._getHeaders()
 			)
-		).json();
+		)
+			.json();
 	}
 }

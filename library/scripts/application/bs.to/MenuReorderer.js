@@ -15,8 +15,8 @@ class MenuReorderer extends BaseClass
 			( orderPreset ) =>
 			{
 				DomHelper.insert(
-					document.querySelector( orderPreset.targetSelector ),
-					document.querySelector( orderPreset.selector ),
+					DomHelper.querySelector( orderPreset.targetSelector, document ),
+					DomHelper.querySelector( orderPreset.selector, document ),
 					orderPreset.position
 				)
 			}

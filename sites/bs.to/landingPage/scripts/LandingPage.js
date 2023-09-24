@@ -12,19 +12,22 @@ class LandingPage extends BaseClass
 			this._settings.get( 'apiUserId' ),
 			this._settings.get( 'apiKey' )
 		);
-		this._linkExtender      = new LinkExtender( '/' + this._settings.get( 'defaultPlayer' ) );
+		this._linkExtender      = new LinkExtender(
+			'/' + this._settings.get( 'defaultPlayer' )
+		);
 		this._episodes          = new Episodes( '#newest_episodes ul li, #newest_series ul li', this._episodeNameHandler, this._episodeUriHandler );
 		this._denialsFilter     = new DenialsFilter( this._episodes, this._apiController, true );
 		this._favoritesSwitcher = new FavoritesSwitcher( this._episodes, this._apiController );
 		this._interestsSwitcher = new InterestsSwitcher( this._episodes, this._apiController );
+		this._teaserRemover     = new TeaserRemover( '#teaser' );
 	}
 
 	get _episodeNameHandler()
 	{
 		return ( container ) =>
 		{
-			return container
-				.querySelector( 'a' )
+			return DomHelper
+				.querySelector( 'a', container )
 				.textContent
 				.trim()
 				.toLowerCase();
@@ -37,8 +40,8 @@ class LandingPage extends BaseClass
 		{
 			const extractedUri = /^.+?\/.+?\/(?<uri>serie\/.+?)(?:\/.+)?$/
 				.exec(
-					container
-						.querySelector( 'a' )
+					DomHelper
+						.querySelector( 'a', container )
 						.href
 				)
 				.groups
@@ -48,9 +51,27 @@ class LandingPage extends BaseClass
 		};
 	}
 
+	_removeTeaser()
+	{
+		this._teaserRemover.remove();
+	}
+
 	_filterDenials()
 	{
 		return this._denialsFilter.filter();
+	}
+
+	_extendEpisodesLinks()
+	{
+		this._linkExtender.extendList(
+			DomHelper.querySelectorAll( '#newest_episodes ul li a', document )
+		);
+	}
+
+	_addActions( denialsFilter, favoritesSwitcher, interestsSwitcher )
+	{
+		( new ActionAdder( this._episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, favoritesSwitcher, interestsSwitcher ) )
+			.addActions();
 	}
 
 	_switchFavorites()
@@ -63,21 +84,9 @@ class LandingPage extends BaseClass
 		this._interestsSwitcher.switch();
 	}
 
-	_extendEpisodesLinks()
-	{
-		this._linkExtender.extendList(
-			document.querySelectorAll( '#newest_episodes ul li a' )
-		);
-	}
-
-	_addActions( denialsFilter, favoritesSwitcher, interestsSwitcher )
-	{
-		( new ActionAdder( this._episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, favoritesSwitcher, interestsSwitcher ) )
-			.addActions();
-	}
-
 	execute()
 	{
+		this._removeTeaser();
 		this._filterDenials()
 			.then(
 				( denialsFilter ) =>

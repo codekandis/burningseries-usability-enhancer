@@ -1,42 +1,51 @@
 @charset "utf-8";
 
-#menu > li {
+#menu > li
+{
 	width: 225px;
 }
 
-#menu > li[data-menu-type='DROPDOWN']:hover ul {
+#menu > li[data-menu-type='DROPDOWN']:hover ul
+{
 	display: none;
 }
 
-#menu > li[data-menu-type='DROPDOWN'] ul {
-	position: absolute;
-	width: 900px;
+#menu > li[data-menu-type='DROPDOWN'] ul
+{
+	position:     absolute;
+	width:        900px;
 	column-count: 4;
-	column-gap: 0;
+	column-gap:   0;
 }
 
-#menu > li[data-menu-type='DROPDOWN'] ul li {
+#menu > li[data-menu-type='DROPDOWN'] ul li
+{
 	border-style: none;
 }
 
-#menu > li[data-menu-type='DROPDOWN'] ul li:last-child {
+#menu > li[data-menu-type='DROPDOWN'] ul li:last-child
+{
 	border-radius: 0;
 }
 
-#menu > li[data-menu-type='DROPDOWN'] ul li a {
-	padding: 0 7px;
+#menu > li[data-menu-type='DROPDOWN'] ul li a
+{
+	padding:          0 7px;
 	background-image: linear-gradient(0, #cccccc 1px, #cccccc 1px, transparent 1px), linear-gradient(90deg, #cccccc 1px, #cccccc 1px, transparent 1px);
 }
 
-#menu > li[data-menu-type='DROPDOWN'] .codekandis-button {
+#menu > li[data-menu-type='DROPDOWN'] .codekandis-button
+{
 	margin-left: -6px;
-	margin-top: 11px;
+	margin-top:  11px;
 }
 
-#menu > li[data-menu-type='DROPDOWN'][data-menu-purpose='SERIES_FAVORITES'] ul {
+#menu > li[data-menu-type='DROPDOWN'][data-menu-purpose='SERIES_FAVORITES'] ul
+{
 	left: -225px;
 }
 
-#menu > li[data-menu-type='DROPDOWN'][data-menu-purpose='SERIES_INTERESTS'] ul {
+#menu > li[data-menu-type='DROPDOWN'][data-menu-purpose='SERIES_INTERESTS'] ul
+{
 	left: -450px;
 }

@@ -20,8 +20,8 @@ class PreferencesPage extends BaseClass
 
 	_attachSettings()
 	{
-		document
-			.querySelectorAll( 'form fieldset [id]' )
+		DomHelper
+			.querySelectorAll( 'form fieldset [id]', document )
 			.forEach(
 				( settingElement ) =>
 				{
@@ -67,8 +67,8 @@ class PreferencesPage extends BaseClass
 
 	_saveSettings()
 	{
-		document
-			.querySelectorAll( 'form fieldset [id]' )
+		DomHelper
+			.querySelectorAll( 'form fieldset [id]', document )
 			.forEach(
 				( settingElement ) =>
 				{

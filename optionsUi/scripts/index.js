@@ -1,6 +1,6 @@
 'use strict';
 
-document.addEventListener(
+DomHelper.addEventHandler(
 	DocumentDomEvents.DOM_CONTENT_LOADED,
 	( event ) =>
 	{
@@ -11,7 +11,7 @@ document.addEventListener(
 				{
 					new PreferencesPage(
 						settings,
-						document.querySelector( 'form' )
+						DomHelper.querySelector( 'form', document )
 					);
 				}
 			)

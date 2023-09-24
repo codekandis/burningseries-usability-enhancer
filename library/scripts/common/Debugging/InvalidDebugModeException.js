@@ -4,6 +4,8 @@ class InvalidDebugModeException extends Exception
 {
 	static with_DEBUG_MODE( debugMode )
 	{
-		return new InvalidDebugModeException( String.format`The debug mode \`${ 0 }\` is invalid.`( debugMode ) );
+		return new InvalidDebugModeException(
+			String.format`The debug mode \`${ 0 }\` is invalid.`( debugMode )
+		);
 	}
 }

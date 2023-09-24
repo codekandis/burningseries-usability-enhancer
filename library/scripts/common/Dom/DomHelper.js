@@ -4,7 +4,12 @@ class DomHelper extends StaticBaseClass
 {
 	static querySelector( selector, context = null, throwExceptions = true )
 	{
-		const element = ( null === context ? document : context ).querySelector( selector );
+		const element = (
+			null === context
+				? document
+				: context
+		)
+			.querySelector( selector );
 
 		if ( null === element && true === throwExceptions )
 		{
@@ -16,7 +21,12 @@ class DomHelper extends StaticBaseClass
 
 	static querySelectorAll( selector, context = null, throwExceptions = true )
 	{
-		const elements = ( null === context ? document : context ).querySelectorAll( selector );
+		const elements = (
+			null === context
+				? document
+				: context
+		)
+			.querySelectorAll( selector );
 
 		if ( 0 === elements.length && true === throwExceptions )
 		{
@@ -204,7 +214,10 @@ class DomHelper extends StaticBaseClass
 		elements.forEach(
 			( element ) =>
 			{
-				DomHelper.insertBefore( element, insertion.cloneNode( true ) );
+				DomHelper.insertBefore(
+					element,
+					insertion.cloneNode( true )
+				);
 			}
 		);
 	}
@@ -214,7 +227,10 @@ class DomHelper extends StaticBaseClass
 		elements.forEach(
 			( element ) =>
 			{
-				DomHelper.insertAfter( element, insertion.cloneNode( true ) );
+				DomHelper.insertAfter(
+					element,
+					insertion.cloneNode( true )
+				);
 			}
 		);
 	}
@@ -224,7 +240,11 @@ class DomHelper extends StaticBaseClass
 		elements.forEach(
 			( element ) =>
 			{
-				DomHelper.insert( element, insertion.cloneNode( true ), position );
+				DomHelper.insert(
+					element,
+					insertion.cloneNode( true ),
+					position
+				);
 			}
 		);
 	}

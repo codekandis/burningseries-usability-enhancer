@@ -12,7 +12,9 @@ class SeriesPage extends BaseClass
 			this._settings.get( 'apiUserId' ),
 			this._settings.get( 'apiKey' )
 		);
-		this._linkExtender      = new LinkExtender( '/' + this._settings.get( 'defaultPlayer' ) );
+		this._linkExtender      = new LinkExtender(
+			'/' + this._settings.get( 'defaultPlayer' )
+		);
 		this._episodes          = new Episodes( '#sp_left h2', this._episodeNameHandler, this._episodeUriHandler );
 		this._denialsFilter     = new DenialsFilter( this._episodes, this._apiController, false );
 		this._favoritesSwitcher = new FavoritesSwitcher( this._episodes, this._apiController );
@@ -62,7 +64,7 @@ class SeriesPage extends BaseClass
 	_extendEpisodesLinks()
 	{
 		this._linkExtender.extendList(
-			document.querySelectorAll( '.episodes tbody tr td:nth-child( 1 ) a, .episodes tbody tr td:nth-child( 2 ) a:nth-child( 2 ), #episodes ul li a' )
+			DomHelper.querySelectorAll( '.episodes tbody tr td:nth-child( 1 ) a, .episodes tbody tr td:nth-child( 2 ) a:nth-child( 2 ), #episodes ul li a', document )
 		);
 	}
 
@@ -92,7 +94,9 @@ class SeriesPage extends BaseClass
 		if ( false === ( new SeasonPageDeterminator( window.location.href ) )._isSeasonPage )
 		{
 			( new Scroller() )
-				.scrollToElementTop( document.querySelector( '.codekandis-episodesNavigator.top' ) );
+				.scrollToElementTop(
+					DomHelper.querySelector( '.codekandis-episodesNavigator.top', document )
+				);
 		}
 	}
 

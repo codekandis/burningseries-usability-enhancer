@@ -23,6 +23,7 @@ class AllPages extends BaseClass
 			}
 		};
 		this._mouseMarker     = new MouseMarker();
+		this._headerModifier  = new HeaderModifier( 'header' );
 		this._menuRemover     = new MenuRemover(
 			[
 				'#menu > li:nth-child( 6 ), #menu > li:nth-child( 5 ), #menu > li:nth-child( 4 ), #menu > li:nth-child( 3 )'
@@ -65,8 +66,8 @@ class AllPages extends BaseClass
 	{
 		return ( container ) =>
 		{
-			return container
-				.querySelector( 'a' )
+			return DomHelper
+				.querySelector( 'a', container )
 				.textContent
 				.trim()
 				.toLowerCase();
@@ -77,8 +78,8 @@ class AllPages extends BaseClass
 	{
 		return ( container ) =>
 		{
-			return container
-				.querySelector( 'a' )
+			return DomHelper
+				.querySelector( 'a', container )
 				.href;
 		}
 	}
@@ -86,6 +87,11 @@ class AllPages extends BaseClass
 	_markMouse()
 	{
 		this._mouseMarker.markMouse();
+	}
+
+	_modifyHeader()
+	{
+		this._headerModifier.modify();
 	}
 
 	_removeMenus()
@@ -154,6 +160,7 @@ class AllPages extends BaseClass
 	execute()
 	{
 		this._markMouse();
+		this._modifyHeader();
 		this._removeMenus();
 		this._addMenus();
 		this._handleMenus();

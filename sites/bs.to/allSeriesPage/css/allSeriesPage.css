@@ -1,6 +1,7 @@
 @charset "utf-8";
 
-#seriesContainer .codekandis-button {
-	margin-top: 4px;
+#seriesContainer .codekandis-button
+{
+	margin-top:  4px;
 	margin-left: -15px;
 }

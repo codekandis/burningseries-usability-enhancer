@@ -33,7 +33,7 @@ class EpisodesController extends BaseClass
 		this._buttonNavigators.forEach(
 			( navigator ) =>
 			{
-				navigator.container.appendChild( navigator.buttons );
+				DomHelper.appendChild( navigator.container, navigator.buttons );
 			}
 		);
 
@@ -55,8 +55,10 @@ class EpisodesController extends BaseClass
 
 	get _seasons()
 	{
-		const seasonsContainer   = document.querySelector( '#seasons ul' );
-		const seasons            = [ ...seasonsContainer.querySelectorAll( 'li a' ) ]
+		const seasonsContainer   = DomHelper.querySelector( '#seasons ul', document );
+		const seasons            = [
+			...DomHelper.querySelectorAll( 'li a', seasonsContainer )
+		]
 			.map(
 				( element ) =>
 				{
@@ -64,7 +66,9 @@ class EpisodesController extends BaseClass
 				}
 			);
 		const currentSeasonIndex = seasons.indexOf(
-			seasonsContainer.querySelector( 'li.active a' ).href
+			DomHelper
+				.querySelector( 'li.active a', seasonsContainer )
+				.href
 		);
 
 		return {
@@ -75,8 +79,10 @@ class EpisodesController extends BaseClass
 
 	get _episodes()
 	{
-		const episodesContainer   = document.querySelector( '#episodes ul' );
-		const episodes            = [ ...episodesContainer.querySelectorAll( 'li a' ) ]
+		const episodesContainer   = DomHelper.querySelector( '#episodes ul', document );
+		const episodes            = [
+			...DomHelper.querySelectorAll( 'li a', episodesContainer )
+		]
 			.map(
 				( element ) =>
 				{
@@ -84,7 +90,9 @@ class EpisodesController extends BaseClass
 				}
 			);
 		const currentEpisodeIndex = episodes.indexOf(
-			episodesContainer.querySelector( 'li.active a' ).href
+			DomHelper
+				.querySelector( 'li.active a', episodesContainer )
+				.href
 		);
 
 		return {
@@ -150,7 +158,7 @@ class EpisodesController extends BaseClass
 			.then(
 				( watchState ) =>
 				{
-					const buttonIcon = button.querySelector( 'i' );
+					const buttonIcon = DomHelper.querySelector( 'i', button );
 					buttonIcon.classList.toggle( 'fa-eye', !watchState );
 					buttonIcon.classList.toggle( 'fa-eye-slash', watchState );
 				}
@@ -226,7 +234,8 @@ class EpisodesController extends BaseClass
 			event.preventDefault();
 		};
 
-		buttons.watchStateToggler.addEventListener(
+		DomHelper.addEventHandler(
+			buttons.watchStateToggler,
 			'click',
 			( event ) =>
 			{
@@ -237,12 +246,13 @@ class EpisodesController extends BaseClass
 
 		if ( 0 === seasons.currentIndex && 0 === episodes.currentIndex )
 		{
-			buttons.previousEpisode.addEventListener( 'click', nullHandler );
+			DomHelper.addEventHandler( buttons.previousEpisode, 'click', nullHandler );
 			buttons.previousEpisode.classList.add( 'disabled' );
 		}
 		else
 		{
-			buttons.previousEpisode.addEventListener(
+			DomHelper.addEventHandler(
+				buttons.previousEpisode,
 				'click',
 				( event ) =>
 				{
@@ -254,12 +264,13 @@ class EpisodesController extends BaseClass
 
 		if ( seasons.list.length - 1 === seasons.currentIndex && episodes.list.length - 1 === episodes.currentIndex )
 		{
-			buttons.nextEpisode.addEventListener( 'click', nullHandler );
+			DomHelper.addEventHandler( buttons.nextEpisode, 'click', nullHandler );
 			buttons.nextEpisode.classList.add( 'disabled' );
 		}
 		else
 		{
-			buttons.nextEpisode.addEventListener(
+			DomHelper.addEventHandler(
+				buttons.nextEpisode,
 				'click',
 				( event ) =>
 				{
@@ -272,7 +283,8 @@ class EpisodesController extends BaseClass
 
 	_addKeyEvents( seasons, episodes )
 	{
-		document.addEventListener(
+		DomHelper.addEventHandler(
+			document,
 			'keydown',
 			( event ) =>
 			{
@@ -325,10 +337,12 @@ class EpisodesController extends BaseClass
 				this._addButtonEvents( buttons, seasons, episodes );
 				this._addKeyEvents( seasons, episodes );
 
-				DomHelper.appendChildren( navigator.buttons, buttons.values() );
+				DomHelper.appendChildren(
+					navigator.buttons, buttons.values()
+				);
 
 				navigator.insertionMethod(
-					document.querySelector( navigator.selector ),
+					DomHelper.querySelector( navigator.selector, document ),
 					navigator.container
 				);
 			}

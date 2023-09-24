@@ -138,7 +138,7 @@ class ActionAdder extends BaseClass
 			this._currentButtonActionType = ButtonActionTypes.INTEREST;
 		}
 
-		button.setAttribute( 'data-action-type', this._currentButtonActionType );
+		DomHelper.setAttribute( button, 'data-action-type', this._currentButtonActionType );
 	}
 
 	_getButtonEventHandlerMappings( button, series )

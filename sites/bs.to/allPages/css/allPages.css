@@ -2,11 +2,13 @@
 
 @import 'codekandisButton.css';
 @import 'mouseMarker.css';
+@import 'header.css';
 @import 'menu.css';
 
-:root {
-	--color-cyan: #0a7191;
+:root
+{
+	--color-cyan:   #0a7191;
 	--color-orange: #ffa000;
-	--color-blue: #00a0ff;
-	--color-green: #008000;
+	--color-blue:   #00a0ff;
+	--color-green:  #008000;
 }

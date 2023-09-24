@@ -1,0 +1,51 @@
+@charset "utf-8";
+
+header > #login,
+header > section.navigation
+{
+	z-index:       1 !important;
+	top:           35px !important;
+	right:         0 !important;
+	border-radius: 0 0 0 3px;
+	background:    #f0f0f0 none !important;
+}
+
+header > #login > input,
+header > #login > label,
+header > #login > label > input,
+header > section.navigation > a
+{
+	display: inline-block;
+	margin:  0 !important;
+}
+
+header > #login > label,
+header > #login > a,
+header > section.navigation > a
+{
+	color: #555555;
+}
+
+header > #login > label > input
+{
+	position: relative;
+	top:      1px;
+}
+
+header > #login > a
+{
+	margin-top:  0.23em;
+	margin-left: 0.3em;
+}
+
+header > section.navigation
+{
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.5) !important;
+}
+
+header > section.navigation > a
+{
+	background:    none !important;
+	border-style:  none;
+	border-radius: 0 !important;
+}

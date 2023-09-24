@@ -15,7 +15,7 @@ class MenuAdder extends BaseClass
 			( preset ) =>
 			{
 				DomHelper.insert(
-					document.querySelector( preset.targetSelector ),
+					DomHelper.querySelector( preset.targetSelector, document ),
 					DomHelper.createElementFromString(
 						String.format`<li><a>${ 0 }</a><ul></ul></li>`( preset.name ),
 						null,

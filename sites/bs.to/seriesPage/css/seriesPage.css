@@ -1,51 +1,63 @@
 @charset "utf-8";
 
-.serie .frame ul li.watched {
+.serie .frame ul li.watched
+{
 	background-color: var(--color-green) !important;
 }
 
-.serie .frame ul li.active {
+.serie .frame ul li.active
+{
 	background-color: var(--color-blue) !important;
 }
 
-.serie .frame ul li a:hover {
+.serie .frame ul li a:hover
+{
 	background-color: var(--color-orange) !important;
 }
 
-.serie .hoster-tabs.top {
+.serie .hoster-tabs.top
+{
 	margin-top: 0;
 }
 
-#sp_left .codekandis-button {
+#sp_left .codekandis-button
+{
 	margin-left: -15px;
-	margin-top: 11px;
+	margin-top:  11px;
 }
 
-.serie .codekandis-episodesNavigator {
+.serie .codekandis-episodesNavigator
+{
 	text-align: right;
 }
 
-.serie .codekandis-episodesNavigator.top {
+.serie .codekandis-episodesNavigator.top
+{
 	margin-top: 10px;
 }
 
-.serie .codekandis-episodesNavigator ul {
+.serie .codekandis-episodesNavigator ul
+{
 	display: inline-block;
 }
 
-.serie .codekandis-episodesNavigator ul li {
+.serie .codekandis-episodesNavigator ul li
+{
 	margin-left: 4px !important;
 }
 
-.serie .codekandis-episodesNavigator ul li[data-action-type="WATCH_STATE_TOGGLER"] {
+.serie .codekandis-episodesNavigator ul li[data-action-type='WATCH_STATE_TOGGLER']
+{
 	width: 34px !important;
 }
 
-.serie .codekandis-episodesNavigator ul li[data-action-type="EPISODE_NAVIGATOR"] {
+.serie .codekandis-episodesNavigator ul li[data-action-type='EPISODE_NAVIGATOR']
+{
 	width: 100px !important;
 }
 
-.serie .codekandis-episodesNavigator ul li.disabled a:hover {
+.serie .codekandis-episodesNavigator ul li.disabled a:hover
+{
 	background-color: transparent !important;
-	cursor: default;
+	cursor:           default;
 }
