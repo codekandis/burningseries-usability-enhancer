@@ -19,6 +19,7 @@ class LandingPage extends BaseClass
 		this._denialsFilter     = new DenialsFilter( this._episodes, this._apiController, true );
 		this._favoritesSwitcher = new FavoritesSwitcher( this._episodes, this._apiController );
 		this._interestsSwitcher = new InterestsSwitcher( this._episodes, this._apiController );
+		this._teaserRemover     = new TeaserRemover( '#teaser' );
 	}
 
 	get _episodeNameHandler()
@@ -50,19 +51,14 @@ class LandingPage extends BaseClass
 		};
 	}
 
+	_removeTeaser()
+	{
+		this._teaserRemover.remove();
+	}
+
 	_filterDenials()
 	{
 		return this._denialsFilter.filter();
-	}
-
-	_switchFavorites()
-	{
-		this._favoritesSwitcher.switch();
-	}
-
-	_switchInterests()
-	{
-		this._interestsSwitcher.switch();
 	}
 
 	_extendEpisodesLinks()
@@ -78,8 +74,19 @@ class LandingPage extends BaseClass
 			.addActions();
 	}
 
+	_switchFavorites()
+	{
+		this._favoritesSwitcher.switch();
+	}
+
+	_switchInterests()
+	{
+		this._interestsSwitcher.switch();
+	}
+
 	execute()
 	{
+		this._removeTeaser();
 		this._filterDenials()
 			.then(
 				( denialsFilter ) =>

@@ -105,6 +105,7 @@
 				"https://burningseries.se/"
 			],
 			"js": [
+				"library/scripts/application/bs.to/TeaserRemover.js",
 				"library/scripts/common/Dom/LinkExtender.js",
 				"sites/bs.to/landingPage/scripts/LandingPage.js",
 				"sites/bs.to/landingPage/scripts/index.js"
