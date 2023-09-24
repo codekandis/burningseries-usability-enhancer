@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+header > #login
+{
+	z-index:       0;
+	top:           35px;
+	right:         0;
+	border-radius: 0 0 0 3px;
+	background:    #f0f0f0 none;
+}
+
+header > #login > input,
+header > #login > label,
+header > #login > label > input
+{
+	display: inline-block;
+	margin:  0 !important;
+}
+
+header > #login > label,
+header > #login > a
+{
+	color: #555555;
+}
+
+header > #login > label > input
+{
+	position: relative;
+	top:      1px;
+}
+
+header > #login > a
+{
+	margin-top:  0.23em;
+	margin-left: 0.3em;
+}
