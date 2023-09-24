@@ -6,7 +6,8 @@ class HeaderModifier extends BaseClass
 	{
 		super();
 
-		this._header = DomHelper.querySelector( targetSelector );
+		this._header            = DomHelper.querySelector( targetSelector );
+		this._navigationSection = DomHelper.querySelector( 'section.navigation', this._header, false );
 	}
 
 	_removeBanner()
@@ -16,8 +17,47 @@ class HeaderModifier extends BaseClass
 			.remove();
 	}
 
+	_removeGreeting()
+	{
+		if ( null !== this._navigationSection )
+		{
+			DomHelper
+				.querySelector( 'div', this._navigationSection )
+				.remove();
+		}
+	}
+
+	_removeNavigationMenuWhitespaces()
+	{
+		if ( null !== this._navigationSection )
+		{
+			const whiteSpaceNodes = [];
+
+			this._navigationSection
+				.childNodes
+				.forEach(
+					( menuItem ) =>
+					{
+						if ( '#text' === menuItem.nodeName )
+						{
+							whiteSpaceNodes.push( menuItem );
+						}
+					}
+				);
+
+			whiteSpaceNodes.forEach(
+				( whiteSpaceNode ) =>
+				{
+					whiteSpaceNode.remove();
+				}
+			);
+		}
+	}
+
 	modify()
 	{
 		this._removeBanner();
+		this._removeGreeting();
+		this._removeNavigationMenuWhitespaces();
 	}
 }
