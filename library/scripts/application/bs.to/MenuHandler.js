@@ -12,13 +12,14 @@ class MenuHandler extends BaseClass
 
 	_addEventHandlers( menuSetting )
 	{
-		const menu      = document.querySelector( menuSetting.selector );
+		const menu      = DomHelper.querySelector( menuSetting.selector, document );
 		const menuState = {
 			menu:          menu,
-			menuActivator: document.querySelector(
-				String.format`${ 0 } ${ 1 }`( menuSetting.selector, menuSetting.activatorSelector )
+			menuActivator: DomHelper.querySelector(
+				String.format`${ 0 } ${ 1 }`( menuSetting.selector, menuSetting.activatorSelector ),
+				document
 			),
-			subMenu:       menu.querySelector( 'ul' ),
+			subMenu:       DomHelper.querySelector( 'ul', menu ),
 			isVisible:     false
 		};
 		this._menuStates.push( menuState );

@@ -64,7 +64,7 @@ class SeriesPage extends BaseClass
 	_extendEpisodesLinks()
 	{
 		this._linkExtender.extendList(
-			document.querySelectorAll( '.episodes tbody tr td:nth-child( 1 ) a, .episodes tbody tr td:nth-child( 2 ) a:nth-child( 2 ), #episodes ul li a' )
+			DomHelper.querySelectorAll( '.episodes tbody tr td:nth-child( 1 ) a, .episodes tbody tr td:nth-child( 2 ) a:nth-child( 2 ), #episodes ul li a', document )
 		);
 	}
 
@@ -94,7 +94,9 @@ class SeriesPage extends BaseClass
 		if ( false === ( new SeasonPageDeterminator( window.location.href ) )._isSeasonPage )
 		{
 			( new Scroller() )
-				.scrollToElementTop( document.querySelector( '.codekandis-episodesNavigator.top' ) );
+				.scrollToElementTop(
+					DomHelper.querySelector( '.codekandis-episodesNavigator.top', document )
+				);
 		}
 	}
 

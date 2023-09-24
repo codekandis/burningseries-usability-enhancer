@@ -25,8 +25,8 @@ class LandingPage extends BaseClass
 	{
 		return ( container ) =>
 		{
-			return container
-				.querySelector( 'a' )
+			return DomHelper
+				.querySelector( 'a', container )
 				.textContent
 				.trim()
 				.toLowerCase();
@@ -39,8 +39,8 @@ class LandingPage extends BaseClass
 		{
 			const extractedUri = /^.+?\/.+?\/(?<uri>serie\/.+?)(?:\/.+)?$/
 				.exec(
-					container
-						.querySelector( 'a' )
+					DomHelper
+						.querySelector( 'a', container )
 						.href
 				)
 				.groups
@@ -68,7 +68,7 @@ class LandingPage extends BaseClass
 	_extendEpisodesLinks()
 	{
 		this._linkExtender.extendList(
-			document.querySelectorAll( '#newest_episodes ul li a' )
+			DomHelper.querySelectorAll( '#newest_episodes ul li a', document )
 		);
 	}
 

@@ -22,22 +22,22 @@ class AllSeriesPage extends BaseClass
 	{
 		return ( container ) =>
 		{
-			return container
-				.querySelector( 'a' )
+			return DomHelper
+				.querySelector( 'a', container )
 				.textContent
 				.trim()
 				.toLowerCase();
 		}
 	}
 
-	get _episodeUriHandler( )
+	get _episodeUriHandler()
 	{
 		return ( container ) =>
 		{
 			const extractedUri = /^.+?\/.+?\/(?<uri>serie\/.+?)(?:\/.+)?$/
 				.exec(
-					container
-						.querySelector( 'a' )
+					DomHelper
+						.querySelector( 'a', container )
 						.href
 				)
 				.groups

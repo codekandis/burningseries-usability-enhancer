@@ -65,8 +65,8 @@ class AllPages extends BaseClass
 	{
 		return ( container ) =>
 		{
-			return container
-				.querySelector( 'a' )
+			return DomHelper
+				.querySelector( 'a', container )
 				.textContent
 				.trim()
 				.toLowerCase();
@@ -77,8 +77,8 @@ class AllPages extends BaseClass
 	{
 		return ( container ) =>
 		{
-			return container
-				.querySelector( 'a' )
+			return DomHelper
+				.querySelector( 'a', container )
 				.href;
 		}
 	}

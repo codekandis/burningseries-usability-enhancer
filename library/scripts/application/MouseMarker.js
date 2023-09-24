@@ -16,7 +16,7 @@ class MouseMarker extends BaseClass
 	_initialize()
 	{
 		this._marker = DomHelper.createElementFromString( '<div>', this._id );
-		document.body.appendChild( this._marker );
+		DomHelper.appendChild( document.body, this._marker );
 
 		this._halfWidth  = Math.floor( this._marker.offsetWidth / 2 );
 		this._halfHeight = Math.floor( this._marker.offsetHeight / 2 );
