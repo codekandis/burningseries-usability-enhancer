@@ -12,50 +12,32 @@ class DenialsLoader extends BaseClass
 
 	async load()
 	{
-		const container = DomHelper.querySelector( this._selector );
+		const responseData = await this._apiController.readUserSeriesDenials();
 
-		return await new Promise(
-			( resolveHandler, rejectHandler ) =>
-			{
-				this._apiController
-					.readUserSeriesDenials()
-					.then(
-						( responseData ) =>
-						{
-							container.replaceChildren();
-
-							responseData
-								.data
-								.seriesDenials
-								.sort(
-									( series_1, series_2 ) =>
-									{
-										if ( series_1.name < series_2.name )
-										{
-											return -1;
-										}
-										if ( series_1.name > series_2.name )
-										{
-											return 1;
-										}
-										return 0;
-									}
-								)
-								.forEach(
-									( series ) =>
-									{
-										DomHelper.appendChild(
-											container,
-											DomHelper.createElementFromString(
-												String.format`<li><a href="${ 0 }">${ 1 }</a></li>`( series.uri, series.name )
-											)
-										);
-									}
-								);
-							resolveHandler( this );
-						}
-					);
-			}
-		);
+		const container     = DomHelper.querySelector( this._selector );
+		container.innerHTML = responseData
+			.data
+			.seriesDenials
+			.sort(
+				( series_1, series_2 ) =>
+				{
+					if ( series_1.name < series_2.name )
+					{
+						return -1;
+					}
+					if ( series_1.name > series_2.name )
+					{
+						return 1;
+					}
+					return 0;
+				}
+			)
+			.map(
+				( series ) =>
+				{
+					return String.format`<li><a href="${ 0 }">${ 1 }</a></li>`( series.uri, series.name )
+				}
+			)
+			.join( '' );
 	}
 }

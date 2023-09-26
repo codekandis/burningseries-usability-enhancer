@@ -13,30 +13,19 @@ class DenialsFilter extends BaseClass
 
 	async filter()
 	{
-		return await new Promise(
-			( resolveHandler, rejectHandler ) =>
-			{
-				this._apiController
-					.readUserSeriesDenialsFiltered( this._episodes.series )
-					.then(
-						( responseData ) =>
-						{
-							if ( true === this._removeIfFiltered )
-							{
-								responseData
-									.data
-									.seriesDenials
-									.forEach(
-										( series ) =>
-										{
-											this._episodes.remove( series );
-										}
-									);
-							}
-							resolveHandler( this );
-						}
-					);
-			}
-		);
+		const responseData = await this._apiController.readUserSeriesDenialsFiltered( this._episodes.series );
+
+		if ( true === this._removeIfFiltered )
+		{
+			responseData
+				.data
+				.seriesDenials
+				.forEach(
+					( series ) =>
+					{
+						this._episodes.remove( series );
+					}
+				);
+		}
 	}
 }

@@ -126,82 +126,41 @@ class AllPages extends BaseClass
 		this._menuHandler.handle();
 	}
 
+	async _load( loader, episodesSelector )
+	{
+		await loader.load();
+
+		const episodes          = new Episodes(
+			String.format`${ 0 } ul li`( episodesSelector ),
+			this._episodeNameHandler,
+			this._episodeUriHandler
+		);
+		const denialsFilter     = new DenialsFilter( episodes, this._apiController, true );
+		const denialsSwitcher   = new DenialsSwitcher( episodes, this._apiController );
+		const interestsSwitcher = new InterestsSwitcher( episodes, this._apiController );
+		const favoritesSwitcher = new FavoritesSwitcher( episodes, this._apiController );
+
+		( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher ) )
+			.addActions();
+
+		denialsSwitcher.switch();
+		interestsSwitcher.switch();
+		favoritesSwitcher.switch();
+	}
+
 	_loadDenials()
 	{
-		this._denialsLoader
-			.load()
-			.then(
-				( denialsLoader ) =>
-				{
-					const episodes          = new Episodes(
-						String.format`${ 0 } ul li`( this._menuSettings.denials.selector ),
-						this._episodeNameHandler,
-						this._episodeUriHandler
-					);
-					const denialsFilter     = new DenialsFilter( episodes, this._apiController, true );
-					const denialsSwitcher   = new DenialsSwitcher( episodes, this._apiController );
-					const interestsSwitcher = new InterestsSwitcher( episodes, this._apiController );
-					const favoritesSwitcher = new FavoritesSwitcher( episodes, this._apiController );
-
-					( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher ) )
-						.addActions();
-					denialsSwitcher.switch();
-					interestsSwitcher.switch();
-					favoritesSwitcher.switch();
-				}
-			);
+		this._load( this._denialsLoader, this._menuSettings.denials.selector );
 	}
 
 	_loadInterests()
 	{
-		this._interestsLoader
-			.load()
-			.then(
-				( interestsLoader ) =>
-				{
-					const episodes          = new Episodes(
-						String.format`${ 0 } ul li`( this._menuSettings.interests.selector ),
-						this._episodeNameHandler,
-						this._episodeUriHandler
-					);
-					const denialsFilter     = new DenialsFilter( episodes, this._apiController, true );
-					const denialsSwitcher   = new DenialsSwitcher( episodes, this._apiController );
-					const interestsSwitcher = new InterestsSwitcher( episodes, this._apiController );
-					const favoritesSwitcher = new FavoritesSwitcher( episodes, this._apiController );
-
-					( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher ) )
-						.addActions();
-					denialsSwitcher.switch();
-					interestsSwitcher.switch();
-					favoritesSwitcher.switch();
-				}
-			);
+		this._load( this._interestsLoader, this._menuSettings.interests.selector );
 	}
 
 	_loadFavorites()
 	{
-		this._favoritesLoader
-			.load()
-			.then(
-				( favoritesLoader ) =>
-				{
-					const episodes          = new Episodes(
-						String.format`${ 0 } ul li`( this._menuSettings.favorites.selector ),
-						this._episodeNameHandler,
-						this._episodeUriHandler
-					);
-					const denialsFilter     = new DenialsFilter( episodes, this._apiController, true );
-					const denialsSwitcher   = new DenialsSwitcher( episodes, this._apiController );
-					const interestsSwitcher = new InterestsSwitcher( episodes, this._apiController );
-					const favoritesSwitcher = new FavoritesSwitcher( episodes, this._apiController );
-
-					( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher ) )
-						.addActions();
-					denialsSwitcher.switch();
-					interestsSwitcher.switch();
-					favoritesSwitcher.switch();
-				}
-			);
+		this._load( this._favoritesLoader, this._menuSettings.favorites.selector );
 	}
 
 	execute()

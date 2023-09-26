@@ -12,34 +12,22 @@ class InterestsSwitcher extends BaseClass
 
 	async switch()
 	{
-		return await new Promise(
-			( resolveHandler, rejectHandler ) =>
+		this._episodes.series.forEach(
+			( series ) =>
 			{
-				this._episodes.series.forEach(
-					( series ) =>
-					{
-						this._episodes.switchInterest( series, false );
-					}
-				);
-
-				this._apiController
-					.readUserSeriesInterestsFiltered( this._episodes.series )
-					.then(
-						( responseData ) =>
-						{
-							responseData
-								.data
-								.seriesInterests
-								.forEach(
-									( series ) =>
-									{
-										this._episodes.switchInterest( series, true );
-									}
-								);
-							resolveHandler( this );
-						}
-					);
+				this._episodes.switchInterest( series, false );
 			}
 		);
+
+		const responseData = await this._apiController.readUserSeriesInterestsFiltered( this._episodes.series );
+		responseData
+			.data
+			.seriesInterests
+			.forEach(
+				( series ) =>
+				{
+					this._episodes.switchInterest( series, true );
+				}
+			);
 	}
 }
