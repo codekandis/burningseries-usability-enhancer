@@ -1,8 +1,15 @@
 @charset "utf-8";
 
+:root
+{
+	--menu-count:      5;
+	--menu-width:      900px;
+	--menu-item-width: calc(var(--menu-width) / var(--menu-count));
+}
+
 #menu > li
 {
-	width: 225px;
+	width: var(--menu-item-width);
 }
 
 #menu > li[data-menu-type='DROPDOWN']:hover ul
@@ -13,8 +20,8 @@
 #menu > li[data-menu-type='DROPDOWN'] ul
 {
 	position:     absolute;
-	width:        900px;
-	column-count: 4;
+	width:        var(--menu-width);
+	column-count: var(--menu-count);
 	column-gap:   0;
 }
 
@@ -42,10 +49,15 @@
 
 #menu > li[data-menu-type='DROPDOWN'][data-menu-purpose='SERIES_FAVORITES'] ul
 {
-	left: -225px;
+	left: calc(var(--menu-item-width) * -1);
 }
 
 #menu > li[data-menu-type='DROPDOWN'][data-menu-purpose='SERIES_INTERESTS'] ul
 {
-	left: -450px;
+	left: calc(var(--menu-item-width) * -2);
+}
+
+#menu > li[data-menu-type='DROPDOWN'][data-menu-purpose='SERIES_DENIALS'] ul
+{
+	left: calc(var(--menu-item-width) * -3);
 }

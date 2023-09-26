@@ -48,6 +48,12 @@
 	content:    '⋆';
 }
 
+[data-is-series='TRUE'][data-is-denial='TRUE'] .codekandis-button[data-action-type='DENIAL']:after
+{
+	margin-top: -2px;
+	content: '+';
+}
+
 [data-is-series='TRUE'][data-is-interest='TRUE'] .codekandis-button
 {
 	border-right-color:  var(--color-orange);
