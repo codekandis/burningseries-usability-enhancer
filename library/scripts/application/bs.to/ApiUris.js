@@ -9,10 +9,10 @@ class ApiUris extends BaseClass
 		this._relativeUris = {
 			userSeriesDenials:           '/users/{{userId}}/series-denials',
 			userSeriesDenialsFiltered:   '/users/{{userId}}/series-denials/filtered',
-			userSeriesFavorites:         '/users/{{userId}}/series-favorites',
-			userSeriesFavoritesFiltered: '/users/{{userId}}/series-favorites/filtered',
 			userSeriesInterests:         '/users/{{userId}}/series-interests',
-			userSeriesInterestsFiltered: '/users/{{userId}}/series-interests/filtered'
+			userSeriesInterestsFiltered: '/users/{{userId}}/series-interests/filtered',
+			userSeriesFavorites:         '/users/{{userId}}/series-favorites',
+			userSeriesFavoritesFiltered: '/users/{{userId}}/series-favorites/filtered'
 		};
 
 		this._baseUri = baseUri;
@@ -29,16 +29,6 @@ class ApiUris extends BaseClass
 		return this._baseUri + this._replaceUriPlaceHolders( this._relativeUris.userSeriesDenialsFiltered );
 	}
 
-	get userSeriesFavorites()
-	{
-		return this._baseUri + this._replaceUriPlaceHolders( this._relativeUris.userSeriesFavorites );
-	}
-
-	get userSeriesFavoritesFiltered()
-	{
-		return this._baseUri + this._replaceUriPlaceHolders( this._relativeUris.userSeriesFavoritesFiltered );
-	}
-
 	get userSeriesInterests()
 	{
 		return this._baseUri + this._replaceUriPlaceHolders( this._relativeUris.userSeriesInterests );
@@ -47,6 +37,16 @@ class ApiUris extends BaseClass
 	get userSeriesInterestsFiltered()
 	{
 		return this._baseUri + this._replaceUriPlaceHolders( this._relativeUris.userSeriesInterestsFiltered );
+	}
+
+	get userSeriesFavorites()
+	{
+		return this._baseUri + this._replaceUriPlaceHolders( this._relativeUris.userSeriesFavorites );
+	}
+
+	get userSeriesFavoritesFiltered()
+	{
+		return this._baseUri + this._replaceUriPlaceHolders( this._relativeUris.userSeriesFavoritesFiltered );
 	}
 
 	_replaceUriPlaceHolders( uri )

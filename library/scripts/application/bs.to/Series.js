@@ -14,10 +14,10 @@ class Series extends BaseClass
 		this._isSeries    = false;
 		this._denialId    = null;
 		this._isDenial    = false;
-		this._favoriteId  = null;
-		this._isFavorite  = false;
 		this._interestId  = null;
 		this._isInterest  = false;
+		this._favoriteId  = null;
+		this._isFavorite  = false;
 
 		this._initialize();
 	}
@@ -115,58 +115,6 @@ class Series extends BaseClass
 		}
 	}
 
-	get favoriteId()
-	{
-		return this._favoriteId;
-	}
-
-	set favoriteId( favoriteId )
-	{
-		this._favoriteId = favoriteId;
-
-		switch ( this._favoriteId )
-		{
-			case null:
-			{
-				DomHelper.setAttribute( this._container, 'data-favorite-id', SeriesFavoriteId.NULL );
-
-				return;
-			}
-			default:
-			{
-				DomHelper.setAttribute( this._container, 'data-favorite-id', favoriteId );
-
-				return;
-			}
-		}
-	}
-
-	get isFavorite()
-	{
-		return this._isFavorite;
-	}
-
-	set isFavorite( isFavorite )
-	{
-		this._isFavorite = isFavorite;
-
-		switch ( this._isFavorite )
-		{
-			case false:
-			{
-				DomHelper.setAttribute( this._container, 'data-is-favorite', SeriesIsFavorite.FALSE );
-
-				return;
-			}
-			case true:
-			{
-				DomHelper.setAttribute( this._container, 'data-is-favorite', SeriesIsFavorite.TRUE );
-
-				return;
-			}
-		}
-	}
-
 	get interestId()
 	{
 		return this._interestId;
@@ -213,6 +161,58 @@ class Series extends BaseClass
 			case true:
 			{
 				DomHelper.setAttribute( this._container, 'data-is-interest', SeriesIsInterest.TRUE );
+
+				return;
+			}
+		}
+	}
+
+	get favoriteId()
+	{
+		return this._favoriteId;
+	}
+
+	set favoriteId( favoriteId )
+	{
+		this._favoriteId = favoriteId;
+
+		switch ( this._favoriteId )
+		{
+			case null:
+			{
+				DomHelper.setAttribute( this._container, 'data-favorite-id', SeriesFavoriteId.NULL );
+
+				return;
+			}
+			default:
+			{
+				DomHelper.setAttribute( this._container, 'data-favorite-id', favoriteId );
+
+				return;
+			}
+		}
+	}
+
+	get isFavorite()
+	{
+		return this._isFavorite;
+	}
+
+	set isFavorite( isFavorite )
+	{
+		this._isFavorite = isFavorite;
+
+		switch ( this._isFavorite )
+		{
+			case false:
+			{
+				DomHelper.setAttribute( this._container, 'data-is-favorite', SeriesIsFavorite.FALSE );
+
+				return;
+			}
+			case true:
+			{
+				DomHelper.setAttribute( this._container, 'data-is-favorite', SeriesIsFavorite.TRUE );
 
 				return;
 			}

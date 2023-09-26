@@ -7,14 +7,14 @@ class ButtonActionTypes extends StaticBaseClass
 		return 'DENIAL';
 	}
 
-	static get FAVORITE()
-	{
-		return 'FAVORITE';
-	}
-
 	static get INTEREST()
 	{
 		return 'INTEREST';
+	}
+
+	static get FAVORITE()
+	{
+		return 'FAVORITE';
 	}
 
 	static get WATCH_STATE_TOGGLER()

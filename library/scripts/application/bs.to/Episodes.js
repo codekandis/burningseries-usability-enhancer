@@ -53,22 +53,6 @@ class Episodes extends BaseClass
 			);
 	}
 
-	switchFavorite( series, isFavorite )
-	{
-		const favoriteId = false === isFavorite
-			? null
-			: series.id;
-
-		this._findAllSeries( series )
-			.forEach(
-				( seriesFetched ) =>
-				{
-					seriesFetched.isFavorite = isFavorite;
-					seriesFetched.favoriteId = favoriteId;
-				}
-			);
-	}
-
 	switchInterest( series, isInterest )
 	{
 		const interestId = false === isInterest
@@ -81,6 +65,22 @@ class Episodes extends BaseClass
 				{
 					seriesFetched.isInterest = isInterest;
 					seriesFetched.interestId = interestId;
+				}
+			);
+	}
+
+	switchFavorite( series, isFavorite )
+	{
+		const favoriteId = false === isFavorite
+			? null
+			: series.id;
+
+		this._findAllSeries( series )
+			.forEach(
+				( seriesFetched ) =>
+				{
+					seriesFetched.isFavorite = isFavorite;
+					seriesFetched.favoriteId = favoriteId;
 				}
 			);
 	}

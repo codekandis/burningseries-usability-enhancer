@@ -13,12 +13,12 @@ class AllPages extends BaseClass
 			this._settings.get( 'apiKey' )
 		);
 		this._menuSettings    = {
-			favorites: {
-				selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_FAVORITES ),
-				activatorSelector: '> a'
-			},
 			interests: {
 				selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_INTERESTS ),
+				activatorSelector: '> a'
+			},
+			favorites: {
+				selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_FAVORITES ),
 				activatorSelector: '> a'
 			}
 		};
@@ -52,12 +52,12 @@ class AllPages extends BaseClass
 			]
 		);
 		this._menuHandler     = new MenuHandler( this._menuSettings );
-		this._favoritesLoader = new FavoritesLoader(
-			String.format`${ 0 } ul`( this._menuSettings.favorites.selector ),
-			this._apiController
-		);
 		this._interestsLoader = new InterestsLoader(
 			String.format`${ 0 } ul`( this._menuSettings.interests.selector ),
+			this._apiController
+		);
+		this._favoritesLoader = new FavoritesLoader(
+			String.format`${ 0 } ul`( this._menuSettings.favorites.selector ),
 			this._apiController
 		);
 	}
@@ -109,30 +109,6 @@ class AllPages extends BaseClass
 		this._menuHandler.handle();
 	}
 
-	_loadFavorites()
-	{
-		this._favoritesLoader
-			.load()
-			.then(
-				( favoritesLoader ) =>
-				{
-					const episodes          = new Episodes(
-						String.format`${ 0 } ul li`( this._menuSettings.favorites.selector ),
-						this._episodeNameHandler,
-						this._episodeUriHandler
-					);
-					const denialsFilter     = new DenialsFilter( episodes, this._apiController, true );
-					const favoritesSwitcher = new FavoritesSwitcher( episodes, this._apiController );
-					const interestsSwitcher = new InterestsSwitcher( episodes, this._apiController );
-
-					( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, favoritesSwitcher, interestsSwitcher ) )
-						.addActions();
-					favoritesSwitcher.switch();
-					interestsSwitcher.switch();
-				}
-			);
-	}
-
 	_loadInterests()
 	{
 		this._interestsLoader
@@ -146,13 +122,37 @@ class AllPages extends BaseClass
 						this._episodeUriHandler
 					);
 					const denialsFilter     = new DenialsFilter( episodes, this._apiController, true );
-					const favoritesSwitcher = new FavoritesSwitcher( episodes, this._apiController );
 					const interestsSwitcher = new InterestsSwitcher( episodes, this._apiController );
+					const favoritesSwitcher = new FavoritesSwitcher( episodes, this._apiController );
 
-					( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, favoritesSwitcher, interestsSwitcher ) )
+					( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, interestsSwitcher, favoritesSwitcher ) )
 						.addActions();
-					favoritesSwitcher.switch();
 					interestsSwitcher.switch();
+					favoritesSwitcher.switch();
+				}
+			);
+	}
+
+	_loadFavorites()
+	{
+		this._favoritesLoader
+			.load()
+			.then(
+				( favoritesLoader ) =>
+				{
+					const episodes          = new Episodes(
+						String.format`${ 0 } ul li`( this._menuSettings.favorites.selector ),
+						this._episodeNameHandler,
+						this._episodeUriHandler
+					);
+					const denialsFilter     = new DenialsFilter( episodes, this._apiController, true );
+					const interestsSwitcher = new InterestsSwitcher( episodes, this._apiController );
+					const favoritesSwitcher = new FavoritesSwitcher( episodes, this._apiController );
+
+					( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, interestsSwitcher, favoritesSwitcher ) )
+						.addActions();
+					interestsSwitcher.switch();
+					favoritesSwitcher.switch();
 				}
 			);
 	}
@@ -164,7 +164,7 @@ class AllPages extends BaseClass
 		this._removeMenus();
 		this._addMenus();
 		this._handleMenus();
-		this._loadFavorites();
 		this._loadInterests();
+		this._loadFavorites();
 	}
 }
