@@ -1,6 +1,7 @@
 'use strict';
 
 DomHelper.addEventHandler(
+	document,
 	DocumentDomEvents.DOM_CONTENT_LOADED,
 	( event ) =>
 	{
