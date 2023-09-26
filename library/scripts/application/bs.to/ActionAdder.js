@@ -2,7 +2,7 @@
 
 class ActionAdder extends BaseClass
 {
-	constructor( episodes, apiController, actionPosition, denialsFilter, favoritesSwitcher, interestsSwitcher )
+	constructor( episodes, apiController, actionPosition, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher )
 	{
 		super();
 
@@ -11,36 +11,25 @@ class ActionAdder extends BaseClass
 		this._apiController           = apiController;
 		this._actionPosition          = actionPosition;
 		this._denialsFilter           = denialsFilter;
-		this._favoritesSwitcher       = favoritesSwitcher;
+		this._denialsSwitcher         = denialsSwitcher;
 		this._interestsSwitcher       = interestsSwitcher;
+		this._favoritesSwitcher       = favoritesSwitcher;
 	}
 
 	_denySeries( series )
 	{
-		this
-			._apiController
-			.addUserSeriesDenial( series )
-			.then(
-				( responseData ) =>
-				{
-					this._denialsFilter.filter();
-				}
-			);
-	}
-
-	_favorSeries( series )
-	{
-		switch ( series.isFavorite )
+		switch ( series.isDenial )
 		{
 			case false:
 			{
 				this
 					._apiController
-					.addUserSeriesFavorite( series )
+					.addUserSeriesDenial( series )
 					.then(
 						( responseData ) =>
 						{
-							this._favoritesSwitcher.switch();
+							this._denialsFilter.filter();
+							this._denialsSwitcher.switch();
 						}
 					);
 
@@ -50,11 +39,11 @@ class ActionAdder extends BaseClass
 			{
 				this
 					._apiController
-					.deleteUserSeriesFavorite( series )
+					.deleteUserSeriesDenial( series )
 					.then(
 						( responseData ) =>
 						{
-							this._favoritesSwitcher.switch();
+							this._denialsSwitcher.switch();
 						}
 					);
 
@@ -98,6 +87,41 @@ class ActionAdder extends BaseClass
 		}
 	}
 
+	_favorSeries( series )
+	{
+		switch ( series.isFavorite )
+		{
+			case false:
+			{
+				this
+					._apiController
+					.addUserSeriesFavorite( series )
+					.then(
+						( responseData ) =>
+						{
+							this._favoritesSwitcher.switch();
+						}
+					);
+
+				return;
+			}
+			case true:
+			{
+				this
+					._apiController
+					.deleteUserSeriesFavorite( series )
+					.then(
+						( responseData ) =>
+						{
+							this._favoritesSwitcher.switch();
+						}
+					);
+
+				return;
+			}
+		}
+	}
+
 	_invokeAction( button, series )
 	{
 		switch ( this._currentButtonActionType )
@@ -108,15 +132,15 @@ class ActionAdder extends BaseClass
 
 				return;
 			}
-			case ButtonActionTypes.FAVORITE:
-			{
-				this._favorSeries( series );
-
-				return;
-			}
 			case ButtonActionTypes.INTEREST:
 			{
 				this._interestSeries( series );
+
+				return;
+			}
+			case ButtonActionTypes.FAVORITE:
+			{
+				this._favorSeries( series );
 
 				return;
 			}
@@ -129,13 +153,13 @@ class ActionAdder extends BaseClass
 		{
 			this._currentButtonActionType = ButtonActionTypes.DENIAL;
 		}
-		if ( true === modifierKeys.ctrl && true === modifierKeys.shift && false === modifierKeys.alt )
-		{
-			this._currentButtonActionType = ButtonActionTypes.FAVORITE;
-		}
 		if ( false === modifierKeys.ctrl && true === modifierKeys.shift && false === modifierKeys.alt )
 		{
 			this._currentButtonActionType = ButtonActionTypes.INTEREST;
+		}
+		if ( true === modifierKeys.ctrl && true === modifierKeys.shift && false === modifierKeys.alt )
+		{
+			this._currentButtonActionType = ButtonActionTypes.FAVORITE;
 		}
 
 		DomHelper.setAttribute( button, 'data-action-type', this._currentButtonActionType );

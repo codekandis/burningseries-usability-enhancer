@@ -42,7 +42,7 @@ class Episodes extends BaseClass
 	_determineEpisodes()
 	{
 		DomHelper
-			.querySelectorAll( this._selector, document )
+			.querySelectorAll( this._selector, document, false )
 			.forEach(
 				( series ) =>
 				{
@@ -53,9 +53,9 @@ class Episodes extends BaseClass
 			);
 	}
 
-	switchFavorite( series, isFavorite )
+	switchDenial( series, isDenial )
 	{
-		const favoriteId = false === isFavorite
+		const denialId = false === isDenial
 			? null
 			: series.id;
 
@@ -63,8 +63,8 @@ class Episodes extends BaseClass
 			.forEach(
 				( seriesFetched ) =>
 				{
-					seriesFetched.isFavorite = isFavorite;
-					seriesFetched.favoriteId = favoriteId;
+					seriesFetched.isDenial = isDenial;
+					seriesFetched.denialId = denialId;
 				}
 			);
 	}
@@ -81,6 +81,22 @@ class Episodes extends BaseClass
 				{
 					seriesFetched.isInterest = isInterest;
 					seriesFetched.interestId = interestId;
+				}
+			);
+	}
+
+	switchFavorite( series, isFavorite )
+	{
+		const favoriteId = false === isFavorite
+			? null
+			: series.id;
+
+		this._findAllSeries( series )
+			.forEach(
+				( seriesFetched ) =>
+				{
+					seriesFetched.isFavorite = isFavorite;
+					seriesFetched.favoriteId = favoriteId;
 				}
 			);
 	}

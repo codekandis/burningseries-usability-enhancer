@@ -14,8 +14,9 @@ class AllSeriesPage extends BaseClass
 		);
 		this._episodes          = new Episodes( '#seriesContainer ul li', this._episodeNameHandler, this._episodeUriHandler );
 		this._denialsFilter     = new DenialsFilter( this._episodes, this._apiController, true );
-		this._favoritesSwitcher = new FavoritesSwitcher( this._episodes, this._apiController );
+		this._denialsSwitcher   = new DenialsSwitcher( this._episodes, this._apiController );
 		this._interestsSwitcher = new InterestsSwitcher( this._episodes, this._apiController );
+		this._favoritesSwitcher = new FavoritesSwitcher( this._episodes, this._apiController );
 	}
 
 	get _episodeNameHandler()
@@ -52,9 +53,9 @@ class AllSeriesPage extends BaseClass
 		return this._denialsFilter.filter();
 	}
 
-	_switchFavorites()
+	_switchDenials()
 	{
-		this._favoritesSwitcher.switch();
+		this._denialsSwitcher.switch();
 	}
 
 	_switchInterests()
@@ -62,9 +63,14 @@ class AllSeriesPage extends BaseClass
 		this._interestsSwitcher.switch();
 	}
 
-	_addActions( denialsFilter, favoritesSwitcher, interestsSwitcher )
+	_switchFavorites()
 	{
-		( new ActionAdder( this._episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, favoritesSwitcher, interestsSwitcher ) )
+		this._favoritesSwitcher.switch();
+	}
+
+	_addActions( denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher )
+	{
+		( new ActionAdder( this._episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher ) )
 			.addActions();
 	}
 
@@ -75,9 +81,10 @@ class AllSeriesPage extends BaseClass
 			.then(
 				( denialsFilter ) =>
 				{
-					this._addActions( denialsFilter, this._favoritesSwitcher, this._interestsSwitcher );
-					this._switchFavorites();
+					this._addActions( denialsFilter, this._denialsSwitcher, this._interestsSwitcher, this._favoritesSwitcher );
+					this._switchDenials();
 					this._switchInterests();
+					this._switchFavorites();
 				}
 			);
 	}

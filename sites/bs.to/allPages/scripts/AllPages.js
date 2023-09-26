@@ -13,12 +13,16 @@ class AllPages extends BaseClass
 			this._settings.get( 'apiKey' )
 		);
 		this._menuSettings    = {
+			interests: {
+				selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_INTERESTS ),
+				activatorSelector: '> a'
+			},
 			favorites: {
 				selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_FAVORITES ),
 				activatorSelector: '> a'
 			},
-			interests: {
-				selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_INTERESTS ),
+			denials:   {
+				selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_DENIALS ),
 				activatorSelector: '> a'
 			}
 		};
@@ -48,16 +52,29 @@ class AllPages extends BaseClass
 					},
 					targetSelector: '#menu > li:nth-child( 2 )',
 					position:       DomInsertPositions.AFTER
+				},
+				{
+					name:           'Denials',
+					dataAttributes: {
+						'menu-type':    MenuTypes.DROPDOWN,
+						'menu-purpose': MenuPurposes.SERIES_DENIALS
+					},
+					targetSelector: '#menu > li:nth-child( 3 )',
+					position:       DomInsertPositions.AFTER
 				}
 			]
 		);
 		this._menuHandler     = new MenuHandler( this._menuSettings );
-		this._favoritesLoader = new FavoritesLoader(
-			String.format`${ 0 } ul`( this._menuSettings.favorites.selector ),
+		this._denialsLoader   = new DenialsLoader(
+			String.format`${ 0 } ul`( this._menuSettings.denials.selector ),
 			this._apiController
 		);
 		this._interestsLoader = new InterestsLoader(
 			String.format`${ 0 } ul`( this._menuSettings.interests.selector ),
+			this._apiController
+		);
+		this._favoritesLoader = new FavoritesLoader(
+			String.format`${ 0 } ul`( this._menuSettings.favorites.selector ),
 			this._apiController
 		);
 	}
@@ -109,26 +126,28 @@ class AllPages extends BaseClass
 		this._menuHandler.handle();
 	}
 
-	_loadFavorites()
+	_loadDenials()
 	{
-		this._favoritesLoader
+		this._denialsLoader
 			.load()
 			.then(
-				( favoritesLoader ) =>
+				( denialsLoader ) =>
 				{
 					const episodes          = new Episodes(
-						String.format`${ 0 } ul li`( this._menuSettings.favorites.selector ),
+						String.format`${ 0 } ul li`( this._menuSettings.denials.selector ),
 						this._episodeNameHandler,
 						this._episodeUriHandler
 					);
 					const denialsFilter     = new DenialsFilter( episodes, this._apiController, true );
-					const favoritesSwitcher = new FavoritesSwitcher( episodes, this._apiController );
+					const denialsSwitcher   = new DenialsSwitcher( episodes, this._apiController );
 					const interestsSwitcher = new InterestsSwitcher( episodes, this._apiController );
+					const favoritesSwitcher = new FavoritesSwitcher( episodes, this._apiController );
 
-					( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, favoritesSwitcher, interestsSwitcher ) )
+					( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher ) )
 						.addActions();
-					favoritesSwitcher.switch();
+					denialsSwitcher.switch();
 					interestsSwitcher.switch();
+					favoritesSwitcher.switch();
 				}
 			);
 	}
@@ -146,13 +165,41 @@ class AllPages extends BaseClass
 						this._episodeUriHandler
 					);
 					const denialsFilter     = new DenialsFilter( episodes, this._apiController, true );
-					const favoritesSwitcher = new FavoritesSwitcher( episodes, this._apiController );
+					const denialsSwitcher   = new DenialsSwitcher( episodes, this._apiController );
 					const interestsSwitcher = new InterestsSwitcher( episodes, this._apiController );
+					const favoritesSwitcher = new FavoritesSwitcher( episodes, this._apiController );
 
-					( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, favoritesSwitcher, interestsSwitcher ) )
+					( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher ) )
 						.addActions();
-					favoritesSwitcher.switch();
+					denialsSwitcher.switch();
 					interestsSwitcher.switch();
+					favoritesSwitcher.switch();
+				}
+			);
+	}
+
+	_loadFavorites()
+	{
+		this._favoritesLoader
+			.load()
+			.then(
+				( favoritesLoader ) =>
+				{
+					const episodes          = new Episodes(
+						String.format`${ 0 } ul li`( this._menuSettings.favorites.selector ),
+						this._episodeNameHandler,
+						this._episodeUriHandler
+					);
+					const denialsFilter     = new DenialsFilter( episodes, this._apiController, true );
+					const denialsSwitcher   = new DenialsSwitcher( episodes, this._apiController );
+					const interestsSwitcher = new InterestsSwitcher( episodes, this._apiController );
+					const favoritesSwitcher = new FavoritesSwitcher( episodes, this._apiController );
+
+					( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher ) )
+						.addActions();
+					denialsSwitcher.switch();
+					interestsSwitcher.switch();
+					favoritesSwitcher.switch();
 				}
 			);
 	}
@@ -164,7 +211,8 @@ class AllPages extends BaseClass
 		this._removeMenus();
 		this._addMenus();
 		this._handleMenus();
-		this._loadFavorites();
+		this._loadDenials();
 		this._loadInterests();
+		this._loadFavorites();
 	}
 }

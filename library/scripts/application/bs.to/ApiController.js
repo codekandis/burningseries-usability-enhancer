@@ -96,76 +96,6 @@ class ApiController extends BaseClass
 			.json();
 	}
 
-	async readUserSeriesFavorites()
-	{
-		return (
-			await this._ajaxController.get(
-				this._apiUris.userSeriesFavorites,
-				this._getHeaders()
-			)
-		)
-			.json();
-	}
-
-	async readUserSeriesFavoritesFiltered( series )
-	{
-		const requestData = this._createJsonData(
-			{
-				series: series
-					        .map(
-						        ( seriesFetched ) =>
-						        {
-							        return {
-								        name: seriesFetched.name
-							        }
-						        }
-					        )
-			}
-		);
-
-		return (
-			await this._ajaxController.put(
-				this._apiUris.userSeriesFavoritesFiltered,
-				this._getHeaders(),
-				requestData
-			)
-		)
-			.json();
-	}
-
-	async addUserSeriesFavorite( series )
-	{
-		const requestData = this._createJsonData(
-			{
-				seriesFavorite:
-					{
-						name: series.name,
-						uri:  series.uri
-					}
-			}
-		);
-
-		return (
-			await this._ajaxController.put(
-				this._apiUris.userSeriesFavorites,
-				this._getHeaders(),
-				requestData
-			)
-		)
-			.json();
-	}
-
-	async deleteUserSeriesFavorite( series )
-	{
-		return (
-			await this._ajaxController.delete(
-				this._apiUris.userSeriesFavorites + '/' + series.favoriteId,
-				this._getHeaders()
-			)
-		)
-			.json();
-	}
-
 	async readUserSeriesInterests()
 	{
 		return (
@@ -230,6 +160,76 @@ class ApiController extends BaseClass
 		return (
 			await this._ajaxController.delete(
 				this._apiUris.userSeriesInterests + '/' + series.interestId,
+				this._getHeaders()
+			)
+		)
+			.json();
+	}
+
+	async readUserSeriesFavorites()
+	{
+		return (
+			await this._ajaxController.get(
+				this._apiUris.userSeriesFavorites,
+				this._getHeaders()
+			)
+		)
+			.json();
+	}
+
+	async readUserSeriesFavoritesFiltered( series )
+	{
+		const requestData = this._createJsonData(
+			{
+				series: series
+					        .map(
+						        ( seriesFetched ) =>
+						        {
+							        return {
+								        name: seriesFetched.name
+							        }
+						        }
+					        )
+			}
+		);
+
+		return (
+			await this._ajaxController.put(
+				this._apiUris.userSeriesFavoritesFiltered,
+				this._getHeaders(),
+				requestData
+			)
+		)
+			.json();
+	}
+
+	async addUserSeriesFavorite( series )
+	{
+		const requestData = this._createJsonData(
+			{
+				seriesFavorite:
+					{
+						name: series.name,
+						uri:  series.uri
+					}
+			}
+		);
+
+		return (
+			await this._ajaxController.put(
+				this._apiUris.userSeriesFavorites,
+				this._getHeaders(),
+				requestData
+			)
+		)
+			.json();
+	}
+
+	async deleteUserSeriesFavorite( series )
+	{
+		return (
+			await this._ajaxController.delete(
+				this._apiUris.userSeriesFavorites + '/' + series.favoriteId,
 				this._getHeaders()
 			)
 		)
