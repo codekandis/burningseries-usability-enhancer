@@ -2,7 +2,7 @@
 
 class ActionAdder extends BaseClass
 {
-	constructor( episodes, apiController, actionPosition, denialsFilter, interestsSwitcher, favoritesSwitcher )
+	constructor( episodes, apiController, actionPosition, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher )
 	{
 		super();
 
@@ -11,21 +11,45 @@ class ActionAdder extends BaseClass
 		this._apiController           = apiController;
 		this._actionPosition          = actionPosition;
 		this._denialsFilter           = denialsFilter;
+		this._denialsSwitcher         = denialsSwitcher;
 		this._interestsSwitcher       = interestsSwitcher;
 		this._favoritesSwitcher       = favoritesSwitcher;
 	}
 
 	_denySeries( series )
 	{
-		this
-			._apiController
-			.addUserSeriesDenial( series )
-			.then(
-				( responseData ) =>
-				{
-					this._denialsFilter.filter();
-				}
-			);
+		switch ( series.isDenial )
+		{
+			case false:
+			{
+				this
+					._apiController
+					.addUserSeriesDenial( series )
+					.then(
+						( responseData ) =>
+						{
+							this._denialsFilter.filter();
+							this._denialsSwitcher.switch();
+						}
+					);
+
+				return;
+			}
+			case true:
+			{
+				this
+					._apiController
+					.deleteUserSeriesDenial( series )
+					.then(
+						( responseData ) =>
+						{
+							this._denialsSwitcher.switch();
+						}
+					);
+
+				return;
+			}
+		}
 	}
 
 	_interestSeries( series )
