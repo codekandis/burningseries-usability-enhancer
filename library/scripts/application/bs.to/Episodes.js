@@ -42,7 +42,7 @@ class Episodes extends BaseClass
 	_determineEpisodes()
 	{
 		DomHelper
-			.querySelectorAll( this._selector, document )
+			.querySelectorAll( this._selector, document, false )
 			.forEach(
 				( series ) =>
 				{
