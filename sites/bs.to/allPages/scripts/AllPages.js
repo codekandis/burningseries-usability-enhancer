@@ -122,11 +122,13 @@ class AllPages extends BaseClass
 						this._episodeUriHandler
 					);
 					const denialsFilter     = new DenialsFilter( episodes, this._apiController, true );
+					const denialsSwitcher   = new DenialsSwitcher( episodes, this._apiController );
 					const interestsSwitcher = new InterestsSwitcher( episodes, this._apiController );
 					const favoritesSwitcher = new FavoritesSwitcher( episodes, this._apiController );
 
-					( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, interestsSwitcher, favoritesSwitcher ) )
+					( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher ) )
 						.addActions();
+					denialsSwitcher.switch();
 					interestsSwitcher.switch();
 					favoritesSwitcher.switch();
 				}
@@ -146,11 +148,13 @@ class AllPages extends BaseClass
 						this._episodeUriHandler
 					);
 					const denialsFilter     = new DenialsFilter( episodes, this._apiController, true );
+					const denialsSwitcher   = new DenialsSwitcher( episodes, this._apiController );
 					const interestsSwitcher = new InterestsSwitcher( episodes, this._apiController );
 					const favoritesSwitcher = new FavoritesSwitcher( episodes, this._apiController );
 
-					( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, interestsSwitcher, favoritesSwitcher ) )
+					( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher ) )
 						.addActions();
+					denialsSwitcher.switch();
 					interestsSwitcher.switch();
 					favoritesSwitcher.switch();
 				}
