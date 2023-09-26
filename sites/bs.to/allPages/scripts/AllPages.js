@@ -15,15 +15,18 @@ class AllPages extends BaseClass
 		this._menuSettings    = {
 			interests: {
 				selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_INTERESTS ),
-				activatorSelector: '> a'
+				activatorSelector: '> a',
+				loader:            this._loadInterests.bind( this )
 			},
 			favorites: {
 				selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_FAVORITES ),
-				activatorSelector: '> a'
+				activatorSelector: '> a',
+				loader:            this._loadFavorites.bind( this )
 			},
 			denials:   {
 				selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_DENIALS ),
-				activatorSelector: '> a'
+				activatorSelector: '> a',
+				loader:            this._loadDenials.bind( this )
 			}
 		};
 		this._mouseMarker     = new MouseMarker();
@@ -170,8 +173,5 @@ class AllPages extends BaseClass
 		this._removeMenus();
 		this._addMenus();
 		this._handleMenus();
-		this._loadDenials();
-		this._loadInterests();
-		this._loadFavorites();
 	}
 }
