@@ -53,6 +53,22 @@ class Episodes extends BaseClass
 			);
 	}
 
+	switchDenial( series, isDenial )
+	{
+		const denialId = false === isDenial
+			? null
+			: series.id;
+
+		this._findAllSeries( series )
+			.forEach(
+				( seriesFetched ) =>
+				{
+					seriesFetched.isDenial = isDenial;
+					seriesFetched.denialId = denialId;
+				}
+			);
+	}
+
 	switchInterest( series, isInterest )
 	{
 		const interestId = false === isInterest
