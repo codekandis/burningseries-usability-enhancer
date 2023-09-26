@@ -12,34 +12,22 @@ class DenialsSwitcher extends BaseClass
 
 	async switch()
 	{
-		return await new Promise(
-			( resolveHandler, rejectHandler ) =>
+		this._episodes.series.forEach(
+			( series ) =>
 			{
-				this._episodes.series.forEach(
-					( series ) =>
-					{
-						this._episodes.switchDenial( series, false );
-					}
-				);
-
-				this._apiController
-					.readUserSeriesDenialsFiltered( this._episodes.series )
-					.then(
-						( responseData ) =>
-						{
-							responseData
-								.data
-								.seriesDenials
-								.forEach(
-									( series ) =>
-									{
-										this._episodes.switchDenial( series, true );
-									}
-								);
-							resolveHandler( this );
-						}
-					);
+				this._episodes.switchDenial( series, false );
 			}
 		);
+
+		const responseData = await this._apiController.readUserSeriesDenialsFiltered( this._episodes.series );
+		responseData
+			.data
+			.seriesDenials
+			.forEach(
+				( series ) =>
+				{
+					this._episodes.switchDenial( series, true );
+				}
+			);
 	}
 }

@@ -12,34 +12,22 @@ class FavoritesSwitcher extends BaseClass
 
 	async switch()
 	{
-		return await new Promise(
-			( resolveHandler, rejectHandler ) =>
+		this._episodes.series.forEach(
+			( series ) =>
 			{
-				this._episodes.series.forEach(
-					( series ) =>
-					{
-						this._episodes.switchFavorite( series, false );
-					}
-				);
-
-				this._apiController
-					.readUserSeriesFavoritesFiltered( this._episodes.series )
-					.then(
-						( responseData ) =>
-						{
-							responseData
-								.data
-								.seriesFavorites
-								.forEach(
-									( series ) =>
-									{
-										this._episodes.switchFavorite( series, true );
-									}
-								);
-							resolveHandler( this );
-						}
-					);
+				this._episodes.switchFavorite( series, false );
 			}
 		);
+
+		const responseData = await this._apiController.readUserSeriesFavoritesFiltered( this._episodes.series );
+		responseData
+			.data
+			.seriesFavorites
+			.forEach(
+				( series ) =>
+				{
+					this._episodes.switchFavorite( series, true );
+				}
+			);
 	}
 }

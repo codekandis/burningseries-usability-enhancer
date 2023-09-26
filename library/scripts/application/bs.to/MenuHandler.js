@@ -15,6 +15,7 @@ class MenuHandler extends BaseClass
 		const menu      = DomHelper.querySelector( menuSetting.selector, document );
 		const menuState = {
 			menu:          menu,
+			loader:        menuSetting.loader,
 			menuActivator: DomHelper.querySelector(
 				String.format`${ 0 } ${ 1 }`( menuSetting.selector, menuSetting.activatorSelector ),
 				document
@@ -40,18 +41,21 @@ class MenuHandler extends BaseClass
 							{
 								menuStateFetched.isVisible             = false;
 								menuStateFetched.subMenu.style.display = 'none';
+								menuStateFetched.subMenu.innerHTML     = '';
 							}
 						}
 					);
 
 					menuState.isVisible             = true;
 					menuState.subMenu.style.display = 'block';
+					menuState.loader();
 
 					return;
 				}
 
 				menuState.isVisible             = false;
 				menuState.subMenu.style.display = 'none';
+				menuState.subMenu.innerHTML     = '';
 			}
 		);
 	}
