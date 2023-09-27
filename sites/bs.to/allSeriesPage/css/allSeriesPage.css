@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-#seriesContainer .codekandis-button
+#seriesContainer [data-control-type='ACTION']
 {
 	margin-top:  4px;
 	margin-left: -15px;

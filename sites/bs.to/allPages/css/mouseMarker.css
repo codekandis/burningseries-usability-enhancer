@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-#codekandis-mouseMarker
+[data-control-type='MOUSE_MARKER']
 {
 	position:         absolute;
 	display:          block;

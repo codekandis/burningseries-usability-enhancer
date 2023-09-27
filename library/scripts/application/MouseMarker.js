@@ -6,7 +6,6 @@ class MouseMarker extends BaseClass
 	{
 		super();
 
-		this._id         = 'codekandis-mouseMarker';
 		this._halfWidth  = null;
 		this._halfHeight = null;
 		this._marker     = null;
@@ -15,7 +14,7 @@ class MouseMarker extends BaseClass
 
 	_initialize()
 	{
-		this._marker = DomHelper.createElementFromString( '<div>', this._id );
+		this._marker = DomHelper.createElementFromString( '<div data-control-type="MOUSE_MARKER">' );
 		DomHelper.appendChild( document.body, this._marker );
 
 		this._halfWidth  = Math.floor( this._marker.offsetWidth / 2 );

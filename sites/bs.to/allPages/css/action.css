@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-.codekandis-button
+[data-control-type='ACTION']
 {
 	box-sizing:       border-box;
 	display:          block;
@@ -17,62 +17,62 @@
 	cursor:           pointer;
 }
 
-.codekandis-button:after
+[data-control-type='ACTION']:after
 {
 	display: block;
 }
 
-.codekandis-button:hover
+[data-control-type='ACTION']:hover
 {
 	background-color: var(--color-orange);
 }
 
-.codekandis-button[data-action-type='DENIAL']:after
+[data-control-type='ACTION'][data-action-type='DENIAL']:after
 {
 	margin-top: -3px;
 	font-size:  8pt;
 	content:    '-';
 }
 
-.codekandis-button[data-action-type='INTEREST']:after
+[data-control-type='ACTION'][data-action-type='INTEREST']:after
 {
 	margin-top: -1px;
 	font-size:  7pt;
 	content:    '?';
 }
 
-.codekandis-button[data-action-type='FAVORITE']:after
+[data-control-type='ACTION'][data-action-type='FAVORITE']:after
 {
 	margin-top: -5px;
 	font-size:  12pt;
 	content:    '⋆';
 }
 
-[data-is-series='TRUE'][data-is-denial='TRUE'] .codekandis-button[data-action-type='DENIAL']:after
+[data-is-series='TRUE'][data-is-denial='TRUE'] [data-control-type='ACTION'][data-action-type='DENIAL']:after
 {
 	margin-top: -2px;
-	content: '+';
+	content:    '+';
 }
 
-[data-is-series='TRUE'][data-is-interest='TRUE'] .codekandis-button
+[data-is-series='TRUE'][data-is-interest='TRUE'] [data-control-type='ACTION']
 {
 	border-right-color:  var(--color-orange);
 	border-bottom-color: var(--color-orange);
 }
 
-[data-is-series='TRUE'][data-is-interest='TRUE'] .codekandis-button:hover
+[data-is-series='TRUE'][data-is-interest='TRUE'] [data-control-type='ACTION']:hover
 {
 	border-right-color:  var(--color-blue);
 	border-bottom-color: var(--color-blue);
 }
 
-[data-is-series='TRUE'][data-is-favorite='TRUE'] .codekandis-button
+[data-is-series='TRUE'][data-is-favorite='TRUE'] [data-control-type='ACTION']
 {
 	border-left-color: var(--color-orange);
 	border-top-color:  var(--color-orange);
 }
 
-[data-is-series='TRUE'][data-is-favorite='TRUE'] .codekandis-button:hover
+[data-is-series='TRUE'][data-is-favorite='TRUE'] [data-control-type='ACTION']:hover
 {
 	border-left-color: var(--color-blue);
 	border-top-color:  var(--color-blue);

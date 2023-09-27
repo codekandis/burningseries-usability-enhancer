@@ -20,43 +20,43 @@
 	margin-top: 0;
 }
 
-#sp_left .codekandis-button
+#sp_left [data-control-type='ACTION']
 {
 	margin-left: -15px;
 	margin-top:  11px;
 }
 
-.serie .codekandis-episodesNavigator
+.serie [data-control-type='EPISODES_NAVIGATOR']
 {
 	text-align: right;
 }
 
-.serie .codekandis-episodesNavigator.top
+.serie [data-control-type='EPISODES_NAVIGATOR'].top
 {
 	margin-top: 10px;
 }
 
-.serie .codekandis-episodesNavigator ul
+.serie [data-control-type='EPISODES_NAVIGATOR'] ul
 {
 	display: inline-block;
 }
 
-.serie .codekandis-episodesNavigator ul li
+.serie [data-control-type='EPISODES_NAVIGATOR'] ul li
 {
 	margin-left: 4px !important;
 }
 
-.serie .codekandis-episodesNavigator ul li[data-action-type='WATCH_STATE_TOGGLER']
+.serie [data-control-type='EPISODES_NAVIGATOR'] ul li[data-action-type='WATCH_STATE_TOGGLER']
 {
 	width: 34px !important;
 }
 
-.serie .codekandis-episodesNavigator ul li[data-action-type='EPISODE_NAVIGATOR']
+.serie [data-control-type='EPISODES_NAVIGATOR'] ul li[data-action-type='EPISODE_NAVIGATOR']
 {
 	width: 100px !important;
 }
 
-.serie .codekandis-episodesNavigator ul li.disabled a:hover
+.serie [data-control-type='EPISODES_NAVIGATOR'] ul li.disabled a:hover
 {
 	background-color: transparent !important;
 	cursor:           default;

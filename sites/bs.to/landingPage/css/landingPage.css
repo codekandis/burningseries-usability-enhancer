@@ -11,13 +11,13 @@
 	width:   415px;
 }
 
-#newest_episodes .codekandis-button
+#newest_episodes [data-control-type='ACTION']
 {
 	margin-left: -16px;
 	margin-top:  3px;
 }
 
-#newest_series .codekandis-button
+#newest_series [data-control-type='ACTION']
 {
 	margin-left: -15px;
 	margin-top:  4px;

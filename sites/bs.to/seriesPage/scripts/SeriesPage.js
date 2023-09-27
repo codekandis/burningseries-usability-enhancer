@@ -101,7 +101,7 @@ class SeriesPage extends BaseClass
 		{
 			( new Scroller() )
 				.scrollToElementTop(
-					DomHelper.querySelector( '.codekandis-episodesNavigator.top', document )
+					DomHelper.querySelector( '[data-control-type="EPISODES_NAVIGATOR"]', document )
 				);
 		}
 	}

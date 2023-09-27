@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-#usrCnt .codekandis-button
+#usrCnt [data-control-type='ACTION']
 {
 	margin-top:  4px;
 	margin-left: -16px;

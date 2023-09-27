@@ -204,9 +204,7 @@ class ActionAdder extends BaseClass
 				( series ) =>
 				{
 					const button = DomHelper.createElementFromString(
-						String.format`<button data-action-type="${ 0 }"/>`( this._currentButtonActionType ),
-						null,
-						'codekandis-button'
+						String.format`<button data-control-type="ACTION" data-action-type="${ 0 }"/>`( this._currentButtonActionType )
 					);
 					DomHelper.addEventHandlers(
 						button,

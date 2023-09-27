@@ -20,13 +20,13 @@ class EpisodesController extends BaseClass
 			{
 				selector:        '.serie .episode',
 				insertionMethod: DomHelper.insertAfter,
-				container:       DomHelper.createElementFromString( '<div></div>', null, 'codekandis-episodesNavigator top frame' ),
+				container:       DomHelper.createElementFromString( '<div data-control-type="EPISODES_NAVIGATOR"></div>', null, 'top frame' ),
 				buttons:         DomHelper.createElementFromString( '<ul></ul>' )
 			},
 			{
 				selector:        '.serie .hoster-tabs.bottom',
 				insertionMethod: DomHelper.insertAfter,
-				container:       DomHelper.createElementFromString( '<div></div>', null, 'codekandis-episodesNavigator bottom frame' ),
+				container:       DomHelper.createElementFromString( '<div data-control-type="EPISODES_NAVIGATOR"></div>', null, 'bottom frame' ),
 				buttons:         DomHelper.createElementFromString( '<ul></ul>' )
 			}
 		];
