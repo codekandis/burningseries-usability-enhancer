@@ -111,9 +111,9 @@ class SeriesPage extends BaseClass
 		this
 			._filterDenials()
 			.then(
-				( denialsFilter ) =>
+				() =>
 				{
-					this._addActions( denialsFilter, this._denialsSwitcher, this._interestsSwitcher, this._favoritesSwitcher );
+					this._addActions( this._denialsFilter, this._denialsSwitcher, this._interestsSwitcher, this._favoritesSwitcher );
 					this._switchDenials();
 					this._switchInterests();
 					this._switchFavorites();
