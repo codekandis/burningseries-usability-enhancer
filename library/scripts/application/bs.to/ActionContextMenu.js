@@ -21,7 +21,7 @@ class ActionContextMenu extends BaseClass
 			( action ) =>
 			{
 				const subMenu = DomHelper.createElementFromString(
-					String.format`<li data-control-type="ACTION_CONTEXT_MENU_ITEM">${ 0 }</li>`( action.caption )
+					String.format`<li data-control-type="ACTION_CONTEXT_MENU_ITEM" data-action-type="${ 0 }">${ 1 }</li>`( action.actionType, action.caption )
 				);
 				DomHelper.addEventHandler(
 					subMenu,

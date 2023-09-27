@@ -162,22 +162,25 @@ class ActionAdder extends BaseClass
 			series,
 			[
 				{
-					caption: true === series.isDenial
-						         ? 'Permit'
-						         : 'Deny',
-					action:  this._denySeries.bind( this ),
+					caption:    true === series.isDenial
+						            ? 'Permit'
+						            : 'Deny',
+					actionType: ActionTypes.DENIAL,
+					action:     this._denySeries.bind( this )
 				},
 				{
-					caption: true === series.isInterest
-						         ? 'Deinterest'
-						         : 'Interest',
-					action:  this._interestSeries.bind( this ),
+					caption:    true === series.isInterest
+						            ? 'Deinterest'
+						            : 'Interest',
+					actionType: ActionTypes.INTEREST,
+					action:     this._interestSeries.bind( this )
 				},
 				{
-					caption: true === series.isFavorite
-						         ? 'Defavorite'
-						         : 'Favorite',
-					action:  this._favorSeries.bind( this )
+					caption:    true === series.isFavorite
+						            ? 'Defavorite'
+						            : 'Favorite',
+					actionType: ActionTypes.FAVORITE,
+					action:     this._favorSeries.bind( this )
 				}
 			],
 			button.parentNode
