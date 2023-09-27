@@ -56,8 +56,10 @@ class HeaderModifier extends BaseClass
 
 	_modifyLoginForm()
 	{
-		( new PersistentLoginEnabler( 'header > #login label' ) )
+		( new PersistentLoginEnabler( '#login label' ) )
 			.enable();
+		( new RegistrationLinkHider( '#login a' ) )
+			.hide();
 	}
 
 	modify()
