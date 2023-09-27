@@ -69,6 +69,7 @@
 				"library/scripts/application/bs.to/MenuHandler.js",
 				"library/scripts/application/bs.to/MenuReorderer.js",
 				"library/scripts/application/bs.to/MenuAdder.js",
+				"library/scripts/application/bs.to/PersistentLoginEnabler.js",
 				"library/scripts/application/bs.to/HeaderModifier.js",
 				"library/scripts/application/bs.to/DenialsLoader.js",
 				"library/scripts/application/bs.to/InterestsLoader.js",

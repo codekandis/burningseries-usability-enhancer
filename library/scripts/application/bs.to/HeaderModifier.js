@@ -54,10 +54,17 @@ class HeaderModifier extends BaseClass
 		}
 	}
 
+	_modifyLoginForm()
+	{
+		( new PersistentLoginEnabler( 'header > #login label' ) )
+			.enable();
+	}
+
 	modify()
 	{
 		this._removeBanner();
 		this._removeGreeting();
 		this._removeNavigationMenuWhitespaces();
+		this._modifyLoginForm();
 	}
 }
