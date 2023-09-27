@@ -2,78 +2,78 @@
 
 [data-control-type='ACTION']
 {
-	box-sizing:       border-box;
-	display:          block;
-	position:         absolute;
-	width:            13px;
-	height:           13px;
-	font-weight:      bold;
-	color:            #ffffff;
-	background-color: var(--color-cyan);
-	border-style:     solid;
-	border-width:     2px;
-	border-color:     transparent;
-	border-radius:    3px;
-	cursor:           pointer;
+	box-sizing:       border-box !important;
+	display:          block !important;
+	position:         absolute !important;
+	width:            13px !important;
+	height:           13px !important;
+	font-weight:      bold !important;
+	color:            #ffffff !important;
+	background-color: var(--color-cyan) !important;
+	border-style:     solid !important;
+	border-width:     2px !important;
+	border-color:     transparent !important;
+	border-radius:    3px !important;
+	cursor:           pointer !important;
 }
 
 [data-control-type='ACTION']:after
 {
-	display: block;
+	display: block !important;
 }
 
 [data-control-type='ACTION']:hover
 {
-	background-color: var(--color-orange);
+	background-color: var(--color-orange) !important;
 }
 
 [data-control-type='ACTION'][data-action-type='DENIAL']:after
 {
-	margin-top: -3px;
-	font-size:  8pt;
-	content:    '-';
+	margin-top: -3px !important;
+	font-size:  8pt !important;
+	content:    '-' !important;
 }
 
 [data-control-type='ACTION'][data-action-type='INTEREST']:after
 {
-	margin-top: -1px;
-	font-size:  7pt;
-	content:    '?';
+	margin-top: -1px !important;
+	font-size:  7pt !important;
+	content:    '?' !important;
 }
 
 [data-control-type='ACTION'][data-action-type='FAVORITE']:after
 {
-	margin-top: -5px;
-	font-size:  12pt;
-	content:    '⋆';
+	margin-top: -5px !important;
+	font-size:  12pt !important;
+	content:    '⋆' !important;
 }
 
 [data-is-series='TRUE'][data-is-denial='TRUE'] [data-control-type='ACTION'][data-action-type='DENIAL']:after
 {
-	margin-top: -2px;
-	content:    '+';
+	margin-top: -2px !important;
+	content:    '+' !important;
 }
 
 [data-is-series='TRUE'][data-is-interest='TRUE'] [data-control-type='ACTION']
 {
-	border-right-color:  var(--color-orange);
-	border-bottom-color: var(--color-orange);
+	border-right-color:  var(--color-orange) !important;
+	border-bottom-color: var(--color-orange) !important;
 }
 
 [data-is-series='TRUE'][data-is-interest='TRUE'] [data-control-type='ACTION']:hover
 {
-	border-right-color:  var(--color-blue);
-	border-bottom-color: var(--color-blue);
+	border-right-color:  var(--color-blue) !important;
+	border-bottom-color: var(--color-blue) !important;
 }
 
 [data-is-series='TRUE'][data-is-favorite='TRUE'] [data-control-type='ACTION']
 {
-	border-left-color: var(--color-orange);
-	border-top-color:  var(--color-orange);
+	border-left-color: var(--color-orange) !important;
+	border-top-color:  var(--color-orange) !important;
 }
 
 [data-is-series='TRUE'][data-is-favorite='TRUE'] [data-control-type='ACTION']:hover
 {
-	border-left-color: var(--color-blue);
-	border-top-color:  var(--color-blue);
+	border-left-color: var(--color-blue) !important;
+	border-top-color:  var(--color-blue) !important;
 }

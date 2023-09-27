@@ -2,23 +2,23 @@
 
 #news .lSPager a
 {
-	z-index: auto;
+	z-index: auto !important;
 }
 
 #newest_series a
 {
-	display: inline-block;
-	width:   415px;
+	display: inline-block !important;
+	width:   415px !important;
 }
 
 #newest_episodes [data-control-type='ACTION']
 {
-	margin-left: -16px;
-	margin-top:  3px;
+	margin-left: -16px !important;
+	margin-top:  3px !important;
 }
 
 #newest_series [data-control-type='ACTION']
 {
-	margin-left: -15px;
-	margin-top:  4px;
+	margin-left: -15px !important;
+	margin-top:  4px !important;
 }

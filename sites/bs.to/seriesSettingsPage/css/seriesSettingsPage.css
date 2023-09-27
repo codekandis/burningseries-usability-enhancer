@@ -2,6 +2,6 @@
 
 #usrCnt [data-control-type='ACTION']
 {
-	margin-top:  4px;
-	margin-left: -16px;
+	margin-top:  4px !important;
+	margin-left: -16px !important;
 }

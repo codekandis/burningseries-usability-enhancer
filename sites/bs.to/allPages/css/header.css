@@ -6,29 +6,29 @@ header section.navigation
 	z-index:       1 !important;
 	top:           35px !important;
 	right:         0 !important;
-	font-family:   'Open Sans', sans-serif;
+	font-family:   'Open Sans', sans-serif !important;
 	font-size:     8px !important;
 	background:    #f0f0f0 none !important;
-	border-radius: 0 0 0 3px;
-	overflow:      hidden;
+	border-radius: 0 0 0 3px !important;
+	overflow:      hidden !important;
 }
 
 header #login *,
 header section.navigation *
 {
-	font-family: inherit;
+	font-family: inherit !important;
 	font-size:   inherit !important;
 }
 
 header #login
 {
-	padding: 1px;
+	padding: 1px !important;
 }
 
 header #login input,
 header section.navigation a
 {
-	display: inline-block;
+	display: inline-block !important;
 	margin:  0 !important;
 }
 
@@ -57,11 +57,11 @@ header section.navigation
 
 header section.navigation a
 {
-	padding:       2px 0;
-	width:         60px;
-	text-align:    center;
-	color:         #555555;
+	padding:       2px 0 !important;
+	width:         60px !important;
+	text-align:    center !important;
+	color:         #555555 !important;
 	background:    none !important;
-	border-style:  none;
+	border-style:  none !important;
 	border-radius: 0 !important;
 }
