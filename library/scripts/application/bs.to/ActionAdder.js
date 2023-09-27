@@ -14,6 +14,7 @@ class ActionAdder extends BaseClass
 		this._denialsSwitcher   = denialsSwitcher;
 		this._interestsSwitcher = interestsSwitcher;
 		this._favoritesSwitcher = favoritesSwitcher;
+		this._contextMenu       = null;
 	}
 
 	_switchAll()
@@ -154,6 +155,61 @@ class ActionAdder extends BaseClass
 		}
 	}
 
+	_showContextMenu( button, series )
+	{
+		this._contextMenu = new ActionContextMenu(
+			button.parentNode,
+			series,
+			[
+				{
+					caption: true === series.isDenial
+						         ? 'Permit'
+						         : 'Deny',
+					action:  this._denySeries.bind( this ),
+				},
+				{
+					caption: true === series.isInterest
+						         ? 'Deinterest'
+						         : 'Interest',
+					action:  this._interestSeries.bind( this ),
+				},
+				{
+					caption: true === series.isFavorite
+						         ? 'Defavorite'
+						         : 'Favorite',
+					action:  this._favorSeries.bind( this )
+				}
+			],
+			button.parentNode
+		);
+		this._contextMenu.show();
+	}
+
+	_hideContextMenu()
+	{
+		if ( null !== this._contextMenu )
+		{
+			this._contextMenu.hide();
+		}
+	}
+
+	_getButtonEventHandlerMappings( button, series )
+	{
+		return {
+			click:       ( event ) =>
+			             {
+				             this._invokeAction( button, series );
+			             },
+			contextmenu: ( event ) =>
+			             {
+				             event.preventDefault();
+
+				             this._hideContextMenu();
+				             this._showContextMenu( button, series );
+			             }
+		};
+	}
+
 	_setActionType( button, modifierKeys )
 	{
 		if ( false === modifierKeys.ctrl && false === modifierKeys.shift && false === modifierKeys.alt )
@@ -170,16 +226,6 @@ class ActionAdder extends BaseClass
 		}
 
 		DomHelper.setAttribute( button, 'data-action-type', this._currentActionType );
-	}
-
-	_getButtonEventHandlerMappings( button, series )
-	{
-		return {
-			click: ( event ) =>
-			       {
-				       this._invokeAction( button, series );
-			       }
-		};
 	}
 
 	_getHtmlEventHandlerMappings( button )
@@ -204,6 +250,8 @@ class ActionAdder extends BaseClass
 
 	addActions()
 	{
+		DomHelper.addEventHandler( document, 'click', this._document_click );
+
 		this
 			._episodes
 			.series
@@ -225,5 +273,10 @@ class ActionAdder extends BaseClass
 					series.container.insertAdjacentElement( this._actionPosition, button );
 				}
 			);
+	}
+
+	_document_click = ( event ) =>
+	{
+		this._hideContextMenu();
 	}
 }
