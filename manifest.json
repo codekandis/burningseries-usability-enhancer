@@ -69,6 +69,8 @@
 				"library/scripts/application/bs.to/MenuHandler.js",
 				"library/scripts/application/bs.to/MenuReorderer.js",
 				"library/scripts/application/bs.to/MenuAdder.js",
+				"library/scripts/application/bs.to/PersistentLoginEnabler.js",
+				"library/scripts/application/bs.to/RegistrationLinkHider.js",
 				"library/scripts/application/bs.to/HeaderModifier.js",
 				"library/scripts/application/bs.to/DenialsLoader.js",
 				"library/scripts/application/bs.to/InterestsLoader.js",
@@ -86,7 +88,8 @@
 				"library/scripts/application/bs.to/DenialsSwitcher.js",
 				"library/scripts/application/bs.to/InterestsSwitcher.js",
 				"library/scripts/application/bs.to/FavoritesSwitcher.js",
-				"library/scripts/application/bs.to/ButtonActionTypes.js",
+				"library/scripts/application/bs.to/ActionContextMenu.js",
+				"library/scripts/application/bs.to/ActionTypes.js",
 				"library/scripts/application/bs.to/ActionAdder.js",
 				"sites/bs.to/allPages/scripts/AllPages.js",
 				"sites/bs.to/allPages/scripts/index.js"

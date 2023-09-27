@@ -125,9 +125,9 @@ class DomHelper extends StaticBaseClass
 			);
 	}
 
-	static addEventHandler( element, eventName, handler )
+	static addEventHandler( element, eventName, eventHandler )
 	{
-		element.addEventListener( eventName, handler );
+		element.addEventListener( eventName, eventHandler );
 	}
 
 	static addEventHandlers( element, eventHandlerMapping )
@@ -135,20 +135,19 @@ class DomHelper extends StaticBaseClass
 		eventHandlerMapping.forEach(
 			( eventHandler, eventName ) =>
 			{
-
 				DomHelper.addEventHandler( element, eventName, eventHandler );
 			}
 		);
 	}
 
-	static addEventHandlerBySelector( selector, eventName, handler )
+	static addEventHandlerBySelector( selector, eventName, eventHandler )
 	{
 		document
 			.querySelectorAll( selector )
 			.forEach(
 				( element ) =>
 				{
-					DomHelper.addEventHandler( element, eventName, handler );
+					DomHelper.addEventHandler( element, eventName, eventHandler );
 				}
 			);
 	}
@@ -161,6 +160,45 @@ class DomHelper extends StaticBaseClass
 				( element ) =>
 				{
 					DomHelper.addEventHandlers( element, eventHandlerMapping );
+				}
+			);
+	}
+
+	static removeEventHandler( element, eventName, eventHandler )
+	{
+		element.removeEventListener( eventName, eventHandler );
+	}
+
+	static removeEventHandlers( element, eventHandlerMapping )
+	{
+		eventHandlerMapping.forEach(
+			( eventHandler, eventName ) =>
+			{
+				DomHelper.removeEventHandler( element, eventName, eventHandler );
+			}
+		);
+	}
+
+	static removeEventHandlerBySelector( selector, eventName, eventHandler )
+	{
+		document
+			.querySelectorAll( selector )
+			.forEach(
+				( element ) =>
+				{
+					DomHelper.removeEventHandler( element, eventName, eventHandler );
+				}
+			);
+	}
+
+	static removeEventHandlersBySelector( selector, eventHandlerMapping )
+	{
+		document
+			.querySelectorAll( selector )
+			.forEach(
+				( element ) =>
+				{
+					DomHelper.removeEventHandlers( element, eventHandlerMapping );
 				}
 			);
 	}

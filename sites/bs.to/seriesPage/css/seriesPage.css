@@ -17,47 +17,53 @@
 
 .serie .hoster-tabs.top
 {
-	margin-top: 0;
+	margin-top: 0 !important;
 }
 
-#sp_left .codekandis-button
+#sp_left [data-control-type='ACTION']
 {
-	margin-left: -15px;
-	margin-top:  11px;
+	margin-left: -15px !important;
+	margin-top:  7px !important;
 }
 
-.serie .codekandis-episodesNavigator
+#sp_left [data-control-type='ACTION_CONTEXT_MENU']
 {
-	text-align: right;
+	margin-left: 1px !important;
+	margin-top:  7px !important;
 }
 
-.serie .codekandis-episodesNavigator.top
+.serie [data-control-type='EPISODES_NAVIGATOR']
 {
-	margin-top: 10px;
+	text-align: right !important;
 }
 
-.serie .codekandis-episodesNavigator ul
+.serie [data-control-type='EPISODES_NAVIGATOR'].top
 {
-	display: inline-block;
+	margin-top: 10px !important;
 }
 
-.serie .codekandis-episodesNavigator ul li
+.serie [data-control-type='EPISODES_NAVIGATOR'] ul
+{
+	display: inline-block !important;
+}
+
+.serie [data-control-type='EPISODES_NAVIGATOR'] ul li
 {
 	margin-left: 4px !important;
 }
 
-.serie .codekandis-episodesNavigator ul li[data-action-type='WATCH_STATE_TOGGLER']
+.serie [data-control-type='EPISODES_NAVIGATOR'] ul li[data-action-type='WATCH_STATE_TOGGLER']
 {
 	width: 34px !important;
 }
 
-.serie .codekandis-episodesNavigator ul li[data-action-type='EPISODE_NAVIGATOR']
+.serie [data-control-type='EPISODES_NAVIGATOR'] ul li[data-action-type='EPISODE_NAVIGATOR']
 {
 	width: 100px !important;
 }
 
-.serie .codekandis-episodesNavigator ul li.disabled a:hover
+.serie [data-control-type='EPISODES_NAVIGATOR'] ul li.disabled a:hover
 {
 	background-color: transparent !important;
-	cursor:           default;
+	cursor:           default !important;
 }

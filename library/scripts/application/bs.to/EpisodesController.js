@@ -20,13 +20,13 @@ class EpisodesController extends BaseClass
 			{
 				selector:        '.serie .episode',
 				insertionMethod: DomHelper.insertAfter,
-				container:       DomHelper.createElementFromString( '<div></div>', null, 'codekandis-episodesNavigator top frame' ),
+				container:       DomHelper.createElementFromString( '<div data-control-type="EPISODES_NAVIGATOR"></div>', null, 'top frame' ),
 				buttons:         DomHelper.createElementFromString( '<ul></ul>' )
 			},
 			{
 				selector:        '.serie .hoster-tabs.bottom',
 				insertionMethod: DomHelper.insertAfter,
-				container:       DomHelper.createElementFromString( '<div></div>', null, 'codekandis-episodesNavigator bottom frame' ),
+				container:       DomHelper.createElementFromString( '<div data-control-type="EPISODES_NAVIGATOR"></div>', null, 'bottom frame' ),
 				buttons:         DomHelper.createElementFromString( '<ul></ul>' )
 			}
 		];
@@ -320,13 +320,13 @@ class EpisodesController extends BaseClass
 			{
 				const buttons = {
 					watchStateToggler: DomHelper.createElementFromString(
-						String.format`<li data-action-type="${ 0 }"><a href="#"><i class="fas" /></a></li>`( ButtonActionTypes.WATCH_STATE_TOGGLER )
+						String.format`<li data-action-type="${ 0 }"><a href="#"><i class="fas" /></a></li>`( ActionTypes.WATCH_STATE_TOGGLER )
 					),
 					previousEpisode:   DomHelper.createElementFromString(
-						String.format`<li data-action-type="${ 0 }"><a href="#">Previous</a></li>`( ButtonActionTypes.EPISODE_NAVIGATOR )
+						String.format`<li data-action-type="${ 0 }"><a href="#">Previous</a></li>`( ActionTypes.EPISODE_NAVIGATOR )
 					),
 					nextEpisode:       DomHelper.createElementFromString(
-						String.format`<li data-action-type="${ 0 }"><a href="#">Next</a></li>`( ButtonActionTypes.EPISODE_NAVIGATOR )
+						String.format`<li data-action-type="${ 0 }"><a href="#">Next</a></li>`( ActionTypes.EPISODE_NAVIGATOR )
 					)
 				};
 

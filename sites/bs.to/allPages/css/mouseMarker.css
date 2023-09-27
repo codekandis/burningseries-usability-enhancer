@@ -1,16 +1,16 @@
 @charset "utf-8";
 
-#codekandis-mouseMarker
+[data-control-type='MOUSE_MARKER']
 {
-	position:         absolute;
+	position:         absolute !important;
 	display:          block;
-	width:            14px;
-	height:           14px;
-	left:             0;
-	top:              0;
-	background-color: #ff0000;
-	border-style:     solid;
-	border-width:     0;
-	border-radius:    50%;
-	z-index:          100000;
+	width:            14px !important;
+	height:           14px !important;
+	left:             0 !important;
+	top:              0 !important;
+	background-color: #ff0000 !important;
+	border-style:     solid !important;
+	border-width:     0 !important;
+	border-radius:    50% !important;
+	z-index:          100000 !important;
 }

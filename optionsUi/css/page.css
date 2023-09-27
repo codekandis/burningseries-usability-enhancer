@@ -1,34 +1,41 @@
 @charset "utf-8";
 
-* {
-	margin: 0;
+*
+{
+	margin:  0;
 	padding: 0;
 }
 
-form {
+form
+{
 	padding-bottom: 10px;
 }
 
-form fieldset {
-	margin-top: 1em;
+form fieldset
+{
+	margin-top:   1em;
 	border-style: none;
 }
 
 form fieldset label,
-form fieldset input[type="text"] {
+form fieldset input[type='text']
+{
 	display: block;
-	width: 100%;
+	width:   100%;
 }
 
-form fieldset label {
+form fieldset label
+{
 	margin-bottom: 0.5em;
 }
 
-form fieldset.footer {
+form fieldset.footer
+{
 	text-align: right;
 }
 
-form fieldset.footer input {
+form fieldset.footer input
+{
 	display: inline-block;
-	width: 100px;
+	width:   100px;
 }

@@ -1,51 +1,67 @@
 @charset "utf-8";
 
-header > #login,
-header > section.navigation
+header #login,
+header section.navigation
 {
 	z-index:       1 !important;
 	top:           35px !important;
 	right:         0 !important;
-	border-radius: 0 0 0 3px;
+	font-family:   'Open Sans', sans-serif !important;
+	font-size:     8px !important;
 	background:    #f0f0f0 none !important;
+	border-radius: 0 0 0 3px !important;
+	overflow:      hidden !important;
 }
 
-header > #login > input,
-header > #login > label,
-header > #login > label > input,
-header > section.navigation > a
+header #login *,
+header section.navigation *
 {
-	display: inline-block;
+	font-family: inherit !important;
+	font-size:   inherit !important;
+}
+
+header #login
+{
+	padding: 1px !important;
+}
+
+header #login input,
+header section.navigation a
+{
+	display: inline-block !important;
 	margin:  0 !important;
 }
 
-header > #login > label,
-header > #login > a,
-header > section.navigation > a
+header #login input
 {
-	color: #555555;
+	padding: 1px 3px !important;
 }
 
-header > #login > label > input
+header #login input[type='text'],
+header #login input[type='password']
 {
-	position: relative;
-	top:      1px;
+	min-width: 69px !important;
+	width:     69px !important;
 }
 
-header > #login > a
+header #login input[type='submit']
 {
-	margin-top:  0.23em;
-	margin-left: 0.3em;
+	min-width: 35px !important;
+	width:     35px !important;
 }
 
-header > section.navigation
+header section.navigation
 {
 	box-shadow: 0 0 2px rgba(0, 0, 0, 0.5) !important;
 }
 
-header > section.navigation > a
+header section.navigation a
 {
+	padding:       2px 0 !important;
+	width:         60px !important;
+	text-align:    center !important;
+	color:         #555555 !important;
 	background:    none !important;
-	border-style:  none;
+	border-style:  none !important;
 	border-radius: 0 !important;
 }

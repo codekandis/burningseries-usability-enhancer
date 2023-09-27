@@ -6,14 +6,22 @@ class ActionAdder extends BaseClass
 	{
 		super();
 
-		this._currentButtonActionType = ButtonActionTypes.DENIAL;
-		this._episodes                = episodes;
-		this._apiController           = apiController;
-		this._actionPosition          = actionPosition;
-		this._denialsFilter           = denialsFilter;
-		this._denialsSwitcher         = denialsSwitcher;
-		this._interestsSwitcher       = interestsSwitcher;
-		this._favoritesSwitcher       = favoritesSwitcher;
+		this._currentActionType = ActionTypes.DENIAL;
+		this._episodes          = episodes;
+		this._apiController     = apiController;
+		this._actionPosition    = actionPosition;
+		this._denialsFilter     = denialsFilter;
+		this._denialsSwitcher   = denialsSwitcher;
+		this._interestsSwitcher = interestsSwitcher;
+		this._favoritesSwitcher = favoritesSwitcher;
+		this._contextMenu       = null;
+	}
+
+	_switchAll()
+	{
+		this._denialsSwitcher.switch();
+		this._interestsSwitcher.switch();
+		this._favoritesSwitcher.switch();
 	}
 
 	_denySeries( series )
@@ -29,7 +37,7 @@ class ActionAdder extends BaseClass
 						( responseData ) =>
 						{
 							this._denialsFilter.filter();
-							this._denialsSwitcher.switch();
+							this._switchAll();
 						}
 					);
 
@@ -43,7 +51,7 @@ class ActionAdder extends BaseClass
 					.then(
 						( responseData ) =>
 						{
-							this._denialsSwitcher.switch();
+							this._switchAll();
 						}
 					);
 
@@ -64,7 +72,7 @@ class ActionAdder extends BaseClass
 					.then(
 						( responseData ) =>
 						{
-							this._interestsSwitcher.switch();
+							this._switchAll();
 						}
 					);
 
@@ -78,7 +86,7 @@ class ActionAdder extends BaseClass
 					.then(
 						( responseData ) =>
 						{
-							this._interestsSwitcher.switch();
+							this._switchAll();
 						}
 					);
 
@@ -99,7 +107,7 @@ class ActionAdder extends BaseClass
 					.then(
 						( responseData ) =>
 						{
-							this._favoritesSwitcher.switch();
+							this._switchAll();
 						}
 					);
 
@@ -113,7 +121,7 @@ class ActionAdder extends BaseClass
 					.then(
 						( responseData ) =>
 						{
-							this._favoritesSwitcher.switch();
+							this._switchAll();
 						}
 					);
 
@@ -124,21 +132,21 @@ class ActionAdder extends BaseClass
 
 	_invokeAction( button, series )
 	{
-		switch ( this._currentButtonActionType )
+		switch ( this._currentActionType )
 		{
-			case ButtonActionTypes.DENIAL:
+			case ActionTypes.DENIAL:
 			{
 				this._denySeries( series );
 
 				return;
 			}
-			case ButtonActionTypes.INTEREST:
+			case ActionTypes.INTEREST:
 			{
 				this._interestSeries( series );
 
 				return;
 			}
-			case ButtonActionTypes.FAVORITE:
+			case ActionTypes.FAVORITE:
 			{
 				this._favorSeries( series );
 
@@ -147,39 +155,87 @@ class ActionAdder extends BaseClass
 		}
 	}
 
-	_setButtonActionType( button, modifierKeys )
+	_showContextMenu( button, series )
 	{
-		if ( false === modifierKeys.ctrl && false === modifierKeys.shift && false === modifierKeys.alt )
-		{
-			this._currentButtonActionType = ButtonActionTypes.DENIAL;
-		}
-		if ( false === modifierKeys.ctrl && true === modifierKeys.shift && false === modifierKeys.alt )
-		{
-			this._currentButtonActionType = ButtonActionTypes.INTEREST;
-		}
-		if ( true === modifierKeys.ctrl && true === modifierKeys.shift && false === modifierKeys.alt )
-		{
-			this._currentButtonActionType = ButtonActionTypes.FAVORITE;
-		}
+		this._contextMenu = new ActionContextMenu(
+			button.parentNode,
+			series,
+			[
+				{
+					caption:    true === series.isDenial
+						            ? 'Permit'
+						            : 'Deny',
+					actionType: ActionTypes.DENIAL,
+					action:     this._denySeries.bind( this )
+				},
+				{
+					caption:    true === series.isInterest
+						            ? 'Deinterest'
+						            : 'Interest',
+					actionType: ActionTypes.INTEREST,
+					action:     this._interestSeries.bind( this )
+				},
+				{
+					caption:    true === series.isFavorite
+						            ? 'Defavorite'
+						            : 'Favorite',
+					actionType: ActionTypes.FAVORITE,
+					action:     this._favorSeries.bind( this )
+				}
+			],
+			button.parentNode
+		);
+		this._contextMenu.show();
+	}
 
-		DomHelper.setAttribute( button, 'data-action-type', this._currentButtonActionType );
+	_hideContextMenu()
+	{
+		if ( null !== this._contextMenu )
+		{
+			this._contextMenu.hide();
+		}
 	}
 
 	_getButtonEventHandlerMappings( button, series )
 	{
 		return {
-			click: ( event ) =>
-			       {
-				       this._invokeAction( button, series );
-			       }
+			click:       ( event ) =>
+			             {
+				             this._invokeAction( button, series );
+			             },
+			contextmenu: ( event ) =>
+			             {
+				             event.preventDefault();
+
+				             this._hideContextMenu();
+				             this._showContextMenu( button, series );
+			             }
 		};
+	}
+
+	_setActionType( button, modifierKeys )
+	{
+		if ( false === modifierKeys.ctrl && false === modifierKeys.shift && false === modifierKeys.alt )
+		{
+			this._currentActionType = ActionTypes.DENIAL;
+		}
+		if ( false === modifierKeys.ctrl && true === modifierKeys.shift && false === modifierKeys.alt )
+		{
+			this._currentActionType = ActionTypes.INTEREST;
+		}
+		if ( true === modifierKeys.ctrl && true === modifierKeys.shift && false === modifierKeys.alt )
+		{
+			this._currentActionType = ActionTypes.FAVORITE;
+		}
+
+		DomHelper.setAttribute( button, 'data-action-type', this._currentActionType );
 	}
 
 	_getHtmlEventHandlerMappings( button )
 	{
 		const eventHandler = ( event ) =>
 		{
-			this._setButtonActionType(
+			this._setActionType(
 				button,
 				{
 					ctrl:  event.ctrlKey,
@@ -197,6 +253,8 @@ class ActionAdder extends BaseClass
 
 	addActions()
 	{
+		DomHelper.addEventHandler( document, 'click', this._document_click );
+
 		this
 			._episodes
 			.series
@@ -204,9 +262,7 @@ class ActionAdder extends BaseClass
 				( series ) =>
 				{
 					const button = DomHelper.createElementFromString(
-						String.format`<button data-action-type="${ 0 }"/>`( this._currentButtonActionType ),
-						null,
-						'codekandis-button'
+						String.format`<button data-control-type="ACTION" data-action-type="${ 0 }"/>`( this._currentActionType )
 					);
 					DomHelper.addEventHandlers(
 						button,
@@ -220,5 +276,10 @@ class ActionAdder extends BaseClass
 					series.container.insertAdjacentElement( this._actionPosition, button );
 				}
 			);
+	}
+
+	_document_click = ( event ) =>
+	{
+		this._hideContextMenu();
 	}
 }
