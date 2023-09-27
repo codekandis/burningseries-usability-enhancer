@@ -6,14 +6,14 @@ class ActionAdder extends BaseClass
 	{
 		super();
 
-		this._currentButtonActionType = ButtonActionTypes.DENIAL;
-		this._episodes                = episodes;
-		this._apiController           = apiController;
-		this._actionPosition          = actionPosition;
-		this._denialsFilter           = denialsFilter;
-		this._denialsSwitcher         = denialsSwitcher;
-		this._interestsSwitcher       = interestsSwitcher;
-		this._favoritesSwitcher       = favoritesSwitcher;
+		this._currentActionType = ActionTypes.DENIAL;
+		this._episodes          = episodes;
+		this._apiController     = apiController;
+		this._actionPosition    = actionPosition;
+		this._denialsFilter     = denialsFilter;
+		this._denialsSwitcher   = denialsSwitcher;
+		this._interestsSwitcher = interestsSwitcher;
+		this._favoritesSwitcher = favoritesSwitcher;
 	}
 
 	_denySeries( series )
@@ -124,21 +124,21 @@ class ActionAdder extends BaseClass
 
 	_invokeAction( button, series )
 	{
-		switch ( this._currentButtonActionType )
+		switch ( this._currentActionType )
 		{
-			case ButtonActionTypes.DENIAL:
+			case ActionTypes.DENIAL:
 			{
 				this._denySeries( series );
 
 				return;
 			}
-			case ButtonActionTypes.INTEREST:
+			case ActionTypes.INTEREST:
 			{
 				this._interestSeries( series );
 
 				return;
 			}
-			case ButtonActionTypes.FAVORITE:
+			case ActionTypes.FAVORITE:
 			{
 				this._favorSeries( series );
 
@@ -147,22 +147,22 @@ class ActionAdder extends BaseClass
 		}
 	}
 
-	_setButtonActionType( button, modifierKeys )
+	_setActionType( button, modifierKeys )
 	{
 		if ( false === modifierKeys.ctrl && false === modifierKeys.shift && false === modifierKeys.alt )
 		{
-			this._currentButtonActionType = ButtonActionTypes.DENIAL;
+			this._currentActionType = ActionTypes.DENIAL;
 		}
 		if ( false === modifierKeys.ctrl && true === modifierKeys.shift && false === modifierKeys.alt )
 		{
-			this._currentButtonActionType = ButtonActionTypes.INTEREST;
+			this._currentActionType = ActionTypes.INTEREST;
 		}
 		if ( true === modifierKeys.ctrl && true === modifierKeys.shift && false === modifierKeys.alt )
 		{
-			this._currentButtonActionType = ButtonActionTypes.FAVORITE;
+			this._currentActionType = ActionTypes.FAVORITE;
 		}
 
-		DomHelper.setAttribute( button, 'data-action-type', this._currentButtonActionType );
+		DomHelper.setAttribute( button, 'data-action-type', this._currentActionType );
 	}
 
 	_getButtonEventHandlerMappings( button, series )
@@ -179,7 +179,7 @@ class ActionAdder extends BaseClass
 	{
 		const eventHandler = ( event ) =>
 		{
-			this._setButtonActionType(
+			this._setActionType(
 				button,
 				{
 					ctrl:  event.ctrlKey,
@@ -204,7 +204,7 @@ class ActionAdder extends BaseClass
 				( series ) =>
 				{
 					const button = DomHelper.createElementFromString(
-						String.format`<button data-control-type="ACTION" data-action-type="${ 0 }"/>`( this._currentButtonActionType )
+						String.format`<button data-control-type="ACTION" data-action-type="${ 0 }"/>`( this._currentActionType )
 					);
 					DomHelper.addEventHandlers(
 						button,

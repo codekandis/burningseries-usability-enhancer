@@ -1,6 +1,6 @@
 'use strict';
 
-class ButtonActionTypes extends StaticBaseClass
+class ActionTypes extends StaticBaseClass
 {
 	static get DENIAL()
 	{
