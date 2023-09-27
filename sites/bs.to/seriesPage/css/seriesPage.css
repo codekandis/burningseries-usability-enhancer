@@ -23,7 +23,13 @@
 #sp_left [data-control-type='ACTION']
 {
 	margin-left: -15px !important;
-	margin-top:  11px !important;
+	margin-top:  7px !important;
+}
+
+#sp_left [data-control-type='ACTION_CONTEXT_MENU']
+{
+	margin-left: 1px !important;
+	margin-top:  7px !important;
 }
 
 .serie [data-control-type='EPISODES_NAVIGATOR']

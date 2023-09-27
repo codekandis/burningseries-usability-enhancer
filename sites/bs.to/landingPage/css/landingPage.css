@@ -17,8 +17,20 @@
 	margin-top:  3px !important;
 }
 
+#newest_episodes [data-control-type='ACTION_CONTEXT_MENU']
+{
+	margin-left: 8px !important;
+	margin-top:  5px !important;
+}
+
 #newest_series [data-control-type='ACTION']
 {
 	margin-left: -15px !important;
 	margin-top:  4px !important;
+}
+
+#newest_series [data-control-type='ACTION_CONTEXT_MENU']
+{
+	margin-left: 8px !important;
+	margin-top:  6px !important;
 }

@@ -3,5 +3,11 @@
 #seriesContainer [data-control-type='ACTION']
 {
 	margin-top:  4px !important;
-	margin-left: -15px !important;
+	margin-left: -16px !important;
+}
+
+#seriesContainer [data-control-type='ACTION_CONTEXT_MENU']
+{
+	margin-top:  4px !important;
+	margin-left: 0 !important;
 }
