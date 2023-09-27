@@ -16,6 +16,13 @@ class ActionAdder extends BaseClass
 		this._favoritesSwitcher = favoritesSwitcher;
 	}
 
+	_switchAll()
+	{
+		this._denialsSwitcher.switch();
+		this._interestsSwitcher.switch();
+		this._favoritesSwitcher.switch();
+	}
+
 	_denySeries( series )
 	{
 		switch ( series.isDenial )
@@ -29,7 +36,7 @@ class ActionAdder extends BaseClass
 						( responseData ) =>
 						{
 							this._denialsFilter.filter();
-							this._denialsSwitcher.switch();
+							this._switchAll();
 						}
 					);
 
@@ -43,7 +50,7 @@ class ActionAdder extends BaseClass
 					.then(
 						( responseData ) =>
 						{
-							this._denialsSwitcher.switch();
+							this._switchAll();
 						}
 					);
 
@@ -64,7 +71,7 @@ class ActionAdder extends BaseClass
 					.then(
 						( responseData ) =>
 						{
-							this._interestsSwitcher.switch();
+							this._switchAll();
 						}
 					);
 
@@ -78,7 +85,7 @@ class ActionAdder extends BaseClass
 					.then(
 						( responseData ) =>
 						{
-							this._interestsSwitcher.switch();
+							this._switchAll();
 						}
 					);
 
@@ -99,7 +106,7 @@ class ActionAdder extends BaseClass
 					.then(
 						( responseData ) =>
 						{
-							this._favoritesSwitcher.switch();
+							this._switchAll();
 						}
 					);
 
@@ -113,7 +120,7 @@ class ActionAdder extends BaseClass
 					.then(
 						( responseData ) =>
 						{
-							this._favoritesSwitcher.switch();
+							this._switchAll();
 						}
 					);
 
