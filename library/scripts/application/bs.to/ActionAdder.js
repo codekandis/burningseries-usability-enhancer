@@ -155,6 +155,14 @@ class ActionAdder extends BaseClass
 		}
 	}
 
+	_hideContextMenu()
+	{
+		if ( null !== this._contextMenu )
+		{
+			this._contextMenu.hide();
+		}
+	}
+
 	_showContextMenu( button, series )
 	{
 		this._contextMenu = new ActionContextMenu(
@@ -188,14 +196,6 @@ class ActionAdder extends BaseClass
 		this._contextMenu.show();
 	}
 
-	_hideContextMenu()
-	{
-		if ( null !== this._contextMenu )
-		{
-			this._contextMenu.hide();
-		}
-	}
-
 	_getButtonEventHandlerMappings( button, series )
 	{
 		return {
@@ -206,8 +206,8 @@ class ActionAdder extends BaseClass
 			contextmenu: ( event ) =>
 			             {
 				             event.preventDefault();
+				             event.stopPropagation();
 
-				             this._hideContextMenu();
 				             this._showContextMenu( button, series );
 			             }
 		};
