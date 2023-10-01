@@ -66,7 +66,7 @@ class LandingPage extends BaseClass
 	_extendEpisodesLinks()
 	{
 		this._linkExtender.extendList(
-			DomHelper.querySelectorAll( '#newest_episodes ul li a', document )
+			DomHelper.querySelectorAll( '#newest_episodes ul li a', document, false )
 		);
 	}
 

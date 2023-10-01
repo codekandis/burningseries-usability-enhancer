@@ -57,7 +57,7 @@ class EpisodesController extends BaseClass
 	{
 		const seasonsContainer   = DomHelper.querySelector( '#seasons ul', document );
 		const seasons            = [
-			...DomHelper.querySelectorAll( 'li a', seasonsContainer )
+			...DomHelper.querySelectorAll( 'li a', seasonsContainer, false )
 		]
 			.map(
 				( element ) =>
@@ -67,7 +67,7 @@ class EpisodesController extends BaseClass
 			);
 		const currentSeasonIndex = seasons.indexOf(
 			DomHelper
-				.querySelector( 'li.active a', seasonsContainer )
+				.querySelector( 'li.active a', seasonsContainer, false )
 				.href
 		);
 
@@ -81,7 +81,7 @@ class EpisodesController extends BaseClass
 	{
 		const episodesContainer   = DomHelper.querySelector( '#episodes ul', document );
 		const episodes            = [
-			...DomHelper.querySelectorAll( 'li a', episodesContainer )
+			...DomHelper.querySelectorAll( 'li a', episodesContainer, false )
 		]
 			.map(
 				( element ) =>
@@ -91,7 +91,7 @@ class EpisodesController extends BaseClass
 			);
 		const currentEpisodeIndex = episodes.indexOf(
 			DomHelper
-				.querySelector( 'li.active a', episodesContainer )
+				.querySelector( 'li.active a', episodesContainer, false )
 				.href
 		);
 

@@ -29,7 +29,8 @@ class BsToController extends BaseClass
 												...DomHelper.querySelectorAll(
 													'table.episodes tbody tr td:nth-child( 1 ) a',
 													( new DOMParser() )
-														.parseFromString( htmlString, ContentTypes.TEXT_HTML )
+														.parseFromString( htmlString, ContentTypes.TEXT_HTML ),
+													false
 												)
 											]
 										);
@@ -61,7 +62,8 @@ class BsToController extends BaseClass
 												...DomHelper.querySelectorAll(
 													'table.episodes tr',
 													( new DOMParser() )
-														.parseFromString( htmlString, ContentTypes.TEXT_HTML )
+														.parseFromString( htmlString, ContentTypes.TEXT_HTML ),
+													false
 												)
 											]
 												.map(
