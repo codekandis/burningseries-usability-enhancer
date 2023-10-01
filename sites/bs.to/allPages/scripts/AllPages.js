@@ -23,6 +23,11 @@ class AllPages extends BaseClass
 				activatorSelector: '> a',
 				loader:            this._loadFavorites.bind( this )
 			},
+			watched:   {
+				selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_WATCHED ),
+				activatorSelector: '> a',
+				loader:            this._loadWatched.bind( this )
+			},
 			denials:   {
 				selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_DENIALS ),
 				activatorSelector: '> a',
@@ -57,12 +62,21 @@ class AllPages extends BaseClass
 					position:       DomInsertPositions.AFTER
 				},
 				{
+					name:           'Watched',
+					dataAttributes: {
+						'menu-type':    MenuTypes.DROPDOWN,
+						'menu-purpose': MenuPurposes.SERIES_WATCHED
+					},
+					targetSelector: '#menu > li:nth-child( 3 )',
+					position:       DomInsertPositions.AFTER
+				},
+				{
 					name:           'Denials',
 					dataAttributes: {
 						'menu-type':    MenuTypes.DROPDOWN,
 						'menu-purpose': MenuPurposes.SERIES_DENIALS
 					},
-					targetSelector: '#menu > li:nth-child( 3 )',
+					targetSelector: '#menu > li:nth-child( 4 )',
 					position:       DomInsertPositions.AFTER
 				}
 			]
@@ -78,6 +92,10 @@ class AllPages extends BaseClass
 		);
 		this._favoritesLoader = new FavoritesLoader(
 			String.format`${ 0 } ul`( this._menuSettings.favorites.selector ),
+			this._apiController
+		);
+		this._watchedLoader   = new WatchedLoader(
+			String.format`${ 0 } ul`( this._menuSettings.watched.selector ),
 			this._apiController
 		);
 	}
@@ -142,13 +160,15 @@ class AllPages extends BaseClass
 		const denialsSwitcher   = new DenialsSwitcher( episodes, this._apiController );
 		const interestsSwitcher = new InterestsSwitcher( episodes, this._apiController );
 		const favoritesSwitcher = new FavoritesSwitcher( episodes, this._apiController );
+		const watchedSwitcher   = new WatchedSwitcher( episodes, this._apiController );
 
-		( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher ) )
+		( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher ) )
 			.addActions();
 
 		denialsSwitcher.switch();
 		interestsSwitcher.switch();
 		favoritesSwitcher.switch();
+		watchedSwitcher.switch();
 	}
 
 	_loadDenials()
@@ -164,6 +184,11 @@ class AllPages extends BaseClass
 	_loadFavorites()
 	{
 		this._load( this._favoritesLoader, this._menuSettings.favorites.selector );
+	}
+
+	_loadWatched()
+	{
+		this._load( this._watchedLoader, this._menuSettings.watched.selector );
 	}
 
 	execute()
