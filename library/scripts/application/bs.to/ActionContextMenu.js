@@ -13,7 +13,16 @@ class ActionContextMenu extends BaseClass
 		this._actions   = actions;
 	}
 
-	show()
+	_hideMenu()
+	{
+		if ( null !== ActionContextMenu._contextMenu )
+		{
+			ActionContextMenu._contextMenu.remove();
+			ActionContextMenu._contextMenu = null;
+		}
+	}
+
+	_showMenu()
 	{
 		ActionContextMenu._contextMenu = DomHelper.createElementFromString( '<ul data-control-type="ACTION_CONTEXT_MENU"></ul>' );
 
@@ -43,10 +52,12 @@ class ActionContextMenu extends BaseClass
 
 	hide()
 	{
-		if ( null !== ActionContextMenu._contextMenu )
-		{
-			ActionContextMenu._contextMenu.remove();
-			ActionContextMenu._contextMenu = null;
-		}
+		this._hideMenu();
+	}
+
+	show()
+	{
+		this._hideMenu();
+		this._showMenu();
 	}
 }

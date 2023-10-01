@@ -2,7 +2,7 @@
 
 class ActionAdder extends BaseClass
 {
-	constructor( episodes, apiController, actionPosition, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher )
+	constructor( episodes, apiController, actionPosition, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher )
 	{
 		super();
 
@@ -14,6 +14,7 @@ class ActionAdder extends BaseClass
 		this._denialsSwitcher   = denialsSwitcher;
 		this._interestsSwitcher = interestsSwitcher;
 		this._favoritesSwitcher = favoritesSwitcher;
+		this._watchedSwitcher   = watchedSwitcher;
 		this._contextMenu       = null;
 	}
 
@@ -22,6 +23,7 @@ class ActionAdder extends BaseClass
 		this._denialsSwitcher.switch();
 		this._interestsSwitcher.switch();
 		this._favoritesSwitcher.switch();
+		this._watchedSwitcher.switch();
 	}
 
 	_denySeries( series )
@@ -130,6 +132,41 @@ class ActionAdder extends BaseClass
 		}
 	}
 
+	_watchSeries( series )
+	{
+		switch ( series.isWatch )
+		{
+			case false:
+			{
+				this
+					._apiController
+					.addUserSeriesWatch( series )
+					.then(
+						( responseData ) =>
+						{
+							this._switchAll();
+						}
+					);
+
+				return;
+			}
+			case true:
+			{
+				this
+					._apiController
+					.deleteUserSeriesWatch( series )
+					.then(
+						( responseData ) =>
+						{
+							this._switchAll();
+						}
+					);
+
+				return;
+			}
+		}
+	}
+
 	_invokeAction( button, series )
 	{
 		switch ( this._currentActionType )
@@ -152,6 +189,20 @@ class ActionAdder extends BaseClass
 
 				return;
 			}
+			case ActionTypes.WATCH:
+			{
+				this._watchSeries( series );
+
+				return;
+			}
+		}
+	}
+
+	_hideContextMenu()
+	{
+		if ( null !== this._contextMenu )
+		{
+			this._contextMenu.hide();
 		}
 	}
 
@@ -181,19 +232,18 @@ class ActionAdder extends BaseClass
 						            : 'Favorite',
 					actionType: ActionTypes.FAVORITE,
 					action:     this._favorSeries.bind( this )
+				},
+				{
+					caption:    true === series.isWatch
+						            ? 'Unwatch'
+						            : 'Watch',
+					actionType: ActionTypes.WATCH,
+					action:     this._watchSeries.bind( this )
 				}
 			],
 			button.parentNode
 		);
 		this._contextMenu.show();
-	}
-
-	_hideContextMenu()
-	{
-		if ( null !== this._contextMenu )
-		{
-			this._contextMenu.hide();
-		}
 	}
 
 	_getButtonEventHandlerMappings( button, series )
@@ -206,8 +256,8 @@ class ActionAdder extends BaseClass
 			contextmenu: ( event ) =>
 			             {
 				             event.preventDefault();
+				             event.stopPropagation();
 
-				             this._hideContextMenu();
 				             this._showContextMenu( button, series );
 			             }
 		};
@@ -226,6 +276,10 @@ class ActionAdder extends BaseClass
 		if ( true === modifierKeys.ctrl && true === modifierKeys.shift && false === modifierKeys.alt )
 		{
 			this._currentActionType = ActionTypes.FAVORITE;
+		}
+		if ( true === modifierKeys.ctrl && true === modifierKeys.shift && true === modifierKeys.alt )
+		{
+			this._currentActionType = ActionTypes.WATCH;
 		}
 
 		DomHelper.setAttribute( button, 'data-action-type', this._currentActionType );

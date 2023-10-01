@@ -16,4 +16,9 @@ class MenuPurposes extends StaticBaseClass
 	{
 		return 'SERIES_FAVORITES';
 	}
+
+	static get SERIES_WATCHED()
+	{
+		return 'SERIES_WATCHED';
+	}
 }

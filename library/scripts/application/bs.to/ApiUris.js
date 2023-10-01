@@ -12,7 +12,9 @@ class ApiUris extends BaseClass
 			userSeriesInterests:         '/users/{{userId}}/series-interests',
 			userSeriesInterestsFiltered: '/users/{{userId}}/series-interests/filtered',
 			userSeriesFavorites:         '/users/{{userId}}/series-favorites',
-			userSeriesFavoritesFiltered: '/users/{{userId}}/series-favorites/filtered'
+			userSeriesFavoritesFiltered: '/users/{{userId}}/series-favorites/filtered',
+			userSeriesWatched:           '/users/{{userId}}/series-watched',
+			userSeriesWatchedFiltered:   '/users/{{userId}}/series-watched/filtered'
 		};
 
 		this._baseUri = baseUri;
@@ -47,6 +49,16 @@ class ApiUris extends BaseClass
 	get userSeriesFavoritesFiltered()
 	{
 		return this._baseUri + this._replaceUriPlaceHolders( this._relativeUris.userSeriesFavoritesFiltered );
+	}
+
+	get userSeriesWatched()
+	{
+		return this._baseUri + this._replaceUriPlaceHolders( this._relativeUris.userSeriesWatched );
+	}
+
+	get userSeriesWatchedFiltered()
+	{
+		return this._baseUri + this._replaceUriPlaceHolders( this._relativeUris.userSeriesWatchedFiltered );
 	}
 
 	_replaceUriPlaceHolders( uri )

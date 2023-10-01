@@ -21,7 +21,7 @@
 	},
 	"browser_specific_settings": {
 		"gecko": {
-			"id": "{51455496-052f-4d64-b4a4-8c7da562f64f}",
+			"id": "burningseries-usability-enhancer@codekandis",
 			"strict_min_version": "57.0"
 		}
 	},
@@ -75,6 +75,7 @@
 				"library/scripts/application/bs.to/DenialsLoader.js",
 				"library/scripts/application/bs.to/InterestsLoader.js",
 				"library/scripts/application/bs.to/FavoritesLoader.js",
+				"library/scripts/application/bs.to/WatchedLoader.js",
 				"library/scripts/application/bs.to/Series.js",
 				"library/scripts/application/bs.to/Episodes.js",
 				"library/scripts/application/bs.to/SeriesIsSeries.js",
@@ -84,10 +85,13 @@
 				"library/scripts/application/bs.to/SeriesIsInterest.js",
 				"library/scripts/application/bs.to/SeriesFavoriteId.js",
 				"library/scripts/application/bs.to/SeriesIsFavorite.js",
+				"library/scripts/application/bs.to/SeriesWatchId.js",
+				"library/scripts/application/bs.to/SeriesIsWatch.js",
 				"library/scripts/application/bs.to/DenialsFilter.js",
 				"library/scripts/application/bs.to/DenialsSwitcher.js",
 				"library/scripts/application/bs.to/InterestsSwitcher.js",
 				"library/scripts/application/bs.to/FavoritesSwitcher.js",
+				"library/scripts/application/bs.to/WatchedSwitcher.js",
 				"library/scripts/application/bs.to/ActionContextMenu.js",
 				"library/scripts/application/bs.to/ActionTypes.js",
 				"library/scripts/application/bs.to/ActionAdder.js",

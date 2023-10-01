@@ -17,6 +17,11 @@ class ActionTypes extends StaticBaseClass
 		return 'FAVORITE';
 	}
 
+	static get WATCH()
+	{
+		return 'WATCH';
+	}
+
 	static get WATCH_STATE_TOGGLER()
 	{
 		return 'WATCH_STATE_TOGGLER';

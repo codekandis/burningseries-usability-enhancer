@@ -18,6 +18,8 @@ class Series extends BaseClass
 		this._isInterest  = false;
 		this._favoriteId  = null;
 		this._isFavorite  = false;
+		this._watchId     = null;
+		this._isWatch     = false;
 
 		this._initialize();
 	}
@@ -213,6 +215,58 @@ class Series extends BaseClass
 			case true:
 			{
 				DomHelper.setAttribute( this._container, 'data-is-favorite', SeriesIsFavorite.TRUE );
+
+				return;
+			}
+		}
+	}
+
+	get watchId()
+	{
+		return this._watchId;
+	}
+
+	set watchId( watchId )
+	{
+		this._watchId = watchId;
+
+		switch ( this._watchId )
+		{
+			case null:
+			{
+				DomHelper.setAttribute( this._container, 'data-watch-id', SeriesWatchId.NULL );
+
+				return;
+			}
+			default:
+			{
+				DomHelper.setAttribute( this._container, 'data-watch-id', watchId );
+
+				return;
+			}
+		}
+	}
+
+	get isWatch()
+	{
+		return this._isWatch;
+	}
+
+	set isWatch( isWatch )
+	{
+		this._isWatch = isWatch;
+
+		switch ( this._isWatch )
+		{
+			case false:
+			{
+				DomHelper.setAttribute( this._container, 'data-is-watch', SeriesIsWatch.FALSE );
+
+				return;
+			}
+			case true:
+			{
+				DomHelper.setAttribute( this._container, 'data-is-watch', SeriesIsWatch.TRUE );
 
 				return;
 			}
