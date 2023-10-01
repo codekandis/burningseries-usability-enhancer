@@ -235,4 +235,74 @@ class ApiController extends BaseClass
 		)
 			.json();
 	}
+
+	async readUserSeriesWatched()
+	{
+		return await (
+			await this._ajaxController.get(
+				this._apiUris.userSeriesWatched,
+				this._getHeaders()
+			)
+		)
+			.json();
+	}
+
+	async readUserSeriesWatchedFiltered( series )
+	{
+		const requestData = this._createJsonData(
+			{
+				series: series
+					        .map(
+						        ( seriesFetched ) =>
+						        {
+							        return {
+								        name: seriesFetched.name
+							        }
+						        }
+					        )
+			}
+		);
+
+		return await (
+			await this._ajaxController.put(
+				this._apiUris.userSeriesWatchedFiltered,
+				this._getHeaders(),
+				requestData
+			)
+		)
+			.json();
+	}
+
+	async addUserSeriesWatch( series )
+	{
+		const requestData = this._createJsonData(
+			{
+				seriesWatch:
+					{
+						name: series.name,
+						uri:  series.uri
+					}
+			}
+		);
+
+		return await (
+			await this._ajaxController.put(
+				this._apiUris.userSeriesWatched,
+				this._getHeaders(),
+				requestData
+			)
+		)
+			.json();
+	}
+
+	async deleteUserSeriesWatch( series )
+	{
+		return await (
+			await this._ajaxController.delete(
+				this._apiUris.userSeriesWatched + '/' + series.watchId,
+				this._getHeaders()
+			)
+		)
+			.json();
+	}
 }
