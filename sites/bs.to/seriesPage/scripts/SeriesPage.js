@@ -76,7 +76,7 @@ class SeriesPage extends BaseClass
 	_extendEpisodesLinks()
 	{
 		this._linkExtender.extendList(
-			DomHelper.querySelectorAll( '.episodes tbody tr td:nth-child( 1 ) a, .episodes tbody tr td:nth-child( 2 ) a:nth-child( 2 ), #episodes ul li a', document )
+			DomHelper.querySelectorAll( '.episodes tbody tr td:nth-child( 1 ) a, .episodes tbody tr td:nth-child( 2 ) a:nth-child( 2 ), #episodes ul li a', document, false )
 		);
 	}
 
