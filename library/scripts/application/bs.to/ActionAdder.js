@@ -251,6 +251,9 @@ class ActionAdder extends BaseClass
 		return {
 			click:       ( event ) =>
 			             {
+				             event.preventDefault();
+				             event.stopPropagation();
+
 				             this._invokeAction( button, series );
 			             },
 			contextmenu: ( event ) =>
