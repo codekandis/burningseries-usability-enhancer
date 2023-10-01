@@ -72,6 +72,7 @@
 				"library/scripts/application/bs.to/PersistentLoginEnabler.js",
 				"library/scripts/application/bs.to/RegistrationLinkHider.js",
 				"library/scripts/application/bs.to/HeaderModifier.js",
+				"library/scripts/application/bs.to/FooterRemover.js",
 				"library/scripts/application/bs.to/DenialsLoader.js",
 				"library/scripts/application/bs.to/InterestsLoader.js",
 				"library/scripts/application/bs.to/FavoritesLoader.js",
