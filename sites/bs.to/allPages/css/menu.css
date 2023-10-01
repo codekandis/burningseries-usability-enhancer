@@ -2,7 +2,7 @@
 
 :root
 {
-	--menu-count:      5;
+	--menu-count:      6;
 	--menu-width:      900px;
 	--menu-item-width: calc(var(--menu-width) / var(--menu-count));
 }
@@ -67,7 +67,12 @@
 	left: calc(var(--menu-item-width) * -2) !important;
 }
 
-#menu li[data-menu-type='DROPDOWN'][data-menu-purpose='SERIES_DENIALS'] > ul
+#menu li[data-menu-type='DROPDOWN'][data-menu-purpose='SERIES_WATCHED'] > ul
 {
 	left: calc(var(--menu-item-width) * -3) !important;
+}
+
+#menu li[data-menu-type='DROPDOWN'][data-menu-purpose='SERIES_DENIALS'] > ul
+{
+	left: calc(var(--menu-item-width) * -4) !important;
 }

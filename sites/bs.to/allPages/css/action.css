@@ -48,6 +48,13 @@
 	content:    '⋆' !important;
 }
 
+[data-control-type='ACTION'][data-action-type='WATCH']:after
+{
+	margin-top: -2px !important;
+	font-size:  6pt !important;
+	content:    '👁' !important;
+}
+
 [data-is-series='TRUE'][data-is-denial='TRUE'] [data-control-type='ACTION'][data-action-type='DENIAL']:after
 {
 	margin-top: -2px !important;
@@ -76,4 +83,14 @@
 {
 	border-left-color: var(--color-blue) !important;
 	border-top-color:  var(--color-blue) !important;
+}
+
+[data-is-series='TRUE'][data-is-watch='TRUE'] [data-control-type='ACTION']
+{
+	border-color: var(--color-orange) !important;
+}
+
+[data-is-series='TRUE'][data-is-watch='TRUE'] [data-control-type='ACTION']:hover
+{
+	border-color: var(--color-blue) !important;
 }

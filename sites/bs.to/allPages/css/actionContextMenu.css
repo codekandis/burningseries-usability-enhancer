@@ -33,6 +33,7 @@
 
 [data-control-type='ACTION_CONTEXT_MENU_ITEM']:before
 {
+	position:      relative !important;
 	display:       inline-block !important;
 	padding-right: 5px !important;
 	width:         20px !important;
@@ -52,7 +53,6 @@
 
 [data-is-denial='FALSE'] [data-control-type='ACTION_CONTEXT_MENU_ITEM'][data-action-type='DENIAL']:before
 {
-	position:  relative !important;
 	top:       1px !important;
 	font-size: 16pt !important;
 	content:   '-' !important;
@@ -65,7 +65,6 @@
 
 [data-control-type='ACTION_CONTEXT_MENU_ITEM'][data-action-type='INTEREST']:before
 {
-	position:  relative !important;
 	top:       -1px !important;
 	font-size: 8pt !important;
 	content:   '?' !important;
@@ -77,9 +76,17 @@
 	content:   '⋆' !important;
 }
 
+[data-control-type='ACTION_CONTEXT_MENU_ITEM'][data-action-type='WATCH']:before
+{
+	top:       -2px !important;
+	font-size: 6pt !important;
+	content:   '👁' !important;
+}
+
 [data-is-denial='TRUE'] [data-control-type='ACTION_CONTEXT_MENU_ITEM'][data-action-type='DENIAL']:before,
 [data-is-interest='TRUE'] [data-control-type='ACTION_CONTEXT_MENU_ITEM'][data-action-type='INTEREST']:before,
-[data-is-favorite='TRUE'] [data-control-type='ACTION_CONTEXT_MENU_ITEM'][data-action-type='FAVORITE']:before
+[data-is-favorite='TRUE'] [data-control-type='ACTION_CONTEXT_MENU_ITEM'][data-action-type='FAVORITE']:before,
+[data-is-watch='TRUE'] [data-control-type='ACTION_CONTEXT_MENU_ITEM'][data-action-type='WATCH']:before
 {
 	color: var(--color-orange) !important;
 }
