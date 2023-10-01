@@ -91,6 +91,7 @@
 				"library/scripts/application/bs.to/DenialsSwitcher.js",
 				"library/scripts/application/bs.to/InterestsSwitcher.js",
 				"library/scripts/application/bs.to/FavoritesSwitcher.js",
+				"library/scripts/application/bs.to/WatchedSwitcher.js",
 				"library/scripts/application/bs.to/ActionContextMenu.js",
 				"library/scripts/application/bs.to/ActionTypes.js",
 				"library/scripts/application/bs.to/ActionAdder.js",
