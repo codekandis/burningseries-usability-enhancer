@@ -101,6 +101,22 @@ class Episodes extends BaseClass
 			);
 	}
 
+	switchWatch( series, isWatch )
+	{
+		const watchId = false === isWatch
+			? null
+			: series.id;
+
+		this._findAllSeries( series )
+			.forEach(
+				( seriesFetched ) =>
+				{
+					seriesFetched.isWatch = isWatch;
+					seriesFetched.watchId = watchId;
+				}
+			);
+	}
+
 	remove( series )
 	{
 		const indices = [];
