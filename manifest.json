@@ -75,6 +75,7 @@
 				"library/scripts/application/bs.to/DenialsLoader.js",
 				"library/scripts/application/bs.to/InterestsLoader.js",
 				"library/scripts/application/bs.to/FavoritesLoader.js",
+				"library/scripts/application/bs.to/WatchedLoader.js",
 				"library/scripts/application/bs.to/Series.js",
 				"library/scripts/application/bs.to/Episodes.js",
 				"library/scripts/application/bs.to/SeriesIsSeries.js",
