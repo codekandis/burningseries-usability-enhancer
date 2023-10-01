@@ -22,6 +22,7 @@ class LandingPage extends BaseClass
 		this._favoritesSwitcher = new FavoritesSwitcher( this._episodes, this._apiController );
 		this._watchedSwitcher   = new WatchedSwitcher( this._episodes, this._apiController );
 		this._teaserRemover     = new TeaserRemover( '#teaser' );
+		this._headLineRemover   = new HeadLineRemover( '.home > h2' );
 	}
 
 	get _episodeNameHandler()
@@ -56,6 +57,11 @@ class LandingPage extends BaseClass
 	_removeTeaser()
 	{
 		this._teaserRemover.remove();
+	}
+
+	_removeHeadLine()
+	{
+		this._headLineRemover.remove();
 	}
 
 	_filterDenials()
@@ -99,6 +105,7 @@ class LandingPage extends BaseClass
 	execute()
 	{
 		this._removeTeaser();
+		this._removeHeadLine();
 		this._filterDenials()
 			.then(
 				() =>
