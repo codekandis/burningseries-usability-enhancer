@@ -37,6 +37,9 @@ class ActionContextMenu extends BaseClass
 					'click',
 					( event ) =>
 					{
+						event.preventDefault();
+						event.stopPropagation();
+
 						action.action( this._series );
 					}
 				);

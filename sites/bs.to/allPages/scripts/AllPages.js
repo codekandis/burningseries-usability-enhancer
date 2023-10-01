@@ -36,6 +36,7 @@ class AllPages extends BaseClass
 		};
 		this._mouseMarker     = new MouseMarker();
 		this._headerModifier  = new HeaderModifier( 'header' );
+		this._footerRemover   = new FooterRemover( 'footer' );
 		this._menuRemover     = new MenuRemover(
 			[
 				'#menu > li:nth-child( 6 ), #menu > li:nth-child( 5 ), #menu > li:nth-child( 4 ), #menu > li:nth-child( 3 )'
@@ -132,6 +133,11 @@ class AllPages extends BaseClass
 		this._headerModifier.modify();
 	}
 
+	_removeFooter()
+	{
+		this._footerRemover.remove();
+	}
+
 	_removeMenus()
 	{
 		this._menuRemover.remove();
@@ -195,6 +201,7 @@ class AllPages extends BaseClass
 	{
 		this._markMouse();
 		this._modifyHeader();
+		this._removeFooter();
 		this._removeMenus();
 		this._addMenus();
 		this._handleMenus();

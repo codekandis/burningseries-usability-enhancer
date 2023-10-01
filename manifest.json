@@ -72,6 +72,7 @@
 				"library/scripts/application/bs.to/PersistentLoginEnabler.js",
 				"library/scripts/application/bs.to/RegistrationLinkHider.js",
 				"library/scripts/application/bs.to/HeaderModifier.js",
+				"library/scripts/application/bs.to/FooterRemover.js",
 				"library/scripts/application/bs.to/DenialsLoader.js",
 				"library/scripts/application/bs.to/InterestsLoader.js",
 				"library/scripts/application/bs.to/FavoritesLoader.js",
@@ -116,6 +117,7 @@
 			],
 			"js": [
 				"library/scripts/application/bs.to/TeaserRemover.js",
+				"library/scripts/application/bs.to/HeadLineRemover.js",
 				"library/scripts/common/Dom/LinkExtender.js",
 				"sites/bs.to/landingPage/scripts/LandingPage.js",
 				"sites/bs.to/landingPage/scripts/index.js"
@@ -157,6 +159,7 @@
 			"js": [
 				"library/scripts/common/Dom/LinkExtender.js",
 				"library/scripts/common/Dom/Scroller.js",
+				"library/scripts/application/bs.to/MetaLinksRemover.js",
 				"library/scripts/application/bs.to/DescriptionRemover.js",
 				"library/scripts/application/bs.to/SeasonPageDeterminator.js",
 				"library/scripts/application/bs.to/BsToController.js",

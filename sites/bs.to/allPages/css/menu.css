@@ -2,9 +2,10 @@
 
 :root
 {
-	--menu-count:      6;
-	--menu-width:      900px;
-	--menu-item-width: calc(var(--menu-width) / var(--menu-count));
+	--menu-count:           6;
+	--menu-width:           900px;
+	--menu-item-width:      calc(var(--menu-width) / var(--menu-count));
+	--submenu-column-count: 4;
 }
 
 #menu > li
@@ -16,7 +17,7 @@
 {
 	position:         absolute !important;
 	width:            var(--menu-width) !important;
-	column-count:     var(--menu-count) !important;
+	column-count:     var(--submenu-column-count) !important;
 	column-gap:       0 !important;
 	background-color: #dddddd !important;
 	border-radius:    0 !important;

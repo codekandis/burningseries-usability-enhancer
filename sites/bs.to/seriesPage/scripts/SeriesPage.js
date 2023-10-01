@@ -95,6 +95,12 @@ class SeriesPage extends BaseClass
 		}
 	}
 
+	_removeMetaLinks()
+	{
+		( new MetaLinksRemover( '#sp_right > a' ) )
+			.remove();
+	}
+
 	_removeDescription()
 	{
 		( new DescriptionRemover( '#description' ) )
@@ -128,6 +134,7 @@ class SeriesPage extends BaseClass
 			);
 		this._extendEpisodesLinks();
 		this._addNavigation();
+		this._removeMetaLinks();
 		this._removeDescription();
 		this._scrollToBottom();
 	}

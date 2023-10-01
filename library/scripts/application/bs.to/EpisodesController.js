@@ -240,6 +240,8 @@ class EpisodesController extends BaseClass
 			( event ) =>
 			{
 				event.preventDefault();
+				event.stopPropagation();
+
 				this._toggleWatchState( buttons.watchStateToggler, seasons, episodes );
 			}
 		);
@@ -257,6 +259,8 @@ class EpisodesController extends BaseClass
 				( event ) =>
 				{
 					event.preventDefault();
+					event.stopPropagation();
+
 					this._navigateBackward( seasons, episodes );
 				}
 			);
@@ -275,6 +279,8 @@ class EpisodesController extends BaseClass
 				( event ) =>
 				{
 					event.preventDefault();
+					event.stopPropagation();
+
 					this._navigateForward( seasons, episodes );
 				}
 			);

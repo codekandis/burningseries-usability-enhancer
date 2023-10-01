@@ -1,6 +1,6 @@
 'use strict';
 
-class TeaserRemover extends BaseClass
+class HeadLineRemover extends BaseClass
 {
 	constructor( targetSelector )
 	{
