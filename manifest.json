@@ -84,6 +84,8 @@
 				"library/scripts/application/bs.to/SeriesIsInterest.js",
 				"library/scripts/application/bs.to/SeriesFavoriteId.js",
 				"library/scripts/application/bs.to/SeriesIsFavorite.js",
+				"library/scripts/application/bs.to/SeriesWatchId.js",
+				"library/scripts/application/bs.to/SeriesIsWatch.js",
 				"library/scripts/application/bs.to/DenialsFilter.js",
 				"library/scripts/application/bs.to/DenialsSwitcher.js",
 				"library/scripts/application/bs.to/InterestsSwitcher.js",
