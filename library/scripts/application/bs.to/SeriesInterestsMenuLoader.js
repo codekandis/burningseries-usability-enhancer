@@ -1,6 +1,6 @@
 'use strict';
 
-class InterestsLoader extends BaseClass
+class SeriesInterestsMenuLoader extends BaseClass
 {
 	constructor( selector, apiController )
 	{

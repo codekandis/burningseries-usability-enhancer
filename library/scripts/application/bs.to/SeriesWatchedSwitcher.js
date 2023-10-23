@@ -1,6 +1,6 @@
 'use strict';
 
-class DenialsSwitcher extends BaseClass
+class SeriesWatchedSwitcher extends BaseClass
 {
 	constructor( episodes, apiController )
 	{
@@ -15,18 +15,18 @@ class DenialsSwitcher extends BaseClass
 		this._episodes.series.forEach(
 			( series ) =>
 			{
-				this._episodes.switchDenial( series, false );
+				this._episodes.switchWatch( series, false );
 			}
 		);
 
-		const responseData = await this._apiController.readUserSeriesDenialsFiltered( this._episodes.series );
+		const responseData = await this._apiController.readUserSeriesWatchedFiltered( this._episodes.series );
 		responseData
 			.data
-			.seriesDenials
+			.seriesWatched
 			.forEach(
 				( series ) =>
 				{
-					this._episodes.switchDenial( series, true );
+					this._episodes.switchWatch( series, true );
 				}
 			);
 	}

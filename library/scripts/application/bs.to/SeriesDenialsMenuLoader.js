@@ -1,6 +1,6 @@
 'use strict';
 
-class FavoritesLoader extends BaseClass
+class SeriesDenialsMenuLoader extends BaseClass
 {
 	constructor( selector, apiController )
 	{
@@ -12,12 +12,12 @@ class FavoritesLoader extends BaseClass
 
 	async load()
 	{
-		const responseData = await this._apiController.readUserSeriesFavorites();
+		const responseData = await this._apiController.readUserSeriesDenials();
 
 		const container     = DomHelper.querySelector( this._selector );
 		container.innerHTML = responseData
 			.data
-			.seriesFavorites
+			.seriesDenials
 			.sort(
 				( series_1, series_2 ) =>
 				{
@@ -35,7 +35,7 @@ class FavoritesLoader extends BaseClass
 			.map(
 				( series ) =>
 				{
-					return String.format`<li><a href="${ 0 }">${ 1 }</a></li>`( series.uri, series.name );
+					return String.format`<li><a href="${ 0 }">${ 1 }</a></li>`( series.uri, series.name )
 				}
 			)
 			.join( '' );

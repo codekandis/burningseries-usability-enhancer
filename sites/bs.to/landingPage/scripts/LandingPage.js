@@ -16,11 +16,11 @@ class LandingPage extends BaseClass
 			'/' + this._settings.get( 'defaultPlayer' )
 		);
 		this._episodes          = new Episodes( '#newest_episodes ul li, #newest_series ul li', this._episodeNameHandler, this._episodeUriHandler );
-		this._denialsFilter     = new DenialsFilter( this._episodes, this._apiController, true );
-		this._denialsSwitcher   = new DenialsSwitcher( this._episodes, this._apiController );
-		this._interestsSwitcher = new InterestsSwitcher( this._episodes, this._apiController );
-		this._favoritesSwitcher = new FavoritesSwitcher( this._episodes, this._apiController );
-		this._watchedSwitcher   = new WatchedSwitcher( this._episodes, this._apiController );
+		this._denialsFilter     = new SeriesDenialsFilter( this._episodes, this._apiController, true );
+		this._denialsSwitcher   = new SeriesDenialsSwitcher( this._episodes, this._apiController );
+		this._interestsSwitcher = new SeriesInterestsSwitcher( this._episodes, this._apiController );
+		this._favoritesSwitcher = new SeriesFavoritesSwitcher( this._episodes, this._apiController );
+		this._watchedSwitcher   = new SeriesWatchedSwitcher( this._episodes, this._apiController );
 		this._teaserRemover     = new TeaserRemover( '#teaser' );
 		this._headLineRemover   = new HeadLineRemover( '.home > h2' );
 	}
