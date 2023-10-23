@@ -49,7 +49,7 @@ class BaseSeriesMenuLoader extends BaseClass
 				.join( '' )
 		);
 
-		DomHelper.appendChildren( this._menuContainer, menuItems );
+		DomHelper.appendChildren( this._menuContainer, [ ...menuItems ] );
 	}
 
 	_addSeries( series )
