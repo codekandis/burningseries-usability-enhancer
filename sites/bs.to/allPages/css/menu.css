@@ -29,35 +29,6 @@
 	display: none;
 }
 
-#menu li[data-menu-type='DROPDOWN'] > ul > li
-{
-	text-align:   left !important;
-	border-style: none !important;
-}
-
-#menu li[data-menu-type='DROPDOWN'] > ul > li:last-child
-{
-	border-radius: 0 !important;
-}
-
-#menu li[data-menu-type='DROPDOWN'] > ul > li > a
-{
-	padding:          0 7px !important;
-	background-image: linear-gradient(0, #cccccc 1px, #cccccc 1px, transparent 1px), linear-gradient(90deg, #cccccc 1px, #cccccc 1px, transparent 1px) !important;
-}
-
-#menu li[data-menu-type='DROPDOWN'] [data-control-type='ACTION']
-{
-	margin-left: -8px !important;
-	margin-top:  11px !important;
-}
-
-#menu > li[data-menu-type='DROPDOWN'] [data-control-type='ACTION_CONTEXT_MENU']
-{
-	margin-left: 7px !important;
-	margin-top:  11px !important;
-}
-
 #menu li[data-menu-type='DROPDOWN'][data-menu-purpose='SERIES_FAVORITES'] > ul
 {
 	left: calc(var(--menu-item-width) * -1) !important;
@@ -76,4 +47,43 @@
 #menu li[data-menu-type='DROPDOWN'][data-menu-purpose='SERIES_DENIALS'] > ul
 {
 	left: calc(var(--menu-item-width) * -4) !important;
+}
+
+#menu li[data-menu-type='DROPDOWN'] > ul > li
+{
+	text-align:   left !important;
+	border-style: none !important;
+}
+
+#menu li[data-menu-type='DROPDOWN'] > ul > li:last-child
+{
+	border-radius: 0 !important;
+}
+
+#menu li[data-menu-type='DROPDOWN'] > ul > li > [data-control-type='MENU_FILTER']
+{
+	display:     inline-block !important;
+	position:    relative !important;
+	left:        4px !important;
+	bottom:      1px !important;
+	width:       calc(var(--menu-width) / var(--submenu-column-count) - 15px) !important;
+	line-height: 1em !important;
+}
+
+#menu li[data-menu-type='DROPDOWN'] > ul > li > a
+{
+	padding:          0 7px !important;
+	background-image: linear-gradient(0, #cccccc 1px, #cccccc 1px, transparent 1px), linear-gradient(90deg, #cccccc 1px, #cccccc 1px, transparent 1px) !important;
+}
+
+#menu li[data-menu-type='DROPDOWN'] [data-control-type='ACTION']
+{
+	margin-left: -8px !important;
+	margin-top:  11px !important;
+}
+
+#menu > li[data-menu-type='DROPDOWN'] [data-control-type='ACTION_CONTEXT_MENU']
+{
+	margin-left: 7px !important;
+	margin-top:  11px !important;
 }
