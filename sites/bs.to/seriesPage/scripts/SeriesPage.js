@@ -16,11 +16,11 @@ class SeriesPage extends BaseClass
 			'/' + this._settings.get( 'defaultPlayer' )
 		);
 		this._episodes          = new Episodes( '#sp_left h2', this._episodeNameHandler, this._episodeUriHandler );
-		this._denialsFilter     = new DenialsFilter( this._episodes, this._apiController, false );
-		this._denialsSwitcher   = new DenialsSwitcher( this._episodes, this._apiController );
-		this._interestsSwitcher = new InterestsSwitcher( this._episodes, this._apiController );
-		this._favoritesSwitcher = new FavoritesSwitcher( this._episodes, this._apiController );
-		this._watchedSwitcher   = new WatchedSwitcher( this._episodes, this._apiController );
+		this._denialsFilter     = new SeriesDenialsFilter( this._episodes, this._apiController, false );
+		this._denialsSwitcher   = new SeriesDenialsSwitcher( this._episodes, this._apiController );
+		this._interestsSwitcher = new SeriesInterestsSwitcher( this._episodes, this._apiController );
+		this._favoritesSwitcher = new SeriesFavoritesSwitcher( this._episodes, this._apiController );
+		this._watchedSwitcher   = new SeriesWatchedSwitcher( this._episodes, this._apiController );
 	}
 
 	get _episodeNameHandler()

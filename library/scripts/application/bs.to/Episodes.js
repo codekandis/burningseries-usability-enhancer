@@ -46,7 +46,15 @@ class Episodes extends BaseClass
 			.forEach(
 				( series ) =>
 				{
-					const processedSeries    = new Series( series, this._nameHandler, this._uriHandler );
+					const seriesName = this._nameHandler( series );
+					const seriesUri  = this._uriHandler( series );
+
+					if ( null === seriesName || null === seriesUri )
+					{
+						return;
+					}
+
+					const processedSeries    = new Series( series, seriesName, seriesUri );
 					processedSeries.isSeries = true;
 					this._series.push( processedSeries );
 				}

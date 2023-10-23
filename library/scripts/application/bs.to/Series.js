@@ -2,26 +2,22 @@
 
 class Series extends BaseClass
 {
-	constructor( container, nameHandler, uriHandler )
+	constructor( container, name, uri )
 	{
 		super();
 
-		this._container   = container;
-		this._nameHandler = nameHandler;
-		this._uriHandler  = uriHandler;
-		this._name        = null;
-		this._uri         = null;
-		this._isSeries    = false;
-		this._denialId    = null;
-		this._isDenial    = false;
-		this._interestId  = null;
-		this._isInterest  = false;
-		this._favoriteId  = null;
-		this._isFavorite  = false;
-		this._watchId     = null;
-		this._isWatch     = false;
-
-		this._initialize();
+		this._container  = container;
+		this._name       = name;
+		this._uri        = uri;
+		this._isSeries   = false;
+		this._denialId   = null;
+		this._isDenial   = false;
+		this._interestId = null;
+		this._isInterest = false;
+		this._favoriteId = null;
+		this._isFavorite = false;
+		this._watchId    = null;
+		this._isWatch    = false;
 	}
 
 	get container()
@@ -271,12 +267,6 @@ class Series extends BaseClass
 				return;
 			}
 		}
-	}
-
-	_initialize()
-	{
-		this._name = this._nameHandler( this._container );
-		this._uri  = this._uriHandler( this._container );
 	}
 
 	remove()

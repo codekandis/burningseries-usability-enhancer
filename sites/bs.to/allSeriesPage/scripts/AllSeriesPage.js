@@ -13,11 +13,11 @@ class AllSeriesPage extends BaseClass
 			this._settings.get( 'apiKey' )
 		);
 		this._episodes          = new Episodes( '#seriesContainer ul li', this._episodeNameHandler, this._episodeUriHandler );
-		this._denialsFilter     = new DenialsFilter( this._episodes, this._apiController, true );
-		this._denialsSwitcher   = new DenialsSwitcher( this._episodes, this._apiController );
-		this._interestsSwitcher = new InterestsSwitcher( this._episodes, this._apiController );
-		this._favoritesSwitcher = new FavoritesSwitcher( this._episodes, this._apiController );
-		this._watchedSwitcher   = new WatchedSwitcher( this._episodes, this._apiController );
+		this._denialsFilter     = new SeriesDenialsFilter( this._episodes, this._apiController, true );
+		this._denialsSwitcher   = new SeriesDenialsSwitcher( this._episodes, this._apiController );
+		this._interestsSwitcher = new SeriesInterestsSwitcher( this._episodes, this._apiController );
+		this._favoritesSwitcher = new SeriesFavoritesSwitcher( this._episodes, this._apiController );
+		this._watchedSwitcher   = new SeriesWatchedSwitcher( this._episodes, this._apiController );
 	}
 
 	get _episodeNameHandler()

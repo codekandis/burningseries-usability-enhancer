@@ -1,6 +1,6 @@
 'use strict';
 
-class FavoritesSwitcher extends BaseClass
+class SeriesFavoritesSwitcher extends BaseClass
 {
 	constructor( episodes, apiController )
 	{

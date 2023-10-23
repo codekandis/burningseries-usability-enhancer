@@ -1,6 +1,6 @@
 'use strict';
 
-class DenialsFilter extends BaseClass
+class SeriesDenialsFilter extends BaseClass
 {
 	constructor( episodes, apiController, removeIfFiltered )
 	{

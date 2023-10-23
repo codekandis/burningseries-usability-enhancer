@@ -83,19 +83,19 @@ class AllPages extends BaseClass
 			]
 		);
 		this._menuHandler     = new MenuHandler( this._menuSettings );
-		this._denialsLoader   = new DenialsLoader(
+		this._denialsLoader   = new SeriesDenialsMenuLoader(
 			String.format`${ 0 } ul`( this._menuSettings.denials.selector ),
 			this._apiController
 		);
-		this._interestsLoader = new InterestsLoader(
+		this._interestsLoader = new SeriesInterestsMenuLoader(
 			String.format`${ 0 } ul`( this._menuSettings.interests.selector ),
 			this._apiController
 		);
-		this._favoritesLoader = new FavoritesLoader(
+		this._favoritesLoader = new SeriesFavoritesMenuLoader(
 			String.format`${ 0 } ul`( this._menuSettings.favorites.selector ),
 			this._apiController
 		);
-		this._watchedLoader   = new WatchedLoader(
+		this._watchedLoader   = new SeriesWatchedMenuLoader(
 			String.format`${ 0 } ul`( this._menuSettings.watched.selector ),
 			this._apiController
 		);
@@ -105,11 +105,15 @@ class AllPages extends BaseClass
 	{
 		return ( container ) =>
 		{
-			return DomHelper
-				.querySelector( 'a', container )
-				.textContent
-				.trim()
-				.toLowerCase();
+			const element = DomHelper
+				.querySelector( 'a', container, false );
+
+			return null === element
+				? null
+				: element
+					.textContent
+					.trim()
+					.toLowerCase();
 		}
 	}
 
@@ -117,9 +121,13 @@ class AllPages extends BaseClass
 	{
 		return ( container ) =>
 		{
-			return DomHelper
-				.querySelector( 'a', container )
-				.href;
+			const element = DomHelper
+				.querySelector( 'a', container, false );
+
+			return null === element
+				? null
+				: element
+					.href;
 		}
 	}
 
@@ -162,11 +170,11 @@ class AllPages extends BaseClass
 			this._episodeNameHandler,
 			this._episodeUriHandler
 		);
-		const denialsFilter     = new DenialsFilter( episodes, this._apiController, true );
-		const denialsSwitcher   = new DenialsSwitcher( episodes, this._apiController );
-		const interestsSwitcher = new InterestsSwitcher( episodes, this._apiController );
-		const favoritesSwitcher = new FavoritesSwitcher( episodes, this._apiController );
-		const watchedSwitcher   = new WatchedSwitcher( episodes, this._apiController );
+		const denialsFilter     = new SeriesDenialsFilter( episodes, this._apiController, true );
+		const denialsSwitcher   = new SeriesDenialsSwitcher( episodes, this._apiController );
+		const interestsSwitcher = new SeriesInterestsSwitcher( episodes, this._apiController );
+		const favoritesSwitcher = new SeriesFavoritesSwitcher( episodes, this._apiController );
+		const watchedSwitcher   = new SeriesWatchedSwitcher( episodes, this._apiController );
 
 		( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher ) )
 			.addActions();
