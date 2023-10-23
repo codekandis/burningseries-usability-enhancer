@@ -105,11 +105,15 @@ class AllPages extends BaseClass
 	{
 		return ( container ) =>
 		{
-			return DomHelper
-				.querySelector( 'a', container )
-				.textContent
-				.trim()
-				.toLowerCase();
+			const element = DomHelper
+				.querySelector( 'a', container, false );
+
+			return null === element
+				? null
+				: element
+					.textContent
+					.trim()
+					.toLowerCase();
 		}
 	}
 
@@ -117,9 +121,13 @@ class AllPages extends BaseClass
 	{
 		return ( container ) =>
 		{
-			return DomHelper
-				.querySelector( 'a', container )
-				.href;
+			const element = DomHelper
+				.querySelector( 'a', container, false );
+
+			return null === element
+				? null
+				: element
+					.href;
 		}
 	}
 
