@@ -9,7 +9,7 @@ class BsToController extends BaseClass
 		this._ajaxController = new AjaxController();
 	}
 
-	async readEpisodes( uri )
+	async _readAsHtmlDocument( uri )
 	{
 		const htmlString = await (
 			await this
@@ -18,32 +18,25 @@ class BsToController extends BaseClass
 		)
 			.text();
 
+		return ( new DOMParser() )
+			.parseFromString( htmlString, ContentTypes.TEXT_HTML );
+	}
+
+	async readEpisodes( uri )
+	{
+		const htmlDocument = await this._readAsHtmlDocument( uri );
+
 		return [
-			...DomHelper.querySelectorAll(
-				'table.episodes tbody tr td:nth-child( 1 ) a',
-				( new DOMParser() )
-					.parseFromString( htmlString, ContentTypes.TEXT_HTML ),
-				false
-			)
+			...DomHelper.querySelectorAll( 'table.episodes tbody tr td:nth-child( 1 ) a', htmlDocument, false )
 		];
 	}
 
 	async readWatchStates( uri )
 	{
-		const htmlString = await (
-			await this
-				._ajaxController
-				.get( uri, [] )
-		)
-			.text();
+		const htmlDocument = await this._readAsHtmlDocument( uri );
 
 		return [
-			...DomHelper.querySelectorAll(
-				'table.episodes tr',
-				( new DOMParser() )
-					.parseFromString( htmlString, ContentTypes.TEXT_HTML ),
-				false
-			)
+			...DomHelper.querySelectorAll( 'table.episodes tr', htmlDocument, false )
 		]
 			.map(
 				( episode ) =>
