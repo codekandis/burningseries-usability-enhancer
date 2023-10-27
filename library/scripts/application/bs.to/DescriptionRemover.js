@@ -2,15 +2,17 @@
 
 class DescriptionRemover extends BaseClass
 {
+	#_selector;
+
 	constructor( selector )
 	{
 		super();
 
-		this._selector = selector;
+		this.#_selector = selector;
 	}
 
 	remove()
 	{
-		DomHelper.remove( this._selector );
+		DomHelper.remove( this.#_selector );
 	}
 }

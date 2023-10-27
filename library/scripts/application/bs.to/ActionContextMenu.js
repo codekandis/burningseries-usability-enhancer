@@ -2,31 +2,34 @@
 
 class ActionContextMenu extends BaseClass
 {
-	static _currentContextMenu = null;
+	static #_currentContextMenu = null;
+	#_container;
+	#_series;
+	#_actions;
 
 	constructor( container, series, actions )
 	{
 		super();
 
-		this._container = container;
-		this._series    = series;
-		this._actions   = actions;
+		this.#_container = container;
+		this.#_series    = series;
+		this.#_actions   = actions;
 	}
 
-	_hideMenu()
+	#hideMenu()
 	{
-		if ( null !== ActionContextMenu._currentContextMenu )
+		if ( null !== ActionContextMenu.#_currentContextMenu )
 		{
-			ActionContextMenu._currentContextMenu.remove();
-			ActionContextMenu._currentContextMenu = null;
+			ActionContextMenu.#_currentContextMenu.remove();
+			ActionContextMenu.#_currentContextMenu = null;
 		}
 	}
 
-	_showMenu()
+	#showMenu()
 	{
-		ActionContextMenu._currentContextMenu = DomHelper.createElementFromString( '<ul data-control-type="ACTION_CONTEXT_MENU"></ul>' );
+		ActionContextMenu.#_currentContextMenu = DomHelper.createElementFromString( '<ul data-control-type="ACTION_CONTEXT_MENU"></ul>' );
 
-		this._actions.forEach(
+		this.#_actions.forEach(
 			( action ) =>
 			{
 				const subMenu = DomHelper.createElementFromString(
@@ -40,27 +43,27 @@ class ActionContextMenu extends BaseClass
 						event.preventDefault();
 						event.stopPropagation();
 
-						action.action( this._series );
+						action.action( this.#_series );
 					}
 				);
 
-				DomHelper.appendChild( ActionContextMenu._currentContextMenu, subMenu );
+				DomHelper.appendChild( ActionContextMenu.#_currentContextMenu, subMenu );
 			}
 		);
 
-		ActionContextMenu._currentContextMenu.style.top  = this._container.offsetTop + 'px';
-		ActionContextMenu._currentContextMenu.style.left = this._container.offsetLeft + 'px';
-		DomHelper.appendChild( this._container, ActionContextMenu._currentContextMenu );
+		ActionContextMenu.#_currentContextMenu.style.top  = this.#_container.offsetTop + 'px';
+		ActionContextMenu.#_currentContextMenu.style.left = this.#_container.offsetLeft + 'px';
+		DomHelper.appendChild( this.#_container, ActionContextMenu.#_currentContextMenu );
 	}
 
 	hide()
 	{
-		this._hideMenu();
+		this.#hideMenu();
 	}
 
 	show()
 	{
-		this._hideMenu();
-		this._showMenu();
+		this.#hideMenu();
+		this.#showMenu();
 	}
 }

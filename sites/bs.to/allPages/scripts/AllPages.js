@@ -2,106 +2,113 @@
 
 class AllPages extends BaseClass
 {
+	#_menuSettings   = {
+		interests: {
+			selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_INTERESTS ),
+			activatorSelector: '> a',
+			loader:            this.#loadInterests.bind( this )
+		},
+		favorites: {
+			selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_FAVORITES ),
+			activatorSelector: '> a',
+			loader:            this.#loadFavorites.bind( this )
+		},
+		watched:   {
+			selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_WATCHED ),
+			activatorSelector: '> a',
+			loader:            this.#loadWatched.bind( this )
+		},
+		denials:   {
+			selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_DENIALS ),
+			activatorSelector: '> a',
+			loader:            this.#loadDenials.bind( this )
+		}
+	};
+	#_mouseMarker    = new MouseMarker();
+	#_headerModifier = new HeaderModifier( 'header' );
+	#_footerRemover  = new FooterRemover( 'footer' );
+	#_menuRemover    = new MenuRemover(
+		[
+			'#menu > li:nth-child( 6 ), #menu > li:nth-child( 5 ), #menu > li:nth-child( 4 ), #menu > li:nth-child( 3 )'
+		]
+	);
+	#_menuAdder      = new MenuAdder(
+		[
+			{
+				name:           'Favorites',
+				dataAttributes: {
+					'menu-type':    MenuTypes.DROPDOWN,
+					'menu-purpose': MenuPurposes.SERIES_FAVORITES
+				},
+				targetSelector: '#menu > li:nth-child( 1 )',
+				position:       DomInsertPositions.AFTER
+			},
+			{
+				name:           'Interests',
+				dataAttributes: {
+					'menu-type':    MenuTypes.DROPDOWN,
+					'menu-purpose': MenuPurposes.SERIES_INTERESTS
+				},
+				targetSelector: '#menu > li:nth-child( 2 )',
+				position:       DomInsertPositions.AFTER
+			},
+			{
+				name:           'Watched',
+				dataAttributes: {
+					'menu-type':    MenuTypes.DROPDOWN,
+					'menu-purpose': MenuPurposes.SERIES_WATCHED
+				},
+				targetSelector: '#menu > li:nth-child( 3 )',
+				position:       DomInsertPositions.AFTER
+			},
+			{
+				name:           'Denials',
+				dataAttributes: {
+					'menu-type':    MenuTypes.DROPDOWN,
+					'menu-purpose': MenuPurposes.SERIES_DENIALS
+				},
+				targetSelector: '#menu > li:nth-child( 4 )',
+				position:       DomInsertPositions.AFTER
+			}
+		]
+	);
+	#_menuHandler    = new MenuHandler( this.#_menuSettings );
+	#_settings;
+	#_apiController;
+	#_denialsLoader;
+	#_interestsLoader;
+	#_favoritesLoader;
+	#_watchedLoader;
+
 	constructor( settings )
 	{
 		super();
 
-		this._settings        = settings;
-		this._apiController   = new ApiController(
-			this._settings.get( 'apiBaseUri' ),
-			this._settings.get( 'apiUserId' ),
-			this._settings.get( 'apiKey' )
+		this.#_settings        = settings;
+		this.#_apiController   = new ApiController(
+			settings.get( 'apiBaseUri' ),
+			settings.get( 'apiUserId' ),
+			settings.get( 'apiKey' )
 		);
-		this._menuSettings    = {
-			interests: {
-				selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_INTERESTS ),
-				activatorSelector: '> a',
-				loader:            this._loadInterests.bind( this )
-			},
-			favorites: {
-				selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_FAVORITES ),
-				activatorSelector: '> a',
-				loader:            this._loadFavorites.bind( this )
-			},
-			watched:   {
-				selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_WATCHED ),
-				activatorSelector: '> a',
-				loader:            this._loadWatched.bind( this )
-			},
-			denials:   {
-				selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_DENIALS ),
-				activatorSelector: '> a',
-				loader:            this._loadDenials.bind( this )
-			}
-		};
-		this._mouseMarker     = new MouseMarker();
-		this._headerModifier  = new HeaderModifier( 'header' );
-		this._footerRemover   = new FooterRemover( 'footer' );
-		this._menuRemover     = new MenuRemover(
-			[
-				'#menu > li:nth-child( 6 ), #menu > li:nth-child( 5 ), #menu > li:nth-child( 4 ), #menu > li:nth-child( 3 )'
-			]
+		this.#_denialsLoader   = new SeriesDenialsMenuLoader(
+			String.format`${ 0 } ul`( this.#_menuSettings.denials.selector ),
+			this.#_apiController
 		);
-		this._menuAdder       = new MenuAdder(
-			[
-				{
-					name:           'Favorites',
-					dataAttributes: {
-						'menu-type':    MenuTypes.DROPDOWN,
-						'menu-purpose': MenuPurposes.SERIES_FAVORITES
-					},
-					targetSelector: '#menu > li:nth-child( 1 )',
-					position:       DomInsertPositions.AFTER
-				},
-				{
-					name:           'Interests',
-					dataAttributes: {
-						'menu-type':    MenuTypes.DROPDOWN,
-						'menu-purpose': MenuPurposes.SERIES_INTERESTS
-					},
-					targetSelector: '#menu > li:nth-child( 2 )',
-					position:       DomInsertPositions.AFTER
-				},
-				{
-					name:           'Watched',
-					dataAttributes: {
-						'menu-type':    MenuTypes.DROPDOWN,
-						'menu-purpose': MenuPurposes.SERIES_WATCHED
-					},
-					targetSelector: '#menu > li:nth-child( 3 )',
-					position:       DomInsertPositions.AFTER
-				},
-				{
-					name:           'Denials',
-					dataAttributes: {
-						'menu-type':    MenuTypes.DROPDOWN,
-						'menu-purpose': MenuPurposes.SERIES_DENIALS
-					},
-					targetSelector: '#menu > li:nth-child( 4 )',
-					position:       DomInsertPositions.AFTER
-				}
-			]
+		this.#_interestsLoader = new SeriesInterestsMenuLoader(
+			String.format`${ 0 } ul`( this.#_menuSettings.interests.selector ),
+			this.#_apiController
 		);
-		this._menuHandler     = new MenuHandler( this._menuSettings );
-		this._denialsLoader   = new SeriesDenialsMenuLoader(
-			String.format`${ 0 } ul`( this._menuSettings.denials.selector ),
-			this._apiController
+		this.#_favoritesLoader = new SeriesFavoritesMenuLoader(
+			String.format`${ 0 } ul`( this.#_menuSettings.favorites.selector ),
+			this.#_apiController
 		);
-		this._interestsLoader = new SeriesInterestsMenuLoader(
-			String.format`${ 0 } ul`( this._menuSettings.interests.selector ),
-			this._apiController
-		);
-		this._favoritesLoader = new SeriesFavoritesMenuLoader(
-			String.format`${ 0 } ul`( this._menuSettings.favorites.selector ),
-			this._apiController
-		);
-		this._watchedLoader   = new SeriesWatchedMenuLoader(
-			String.format`${ 0 } ul`( this._menuSettings.watched.selector ),
-			this._apiController
+		this.#_watchedLoader   = new SeriesWatchedMenuLoader(
+			String.format`${ 0 } ul`( this.#_menuSettings.watched.selector ),
+			this.#_apiController
 		);
 	}
 
-	get _episodeNameHandler()
+	get #episodeNameHandler()
 	{
 		return ( container ) =>
 		{
@@ -117,7 +124,7 @@ class AllPages extends BaseClass
 		}
 	}
 
-	get _episodeUriHandler()
+	get #episodeUriHandler()
 	{
 		return ( container ) =>
 		{
@@ -131,52 +138,52 @@ class AllPages extends BaseClass
 		}
 	}
 
-	_markMouse()
+	#markMouse()
 	{
-		this._mouseMarker.markMouse();
+		this.#_mouseMarker.markMouse();
 	}
 
-	_modifyHeader()
+	#modifyHeader()
 	{
-		this._headerModifier.modify();
+		this.#_headerModifier.modify();
 	}
 
-	_removeFooter()
+	#removeFooter()
 	{
-		this._footerRemover.remove();
+		this.#_footerRemover.remove();
 	}
 
-	_removeMenus()
+	#removeMenus()
 	{
-		this._menuRemover.remove();
+		this.#_menuRemover.remove();
 	}
 
-	_addMenus()
+	#addMenus()
 	{
-		this._menuAdder.add();
+		this.#_menuAdder.add();
 	}
 
-	_handleMenus()
+	#handleMenus()
 	{
-		this._menuHandler.handle();
+		this.#_menuHandler.handle();
 	}
 
-	async _load( loader, episodesSelector )
+	async #load( loader, episodesSelector )
 	{
 		await loader.load();
 
 		const episodes          = new Episodes(
 			String.format`${ 0 } ul li`( episodesSelector ),
-			this._episodeNameHandler,
-			this._episodeUriHandler
+			this.#episodeNameHandler,
+			this.#episodeUriHandler
 		);
-		const denialsFilter     = new SeriesDenialsFilter( episodes, this._apiController, true );
-		const denialsSwitcher   = new SeriesDenialsSwitcher( episodes, this._apiController );
-		const interestsSwitcher = new SeriesInterestsSwitcher( episodes, this._apiController );
-		const favoritesSwitcher = new SeriesFavoritesSwitcher( episodes, this._apiController );
-		const watchedSwitcher   = new SeriesWatchedSwitcher( episodes, this._apiController );
+		const denialsFilter     = new SeriesDenialsFilter( episodes, this.#_apiController, true );
+		const denialsSwitcher   = new SeriesDenialsSwitcher( episodes, this.#_apiController );
+		const interestsSwitcher = new SeriesInterestsSwitcher( episodes, this.#_apiController );
+		const favoritesSwitcher = new SeriesFavoritesSwitcher( episodes, this.#_apiController );
+		const watchedSwitcher   = new SeriesWatchedSwitcher( episodes, this.#_apiController );
 
-		( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher ) )
+		( new ActionAdder( episodes, this.#_apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher ) )
 			.addActions();
 
 		denialsSwitcher.switch();
@@ -185,33 +192,33 @@ class AllPages extends BaseClass
 		watchedSwitcher.switch();
 	}
 
-	_loadDenials()
+	#loadDenials()
 	{
-		this._load( this._denialsLoader, this._menuSettings.denials.selector );
+		this.#load( this.#_denialsLoader, this.#_menuSettings.denials.selector );
 	}
 
-	_loadInterests()
+	#loadInterests()
 	{
-		this._load( this._interestsLoader, this._menuSettings.interests.selector );
+		this.#load( this.#_interestsLoader, this.#_menuSettings.interests.selector );
 	}
 
-	_loadFavorites()
+	#loadFavorites()
 	{
-		this._load( this._favoritesLoader, this._menuSettings.favorites.selector );
+		this.#load( this.#_favoritesLoader, this.#_menuSettings.favorites.selector );
 	}
 
-	_loadWatched()
+	#loadWatched()
 	{
-		this._load( this._watchedLoader, this._menuSettings.watched.selector );
+		this.#load( this.#_watchedLoader, this.#_menuSettings.watched.selector );
 	}
 
 	execute()
 	{
-		this._markMouse();
-		this._modifyHeader();
-		this._removeFooter();
-		this._removeMenus();
-		this._addMenus();
-		this._handleMenus();
+		this.#markMouse();
+		this.#modifyHeader();
+		this.#removeFooter();
+		this.#removeMenus();
+		this.#addMenus();
+		this.#handleMenus();
 	}
 }

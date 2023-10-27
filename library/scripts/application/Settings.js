@@ -2,26 +2,21 @@
 
 class Settings extends BaseClass
 {
-	constructor()
-	{
-		super();
-
-		this._settingsData = new SettingsData();
-	}
+	#_settingsData =new SettingsData();
 
 	has( name )
 	{
-		return undefined !== this._settingsData[ name ];
+		return undefined !== this.#_settingsData[ name ];
 	}
 
 	get( name )
 	{
-		return this._settingsData[ name ];
+		return this.#_settingsData[ name ];
 	}
 
 	set( name, value )
 	{
-		this._settingsData[ name ] = value;
+		this.#_settingsData[ name ] = value;
 	}
 
 	async load()
@@ -31,9 +26,9 @@ class Settings extends BaseClass
 			storedSettings.forEach(
 				( value, name ) =>
 				{
-					if ( undefined !== this._settingsData[ name ] )
+					if ( undefined !== this.#_settingsData[ name ] )
 					{
-						this._settingsData[ name ] = value;
+						this.#_settingsData[ name ] = value;
 					}
 				}
 			);
@@ -59,7 +54,7 @@ class Settings extends BaseClass
 									.then(
 										( settings ) =>
 										{
-											loadHandler( resolvedHandler, this._settingsData );
+											loadHandler( resolvedHandler, this.#_settingsData );
 										}
 									);
 							}
@@ -87,10 +82,10 @@ class Settings extends BaseClass
 						{
 							const storedSettings = storage.settings ?? {};
 							{
-								this._settingsData.forEach(
+								this.#_settingsData.forEach(
 									( value, name ) =>
 									{
-										storedSettings[ name ] = this._settingsData[ name ];
+										storedSettings[ name ] = this.#_settingsData[ name ];
 									}
 								);
 							}

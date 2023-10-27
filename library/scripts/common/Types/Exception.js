@@ -2,10 +2,17 @@
 
 class Exception extends Error
 {
+	#_message;
+
 	constructor( message )
 	{
 		super();
 
-		this.message = message;
+		this.#_message = message;
+	}
+
+	get message()
+	{
+		return this.#_message;
 	}
 }

@@ -2,25 +2,34 @@
 
 class SeriesSettingsPage extends BaseClass
 {
+	#_settings;
+	#_apiController;
+	#_episodes;
+	#_denialsFilter;
+	#_denialsSwitcher;
+	#_interestsSwitcher;
+	#_favoritesSwitcher;
+	#_watchedSwitcher;
+
 	constructor( settings )
 	{
 		super();
 
-		this._settings          = settings;
-		this._apiController     = new ApiController(
-			this._settings.get( 'apiBaseUri' ),
-			this._settings.get( 'apiUserId' ),
-			this._settings.get( 'apiKey' )
+		this.#_settings          = settings;
+		this.#_apiController     = new ApiController(
+			settings.get( 'apiBaseUri' ),
+			settings.get( 'apiUserId' ),
+			settings.get( 'apiKey' )
 		);
-		this._episodes          = new Episodes( '#usrCnt li', this._episodeNameHandler, this._episodeUriHandler );
-		this._denialsFilter     = new SeriesDenialsFilter( this._episodes, this._apiController, true );
-		this._denialsSwitcher   = new SeriesDenialsSwitcher( this._episodes, this._apiController );
-		this._interestsSwitcher = new SeriesInterestsSwitcher( this._episodes, this._apiController );
-		this._favoritesSwitcher = new SeriesFavoritesSwitcher( this._episodes, this._apiController );
-		this._watchedSwitcher   = new SeriesWatchedSwitcher( this._episodes, this._apiController );
+		this.#_episodes          = new Episodes( '#usrCnt li', this.#episodeNameHandler, this.#episodeUriHandler );
+		this.#_denialsFilter     = new SeriesDenialsFilter( this.#_episodes, this.#_apiController, true );
+		this.#_denialsSwitcher   = new SeriesDenialsSwitcher( this.#_episodes, this.#_apiController );
+		this.#_interestsSwitcher = new SeriesInterestsSwitcher( this.#_episodes, this.#_apiController );
+		this.#_favoritesSwitcher = new SeriesFavoritesSwitcher( this.#_episodes, this.#_apiController );
+		this.#_watchedSwitcher   = new SeriesWatchedSwitcher( this.#_episodes, this.#_apiController );
 	}
 
-	get _episodeNameHandler()
+	get #episodeNameHandler()
 	{
 		return ( container ) =>
 		{
@@ -31,7 +40,7 @@ class SeriesSettingsPage extends BaseClass
 		}
 	}
 
-	get _episodeUriHandler()
+	get #episodeUriHandler()
 	{
 		return ( container ) =>
 		{
@@ -39,28 +48,28 @@ class SeriesSettingsPage extends BaseClass
 		}
 	}
 
-	_filterDenials()
+	#filterDenials()
 	{
-		return this._denialsFilter.filter();
+		return this.#_denialsFilter.filter();
 	}
 
-	_addActions()
+	#addActions()
 	{
-		( new ActionAdder( this._episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, this._denialsFilter, this._denialsSwitcher, this._interestsSwitcher, this._favoritesSwitcher, this._watchedSwitcher ) )
+		( new ActionAdder( this.#_episodes, this.#_apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, this.#_interestsSwitcher, this.#_favoritesSwitcher, this.#_watchedSwitcher ) )
 			.addActions();
 	}
 
 	execute()
 	{
-		this._filterDenials()
+		this.#filterDenials()
 			.then(
 				() =>
 				{
-					this._addActions();
-					this._denialsSwitcher.switch();
-					this._interestsSwitcher.switch();
-					this._favoritesSwitcher.switch();
-					this._watchedSwitcher.switch();
+					this.#addActions();
+					this.#_denialsSwitcher.switch();
+					this.#_interestsSwitcher.switch();
+					this.#_favoritesSwitcher.switch();
+					this.#_watchedSwitcher.switch();
 				}
 			);
 	}

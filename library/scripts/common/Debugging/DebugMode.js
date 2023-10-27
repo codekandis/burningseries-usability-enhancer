@@ -12,26 +12,26 @@ class DebugMode extends StaticBaseClass
 		return 'ENABLED';
 	}
 
-	static _mode = DebugMode.MODE_DISABLED;
+	static #_mode = DebugMode.MODE_DISABLED;
 
-	static _validDebugModes = [
+	static #validDebugModes = [
 		DebugMode.MODE_DISABLED,
 		DebugMode.MODE_ENABLED
 	]
 
 	static get mode()
 	{
-		return DebugMode._mode;
+		return DebugMode.#_mode;
 	}
 
 	static set mode( mode )
 	{
-		if ( false === this._validDebugModes.includes( mode ) )
+		if ( false === this.#validDebugModes.includes( mode ) )
 		{
 			throw InvalidDebugModeException.with_DEBUG_MODE( mode );
 		}
 
-		DebugMode._mode = mode;
+		DebugMode.#_mode = mode;
 	}
 
 	static enable()

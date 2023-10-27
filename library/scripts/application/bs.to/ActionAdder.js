@@ -2,44 +2,53 @@
 
 class ActionAdder extends BaseClass
 {
+	#_currentActionType = ActionTypes.DENIAL;
+	#_contextMenu       = null;
+	#_episodes;
+	#_apiController;
+	#_actionPosition;
+	#_denialsFilter;
+	#_denialsSwitcher;
+	#_interestsSwitcher;
+	#_favoritesSwitcher;
+	#_watchedSwitcher;
+
 	constructor( episodes, apiController, actionPosition, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher )
 	{
 		super();
 
-		this._currentActionType = ActionTypes.DENIAL;
-		this._episodes          = episodes;
-		this._apiController     = apiController;
-		this._actionPosition    = actionPosition;
-		this._denialsFilter     = denialsFilter;
-		this._denialsSwitcher   = denialsSwitcher;
-		this._interestsSwitcher = interestsSwitcher;
-		this._favoritesSwitcher = favoritesSwitcher;
-		this._watchedSwitcher   = watchedSwitcher;
-		this._contextMenu       = null;
+		this.#_episodes          = episodes;
+		this.#_apiController     = apiController;
+		this.#_actionPosition    = actionPosition;
+		this.#_denialsFilter     = denialsFilter;
+		this.#_denialsSwitcher   = denialsSwitcher;
+		this.#_interestsSwitcher = interestsSwitcher;
+		this.#_favoritesSwitcher = favoritesSwitcher;
+		this.#_watchedSwitcher   = watchedSwitcher;
 	}
 
-	_switchAll()
+	#switchAll()
 	{
-		this._denialsSwitcher.switch();
-		this._interestsSwitcher.switch();
-		this._favoritesSwitcher.switch();
-		this._watchedSwitcher.switch();
+		this.#_denialsSwitcher.switch();
+		this.#_interestsSwitcher.switch();
+		this.#_favoritesSwitcher.switch();
+		this.#_watchedSwitcher.switch();
 	}
 
-	_denySeries( series )
+	#denySeries( series )
 	{
 		switch ( series.isDenial )
 		{
 			case false:
 			{
 				this
-					._apiController
+					.#_apiController
 					.addUserSeriesDenial( series )
 					.then(
 						( responseData ) =>
 						{
-							this._denialsFilter.filter();
-							this._switchAll();
+							this.#_denialsFilter.filter();
+							this.#switchAll();
 						}
 					);
 
@@ -48,12 +57,12 @@ class ActionAdder extends BaseClass
 			case true:
 			{
 				this
-					._apiController
+					.#_apiController
 					.deleteUserSeriesDenial( series )
 					.then(
 						( responseData ) =>
 						{
-							this._switchAll();
+							this.#switchAll();
 						}
 					);
 
@@ -62,19 +71,19 @@ class ActionAdder extends BaseClass
 		}
 	}
 
-	_interestSeries( series )
+	#interestSeries( series )
 	{
 		switch ( series.isInterest )
 		{
 			case false:
 			{
 				this
-					._apiController
+					.#_apiController
 					.addUserSeriesInterest( series )
 					.then(
 						( responseData ) =>
 						{
-							this._switchAll();
+							this.#switchAll();
 						}
 					);
 
@@ -83,12 +92,12 @@ class ActionAdder extends BaseClass
 			case true:
 			{
 				this
-					._apiController
+					.#_apiController
 					.deleteUserSeriesInterest( series )
 					.then(
 						( responseData ) =>
 						{
-							this._switchAll();
+							this.#switchAll();
 						}
 					);
 
@@ -97,19 +106,19 @@ class ActionAdder extends BaseClass
 		}
 	}
 
-	_favorSeries( series )
+	#favorSeries( series )
 	{
 		switch ( series.isFavorite )
 		{
 			case false:
 			{
 				this
-					._apiController
+					.#_apiController
 					.addUserSeriesFavorite( series )
 					.then(
 						( responseData ) =>
 						{
-							this._switchAll();
+							this.#switchAll();
 						}
 					);
 
@@ -118,12 +127,12 @@ class ActionAdder extends BaseClass
 			case true:
 			{
 				this
-					._apiController
+					.#_apiController
 					.deleteUserSeriesFavorite( series )
 					.then(
 						( responseData ) =>
 						{
-							this._switchAll();
+							this.#switchAll();
 						}
 					);
 
@@ -132,19 +141,19 @@ class ActionAdder extends BaseClass
 		}
 	}
 
-	_watchSeries( series )
+	#watchSeries( series )
 	{
 		switch ( series.isWatch )
 		{
 			case false:
 			{
 				this
-					._apiController
+					.#_apiController
 					.addUserSeriesWatch( series )
 					.then(
 						( responseData ) =>
 						{
-							this._switchAll();
+							this.#switchAll();
 						}
 					);
 
@@ -153,12 +162,12 @@ class ActionAdder extends BaseClass
 			case true:
 			{
 				this
-					._apiController
+					.#_apiController
 					.deleteUserSeriesWatch( series )
 					.then(
 						( responseData ) =>
 						{
-							this._switchAll();
+							this.#switchAll();
 						}
 					);
 
@@ -167,48 +176,48 @@ class ActionAdder extends BaseClass
 		}
 	}
 
-	_invokeAction( button, series )
+	#invokeAction( button, series )
 	{
-		switch ( this._currentActionType )
+		switch ( this.#_currentActionType )
 		{
 			case ActionTypes.DENIAL:
 			{
-				this._denySeries( series );
+				this.#denySeries( series );
 
 				return;
 			}
 			case ActionTypes.INTEREST:
 			{
-				this._interestSeries( series );
+				this.#interestSeries( series );
 
 				return;
 			}
 			case ActionTypes.FAVORITE:
 			{
-				this._favorSeries( series );
+				this.#favorSeries( series );
 
 				return;
 			}
 			case ActionTypes.WATCH:
 			{
-				this._watchSeries( series );
+				this.#watchSeries( series );
 
 				return;
 			}
 		}
 	}
 
-	_hideContextMenu()
+	#hideContextMenu()
 	{
-		if ( null !== this._contextMenu )
+		if ( null !== this.#_contextMenu )
 		{
-			this._contextMenu.hide();
+			this.#_contextMenu.hide();
 		}
 	}
 
-	_showContextMenu( button, series )
+	#showContextMenu( button, series )
 	{
-		this._contextMenu = new ActionContextMenu(
+		this.#_contextMenu = new ActionContextMenu(
 			button.parentNode,
 			series,
 			[
@@ -217,36 +226,36 @@ class ActionAdder extends BaseClass
 						            ? 'Permit'
 						            : 'Deny',
 					actionType: ActionTypes.DENIAL,
-					action:     this._denySeries.bind( this )
+					action:     this.#denySeries.bind( this )
 				},
 				{
 					caption:    true === series.isInterest
 						            ? 'Deinterest'
 						            : 'Interest',
 					actionType: ActionTypes.INTEREST,
-					action:     this._interestSeries.bind( this )
+					action:     this.#interestSeries.bind( this )
 				},
 				{
 					caption:    true === series.isFavorite
 						            ? 'Defavorite'
 						            : 'Favorite',
 					actionType: ActionTypes.FAVORITE,
-					action:     this._favorSeries.bind( this )
+					action:     this.#favorSeries.bind( this )
 				},
 				{
 					caption:    true === series.isWatch
 						            ? 'Unwatch'
 						            : 'Watch',
 					actionType: ActionTypes.WATCH,
-					action:     this._watchSeries.bind( this )
+					action:     this.#watchSeries.bind( this )
 				}
 			],
 			button.parentNode
 		);
-		this._contextMenu.show();
+		this.#_contextMenu.show();
 	}
 
-	_getButtonEventHandlerMappings( button, series )
+	#getButtonEventHandlerMappings( button, series )
 	{
 		return {
 			click:       ( event ) =>
@@ -254,45 +263,45 @@ class ActionAdder extends BaseClass
 				             event.preventDefault();
 				             event.stopPropagation();
 
-				             this._invokeAction( button, series );
+				             this.#invokeAction( button, series );
 			             },
 			contextmenu: ( event ) =>
 			             {
 				             event.preventDefault();
 				             event.stopPropagation();
 
-				             this._showContextMenu( button, series );
+				             this.#showContextMenu( button, series );
 			             }
 		};
 	}
 
-	_setActionType( button, modifierKeys )
+	#setActionType( button, modifierKeys )
 	{
 		if ( false === modifierKeys.ctrl && false === modifierKeys.shift && false === modifierKeys.alt )
 		{
-			this._currentActionType = ActionTypes.DENIAL;
+			this.#_currentActionType = ActionTypes.DENIAL;
 		}
 		if ( false === modifierKeys.ctrl && true === modifierKeys.shift && false === modifierKeys.alt )
 		{
-			this._currentActionType = ActionTypes.INTEREST;
+			this.#_currentActionType = ActionTypes.INTEREST;
 		}
 		if ( true === modifierKeys.ctrl && true === modifierKeys.shift && false === modifierKeys.alt )
 		{
-			this._currentActionType = ActionTypes.FAVORITE;
+			this.#_currentActionType = ActionTypes.FAVORITE;
 		}
 		if ( true === modifierKeys.ctrl && true === modifierKeys.shift && true === modifierKeys.alt )
 		{
-			this._currentActionType = ActionTypes.WATCH;
+			this.#_currentActionType = ActionTypes.WATCH;
 		}
 
-		DomHelper.setAttribute( button, 'data-action-type', this._currentActionType );
+		DomHelper.setAttribute( button, 'data-action-type', this.#_currentActionType );
 	}
 
-	_getHtmlEventHandlerMappings( button )
+	#getHtmlEventHandlerMappings( button )
 	{
 		const eventHandler = ( event ) =>
 		{
-			this._setActionType(
+			this.#setActionType(
 				button,
 				{
 					ctrl:  event.ctrlKey,
@@ -310,33 +319,33 @@ class ActionAdder extends BaseClass
 
 	addActions()
 	{
-		DomHelper.addEventHandler( document, 'click', this._document_click );
+		DomHelper.addEventHandler( document, 'click', this.#document_click );
 
 		this
-			._episodes
+			.#_episodes
 			.series
 			.forEach(
 				( series ) =>
 				{
 					const button = DomHelper.createElementFromString(
-						String.format`<button data-control-type="ACTION" data-action-type="${ 0 }"/>`( this._currentActionType )
+						String.format`<button data-control-type="ACTION" data-action-type="${ 0 }"/>`( this.#_currentActionType )
 					);
 					DomHelper.addEventHandlers(
 						button,
-						this._getButtonEventHandlerMappings( button, series )
+						this.#getButtonEventHandlerMappings( button, series )
 					);
 					DomHelper.addEventHandlersBySelector(
 						'html',
-						this._getHtmlEventHandlerMappings( button )
+						this.#getHtmlEventHandlerMappings( button )
 					);
 
-					series.container.insertAdjacentElement( this._actionPosition, button );
+					series.container.insertAdjacentElement( this.#_actionPosition, button );
 				}
 			);
 	}
 
-	_document_click = ( event ) =>
+	#document_click = ( event ) =>
 	{
-		this._hideContextMenu();
+		this.#hideContextMenu();
 	}
 }

@@ -2,7 +2,7 @@
 
 class AjaxController extends BaseClass
 {
-	_getRequestOptions( method, headers, data = null )
+	#getRequestOptions( method, headers, data = null )
 	{
 		const requestOptions = {
 			method:  method,
@@ -28,7 +28,7 @@ class AjaxController extends BaseClass
 	{
 		return fetch(
 			uri,
-			this._getRequestOptions( HttpMethods.GET, headers )
+			this.#getRequestOptions( HttpMethods.GET, headers )
 		);
 	}
 
@@ -36,7 +36,7 @@ class AjaxController extends BaseClass
 	{
 		return fetch(
 			uri,
-			this._getRequestOptions( HttpMethods.PUT, headers, data )
+			this.#getRequestOptions( HttpMethods.PUT, headers, data )
 		);
 	}
 
@@ -44,7 +44,7 @@ class AjaxController extends BaseClass
 	{
 		return fetch(
 			uri,
-			this._getRequestOptions( HttpMethods.POST, headers, data )
+			this.#getRequestOptions( HttpMethods.POST, headers, data )
 		);
 	}
 
@@ -52,7 +52,7 @@ class AjaxController extends BaseClass
 	{
 		return fetch(
 			uri,
-			this._getRequestOptions( HttpMethods.DELETE, headers )
+			this.#getRequestOptions( HttpMethods.DELETE, headers )
 		);
 	}
 }

@@ -2,33 +2,35 @@
 
 class PersistentLoginEnabler extends BaseClass
 {
+	#_checkboxContainer;
+
 	constructor( selector )
 	{
 		super();
 
-		this._checkboxContainer = DomHelper.querySelector( selector, null, false );
+		this.#_checkboxContainer = DomHelper.querySelector( selector, null, false );
 	}
 
-	_hideCheckbox()
+	#hideCheckbox()
 	{
-		this._checkboxContainer.style.display = 'none';
+		this.#_checkboxContainer.style.display = 'none';
 	}
 
-	_makeCheckboxSubmittable()
+	#makeCheckboxSubmittable()
 	{
 		const checkbox = DomHelper.querySelector(
 			'input[type="checkbox"]',
-			this._checkboxContainer
+			this.#_checkboxContainer
 		);
 		checkbox.setAttribute( 'type', 'hidden' );
 	}
 
 	enable()
 	{
-		if ( null !== this._checkboxContainer )
+		if ( null !== this.#_checkboxContainer )
 		{
-			this._hideCheckbox();
-			this._makeCheckboxSubmittable();
+			this.#hideCheckbox();
+			this.#makeCheckboxSubmittable();
 		}
 	}
 }

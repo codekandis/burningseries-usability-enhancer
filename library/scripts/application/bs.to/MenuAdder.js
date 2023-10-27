@@ -2,16 +2,18 @@
 
 class MenuAdder extends BaseClass
 {
+	#_presets;
+
 	constructor( presets )
 	{
 		super();
 
-		this._presets = presets;
+		this.#_presets = presets;
 	}
 
 	add()
 	{
-		this._presets.forEach(
+		this.#_presets.forEach(
 			( preset ) =>
 			{
 				DomHelper.insert(

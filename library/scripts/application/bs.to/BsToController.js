@@ -2,18 +2,18 @@
 
 class BsToController extends BaseClass
 {
+	#_ajaxController = new AjaxController();
+
 	constructor()
 	{
 		super();
-
-		this._ajaxController = new AjaxController();
 	}
 
-	async _readAsHtmlDocument( uri )
+	async #readAsHtmlDocument( uri )
 	{
 		const htmlString = await (
 			await this
-				._ajaxController
+				.#_ajaxController
 				.get( uri, [] )
 		)
 			.text();
@@ -24,7 +24,7 @@ class BsToController extends BaseClass
 
 	async readEpisodes( uri )
 	{
-		const htmlDocument = await this._readAsHtmlDocument( uri );
+		const htmlDocument = await this.#readAsHtmlDocument( uri );
 
 		return [
 			...DomHelper.querySelectorAll( 'table.episodes tbody tr td:nth-child( 1 ) a', htmlDocument, false )
@@ -33,7 +33,7 @@ class BsToController extends BaseClass
 
 	async readWatchStates( uri )
 	{
-		const htmlDocument = await this._readAsHtmlDocument( uri );
+		const htmlDocument = await this.#readAsHtmlDocument( uri );
 
 		return [
 			...DomHelper.querySelectorAll( 'table.episodes tr', htmlDocument, false )
@@ -49,7 +49,7 @@ class BsToController extends BaseClass
 	async toggleWatchState( uri )
 	{
 		return await this
-			._ajaxController
+			.#_ajaxController
 			.get( uri, [] );
 	}
 }

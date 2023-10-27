@@ -2,38 +2,41 @@
 
 class HeaderModifier extends BaseClass
 {
+	#_header;
+	#_navigationSection;
+
 	constructor( targetSelector )
 	{
 		super();
 
-		this._header            = DomHelper.querySelector( targetSelector );
-		this._navigationSection = DomHelper.querySelector( 'section.navigation', this._header, false );
+		this.#_header            = DomHelper.querySelector( targetSelector );
+		this.#_navigationSection = DomHelper.querySelector( 'section.navigation', this.#_header, false );
 	}
 
-	_removeBanner()
+	#removeBanner()
 	{
 		DomHelper
-			.querySelector( 'a.banner', this._header )
+			.querySelector( 'a.banner', this.#_header )
 			.remove();
 	}
 
-	_removeGreeting()
+	#removeGreeting()
 	{
-		if ( null !== this._navigationSection )
+		if ( null !== this.#_navigationSection )
 		{
 			DomHelper
-				.querySelector( 'div', this._navigationSection )
+				.querySelector( 'div', this.#_navigationSection )
 				.remove();
 		}
 	}
 
-	_removeNavigationMenuWhitespaces()
+	#removeNavigationMenuWhitespaces()
 	{
-		if ( null !== this._navigationSection )
+		if ( null !== this.#_navigationSection )
 		{
 			const whiteSpaceNodes = [];
 
-			this._navigationSection
+			this.#_navigationSection
 				.childNodes
 				.forEach(
 					( menuItem ) =>
@@ -54,7 +57,7 @@ class HeaderModifier extends BaseClass
 		}
 	}
 
-	_modifyLoginForm()
+	#modifyLoginForm()
 	{
 		( new PersistentLoginEnabler( '#login label' ) )
 			.enable();
@@ -64,9 +67,9 @@ class HeaderModifier extends BaseClass
 
 	modify()
 	{
-		this._removeBanner();
-		this._removeGreeting();
-		this._removeNavigationMenuWhitespaces();
-		this._modifyLoginForm();
+		this.#removeBanner();
+		this.#removeGreeting();
+		this.#removeNavigationMenuWhitespaces();
+		this.#modifyLoginForm();
 	}
 }

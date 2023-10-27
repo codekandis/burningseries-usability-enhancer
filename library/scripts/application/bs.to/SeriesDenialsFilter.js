@@ -2,20 +2,24 @@
 
 class SeriesDenialsFilter extends BaseClass
 {
+	#_episodes;
+	#_apiController;
+	#_removeIfFiltered;
+
 	constructor( episodes, apiController, removeIfFiltered )
 	{
 		super();
 
-		this._episodes         = episodes;
-		this._apiController    = apiController;
-		this._removeIfFiltered = removeIfFiltered;
+		this.#_episodes         = episodes;
+		this.#_apiController    = apiController;
+		this.#_removeIfFiltered = removeIfFiltered;
 	}
 
 	async filter()
 	{
-		const responseData = await this._apiController.readUserSeriesDenialsFiltered( this._episodes.series );
+		const responseData = await this.#_apiController.readUserSeriesDenialsFiltered( this.#_episodes.series );
 
-		if ( true === this._removeIfFiltered )
+		if ( true === this.#_removeIfFiltered )
 		{
 			responseData
 				.data
@@ -23,7 +27,7 @@ class SeriesDenialsFilter extends BaseClass
 				.forEach(
 					( series ) =>
 					{
-						this._episodes.remove( series );
+						this.#_episodes.remove( series );
 					}
 				);
 		}

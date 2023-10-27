@@ -2,26 +2,30 @@
 
 class Episodes extends BaseClass
 {
+	#_selector;
+	#_nameHandler;
+	#_uriHandler;
+	#_series = [];
+
 	constructor( selector, nameHandler, uriHandler )
 	{
 		super();
 
-		this._selector    = selector;
-		this._nameHandler = nameHandler;
-		this._uriHandler  = uriHandler;
-		this._series      = [];
+		this.#_selector    = selector;
+		this.#_nameHandler = nameHandler;
+		this.#_uriHandler  = uriHandler;
 
-		this._determineEpisodes();
+		this.#determineEpisodes();
 	}
 
 	get series()
 	{
-		return this._series;
+		return this.#_series;
 	}
 
-	_findSeries( series )
+	#findSeries( series )
 	{
-		return this._series.find(
+		return this.#_series.find(
 			( seriesFetched ) =>
 			{
 				return seriesFetched.name === series.name.toLowerCase();
@@ -29,9 +33,9 @@ class Episodes extends BaseClass
 		);
 	}
 
-	_findAllSeries( series )
+	#findAllSeries( series )
 	{
-		return this._series.filter(
+		return this.#_series.filter(
 			( seriesFetched ) =>
 			{
 				return seriesFetched.name === series.name.toLowerCase();
@@ -39,24 +43,24 @@ class Episodes extends BaseClass
 		);
 	}
 
-	_determineEpisodes()
+	#determineEpisodes()
 	{
 		DomHelper
-			.querySelectorAll( this._selector, document, false )
+			.querySelectorAll( this.#_selector, document, false )
 			.forEach(
 				( series ) =>
 				{
-					const seriesName = this._nameHandler( series );
+					const seriesName = this.#_nameHandler( series );
 
 					if ( null === seriesName )
 					{
 						return;
 					}
 
-					const seriesUri          = this._uriHandler( series );
+					const seriesUri          = this.#_uriHandler( series );
 					const processedSeries    = new Series( series, seriesName, seriesUri );
 					processedSeries.isSeries = true;
-					this._series.push( processedSeries );
+					this.#_series.push( processedSeries );
 				}
 			);
 	}
@@ -67,7 +71,7 @@ class Episodes extends BaseClass
 			? null
 			: series.id;
 
-		this._findAllSeries( series )
+		this.#findAllSeries( series )
 			.forEach(
 				( seriesFetched ) =>
 				{
@@ -83,7 +87,7 @@ class Episodes extends BaseClass
 			? null
 			: series.id;
 
-		this._findAllSeries( series )
+		this.#findAllSeries( series )
 			.forEach(
 				( seriesFetched ) =>
 				{
@@ -99,7 +103,7 @@ class Episodes extends BaseClass
 			? null
 			: series.id;
 
-		this._findAllSeries( series )
+		this.#findAllSeries( series )
 			.forEach(
 				( seriesFetched ) =>
 				{
@@ -115,7 +119,7 @@ class Episodes extends BaseClass
 			? null
 			: series.id;
 
-		this._findAllSeries( series )
+		this.#findAllSeries( series )
 			.forEach(
 				( seriesFetched ) =>
 				{
@@ -129,7 +133,7 @@ class Episodes extends BaseClass
 	{
 		const indices = [];
 		this
-			._series
+			.#_series
 			.forEach(
 				( seriesFetched, index ) =>
 				{
@@ -145,7 +149,7 @@ class Episodes extends BaseClass
 			.forEach(
 				( index ) =>
 				{
-					this._series.splice( index, 1 );
+					this.#_series.splice( index, 1 );
 				}
 			);
 	}

@@ -2,31 +2,34 @@
 
 class SeriesInterestsSwitcher extends BaseClass
 {
+	#_episodes;
+	#_apiController;
+
 	constructor( episodes, apiController )
 	{
 		super();
 
-		this._episodes      = episodes;
-		this._apiController = apiController;
+		this.#_episodes      = episodes;
+		this.#_apiController = apiController;
 	}
 
 	async switch()
 	{
-		this._episodes.series.forEach(
+		this.#_episodes.series.forEach(
 			( series ) =>
 			{
-				this._episodes.switchInterest( series, false );
+				this.#_episodes.switchInterest( series, false );
 			}
 		);
 
-		const responseData = await this._apiController.readUserSeriesInterestsFiltered( this._episodes.series );
+		const responseData = await this.#_apiController.readUserSeriesInterestsFiltered( this.#_episodes.series );
 		responseData
 			.data
 			.seriesInterests
 			.forEach(
 				( series ) =>
 				{
-					this._episodes.switchInterest( series, true );
+					this.#_episodes.switchInterest( series, true );
 				}
 			);
 	}

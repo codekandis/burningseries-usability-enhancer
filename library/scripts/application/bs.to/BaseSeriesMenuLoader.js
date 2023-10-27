@@ -2,27 +2,29 @@
 
 class BaseSeriesMenuLoader extends BaseClass
 {
+	#_selector;
+	#_menuContainer = null;
+
 	constructor( selector )
 	{
 		super();
 
-		this._selector      = selector;
-		this._menuContainer = null;
+		this.#_selector = selector;
 	}
 
-	_appendMenuFilter()
+	#appendMenuFilter()
 	{
 		const menuFilterItem = DomHelper.createElementFromString( '<li><input data-control-type="MENU_FILTER" type="text" placeholder="Filter"/></li>' );
 		const menuFilter     = DomHelper.querySelector( '[data-control-type="MENU_FILTER"]', menuFilterItem );
-		( new MenuFilterProvider( menuFilter, this._menuContainer ) )
+		( new MenuFilterProvider( menuFilter, this.#_menuContainer ) )
 			.append();
 
-		DomHelper.appendChild( this._menuContainer, menuFilterItem );
+		DomHelper.appendChild( this.#_menuContainer, menuFilterItem );
 
 		menuFilter.focus();
 	}
 
-	_appendMenuItems( series )
+	#appendMenuItems( series )
 	{
 		const menuItems = DomHelper.createElementsFromString(
 			series
@@ -49,13 +51,13 @@ class BaseSeriesMenuLoader extends BaseClass
 				.join( '' )
 		);
 
-		DomHelper.appendChildren( this._menuContainer, [ ...menuItems ] );
+		DomHelper.appendChildren( this.#_menuContainer, [ ...menuItems ] );
 	}
 
 	_addSeries( series )
 	{
-		this._menuContainer = DomHelper.querySelector( this._selector );
-		this._appendMenuFilter();
-		this._appendMenuItems( series );
+		this.#_menuContainer = DomHelper.querySelector( this.#_selector );
+		this.#appendMenuFilter();
+		this.#appendMenuItems( series );
 	}
 }

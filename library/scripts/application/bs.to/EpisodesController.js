@@ -2,21 +2,23 @@
 
 class EpisodesController extends BaseClass
 {
+	#_bsToController     = new BsToController();
+	#_buttonNavigators   = null;
+	#_keyboardNavigators = null;
+	#_linkExtender;
+
 	constructor( linkExtender )
 	{
 		super();
 
-		this._bsToController     = new BsToController();
-		this._buttonNavigators   = null;
-		this._keyboardNavigators = null;
-		this._linkExtender       = linkExtender;
+		this.#_linkExtender = linkExtender;
 
-		this._initialize();
+		this.#initialize();
 	}
 
-	_initialize()
+	#initialize()
 	{
-		this._buttonNavigators = [
+		this.#_buttonNavigators = [
 			{
 				selector:        '.serie .episode',
 				insertionMethod: DomHelper.insertAfter,
@@ -30,14 +32,14 @@ class EpisodesController extends BaseClass
 				buttons:         DomHelper.createElementFromString( '<ul></ul>' )
 			}
 		];
-		this._buttonNavigators.forEach(
+		this.#_buttonNavigators.forEach(
 			( navigator ) =>
 			{
 				DomHelper.appendChild( navigator.container, navigator.buttons );
 			}
 		);
 
-		this._keyboardNavigators = {
+		this.#_keyboardNavigators = {
 			previous: {
 				ctrlKey:  true,
 				shiftKey: true,
@@ -53,7 +55,7 @@ class EpisodesController extends BaseClass
 		};
 	}
 
-	get _seasons()
+	get #seasons()
 	{
 		const seasonsContainer   = DomHelper.querySelector( '#seasons ul', document );
 		const seasons            = [
@@ -77,7 +79,7 @@ class EpisodesController extends BaseClass
 		}
 	}
 
-	get _episodes()
+	get #episodes()
 	{
 		const episodesContainer   = DomHelper.querySelector( '#episodes ul', document );
 		const episodes            = [
@@ -101,12 +103,12 @@ class EpisodesController extends BaseClass
 		}
 	}
 
-	async _getEnclosingEpisodesOfSeason( seasonUri )
+	async #getEnclosingEpisodesOfSeason( seasonUri )
 	{
 		return await new Promise(
 			( resolveHandler, rejectHandler ) =>
 			{
-				this._bsToController
+				this.#_bsToController
 					.readEpisodes( seasonUri )
 					.then(
 						( seasonsEpisodes ) =>
@@ -118,7 +120,7 @@ class EpisodesController extends BaseClass
 								.map(
 									( element ) =>
 									{
-										this._linkExtender.extend( element );
+										this.#_linkExtender.extend( element );
 
 										return element.href;
 									}
@@ -135,12 +137,12 @@ class EpisodesController extends BaseClass
 		);
 	}
 
-	async _getWatchState( seasonUri, episodeIndex )
+	async #getWatchState( seasonUri, episodeIndex )
 	{
 		return await new Promise(
 			( resolveHandler, rejectHandler ) =>
 			{
-				this._bsToController
+				this.#_bsToController
 					.readWatchStates( seasonUri )
 					.then(
 						( watchStates ) =>
@@ -152,9 +154,9 @@ class EpisodesController extends BaseClass
 		);
 	}
 
-	async _setWatchState( button, seasons, episodes )
+	async #setWatchState( button, seasons, episodes )
 	{
-		await this._getWatchState( seasons.list[ seasons.currentIndex ], episodes.currentIndex )
+		await this.#getWatchState( seasons.list[ seasons.currentIndex ], episodes.currentIndex )
 			.then(
 				( watchState ) =>
 				{
@@ -165,11 +167,11 @@ class EpisodesController extends BaseClass
 			);
 	}
 
-	async _toggleWatchState( button, seasons, episodes )
+	async #toggleWatchState( button, seasons, episodes )
 	{
 		const currentSeason = seasons.list[ seasons.currentIndex ];
 
-		await this._getWatchState( currentSeason, episodes.currentIndex )
+		await this.#getWatchState( currentSeason, episodes.currentIndex )
 			.then(
 				( watchState ) =>
 				{
@@ -177,21 +179,21 @@ class EpisodesController extends BaseClass
 						? 'watch'
 						: 'unwatch';
 
-					this._bsToController
+					this.#_bsToController
 						.toggleWatchState(
 							String.format`${ 0 }/${ 1 }:${ 2 }`( currentSeason, stateLink, episodes.currentIndex + 1 )
 						)
 						.then(
 							() =>
 							{
-								this._setWatchState( button, seasons, episodes );
+								this.#setWatchState( button, seasons, episodes );
 							}
 						)
 				}
 			);
 	}
 
-	_navigateBackward( seasons, episodes )
+	#navigateBackward( seasons, episodes )
 	{
 		if ( 0 !== episodes.currentIndex )
 		{
@@ -200,7 +202,7 @@ class EpisodesController extends BaseClass
 			return;
 		}
 
-		this._getEnclosingEpisodesOfSeason( seasons.list[ seasons.currentIndex - 1 ] )
+		this.#getEnclosingEpisodesOfSeason( seasons.list[ seasons.currentIndex - 1 ] )
 			.then(
 				( enclosingEpisodes ) =>
 				{
@@ -209,7 +211,7 @@ class EpisodesController extends BaseClass
 			);
 	}
 
-	_navigateForward( seasons, episodes )
+	#navigateForward( seasons, episodes )
 	{
 		if ( episodes.list.length - 1 !== episodes.currentIndex )
 		{
@@ -218,7 +220,7 @@ class EpisodesController extends BaseClass
 			return;
 		}
 
-		this._getEnclosingEpisodesOfSeason( seasons.list[ seasons.currentIndex + 1 ] )
+		this.#getEnclosingEpisodesOfSeason( seasons.list[ seasons.currentIndex + 1 ] )
 			.then(
 				( enclosingEpisodes ) =>
 				{
@@ -227,7 +229,7 @@ class EpisodesController extends BaseClass
 			);
 	}
 
-	_addButtonEvents( buttons, seasons, episodes )
+	#addButtonEvents( buttons, seasons, episodes )
 	{
 		const nullHandler = ( event ) =>
 		{
@@ -242,7 +244,7 @@ class EpisodesController extends BaseClass
 				event.preventDefault();
 				event.stopPropagation();
 
-				this._toggleWatchState( buttons.watchStateToggler, seasons, episodes );
+				this.#toggleWatchState( buttons.watchStateToggler, seasons, episodes );
 			}
 		);
 
@@ -261,7 +263,7 @@ class EpisodesController extends BaseClass
 					event.preventDefault();
 					event.stopPropagation();
 
-					this._navigateBackward( seasons, episodes );
+					this.#navigateBackward( seasons, episodes );
 				}
 			);
 		}
@@ -281,38 +283,38 @@ class EpisodesController extends BaseClass
 					event.preventDefault();
 					event.stopPropagation();
 
-					this._navigateForward( seasons, episodes );
+					this.#navigateForward( seasons, episodes );
 				}
 			);
 		}
 	}
 
-	_addKeyEvents( seasons, episodes )
+	#addKeyEvents( seasons, episodes )
 	{
 		DomHelper.addEventHandler(
 			document,
 			'keydown',
 			( event ) =>
 			{
-				if ( this._keyboardNavigators.previous.ctrlKey === event.ctrlKey
-					&& this._keyboardNavigators.previous.shiftKey === event.shiftKey
-					&& this._keyboardNavigators.previous.altKey === event.altKey
-					&& this._keyboardNavigators.previous.key === event.key )
+				if ( this.#_keyboardNavigators.previous.ctrlKey === event.ctrlKey
+					&& this.#_keyboardNavigators.previous.shiftKey === event.shiftKey
+					&& this.#_keyboardNavigators.previous.altKey === event.altKey
+					&& this.#_keyboardNavigators.previous.key === event.key )
 				{
 					if ( 0 !== seasons.currentIndex || 0 !== episodes.currentIndex )
 					{
-						this._navigateBackward( seasons, episodes );
+						this.#navigateBackward( seasons, episodes );
 					}
 				}
 
-				if ( this._keyboardNavigators.next.ctrlKey === event.ctrlKey
-					&& this._keyboardNavigators.next.shiftKey === event.shiftKey
-					&& this._keyboardNavigators.next.altKey === event.altKey
-					&& this._keyboardNavigators.next.key === event.key )
+				if ( this.#_keyboardNavigators.next.ctrlKey === event.ctrlKey
+					&& this.#_keyboardNavigators.next.shiftKey === event.shiftKey
+					&& this.#_keyboardNavigators.next.altKey === event.altKey
+					&& this.#_keyboardNavigators.next.key === event.key )
 				{
 					if ( seasons.list.length - 1 !== seasons.currentIndex || episodes.list.length - 1 !== episodes.currentIndex )
 					{
-						this._navigateForward( seasons, episodes );
+						this.#navigateForward( seasons, episodes );
 					}
 				}
 			}
@@ -321,7 +323,7 @@ class EpisodesController extends BaseClass
 
 	addActions()
 	{
-		this._buttonNavigators.forEach(
+		this.#_buttonNavigators.forEach(
 			( navigator ) =>
 			{
 				const buttons = {
@@ -336,12 +338,12 @@ class EpisodesController extends BaseClass
 					)
 				};
 
-				const seasons  = this._seasons;
-				const episodes = this._episodes;
+				const seasons  = this.#seasons;
+				const episodes = this.#episodes;
 
-				this._setWatchState( buttons.watchStateToggler, seasons, episodes );
-				this._addButtonEvents( buttons, seasons, episodes );
-				this._addKeyEvents( seasons, episodes );
+				this.#setWatchState( buttons.watchStateToggler, seasons, episodes );
+				this.#addButtonEvents( buttons, seasons, episodes );
+				this.#addKeyEvents( seasons, episodes );
 
 				DomHelper.appendChildren(
 					navigator.buttons, buttons.values()

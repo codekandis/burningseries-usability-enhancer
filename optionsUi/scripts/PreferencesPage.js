@@ -2,23 +2,30 @@
 
 class PreferencesPage extends BaseClass
 {
+	#_settings;
+	#_preferencesForm;
+	#_preferencesFormEventHandlerPresets = {
+		submit: this.#saveSettings,
+		reset:  this.#loadSettings
+	};
+
 	constructor( settings, preferencesForm )
 	{
 		super();
 
-		this._preferencesFormEventHandlerPresets = {
-			submit: this._saveSettings,
-			reset:  this._loadSettings
-		};
+		this.#_settings        = settings;
+		this.#_preferencesForm = preferencesForm;
 
-		this._settings        = settings;
-		this._preferencesForm = preferencesForm;
-
-		this._attachSettings();
-		this._addEventHandlersToPreferencesForm();
+		this.#initialize();
 	}
 
-	_attachSettings()
+	#initialize()
+	{
+		this.#attachSettings();
+		this.#addEventHandlersToPreferencesForm();
+	}
+
+	#attachSettings()
 	{
 		DomHelper
 			.querySelectorAll( 'form fieldset [id]', document )
@@ -26,21 +33,21 @@ class PreferencesPage extends BaseClass
 				( settingElement ) =>
 				{
 					const settingName = settingElement.getAttribute( 'id' );
-					if ( true === this._settings.has( settingName ) )
+					if ( true === this.#_settings.has( settingName ) )
 					{
-						settingElement.value = this._settings.get( settingName );
+						settingElement.value = this.#_settings.get( settingName );
 					}
 				}
 			);
 	}
 
-	_addEventHandlersToPreferencesForm()
+	#addEventHandlersToPreferencesForm()
 	{
-		this._preferencesFormEventHandlerPresets.forEach(
+		this.#_preferencesFormEventHandlerPresets.forEach(
 			( eventHandler, eventName ) =>
 			{
 				DomHelper.addEventHandler(
-					this._preferencesForm,
+					this.#_preferencesForm,
 					eventName,
 					( event ) =>
 					{
@@ -52,20 +59,20 @@ class PreferencesPage extends BaseClass
 		);
 	}
 
-	_loadSettings()
+	#loadSettings()
 	{
 		this
-			._settings
+			.#_settings
 			.load()
 			.then(
 				( settings ) =>
 				{
-					this._attachSettings();
+					this.#attachSettings();
 				}
 			);
 	}
 
-	_saveSettings()
+	#saveSettings()
 	{
 		DomHelper
 			.querySelectorAll( 'form fieldset [id]', document )
@@ -73,14 +80,14 @@ class PreferencesPage extends BaseClass
 				( settingElement ) =>
 				{
 					const settingName = settingElement.getAttribute( 'id' );
-					if ( true === this._settings.has( settingName ) )
+					if ( true === this.#_settings.has( settingName ) )
 					{
-						this._settings.set( settingName, settingElement.value );
+						this.#_settings.set( settingName, settingElement.value );
 					}
 				}
 			);
 		this
-			._settings
+			.#_settings
 			.save();
 	}
 }

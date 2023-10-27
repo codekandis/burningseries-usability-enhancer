@@ -2,32 +2,35 @@
 
 class MenuFilterProvider extends BaseClass
 {
+	#_menuFilter;
+	#_menuContainer;
+
 	constructor( menuFilter, menuContainer )
 	{
 		super();
 
-		this._menuFilter    = menuFilter;
-		this._menuContainer = menuContainer;
+		this.#_menuFilter    = menuFilter;
+		this.#_menuContainer = menuContainer;
 	}
 
 	append()
 	{
-		DomHelper.addEventHandler( this._menuFilter, 'click', this._inputElement_click );
-		DomHelper.addEventHandler( this._menuFilter, 'input', this._inputElement_change );
+		DomHelper.addEventHandler( this.#_menuFilter, 'click', this.#inputElement_click );
+		DomHelper.addEventHandler( this.#_menuFilter, 'input', this.#inputElement_change );
 	}
 
-	_inputElement_click = ( event ) =>
+	#inputElement_click = ( event ) =>
 	{
 		event.preventDefault();
 		event.stopPropagation();
 	};
 
-	_inputElement_change = ( event ) =>
+	#inputElement_change = ( event ) =>
 	{
 		const keywords = [
 			...new Set(
 				this
-					._menuFilter
+					.#_menuFilter
 					.value
 					.trim()
 					.toLowerCase()
@@ -41,7 +44,7 @@ class MenuFilterProvider extends BaseClass
 			)
 		];
 
-		const series = DomHelper.querySelectorAll( '[data-is-series="TRUE"]', this._menuContainer );
+		const series = DomHelper.querySelectorAll( '[data-is-series="TRUE"]', this.#_menuContainer );
 
 		series.forEach(
 			( series ) =>

@@ -2,37 +2,38 @@
 
 class MenuHandler extends BaseClass
 {
-	static _currentMenuState = null;
+	static #_currentMenuState = null;
+	#_menuSettings;
 
 	constructor( menuSettings )
 	{
 		super();
 
-		this._menuSettings = menuSettings;
+		this.#_menuSettings = menuSettings;
 	}
 
-	_hideMenu()
+	#hideMenu()
 	{
-		if ( null !== MenuHandler._currentMenuState )
+		if ( null !== MenuHandler.#_currentMenuState )
 		{
-			MenuHandler._currentMenuState.isVisible             = false;
-			MenuHandler._currentMenuState.subMenu.style.display = 'none';
-			MenuHandler._currentMenuState.subMenu.innerHTML     = '';
-			MenuHandler._currentMenuState                       = null;
+			MenuHandler.#_currentMenuState.isVisible             = false;
+			MenuHandler.#_currentMenuState.subMenu.style.display = 'none';
+			MenuHandler.#_currentMenuState.subMenu.innerHTML     = '';
+			MenuHandler.#_currentMenuState                       = null;
 		}
 	}
 
-	_showMenu( menuState )
+	#showMenu( menuState )
 	{
-		MenuHandler._currentMenuState                       = menuState;
-		MenuHandler._currentMenuState.isVisible             = true;
-		MenuHandler._currentMenuState.subMenu.style.display = null;
-		MenuHandler._currentMenuState.loader();
+		MenuHandler.#_currentMenuState                       = menuState;
+		MenuHandler.#_currentMenuState.isVisible             = true;
+		MenuHandler.#_currentMenuState.subMenu.style.display = null;
+		MenuHandler.#_currentMenuState.loader();
 	}
 
-	_addMenuStateEventHandlers()
+	#addMenuStateEventHandlers()
 	{
-		this._menuSettings.forEach(
+		this.#_menuSettings.forEach(
 			( menuSetting ) =>
 			{
 				const menu      = DomHelper.querySelector( menuSetting.selector, document );
@@ -57,37 +58,37 @@ class MenuHandler extends BaseClass
 
 						if ( true === menuState.isVisible )
 						{
-							this._hideMenu();
+							this.#hideMenu();
 
 							return;
 						}
 
-						this._hideMenu();
-						this._showMenu( menuState );
+						this.#hideMenu();
+						this.#showMenu( menuState );
 					}
 				);
 			}
 		);
 	}
 
-	_addDocumentEventHandlers()
+	#addDocumentEventHandlers()
 	{
-		DomHelper.addEventHandler( document, 'click', this._document_click );
+		DomHelper.addEventHandler( document, 'click', this.#document_click );
 	}
 
-	_addEventHandlers()
+	#addEventHandlers()
 	{
-		this._addMenuStateEventHandlers();
-		this._addDocumentEventHandlers();
+		this.#addMenuStateEventHandlers();
+		this.#addDocumentEventHandlers();
+	}
+
+	#document_click = ( event ) =>
+	{
+		this.#hideMenu();
 	}
 
 	handle()
 	{
-		this._addEventHandlers();
-	}
-
-	_document_click = ( event ) =>
-	{
-		this._hideMenu();
+		this.#addEventHandlers();
 	}
 }
