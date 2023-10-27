@@ -177,12 +177,12 @@
 			"matches": [
 				"https://bs.to/settings/series",
 				"https://burningseries.co/settings/series",
-				"https://burningseries.sx/series",
-				"https://burningseries.ac/series",
-				"https://burningseries.vc/series",
-				"https://burningseries.cx/series",
-				"https://burningseries.nz/series",
-				"https://burningseries.se/series"
+				"https://burningseries.sx/settings/series",
+				"https://burningseries.ac/settings/series",
+				"https://burningseries.vc/settings/series",
+				"https://burningseries.cx/settings/series",
+				"https://burningseries.nz/settings/series",
+				"https://burningseries.se/settings/series"
 			],
 			"js": [
 				"sites/bs.to/seriesSettingsPage/scripts/SeriesSettingsPage.js",
