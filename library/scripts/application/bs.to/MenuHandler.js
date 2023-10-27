@@ -9,7 +9,6 @@ class MenuHandler extends BaseClass
 		super();
 
 		this._menuSettings = menuSettings;
-		this._menuStates   = [];
 	}
 
 	_hideMenu()
@@ -47,7 +46,6 @@ class MenuHandler extends BaseClass
 					subMenu:       DomHelper.querySelector( 'ul', menu ),
 					isVisible:     false
 				};
-				this._menuStates.push( menuState );
 
 				DomHelper.addEventHandler(
 					menuState.menuActivator,
