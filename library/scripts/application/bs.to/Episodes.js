@@ -47,13 +47,13 @@ class Episodes extends BaseClass
 				( series ) =>
 				{
 					const seriesName = this._nameHandler( series );
-					const seriesUri  = this._uriHandler( series );
 
-					if ( null === seriesName || null === seriesUri )
+					if ( null === seriesName )
 					{
 						return;
 					}
 
+					const seriesUri          = this._uriHandler( series );
 					const processedSeries    = new Series( series, seriesName, seriesUri );
 					processedSeries.isSeries = true;
 					this._series.push( processedSeries );
