@@ -2,7 +2,7 @@
 
 class ActionContextMenu extends BaseClass
 {
-	static _contextMenu = null;
+	static _currentContextMenu = null;
 
 	constructor( container, series, actions )
 	{
@@ -15,16 +15,16 @@ class ActionContextMenu extends BaseClass
 
 	_hideMenu()
 	{
-		if ( null !== ActionContextMenu._contextMenu )
+		if ( null !== ActionContextMenu._currentContextMenu )
 		{
-			ActionContextMenu._contextMenu.remove();
-			ActionContextMenu._contextMenu = null;
+			ActionContextMenu._currentContextMenu.remove();
+			ActionContextMenu._currentContextMenu = null;
 		}
 	}
 
 	_showMenu()
 	{
-		ActionContextMenu._contextMenu = DomHelper.createElementFromString( '<ul data-control-type="ACTION_CONTEXT_MENU"></ul>' );
+		ActionContextMenu._currentContextMenu = DomHelper.createElementFromString( '<ul data-control-type="ACTION_CONTEXT_MENU"></ul>' );
 
 		this._actions.forEach(
 			( action ) =>
@@ -44,13 +44,13 @@ class ActionContextMenu extends BaseClass
 					}
 				);
 
-				DomHelper.appendChild( ActionContextMenu._contextMenu, subMenu );
+				DomHelper.appendChild( ActionContextMenu._currentContextMenu, subMenu );
 			}
 		);
 
-		ActionContextMenu._contextMenu.style.top  = this._container.offsetTop + 'px';
-		ActionContextMenu._contextMenu.style.left = this._container.offsetLeft + 'px';
-		DomHelper.appendChild( this._container, ActionContextMenu._contextMenu );
+		ActionContextMenu._currentContextMenu.style.top  = this._container.offsetTop + 'px';
+		ActionContextMenu._currentContextMenu.style.left = this._container.offsetLeft + 'px';
+		DomHelper.appendChild( this._container, ActionContextMenu._currentContextMenu );
 	}
 
 	hide()

@@ -2,7 +2,7 @@
 
 class MenuHandler extends BaseClass
 {
-	static _menuState = null;
+	static _currentMenuState = null;
 
 	constructor( menuSettings )
 	{
@@ -13,21 +13,21 @@ class MenuHandler extends BaseClass
 
 	_hideMenu()
 	{
-		if ( null !== MenuHandler._menuState )
+		if ( null !== MenuHandler._currentMenuState )
 		{
-			MenuHandler._menuState.isVisible             = false;
-			MenuHandler._menuState.subMenu.style.display = 'none';
-			MenuHandler._menuState.subMenu.innerHTML     = '';
-			MenuHandler._menuState                       = null;
+			MenuHandler._currentMenuState.isVisible             = false;
+			MenuHandler._currentMenuState.subMenu.style.display = 'none';
+			MenuHandler._currentMenuState.subMenu.innerHTML     = '';
+			MenuHandler._currentMenuState                       = null;
 		}
 	}
 
 	_showMenu( menuState )
 	{
-		MenuHandler._menuState                       = menuState;
-		MenuHandler._menuState.isVisible             = true;
-		MenuHandler._menuState.subMenu.style.display = 'block';
-		MenuHandler._menuState.loader();
+		MenuHandler._currentMenuState                       = menuState;
+		MenuHandler._currentMenuState.isVisible             = true;
+		MenuHandler._currentMenuState.subMenu.style.display = 'block';
+		MenuHandler._currentMenuState.loader();
 	}
 
 	_addMenuStateEventHandlers()
