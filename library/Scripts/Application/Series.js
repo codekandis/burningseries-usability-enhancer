@@ -52,13 +52,13 @@ class Series extends BaseClass
 		{
 			case false:
 			{
-				DomHelper.setAttribute( this.#_container, 'data-is-series', SeriesIsSeries.FALSE );
+				DomHelper.setAttribute( this.#_container, 'data-is-Series', SeriesIsSeries.FALSE );
 
 				return;
 			}
 			case true:
 			{
-				DomHelper.setAttribute( this.#_container, 'data-is-series', SeriesIsSeries.TRUE );
+				DomHelper.setAttribute( this.#_container, 'data-is-Series', SeriesIsSeries.TRUE );
 
 				return;
 			}

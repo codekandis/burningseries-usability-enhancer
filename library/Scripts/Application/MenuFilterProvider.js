@@ -44,7 +44,7 @@ class MenuFilterProvider extends BaseClass
 			)
 		];
 
-		const series = DomHelper.querySelectorAll( '[data-is-series="TRUE"]', this.#_menuContainer );
+		const series = DomHelper.querySelectorAll( '[data-is-Series="TRUE"]', this.#_menuContainer );
 
 		series.forEach(
 			( series ) =>

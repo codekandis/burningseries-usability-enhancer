@@ -1,10 +1,10 @@
 @charset "utf-8";
 
-@import 'action.css';
-@import 'actionContextMenu.css';
-@import 'mouseMarker.css';
-@import 'header.css';
-@import 'menu.css';
+@import 'Action.css';
+@import 'ActionContextMenu.css';
+@import 'MouseMarker.css';
+@import 'Header.css';
+@import 'Menu.css';
 
 :root
 {
