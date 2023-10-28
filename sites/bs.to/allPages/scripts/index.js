@@ -7,7 +7,7 @@ DebugMode.enable();
 	.then(
 		( settings ) =>
 		{
-			( new AllPages( settings ) )
+			( new AllPagesApplicationPage( settings ) )
 				.execute();
 		}
 	);

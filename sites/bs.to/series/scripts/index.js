@@ -5,7 +5,7 @@
 	.then(
 		( settings ) =>
 		{
-			( new SeriesPage( settings ) )
+			( new SeriesApplicationPage( settings ) )
 				.execute();
 		}
 	);

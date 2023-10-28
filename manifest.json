@@ -58,6 +58,7 @@
 				"library/scripts/common/Net/ContentTypes.js",
 				"library/scripts/common/Net/HttpMethods.js",
 				"library/scripts/common/Net/AjaxController.js",
+				"library/scripts/common/ApplicationPages/AbstractApplicationPage.js",
 				"library/scripts/application/SettingsData.js",
 				"library/scripts/application/Settings.js",
 				"library/scripts/application/MouseMarker.js",
@@ -97,12 +98,12 @@
 				"library/scripts/application/bs.to/ActionContextMenu.js",
 				"library/scripts/application/bs.to/ActionTypes.js",
 				"library/scripts/application/bs.to/ActionAdder.js",
-				"sites/bs.to/allPages/scripts/AllPages.js",
+				"sites/bs.to/allPages/scripts/AllPagesApplicationPage.js",
 				"sites/bs.to/allPages/scripts/index.js"
 			],
 			"css": [
 				"library/css/core.css",
-				"sites/bs.to/allPages/css/allPages.css"
+				"sites/bs.to/allPages/css/allPagesApplicationPage.css"
 			]
 		},
 		{
@@ -117,14 +118,14 @@
 				"https://burningseries.se/"
 			],
 			"js": [
+				"library/scripts/common/Dom/LinkExtender.js",
 				"library/scripts/application/bs.to/TeaserRemover.js",
 				"library/scripts/application/bs.to/HeadLineRemover.js",
-				"library/scripts/common/Dom/LinkExtender.js",
-				"sites/bs.to/landingPage/scripts/LandingPage.js",
+				"sites/bs.to/landingPage/scripts/LandingPageApplicationPage.js",
 				"sites/bs.to/landingPage/scripts/index.js"
 			],
 			"css": [
-				"sites/bs.to/landingPage/css/landingPage.css"
+				"sites/bs.to/landingPage/css/landingPageApplicationPage.css"
 			]
 		},
 		{
@@ -139,11 +140,11 @@
 				"https://burningseries.se/andere-serien"
 			],
 			"js": [
-				"sites/bs.to/allSeriesPage/scripts/AllSeriesPage.js",
-				"sites/bs.to/allSeriesPage/scripts/index.js"
+				"sites/bs.to/allSeries/scripts/AllSeriesApplicationPage.js",
+				"sites/bs.to/allSeries/scripts/index.js"
 			],
 			"css": [
-				"sites/bs.to/allSeriesPage/css/allSeriesPage.css"
+				"sites/bs.to/allSeries/css/allSeriesApplicationPage.css"
 			]
 		},
 		{
@@ -165,11 +166,11 @@
 				"library/scripts/application/bs.to/SeasonPageDeterminator.js",
 				"library/scripts/application/bs.to/BsToController.js",
 				"library/scripts/application/bs.to/EpisodesController.js",
-				"sites/bs.to/seriesPage/scripts/SeriesPage.js",
-				"sites/bs.to/seriesPage/scripts/index.js"
+				"sites/bs.to/series/scripts/SeriesApplicationPage.js",
+				"sites/bs.to/series/scripts/index.js"
 			],
 			"css": [
-				"sites/bs.to/seriesPage/css/seriesPage.css"
+				"sites/bs.to/series/css/seriesApplicationPage.css"
 			]
 		},
 		{
@@ -184,11 +185,11 @@
 				"https://burningseries.se/settings/series"
 			],
 			"js": [
-				"sites/bs.to/seriesSettingsPage/scripts/SeriesSettingsPage.js",
-				"sites/bs.to/seriesSettingsPage/scripts/index.js"
+				"sites/bs.to/seriesSettings/scripts/SeriesSettingsApplicationPage.js",
+				"sites/bs.to/seriesSettings/scripts/index.js"
 			],
 			"css": [
-				"sites/bs.to/seriesSettingsPage/css/seriesSettingsPage.css"
+				"sites/bs.to/seriesSettings/css/seriesSettingsApplicationPage.css"
 			]
 		}
 	]

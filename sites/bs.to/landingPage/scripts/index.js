@@ -5,7 +5,7 @@
 	.then(
 		( settings ) =>
 		{
-			( new LandingPage( settings ) )
+			( new LandingPageApplicationPage( settings ) )
 				.execute();
 		}
 	);

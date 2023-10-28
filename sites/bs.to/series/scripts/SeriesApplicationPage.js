@@ -1,9 +1,7 @@
 'use strict';
 
-class SeriesPage extends BaseClass
+class SeriesApplicationPage extends AbstractApplicationPage
 {
-	#_settings;
-	#_apiController;
 	#_linkExtender;
 	#_episodes;
 	#_denialsFilter;
@@ -12,25 +10,19 @@ class SeriesPage extends BaseClass
 	#_favoritesSwitcher;
 	#_watchedSwitcher;
 
-	constructor( settings )
+	constructor( settings, applicationPageArguments )
 	{
-		super();
+		super( settings, applicationPageArguments );
 
-		this.#_settings          = settings;
-		this.#_apiController     = new ApiController(
-			settings.get( 'apiBaseUri' ),
-			settings.get( 'apiUserId' ),
-			settings.get( 'apiKey' )
-		);
 		this.#_linkExtender      = new LinkExtender(
-			'/' + this.#_settings.get( 'defaultPlayer' )
+			'/' + this._settings.get( 'defaultPlayer' )
 		);
 		this.#_episodes          = new Episodes( '#sp_left h2', this.#episodeNameHandler, this.#episodeUriHandler );
-		this.#_denialsFilter     = new SeriesDenialsFilter( this.#_episodes, this.#_apiController, false );
-		this.#_denialsSwitcher   = new SeriesDenialsSwitcher( this.#_episodes, this.#_apiController );
-		this.#_interestsSwitcher = new SeriesInterestsSwitcher( this.#_episodes, this.#_apiController );
-		this.#_favoritesSwitcher = new SeriesFavoritesSwitcher( this.#_episodes, this.#_apiController );
-		this.#_watchedSwitcher   = new SeriesWatchedSwitcher( this.#_episodes, this.#_apiController );
+		this.#_denialsFilter     = new SeriesDenialsFilter( this.#_episodes, this._apiController, false );
+		this.#_denialsSwitcher   = new SeriesDenialsSwitcher( this.#_episodes, this._apiController );
+		this.#_interestsSwitcher = new SeriesInterestsSwitcher( this.#_episodes, this._apiController );
+		this.#_favoritesSwitcher = new SeriesFavoritesSwitcher( this.#_episodes, this._apiController );
+		this.#_watchedSwitcher   = new SeriesWatchedSwitcher( this.#_episodes, this._apiController );
 	}
 
 	get #episodeNameHandler()
@@ -54,7 +46,7 @@ class SeriesPage extends BaseClass
 				.groups
 				.uri;
 
-			return String.format`${ 0 }/${ 1 }`( extractedUri, this.#_settings.get( 'preferredLanguage' ) );
+			return String.format`${ 0 }/${ 1 }`( extractedUri, this._settings.get( 'preferredLanguage' ) );
 		}
 	}
 
@@ -92,7 +84,7 @@ class SeriesPage extends BaseClass
 
 	#addActions()
 	{
-		( new ActionAdder( this.#_episodes, this.#_apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, this.#_interestsSwitcher, this.#_favoritesSwitcher, this.#_watchedSwitcher ) )
+		( new ActionAdder( this.#_episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, this.#_interestsSwitcher, this.#_favoritesSwitcher, this.#_watchedSwitcher ) )
 			.addActions();
 	}
 
@@ -128,7 +120,7 @@ class SeriesPage extends BaseClass
 		}
 	}
 
-	execute()
+	async execute()
 	{
 		this
 			.#filterDenials()

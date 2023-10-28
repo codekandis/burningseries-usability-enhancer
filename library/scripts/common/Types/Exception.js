@@ -6,7 +6,7 @@ class Exception extends Error
 
 	constructor( message )
 	{
-		super();
+		super( message );
 
 		this.#_message = message;
 	}
