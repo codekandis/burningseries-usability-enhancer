@@ -16,17 +16,13 @@
 #menu li[data-menu-type='DROPDOWN'] > ul
 {
 	position:         absolute !important;
+	display:          block;
 	width:            var(--menu-width) !important;
 	column-count:     var(--submenu-column-count) !important;
 	column-gap:       0 !important;
 	background-color: #dddddd !important;
 	border-radius:    0 !important;
 	box-shadow:       #5c5c5c 0 0 3px 0 !important;
-}
-
-#menu li[data-menu-type='DROPDOWN']:hover > ul
-{
-	display: none;
 }
 
 #menu li[data-menu-type='DROPDOWN'][data-menu-purpose='SERIES_FAVORITES'] > ul

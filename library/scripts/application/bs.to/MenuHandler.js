@@ -26,7 +26,7 @@ class MenuHandler extends BaseClass
 	{
 		MenuHandler._currentMenuState                       = menuState;
 		MenuHandler._currentMenuState.isVisible             = true;
-		MenuHandler._currentMenuState.subMenu.style.display = 'block';
+		MenuHandler._currentMenuState.subMenu.style.display = null;
 		MenuHandler._currentMenuState.loader();
 	}
 
