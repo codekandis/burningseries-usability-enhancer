@@ -6,8 +6,8 @@
 	display:          block;
 	width:            14px !important;
 	height:           14px !important;
-	left:             0 !important;
-	top:              0 !important;
+	left:             0;
+	top:              0;
 	background-color: #ff0000 !important;
 	border-style:     solid !important;
 	border-width:     0 !important;

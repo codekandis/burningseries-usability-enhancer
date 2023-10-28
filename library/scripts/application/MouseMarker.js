@@ -30,7 +30,7 @@ class MouseMarker extends BaseClass
 
 	_show()
 	{
-		this._marker.style.display = 'block';
+		this._marker.style.display = null;
 	}
 
 	_hide()
