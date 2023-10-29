@@ -45,17 +45,26 @@
 				"library/Scripts/Common/Types/BaseClass.js",
 				"library/Scripts/Common/Types/Exception.js",
 				"library/Scripts/Common/Types/InvalidStaticClassInstantiationException.js",
+				"library/Scripts/Common/Types/LogicException.js",
+				"library/Scripts/Common/Types/MethodIsAbstractException.js",
 				"library/Scripts/Common/Types/NotImplementedException.js",
 				"library/Scripts/Common/Types/StaticBaseClass.js",
-				"library/Scripts/Common/ApplicationPages/AbstractApplicationPage.js",
 				"library/Scripts/Common/Debugging/Debugger.js",
 				"library/Scripts/Common/Debugging/DebugMode.js",
 				"library/Scripts/Common/Debugging/InvalidDebugModeException.js",
+				"library/Scripts/Common/ApplicationPages/AbstractApplicationPage.js",
+				"library/Scripts/Common/ApplicationPages/AbstractPreDispatcher.js",
+				"library/Scripts/Common/ApplicationPages/ApplicationPageDispatcher.js",
+				"library/Scripts/Common/ApplicationPages/PreDispatchmentState.js",
+				"library/Scripts/Common/Configurations/AbstractRoutesConfiguration.js",
 				"library/Scripts/Common/Dom/Events/DocumentDomEvents.js",
 				"library/Scripts/Common/Dom/DomDocument.js",
 				"library/Scripts/Common/Dom/DomElementNotFoundException.js",
 				"library/Scripts/Common/Dom/DomHelper.js",
 				"library/Scripts/Common/Dom/DomInsertPositions.js",
+				"library/Scripts/Common/Dom/Element.js",
+				"library/Scripts/Common/Dom/LinkExtender.js",
+				"library/Scripts/Common/Dom/Scroller.js",
 				"library/Scripts/Common/Net/AjaxController.js",
 				"library/Scripts/Common/Net/ContentTypes.js",
 				"library/Scripts/Common/Net/HttpMethods.js",
@@ -65,18 +74,24 @@
 				"library/Scripts/Application/ApiController.js",
 				"library/Scripts/Application/ApiUris.js",
 				"library/Scripts/Application/BaseSeriesMenuLoader.js",
+				"library/Scripts/Application/BsToController.js",
+				"library/Scripts/Application/DescriptionRemover.js",
 				"library/Scripts/Application/Episodes.js",
+				"library/Scripts/Application/EpisodesController.js",
 				"library/Scripts/Application/FooterRemover.js",
 				"library/Scripts/Application/HeaderModifier.js",
+				"library/Scripts/Application/HeadLineRemover.js",
 				"library/Scripts/Application/MenuAdder.js",
 				"library/Scripts/Application/MenuFilterProvider.js",
 				"library/Scripts/Application/MenuHandler.js",
 				"library/Scripts/Application/MenuPurposes.js",
 				"library/Scripts/Application/MenuRemover.js",
 				"library/Scripts/Application/MenuTypes.js",
+				"library/Scripts/Application/MetaLinksRemover.js",
 				"library/Scripts/Application/MouseMarker.js",
 				"library/Scripts/Application/PersistentLoginEnabler.js",
 				"library/Scripts/Application/RegistrationLinkHider.js",
+				"library/Scripts/Application/SeasonPageDeterminator.js",
 				"library/Scripts/Application/Series.js",
 				"library/Scripts/Application/SeriesDenialId.js",
 				"library/Scripts/Application/SeriesDenialsFilter.js",
@@ -98,98 +113,17 @@
 				"library/Scripts/Application/SeriesWatchId.js",
 				"library/Scripts/Application/Settings.js",
 				"library/Scripts/Application/SettingsData.js",
-				"application/AllPages/Scripts/AllPagesApplicationPage.js",
-				"application/AllPages/Scripts/index.js"
-			],
-			"css": [
-				"library/Styles/Core.css",
-				"application/AllPages/Styles/AllPagesApplicationPage.css"
-			]
-		},
-		{
-			"matches": [
-				"https://bs.to/",
-				"https://burningseries.co/",
-				"https://burningseries.sx/",
-				"https://burningseries.ac/",
-				"https://burningseries.vc/",
-				"https://burningseries.cx/",
-				"https://burningseries.nz/",
-				"https://burningseries.se/"
-			],
-			"js": [
-				"library/Scripts/Common/Dom/LinkExtender.js",
-				"library/Scripts/Application/HeadLineRemover.js",
 				"library/Scripts/Application/TeaserRemover.js",
-				"application/LandingPage/Scripts/LandingPageApplicationPage.js",
-				"application/LandingPage/Scripts/index.js"
+				"application/ApplicationPages/PreDispatcher/AllPagesPreDispatcher.js",
+				"application/ApplicationPages/AllSeriesApplicationPage.js",
+				"application/ApplicationPages/LandingPageApplicationPage.js",
+				"application/ApplicationPages/SeriesApplicationPage.js",
+				"application/ApplicationPages/SeriesSettingsApplicationPage.js",
+				"application/Configurations/RoutesConfiguration.js",
+				"application/Application.js"
 			],
 			"css": [
-				"application/LandingPage/Styles/LandingPageApplicationPage.css"
-			]
-		},
-		{
-			"matches": [
-				"https://bs.to/andere-serien",
-				"https://burningseries.co/andere-serien",
-				"https://burningseries.sx/andere-serien",
-				"https://burningseries.ac/andere-serien",
-				"https://burningseries.vc/andere-serien",
-				"https://burningseries.cx/andere-serien",
-				"https://burningseries.nz/andere-serien",
-				"https://burningseries.se/andere-serien"
-			],
-			"js": [
-				"application/AllSeries/Scripts/AllSeriesApplicationPage.js",
-				"application/AllSeries/Scripts/index.js"
-			],
-			"css": [
-				"application/AllSeries/Styles/AllSeriesApplicationPage.css"
-			]
-		},
-		{
-			"matches": [
-				"https://bs.to/serie/*",
-				"https://burningseries.co/serie/*",
-				"https://burningseries.sx/serie/*",
-				"https://burningseries.ac/serie/*",
-				"https://burningseries.vc/serie/*",
-				"https://burningseries.cx/serie/*",
-				"https://burningseries.nz/serie/*",
-				"https://burningseries.se/serie/*"
-			],
-			"js": [
-				"library/Scripts/Common/Dom/LinkExtender.js",
-				"library/Scripts/Common/Dom/Scroller.js",
-				"library/Scripts/Application/BsToController.js",
-				"library/Scripts/Application/DescriptionRemover.js",
-				"library/Scripts/Application/EpisodesController.js",
-				"library/Scripts/Application/MetaLinksRemover.js",
-				"library/Scripts/Application/SeasonPageDeterminator.js",
-				"application/Series/Scripts/SeriesApplicationPage.js",
-				"application/Series/Scripts/index.js"
-			],
-			"css": [
-				"application/Series/Styles/SeriesApplicationPage.css"
-			]
-		},
-		{
-			"matches": [
-				"https://bs.to/settings/series",
-				"https://burningseries.co/settings/series",
-				"https://burningseries.sx/settings/series",
-				"https://burningseries.ac/settings/series",
-				"https://burningseries.vc/settings/series",
-				"https://burningseries.cx/settings/series",
-				"https://burningseries.nz/settings/series",
-				"https://burningseries.se/settings/series"
-			],
-			"js": [
-				"application/SeriesSettings/Scripts/SeriesSettingsApplicationPage.js",
-				"application/SeriesSettings/Scripts/index.js"
-			],
-			"css": [
-				"application/SeriesSettings/Styles/SeriesSettingsApplicationPage.css"
+				"application/Application.css"
 			]
 		}
 	]

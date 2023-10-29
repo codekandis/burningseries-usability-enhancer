@@ -45,6 +45,11 @@
 	left: calc(var(--menu-item-width) * -4) !important;
 }
 
+#menu li[data-menu-type='DROPDOWN'][data-menu-purpose='SERIES_ALL'] > ul
+{
+	left: calc(var(--menu-item-width) * -5) !important;
+}
+
 #menu li[data-menu-type='DROPDOWN'] > ul > li
 {
 	text-align:   left !important;

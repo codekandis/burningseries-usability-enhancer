@@ -1,6 +1,6 @@
 'use strict';
 
-class AllPagesApplicationPage extends AbstractApplicationPage
+class AllPagesPreDispatcher extends AbstractPreDispatcher
 {
 	#_menuSettings   = {
 		interests: {
@@ -73,30 +73,36 @@ class AllPagesApplicationPage extends AbstractApplicationPage
 		]
 	);
 	#_menuHandler    = new MenuHandler( this.#_menuSettings );
+	#_apiController;
 	#_denialsLoader;
 	#_interestsLoader;
 	#_favoritesLoader;
 	#_watchedLoader;
 
-	constructor( settings, applicationPageArguments )
+	constructor( settings )
 	{
-		super( settings, applicationPageArguments );
+		super( settings );
 
+		this.#_apiController   = new ApiController(
+			this._settings.get( 'apiBaseUri' ),
+			this._settings.get( 'apiUserId' ),
+			this._settings.get( 'apiKey' )
+		);
 		this.#_denialsLoader   = new SeriesDenialsMenuLoader(
 			String.format`${ 0 } ul`( this.#_menuSettings.denials.selector ),
-			this._apiController
+			this.#_apiController
 		);
 		this.#_interestsLoader = new SeriesInterestsMenuLoader(
 			String.format`${ 0 } ul`( this.#_menuSettings.interests.selector ),
-			this._apiController
+			this.#_apiController
 		);
 		this.#_favoritesLoader = new SeriesFavoritesMenuLoader(
 			String.format`${ 0 } ul`( this.#_menuSettings.favorites.selector ),
-			this._apiController
+			this.#_apiController
 		);
 		this.#_watchedLoader   = new SeriesWatchedMenuLoader(
 			String.format`${ 0 } ul`( this.#_menuSettings.watched.selector ),
-			this._apiController
+			this.#_apiController
 		);
 	}
 
@@ -169,13 +175,13 @@ class AllPagesApplicationPage extends AbstractApplicationPage
 			this.#episodeNameHandler,
 			this.#episodeUriHandler
 		);
-		const denialsFilter     = new SeriesDenialsFilter( episodes, this._apiController, true );
-		const denialsSwitcher   = new SeriesDenialsSwitcher( episodes, this._apiController );
-		const interestsSwitcher = new SeriesInterestsSwitcher( episodes, this._apiController );
-		const favoritesSwitcher = new SeriesFavoritesSwitcher( episodes, this._apiController );
-		const watchedSwitcher   = new SeriesWatchedSwitcher( episodes, this._apiController );
+		const denialsFilter     = new SeriesDenialsFilter( episodes, this.#_apiController, true );
+		const denialsSwitcher   = new SeriesDenialsSwitcher( episodes, this.#_apiController );
+		const interestsSwitcher = new SeriesInterestsSwitcher( episodes, this.#_apiController );
+		const favoritesSwitcher = new SeriesFavoritesSwitcher( episodes, this.#_apiController );
+		const watchedSwitcher   = new SeriesWatchedSwitcher( episodes, this.#_apiController );
 
-		( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher ) )
+		( new ActionAdder( episodes, this.#_apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher ) )
 			.addActions();
 
 		denialsSwitcher.switch();
@@ -204,7 +210,7 @@ class AllPagesApplicationPage extends AbstractApplicationPage
 		this.#load( this.#_watchedLoader, this.#_menuSettings.watched.selector );
 	}
 
-	async execute()
+	preDispatch( requestedUri, dispatchmentState )
 	{
 		this.#markMouse();
 		this.#modifyHeader();
