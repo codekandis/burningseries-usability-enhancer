@@ -94,6 +94,7 @@
 				"library/Scripts/Application/SeasonPageDeterminator.js",
 				"library/Scripts/Application/SeriesIsSeries.js",
 				"library/Scripts/Application/Series.js",
+				"library/Scripts/Application/SeriesAllMenuLoader.js",
 				"library/Scripts/Application/SeriesIsDenial.js",
 				"library/Scripts/Application/SeriesDenialId.js",
 				"library/Scripts/Application/SeriesDenialsFilter.js",
