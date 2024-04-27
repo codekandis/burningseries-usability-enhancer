@@ -177,11 +177,14 @@ class AllPagesPreDispatcher extends AbstractPreDispatcher
 		);
 		const denialsFilter     = new SeriesDenialsFilter( episodes, this.#_apiController, true );
 		const denialsSwitcher   = new SeriesDenialsSwitcher( episodes, this.#_apiController );
+		const interestsFilter   = new SeriesInterestsFilter( episodes, this.#_apiController, true );
 		const interestsSwitcher = new SeriesInterestsSwitcher( episodes, this.#_apiController );
+		const favoritesFilter   = new SeriesFavoritesFilter( episodes, this.#_apiController, true );
 		const favoritesSwitcher = new SeriesFavoritesSwitcher( episodes, this.#_apiController );
+		const watchedFilter     = new SeriesWatchedFilter( episodes, this.#_apiController, true );
 		const watchedSwitcher   = new SeriesWatchedSwitcher( episodes, this.#_apiController );
 
-		( new ActionAdder( episodes, this.#_apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher ) )
+		( new ActionAdder( episodes, this.#_apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsFilter, interestsSwitcher, favoritesFilter, favoritesSwitcher, watchedFilter, watchedSwitcher ) )
 			.addActions();
 
 		denialsSwitcher.switch();

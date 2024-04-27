@@ -9,11 +9,14 @@ class ActionAdder extends BaseClass
 	#_actionPosition;
 	#_denialsFilter;
 	#_denialsSwitcher;
+	#_interestsFilter;
 	#_interestsSwitcher;
+	#_favoritesFilter;
 	#_favoritesSwitcher;
+	#_watchedFilter;
 	#_watchedSwitcher;
 
-	constructor( episodes, apiController, actionPosition, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher )
+	constructor( episodes, apiController, actionPosition, denialsFilter, denialsSwitcher, interestsFilter, interestsSwitcher, favoritesFilter, favoritesSwitcher, watchedFilter, watchedSwitcher )
 	{
 		super();
 
@@ -22,8 +25,11 @@ class ActionAdder extends BaseClass
 		this.#_actionPosition    = actionPosition;
 		this.#_denialsFilter     = denialsFilter;
 		this.#_denialsSwitcher   = denialsSwitcher;
+		this.#_interestsFilter   = interestsFilter;
 		this.#_interestsSwitcher = interestsSwitcher;
+		this.#_favoritesFilter   = favoritesFilter;
 		this.#_favoritesSwitcher = favoritesSwitcher;
+		this.#_watchedFilter     = watchedFilter;
 		this.#_watchedSwitcher   = watchedSwitcher;
 	}
 
@@ -47,7 +53,10 @@ class ActionAdder extends BaseClass
 					.then(
 						( responseData ) =>
 						{
-							this.#_denialsFilter.filter();
+							if ( null !== this.#_denialsFilter )
+							{
+								this.#_denialsFilter.filter();
+							}
 							this.#switchAll();
 						}
 					);
@@ -83,6 +92,10 @@ class ActionAdder extends BaseClass
 					.then(
 						( responseData ) =>
 						{
+							if ( null !== this.#_interestsFilter )
+							{
+								this.#_interestsFilter.filter();
+							}
 							this.#switchAll();
 						}
 					);
@@ -118,6 +131,10 @@ class ActionAdder extends BaseClass
 					.then(
 						( responseData ) =>
 						{
+							if ( null !== this.#_favoritesFilter )
+							{
+								this.#_favoritesFilter.filter();
+							}
 							this.#switchAll();
 						}
 					);
@@ -153,6 +170,10 @@ class ActionAdder extends BaseClass
 					.then(
 						( responseData ) =>
 						{
+							if ( null !== this.#_watchedFilter )
+							{
+								this.#_watchedFilter.filter();
+							}
 							this.#switchAll();
 						}
 					);

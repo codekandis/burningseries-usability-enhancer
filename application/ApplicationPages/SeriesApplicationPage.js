@@ -84,7 +84,7 @@ class SeriesApplicationPage extends AbstractApplicationPage
 
 	#addActions()
 	{
-		( new ActionAdder( this.#_episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, this.#_interestsSwitcher, this.#_favoritesSwitcher, this.#_watchedSwitcher ) )
+		( new ActionAdder( this.#_episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, null, this.#_interestsSwitcher, null, this.#_favoritesSwitcher, null, this.#_watchedSwitcher ) )
 			.addActions();
 	}
 
