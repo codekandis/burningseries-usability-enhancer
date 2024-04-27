@@ -3,6 +3,17 @@
 class AllPagesPreDispatcher extends AbstractPreDispatcher
 {
 	#_menuSettings   = {
+		all:       {
+			selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_ALL ),
+			activatorSelector: '> a',
+			loader:            this.#loadAll.bind( this ),
+			filter:            {
+				denials:   true,
+				interests: true,
+				favorites: true,
+				watched:   true
+			}
+		},
 		denials:   {
 			selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_DENIALS ),
 			activatorSelector: '> a',
@@ -53,7 +64,7 @@ class AllPagesPreDispatcher extends AbstractPreDispatcher
 	#_footerRemover  = new FooterRemover( 'footer' );
 	#_menuRemover    = new MenuRemover(
 		[
-			'#menu > li:nth-child( 6 ), #menu > li:nth-child( 5 ), #menu > li:nth-child( 4 ), #menu > li:nth-child( 3 )'
+			'#menu > li:nth-child( 6 ), #menu > li:nth-child( 5 ), #menu > li:nth-child( 4 ), #menu > li:nth-child( 3 ), #menu > li:nth-child( 2 )',
 		]
 	);
 	#_menuAdder      = new MenuAdder(
@@ -93,11 +104,22 @@ class AllPagesPreDispatcher extends AbstractPreDispatcher
 				},
 				targetSelector: '#menu > li:nth-child( 4 )',
 				position:       DomInsertPositions.AFTER
+			},
+			{
+				name:           'All Series',
+				dataAttributes: {
+					'menu-type':    MenuTypes.DROPDOWN,
+					'menu-purpose': MenuPurposes.SERIES_ALL
+				},
+				targetSelector: '#menu > li:nth-child( 5 )',
+				position:       DomInsertPositions.AFTER
 			}
 		]
 	);
 	#_menuHandler    = new MenuHandler( this.#_menuSettings );
+	#_bsToController;
 	#_apiController;
+	#_allLoader;
 	#_denialsLoader;
 	#_interestsLoader;
 	#_favoritesLoader;
@@ -107,10 +129,15 @@ class AllPagesPreDispatcher extends AbstractPreDispatcher
 	{
 		super( settings );
 
+		this.#_bsToController  = new BsToController();
 		this.#_apiController   = new ApiController(
 			this._settings.get( 'apiBaseUri' ),
 			this._settings.get( 'apiUserId' ),
 			this._settings.get( 'apiKey' )
+		);
+		this.#_allLoader       = new SeriesAllMenuLoader(
+			String.format`${ 0 } ul`( this.#_menuSettings.all.selector ),
+			this.#_bsToController
 		);
 		this.#_denialsLoader   = new SeriesDenialsMenuLoader(
 			String.format`${ 0 } ul`( this.#_menuSettings.denials.selector ),
@@ -243,6 +270,11 @@ class AllPagesPreDispatcher extends AbstractPreDispatcher
 		{
 			watchedSwitcher.switch();
 		}
+	}
+
+	#loadAll()
+	{
+		this.#load( this.#_allLoader, this.#_menuSettings.all );
 	}
 
 	#loadDenials()
