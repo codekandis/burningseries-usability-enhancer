@@ -22,6 +22,24 @@ class BsToController extends BaseClass
 			.parseFromString( htmlString, ContentTypes.TEXT_HTML );
 	}
 
+	async readSeriesAll( uri )
+	{
+		const htmlDocument = await this.#readAsHtmlDocument( uri );
+
+		return [
+			...DomHelper.querySelectorAll( '#seriesContainer .genre > ul > li a', htmlDocument, false )
+		]
+			.map(
+				( series ) =>
+				{
+					return {
+						"name": series.textContent.toLowerCase(),
+						"uri":  series.href
+					};
+				}
+			);
+	}
+
 	async readEpisodes( uri )
 	{
 		const htmlDocument = await this.#readAsHtmlDocument( uri );
