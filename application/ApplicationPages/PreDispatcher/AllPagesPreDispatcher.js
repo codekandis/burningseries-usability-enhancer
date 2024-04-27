@@ -3,25 +3,49 @@
 class AllPagesPreDispatcher extends AbstractPreDispatcher
 {
 	#_menuSettings   = {
+		denials:   {
+			selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_DENIALS ),
+			activatorSelector: '> a',
+			loader:            this.#loadDenials.bind( this ),
+			filter:            {
+				denials:   false,
+				interests: true,
+				favorites: true,
+				watched:   true
+			}
+		},
 		interests: {
 			selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_INTERESTS ),
 			activatorSelector: '> a',
-			loader:            this.#loadInterests.bind( this )
+			loader:            this.#loadInterests.bind( this ),
+			filter:            {
+				denials:   true,
+				interests: false,
+				favorites: true,
+				watched:   true
+			}
 		},
 		favorites: {
 			selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_FAVORITES ),
 			activatorSelector: '> a',
-			loader:            this.#loadFavorites.bind( this )
+			loader:            this.#loadFavorites.bind( this ),
+			filter:            {
+				denials:   true,
+				interests: true,
+				favorites: false,
+				watched:   true
+			}
 		},
 		watched:   {
 			selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_WATCHED ),
 			activatorSelector: '> a',
-			loader:            this.#loadWatched.bind( this )
-		},
-		denials:   {
-			selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_DENIALS ),
-			activatorSelector: '> a',
-			loader:            this.#loadDenials.bind( this )
+			loader:            this.#loadWatched.bind( this ),
+			filter:            {
+				denials:   true,
+				interests: true,
+				favorites: true,
+				watched:   false
+			}
 		}
 	};
 	#_mouseMarker    = new MouseMarker();
@@ -166,12 +190,12 @@ class AllPagesPreDispatcher extends AbstractPreDispatcher
 		this.#_menuHandler.handle();
 	}
 
-	async #load( loader, episodesSelector )
+	async #load( loader, menuSettings )
 	{
 		await loader.load();
 
 		const episodes          = new Episodes(
-			String.format`${ 0 } ul li`( episodesSelector ),
+			String.format`${ 0 } ul li`( menuSettings.selector ),
 			this.#episodeNameHandler,
 			this.#episodeUriHandler
 		);
@@ -187,30 +211,58 @@ class AllPagesPreDispatcher extends AbstractPreDispatcher
 		( new ActionAdder( episodes, this.#_apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsFilter, interestsSwitcher, favoritesFilter, favoritesSwitcher, watchedFilter, watchedSwitcher ) )
 			.addActions();
 
-		denialsSwitcher.switch();
-		interestsSwitcher.switch();
-		favoritesSwitcher.switch();
-		watchedSwitcher.switch();
+		if ( true === menuSettings.filter.denials )
+		{
+			denialsFilter.filter();
+		}
+		else
+		{
+			denialsSwitcher.switch();
+		}
+		if ( true === menuSettings.filter.interests )
+		{
+			interestsFilter.filter();
+		}
+		else
+		{
+			interestsSwitcher.switch();
+		}
+		if ( true === menuSettings.filter.favorites )
+		{
+			favoritesFilter.filter();
+		}
+		else
+		{
+			favoritesSwitcher.switch();
+		}
+		if ( true === menuSettings.filter.watched )
+		{
+			watchedFilter.filter();
+		}
+		else
+		{
+			watchedSwitcher.switch();
+		}
 	}
 
 	#loadDenials()
 	{
-		this.#load( this.#_denialsLoader, this.#_menuSettings.denials.selector );
+		this.#load( this.#_denialsLoader, this.#_menuSettings.denials );
 	}
 
 	#loadInterests()
 	{
-		this.#load( this.#_interestsLoader, this.#_menuSettings.interests.selector );
+		this.#load( this.#_interestsLoader, this.#_menuSettings.interests );
 	}
 
 	#loadFavorites()
 	{
-		this.#load( this.#_favoritesLoader, this.#_menuSettings.favorites.selector );
+		this.#load( this.#_favoritesLoader, this.#_menuSettings.favorites );
 	}
 
 	#loadWatched()
 	{
-		this.#load( this.#_watchedLoader, this.#_menuSettings.watched.selector );
+		this.#load( this.#_watchedLoader, this.#_menuSettings.watched );
 	}
 
 	preDispatch( requestedUri, dispatchmentState )
