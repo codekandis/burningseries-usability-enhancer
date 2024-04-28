@@ -57,11 +57,11 @@ class SeriesSettingsApplicationPage extends AbstractApplicationPage
 			.then(
 				() =>
 				{
-					this.#addActions();
 					this.#_denialsSwitcher.switch();
 					this.#_interestsSwitcher.switch();
 					this.#_favoritesSwitcher.switch();
 					this.#_watchedSwitcher.switch();
+					this.#addActions();
 				}
 			);
 	}
