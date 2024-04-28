@@ -127,11 +127,11 @@ class SeriesApplicationPage extends AbstractApplicationPage
 			.then(
 				() =>
 				{
-					this.#addActions();
 					this.#switchDenials();
 					this.#switchInterests();
 					this.#switchFavorites();
 					this.#switchWatched();
+					this.#addActions();
 				}
 			);
 		this.#extendEpisodesLinks();

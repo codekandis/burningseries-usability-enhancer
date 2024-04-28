@@ -235,9 +235,6 @@ class AllPagesPreDispatcher extends AbstractPreDispatcher
 		const watchedFilter     = new SeriesWatchedFilter( episodes, this.#_apiController, true );
 		const watchedSwitcher   = new SeriesWatchedSwitcher( episodes, this.#_apiController );
 
-		( new ActionAdder( episodes, this.#_apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsFilter, interestsSwitcher, favoritesFilter, favoritesSwitcher, watchedFilter, watchedSwitcher ) )
-			.addActions();
-
 		if ( true === menuSettings.filter.denials )
 		{
 			denialsFilter.filter();
@@ -270,6 +267,9 @@ class AllPagesPreDispatcher extends AbstractPreDispatcher
 		{
 			watchedSwitcher.switch();
 		}
+
+		( new ActionAdder( episodes, this.#_apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsFilter, interestsSwitcher, favoritesFilter, favoritesSwitcher, watchedFilter, watchedSwitcher ) )
+			.addActions();
 	}
 
 	#loadAll()
