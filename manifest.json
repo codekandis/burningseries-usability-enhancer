@@ -115,6 +115,7 @@
 				"library/Scripts/Application/SeriesWatchedFilter.js",
 				"library/Scripts/Application/SeriesWatchedMenuLoader.js",
 				"library/Scripts/Application/SeriesWatchedSwitcher.js",
+				"library/Scripts/Application/SeriesTitleAttributeRemover.js",
 				"library/Scripts/Application/Settings.js",
 				"library/Scripts/Application/SettingsData.js",
 				"library/Scripts/Application/TeaserRemover.js",

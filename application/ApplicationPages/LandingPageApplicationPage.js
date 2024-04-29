@@ -80,6 +80,12 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 		);
 	}
 
+	#removeSeriesTitleAttributes()
+	{
+		( new SeriesTitleAttributeRemover( this.#_episodes ) )
+			.removeTitleAttributes();
+	}
+
 	#addActions()
 	{
 		( new ActionAdder( this.#_episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, null, this.#_interestsSwitcher, null, this.#_favoritesSwitcher, null, this.#_watchedSwitcher ) )
@@ -119,6 +125,7 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 					this.#switchInterests();
 					this.#switchFavorites();
 					this.#switchWatched();
+					this.#removeSeriesTitleAttributes();
 					this.#addActions();
 				}
 			);
