@@ -39,6 +39,7 @@ class BaseSeriesMenuLoader extends BaseClass
 						{
 							return 1;
 						}
+
 						return 0;
 					}
 				)

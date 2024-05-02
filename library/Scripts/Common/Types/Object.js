@@ -24,7 +24,6 @@ Object.prototype.every = function ( iteratorHandler )
 	{
 		if ( false === iteratorHandler( propertyValue, propertyName ) )
 		{
-
 			return;
 		}
 	}

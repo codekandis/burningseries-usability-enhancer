@@ -2,7 +2,7 @@
 
 class Settings extends BaseClass
 {
-	#_settingsData =new SettingsData();
+	#_settingsData = new SettingsData();
 
 	has( name )
 	{
