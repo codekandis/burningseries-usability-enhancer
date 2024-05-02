@@ -92,6 +92,12 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 			.addActions();
 	}
 
+	async #addSeriesAbstracts()
+	{
+		await ( new SeriesAbstractsAdder( this.#_episodes, this._bsToController ) )
+			.addSeriesAbstracts();
+	}
+
 	#switchDenials()
 	{
 		this.#_denialsSwitcher.switch();
@@ -118,7 +124,7 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 		this.#removeHeadLine();
 		this.#filterDenials()
 			.then(
-				() =>
+				async () =>
 				{
 					this.#extendEpisodesLinks();
 					this.#switchDenials();
@@ -127,6 +133,7 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 					this.#switchWatched();
 					this.#removeSeriesTitleAttributes();
 					this.#addActions();
+					this.#addSeriesAbstracts();
 				}
 			);
 	}

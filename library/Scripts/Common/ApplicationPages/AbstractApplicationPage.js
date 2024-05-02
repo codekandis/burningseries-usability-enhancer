@@ -4,6 +4,7 @@ class AbstractApplicationPage extends BaseClass
 {
 	#_settings;
 	#_applicationPageArguments;
+	#_bsToController;
 	#_apiController;
 
 	constructor( settings, applicationPageArguments )
@@ -12,6 +13,7 @@ class AbstractApplicationPage extends BaseClass
 
 		this.#_settings                 = settings;
 		this.#_applicationPageArguments = applicationPageArguments;
+		this.#_bsToController           = new BsToController();
 		this.#_apiController            = new ApiController(
 			this._settings.get( 'apiBaseUri' ),
 			this._settings.get( 'apiUserId' ),
@@ -22,6 +24,11 @@ class AbstractApplicationPage extends BaseClass
 	get _settings()
 	{
 		return this.#_settings;
+	}
+
+	get _bsToController()
+	{
+		return this.#_bsToController;
 	}
 
 	get _apiController()
