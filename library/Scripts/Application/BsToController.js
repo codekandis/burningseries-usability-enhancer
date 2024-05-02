@@ -64,6 +64,15 @@ class BsToController extends BaseClass
 			);
 	}
 
+	async readSeriesAbstract( uri )
+	{
+		const htmlDocument = await this.#readAsHtmlDocument( uri );
+		return {
+			description: DomHelper.querySelector( '#sp_left p', htmlDocument, false ).textContent,
+			image:       DomHelper.querySelector( '#sp_right img', htmlDocument, false ).src
+		};
+	}
+
 	async toggleWatchState( uri )
 	{
 		return await this

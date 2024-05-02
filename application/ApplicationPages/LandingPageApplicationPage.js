@@ -80,10 +80,22 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 		);
 	}
 
+	#removeSeriesTitleAttributes()
+	{
+		( new SeriesTitleAttributeRemover( this.#_episodes ) )
+			.removeTitleAttributes();
+	}
+
 	#addActions()
 	{
 		( new ActionAdder( this.#_episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, null, this.#_interestsSwitcher, null, this.#_favoritesSwitcher, null, this.#_watchedSwitcher ) )
 			.addActions();
+	}
+
+	async #addSeriesAbstracts()
+	{
+		await ( new SeriesAbstractsAdder( this.#_episodes, this._bsToController ) )
+			.addSeriesAbstracts();
 	}
 
 	#switchDenials()
@@ -112,14 +124,16 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 		this.#removeHeadLine();
 		this.#filterDenials()
 			.then(
-				() =>
+				async () =>
 				{
 					this.#extendEpisodesLinks();
 					this.#switchDenials();
 					this.#switchInterests();
 					this.#switchFavorites();
 					this.#switchWatched();
+					this.#removeSeriesTitleAttributes();
 					this.#addActions();
+					this.#addSeriesAbstracts();
 				}
 			);
 	}
