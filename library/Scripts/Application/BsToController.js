@@ -65,10 +65,22 @@ class BsToController extends BaseClass
 	async readSeriesAbstractAsync( uri )
 	{
 		const htmlDocument = await this.#readAsHtmlDocumentAsync( uri );
+		const genres       = [
+			...DomHelper.querySelectorAll( '#sp_left .infos div:nth-child(1) p span', htmlDocument, false )
+		]
+			.map(
+				( genre ) =>
+				{
+					return genre.textContent;
+				}
+			)
+			.join( ' ' );
 
 		return {
-			description: DomHelper.querySelector( '#sp_left p', htmlDocument, false ).textContent,
-			image:       DomHelper.querySelector( '#sp_right img', htmlDocument, false ).src
+			image:       DomHelper.querySelector( '#sp_right img', htmlDocument ).src,
+			genres:      genres,
+			releaseTime: DomHelper.querySelector( '#sp_left .infos div:nth-child(2) p em', htmlDocument ).textContent,
+			description: DomHelper.querySelector( '#sp_left p', htmlDocument ).textContent
 		};
 	}
 
