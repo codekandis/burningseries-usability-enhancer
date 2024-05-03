@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+[data-control-type='SERIES_ABSTRACT']
+{
+	position:         absolute !important;
+	width:            250px !important;
+	z-index:          1000 !important;
+	background-color: #f0f0f0 !important;
+	border-style:     solid !important;
+	border-width:     1px !important;
+	border-color:     #a0a0a0 !important;
+}
+
+[data-control-type='SERIES_ABSTRACT'] div
+{
+	padding-left:  10px !important;
+	padding-right: 10px !important;
+	line-height:   1.3em !important;
+	font-size:     6pt !important;
+}
+
+[data-control-type='SERIES_ABSTRACT'] [data-content-type='IMAGE']
+{
+	float:       right !important;
+	margin-left: 10px !important;
+	height:      97px !important;
+}
+
+[data-control-type='SERIES_ABSTRACT'] [data-content-type='GENRES'],
+[data-control-type='SERIES_ABSTRACT'] [data-content-type='DESCRIPTION']
+{
+	padding-top: 10px !important;
+}
+
+[data-control-type='SERIES_ABSTRACT'] [data-content-type='DESCRIPTION']
+{
+	padding-bottom: 10px !important;
+}

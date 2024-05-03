@@ -17,72 +17,40 @@
 	margin-top:  3px !important;
 }
 
-#newest_episodes [data-control-type='ACTION_CONTEXT_MENU']
-{
-	margin-left: 8px !important;
-	margin-top:  5px !important;
-}
-
-#newest_episodes [data-control-type='SERIES_ABSTRACT']
-{
-	position:         absolute !important;
-	margin-left:      174px !important;
-	margin-top:       -2px !important;
-	width:            250px !important;
-	z-index:          1000 !important;
-	background-color: #f0f0f0 !important;
-	border-style:     solid !important;
-	border-width:     1px !important;
-	border-color:     #a0a0a0 !important;
-}
-
-#newest_episodes [data-control-type='SERIES_ABSTRACT'] img
-{
-	float:       right !important;
-	margin-left: 10px !important;
-	height:      97px !important;
-}
-
-#newest_episodes [data-control-type='SERIES_ABSTRACT'] div
-{
-	font-size: 6pt !important;
-	padding:   10px !important;
-}
-
 #newest_series [data-control-type='ACTION']
 {
 	margin-left: -15px !important;
 	margin-top:  4px !important;
 }
 
+#newest_episodes [data-control-type='ACTION_CONTEXT_MENU'],
 #newest_series [data-control-type='ACTION_CONTEXT_MENU']
 {
 	margin-left: 8px !important;
-	margin-top:  6px !important;
+}
+
+#newest_episodes [data-control-type='ACTION_CONTEXT_MENU']
+{
+	margin-top: 5px !important;
+}
+
+#newest_series [data-control-type='ACTION_CONTEXT_MENU']
+{
+	margin-top: 6px !important;
+}
+
+#newest_episodes [data-control-type='SERIES_ABSTRACT'],
+#newest_series [data-control-type='SERIES_ABSTRACT']
+{
+	margin-left:      174px !important;
+}
+
+#newest_episodes [data-control-type='SERIES_ABSTRACT']
+{
+	margin-top: -2px !important;
 }
 
 #newest_series [data-control-type='SERIES_ABSTRACT']
 {
-	position:         absolute !important;
-	margin-left:      174px !important;
-	margin-top:       -22px !important;
-	width:            250px !important;
-	z-index:          1000 !important;
-	background-color: #f0f0f0 !important;
-	border-style:     solid !important;
-	border-width:     1px !important;
-	border-color:     #a0a0a0 !important;
-}
-
-#newest_series [data-control-type='SERIES_ABSTRACT'] img
-{
-	float:       right !important;
-	margin-left: 10px !important;
-	height:      97px !important;
-}
-
-#newest_series [data-control-type='SERIES_ABSTRACT'] div
-{
-	font-size: 6pt !important;
-	padding:   10px !important;
+	margin-top: -22px !important;
 }
