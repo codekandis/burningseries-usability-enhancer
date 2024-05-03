@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "codekandis/burningseries-usability-enhancer",
-	"version": "1.29.0",
+	"version": "1.30.0",
 	"description": "This extension enhances the usability of the website `burningseries.co`.",
 	"icons": {
 		"16": "images/icon-16.png",
