@@ -39,11 +39,6 @@ class Series extends BaseClass
 		return this.#_uri;
 	}
 
-	get isSeries()
-	{
-		return this.#_isSeries;
-	}
-
 	set isSeries( isSeries )
 	{
 		this.#_isSeries = isSeries;

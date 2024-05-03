@@ -23,16 +23,6 @@ class Episodes extends BaseClass
 		return this.#_series;
 	}
 
-	#findSeries( series )
-	{
-		return this.#_series.find(
-			( seriesFetched ) =>
-			{
-				return seriesFetched.name === series.name.toLowerCase();
-			}
-		);
-	}
-
 	#findAllSeries( series )
 	{
 		return this.#_series.filter(
