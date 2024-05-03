@@ -20,52 +20,52 @@ class MouseMarker extends BaseClass
 
 		this.#_halfWidth  = Math.floor( this.#_marker.offsetWidth / 2 );
 		this.#_halfHeight = Math.floor( this.#_marker.offsetHeight / 2 );
-		this.#hide();
+		this.#hideAsync();
 	}
 
-	#move( clientX, clientY )
+	async #moveAsync( clientX, clientY )
 	{
 		this.#_marker.style.left = ( clientX - this.#_halfWidth + scrollX ) + 'px';
 		this.#_marker.style.top  = ( clientY - this.#_halfHeight + scrollY ) + 'px';
 	}
 
-	#show()
+	async #showAsync()
 	{
 		this.#_marker.style.display = null;
 	}
 
-	#hide()
+	async #hideAsync()
 	{
 		this.#_marker.style.display = 'none';
 	}
 
-	#getEventHandlerMappings()
+	async #getEventHandlerMappingsAsync()
 	{
 		return {
 			keydown:   ( event ) =>
 			           {
 				           if ( true === event.ctrlKey && false === event.shiftKey && false === event.altKey )
 				           {
-					           this.#show();
+					           this.#showAsync();
 
 					           return;
 				           }
 
-				           this.#hide();
+				           this.#hideAsync();
 			           },
 			keyup:     ( event ) =>
 			           {
-				           this.#hide();
+				           this.#hideAsync();
 			           },
 			mousemove: ( event ) =>
 			           {
-				           this.#move( event.clientX, event.clientY );
+				           this.#moveAsync( event.clientX, event.clientY );
 			           }
 		};
 	}
 
-	markMouse()
+	async markMouseAsync()
 	{
-		DomHelper.addEventHandlersBySelector( 'html', this.#getEventHandlerMappings() );
+		DomHelper.addEventHandlersBySelector( 'html', await this.#getEventHandlerMappingsAsync() );
 	}
 }

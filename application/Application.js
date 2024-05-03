@@ -3,15 +3,15 @@
 DebugMode.enable();
 
 ( new Settings() )
-	.load()
+	.loadAsync()
 	.then(
-		( settings ) =>
+		async ( settings ) =>
 		{
 			( new ApplicationPageDispatcher(
 				settings,
 				new RoutesConfiguration(),
 				new AllPagesPreDispatcher( settings )
 			) )
-				.dispatch();
+				.dispatchAsync();
 		}
 	);

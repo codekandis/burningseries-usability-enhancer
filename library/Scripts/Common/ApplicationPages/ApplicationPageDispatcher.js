@@ -31,12 +31,12 @@ class ApplicationPageDispatcher extends BaseClass
 		return decodedApplicationPageArguments;
 	}
 
-	dispatch()
+	async dispatchAsync()
 	{
 		if ( null !== this.#_preDispatcher )
 		{
 			const preDispatchmentState = new PreDispatchmentState();
-			this.#_preDispatcher.preDispatch( this.#_requestedUri, preDispatchmentState );
+			await this.#_preDispatcher.preDispatchAsync( this.#_requestedUri, preDispatchmentState );
 			if ( true === preDispatchmentState.preventDispatchment )
 			{
 				return;
@@ -73,7 +73,7 @@ class ApplicationPageDispatcher extends BaseClass
 		if ( null !== applicationPageClass )
 		{
 			( new applicationPageClass( this.#_settings, applicationPageArguments ) )
-				.execute();
+				.executeAsync();
 		}
 	}
 }

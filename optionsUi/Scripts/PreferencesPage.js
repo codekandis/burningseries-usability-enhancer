@@ -5,8 +5,8 @@ class PreferencesPage extends BaseClass
 	#_settings;
 	#_preferencesForm;
 	#_preferencesFormEventHandlerPresets = {
-		submit: this.#saveSettings,
-		reset:  this.#loadSettings
+		submit: this.#saveSettingsAsync.bind( this ),
+		reset:  this.#loadSettingsAsync.bind( this )
 	};
 
 	constructor( settings, preferencesForm )
@@ -21,11 +21,11 @@ class PreferencesPage extends BaseClass
 
 	#initialize()
 	{
-		this.#attachSettings();
-		this.#addEventHandlersToPreferencesForm();
+		this.#attachSettingsAsync();
+		this.#addEventHandlersToPreferencesFormAsync();
 	}
 
-	#attachSettings()
+	async #attachSettingsAsync()
 	{
 		DomHelper
 			.querySelectorAll( 'form fieldset [id]', document )
@@ -41,7 +41,7 @@ class PreferencesPage extends BaseClass
 			);
 	}
 
-	#addEventHandlersToPreferencesForm()
+	async #addEventHandlersToPreferencesFormAsync()
 	{
 		this.#_preferencesFormEventHandlerPresets.forEach(
 			( eventHandler, eventName ) =>
@@ -52,27 +52,27 @@ class PreferencesPage extends BaseClass
 					( event ) =>
 					{
 						event.preventDefault();
-						eventHandler.bind( this )();
+						eventHandler();
 					}
 				);
 			}
 		);
 	}
 
-	#loadSettings()
+	async #loadSettingsAsync()
 	{
 		this
 			.#_settings
-			.load()
+			.loadAsync()
 			.then(
-				( settings ) =>
+				async ( settings ) =>
 				{
-					this.#attachSettings();
+					this.#attachSettingsAsync();
 				}
 			);
 	}
 
-	#saveSettings()
+	async #saveSettingsAsync()
 	{
 		DomHelper
 			.querySelectorAll( 'form fieldset [id]', document )
@@ -88,6 +88,6 @@ class PreferencesPage extends BaseClass
 			);
 		this
 			.#_settings
-			.save();
+			.saveAsync();
 	}
 }

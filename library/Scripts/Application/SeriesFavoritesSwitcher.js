@@ -13,23 +13,23 @@ class SeriesFavoritesSwitcher extends BaseClass
 		this.#_apiController = apiController;
 	}
 
-	async switch()
+	async switchSeriesFavoritesAsync()
 	{
 		this.#_episodes.series.forEach(
 			( series ) =>
 			{
-				this.#_episodes.switchFavorite( series, false );
+				this.#_episodes.switchFavoriteAsync( series, false );
 			}
 		);
 
-		const responseData = await this.#_apiController.readUserSeriesFavoritesFiltered( this.#_episodes.series );
+		const responseData = await this.#_apiController.readUserSeriesFavoritesFilteredAsync( this.#_episodes.series );
 		responseData
 			.data
 			.seriesFavorites
 			.forEach(
 				( series ) =>
 				{
-					this.#_episodes.switchFavorite( series, true );
+					this.#_episodes.switchFavoriteAsync( series, true );
 				}
 			);
 	}

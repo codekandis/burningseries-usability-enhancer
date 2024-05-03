@@ -11,7 +11,7 @@ class MenuRemover extends BaseClass
 		this.#_selectors = selectors;
 	}
 
-	remove()
+	async removeMenuAsync()
 	{
 		this.#_selectors.forEach(
 			( selector ) =>

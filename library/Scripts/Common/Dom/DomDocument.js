@@ -2,7 +2,7 @@
 
 class DomDocument extends StaticBaseClass
 {
-	static load( handler )
+	static async loadAsync( handler )
 	{
 		DomHelper.addEventHandler(
 			document,

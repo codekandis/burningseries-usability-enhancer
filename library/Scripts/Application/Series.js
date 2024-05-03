@@ -2,15 +2,15 @@
 
 class Series extends BaseClass
 {
-	#_isSeries = false;
-	#_denialId  = null;
+	#_isSeries   = false;
+	#_denialId   = null;
 	#_isDenial   = false;
 	#_interestId = null;
 	#_isInterest = false;
 	#_favoriteId = null;
 	#_isFavorite = false;
-	#_watchId = null;
-	#_isWatch = false;
+	#_watchId    = null;
+	#_isWatch    = false;
 	#_container;
 	#_name;
 	#_uri;
@@ -20,8 +20,8 @@ class Series extends BaseClass
 		super();
 
 		this.#_container = container;
-		this.#_name = name;
-		this.#_uri  = uri;
+		this.#_name      = name;
+		this.#_uri       = uri;
 	}
 
 	get container()
@@ -37,11 +37,6 @@ class Series extends BaseClass
 	get uri()
 	{
 		return this.#_uri;
-	}
-
-	get isSeries()
-	{
-		return this.#_isSeries;
 	}
 
 	set isSeries( isSeries )
@@ -273,7 +268,7 @@ class Series extends BaseClass
 		}
 	}
 
-	remove()
+	async removeSeriesAsync()
 	{
 		this.#_container.remove();
 	}

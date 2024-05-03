@@ -58,82 +58,82 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 		};
 	}
 
-	#removeTeaser()
+	async #removeTeaserAsync()
 	{
-		this.#_teaserRemover.remove();
+		this.#_teaserRemover.removeTeaserAsync();
 	}
 
-	#removeHeadLine()
+	async #removeHeadLineAsync()
 	{
-		this.#_headLineRemover.remove();
+		this.#_headLineRemover.removeHeadLineAsync();
 	}
 
-	#filterDenials()
+	async #filterDenialsAsync()
 	{
-		return this.#_denialsFilter.filter();
+		return this.#_denialsFilter.filterSeriesDenialsAsync();
 	}
 
-	#extendEpisodesLinks()
+	async #extendEpisodesLinksAsync()
 	{
-		this.#_linkExtender.extendList(
+		this.#_linkExtender.extendLinkListAsync(
 			DomHelper.querySelectorAll( '#newest_episodes ul li a', document, false )
 		);
 	}
 
-	#removeSeriesTitleAttributes()
+	async #removeSeriesTitleAttributesAsync()
 	{
 		( new SeriesTitleAttributeRemover( this.#_episodes ) )
-			.removeTitleAttributes();
+			.removeTitleAttributesAsync();
 	}
 
-	#addActions()
+	async #addActionsAsync()
 	{
 		( new ActionAdder( this.#_episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, null, this.#_interestsSwitcher, null, this.#_favoritesSwitcher, null, this.#_watchedSwitcher ) )
-			.addActions();
+			.addActionsAsync();
 	}
 
-	async #addSeriesAbstracts()
+	async #addSeriesAbstractsAsync()
 	{
 		await ( new SeriesAbstractsAdder( this.#_episodes, this._bsToController ) )
-			.addSeriesAbstracts();
+			.addSeriesAbstractsAsync();
 	}
 
-	#switchDenials()
+	async #switchDenialsAsync()
 	{
-		this.#_denialsSwitcher.switch();
+		this.#_denialsSwitcher.switchSeriesDenialsAsync();
 	}
 
-	#switchInterests()
+	async #switchInterestsAsync()
 	{
-		this.#_interestsSwitcher.switch();
+		this.#_interestsSwitcher.switchSeriesInterestsAsync();
 	}
 
-	#switchFavorites()
+	async #switchFavoritesAsync()
 	{
-		this.#_favoritesSwitcher.switch();
+		this.#_favoritesSwitcher.switchSeriesFavoritesAsync();
 	}
 
-	#switchWatched()
+	async #switchWatchedAsync()
 	{
-		this.#_watchedSwitcher.switch();
+		this.#_watchedSwitcher.switchSeriesWatchedAsync();
 	}
 
-	async execute()
+	async executeAsync()
 	{
-		this.#removeTeaser();
-		this.#removeHeadLine();
-		this.#filterDenials()
+		this.#removeTeaserAsync();
+		this.#removeHeadLineAsync();
+		this.#filterDenialsAsync()
 			.then(
 				async () =>
 				{
-					this.#extendEpisodesLinks();
-					this.#switchDenials();
-					this.#switchInterests();
-					this.#switchFavorites();
-					this.#switchWatched();
-					this.#removeSeriesTitleAttributes();
-					this.#addActions();
-					this.#addSeriesAbstracts();
+					this.#extendEpisodesLinksAsync();
+					this.#switchDenialsAsync();
+					this.#switchInterestsAsync();
+					this.#switchFavoritesAsync();
+					this.#switchWatchedAsync();
+					this.#removeSeriesTitleAttributesAsync();
+					this.#addActionsAsync();
+					this.#addSeriesAbstractsAsync();
 				}
 			);
 	}

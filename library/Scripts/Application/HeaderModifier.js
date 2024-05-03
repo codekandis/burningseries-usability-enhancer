@@ -13,14 +13,14 @@ class HeaderModifier extends BaseClass
 		this.#_navigationSection = DomHelper.querySelector( 'section.navigation', this.#_header, false );
 	}
 
-	#removeBanner()
+	async #removeBannerAsync()
 	{
 		DomHelper
 			.querySelector( 'a.banner', this.#_header )
 			.remove();
 	}
 
-	#removeGreeting()
+	async #removeGreetingAsync()
 	{
 		if ( null !== this.#_navigationSection )
 		{
@@ -30,7 +30,7 @@ class HeaderModifier extends BaseClass
 		}
 	}
 
-	#removeNavigationMenuWhitespaces()
+	async #removeNavigationMenuWhitespacesAsync()
 	{
 		if ( null !== this.#_navigationSection )
 		{
@@ -57,19 +57,19 @@ class HeaderModifier extends BaseClass
 		}
 	}
 
-	#modifyLoginForm()
+	async #modifyLoginFormAsync()
 	{
 		( new PersistentLoginEnabler( '#login label' ) )
-			.enable();
+			.enablePersistentLoginAsync();
 		( new RegistrationLinkHider( '#login a' ) )
-			.hide();
+			.hideRegistrationLinkAsync();
 	}
 
-	modify()
+	async modifyHeaderAsync()
 	{
-		this.#removeBanner();
-		this.#removeGreeting();
-		this.#removeNavigationMenuWhitespaces();
-		this.#modifyLoginForm();
+		this.#removeBannerAsync();
+		this.#removeGreetingAsync();
+		this.#removeNavigationMenuWhitespacesAsync();
+		this.#modifyLoginFormAsync();
 	}
 }

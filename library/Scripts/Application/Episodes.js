@@ -15,7 +15,7 @@ class Episodes extends BaseClass
 		this.#_nameHandler = nameHandler;
 		this.#_uriHandler  = uriHandler;
 
-		this.#determineEpisodes();
+		this.#determineEpisodesAsync();
 	}
 
 	get series()
@@ -23,17 +23,7 @@ class Episodes extends BaseClass
 		return this.#_series;
 	}
 
-	#findSeries( series )
-	{
-		return this.#_series.find(
-			( seriesFetched ) =>
-			{
-				return seriesFetched.name === series.name.toLowerCase();
-			}
-		);
-	}
-
-	#findAllSeries( series )
+	async #findAllSeriesAsync( series )
 	{
 		return this.#_series.filter(
 			( seriesFetched ) =>
@@ -43,7 +33,7 @@ class Episodes extends BaseClass
 		);
 	}
 
-	#determineEpisodes()
+	async #determineEpisodesAsync()
 	{
 		DomHelper
 			.querySelectorAll( this.#_selector, document, false )
@@ -65,71 +55,91 @@ class Episodes extends BaseClass
 			);
 	}
 
-	switchDenial( series, isDenial )
+	async switchDenialAsync( series, isDenial )
 	{
 		const denialId = false === isDenial
 			? null
 			: series.id;
 
-		this.#findAllSeries( series )
-			.forEach(
-				( seriesFetched ) =>
+		this.#findAllSeriesAsync( series )
+			.then(
+				async ( series ) =>
 				{
-					seriesFetched.isDenial = isDenial;
-					seriesFetched.denialId = denialId;
+					series.forEach(
+						( seriesFetched ) =>
+						{
+							seriesFetched.isDenial = isDenial;
+							seriesFetched.denialId = denialId;
+						}
+					);
 				}
 			);
 	}
 
-	switchInterest( series, isInterest )
+	async switchInterestAsync( series, isInterest )
 	{
 		const interestId = false === isInterest
 			? null
 			: series.id;
 
-		this.#findAllSeries( series )
-			.forEach(
-				( seriesFetched ) =>
+		this.#findAllSeriesAsync( series )
+			.then(
+				async ( series ) =>
 				{
-					seriesFetched.isInterest = isInterest;
-					seriesFetched.interestId = interestId;
+					series.forEach(
+						( seriesFetched ) =>
+						{
+							seriesFetched.isInterest = isInterest;
+							seriesFetched.interestId = interestId;
+						}
+					);
 				}
 			);
 	}
 
-	switchFavorite( series, isFavorite )
+	async switchFavoriteAsync( series, isFavorite )
 	{
 		const favoriteId = false === isFavorite
 			? null
 			: series.id;
 
-		this.#findAllSeries( series )
-			.forEach(
-				( seriesFetched ) =>
+		this.#findAllSeriesAsync( series )
+			.then(
+				async ( series ) =>
 				{
-					seriesFetched.isFavorite = isFavorite;
-					seriesFetched.favoriteId = favoriteId;
+					series.forEach(
+						( seriesFetched ) =>
+						{
+							seriesFetched.isFavorite = isFavorite;
+							seriesFetched.favoriteId = favoriteId;
+						}
+					);
 				}
 			);
 	}
 
-	switchWatch( series, isWatch )
+	async switchWatchAsync( series, isWatch )
 	{
 		const watchId = false === isWatch
 			? null
 			: series.id;
 
-		this.#findAllSeries( series )
-			.forEach(
-				( seriesFetched ) =>
+		this.#findAllSeriesAsync( series )
+			.then(
+				async ( series ) =>
 				{
-					seriesFetched.isWatch = isWatch;
-					seriesFetched.watchId = watchId;
+					series.forEach(
+						( seriesFetched ) =>
+						{
+							seriesFetched.isWatch = isWatch;
+							seriesFetched.watchId = watchId;
+						}
+					)
 				}
 			);
 	}
 
-	remove( series )
+	async removeEpisodeAsync( series )
 	{
 		const indices = [];
 		this
@@ -140,7 +150,7 @@ class Episodes extends BaseClass
 					if ( seriesFetched.name === series.name.toLowerCase() )
 					{
 						indices.push( index );
-						seriesFetched.remove();
+						seriesFetched.removeSeriesAsync();
 					}
 				}
 			);

@@ -9,12 +9,10 @@ class BsToController extends BaseClass
 		super();
 	}
 
-	async #readAsHtmlDocument( uri )
+	async #readAsHtmlDocumentAsync( uri )
 	{
 		const htmlString = await (
-			await this
-				.#_ajaxController
-				.get( uri, [] )
+			await this.#_ajaxController.getAsync( uri, [] )
 		)
 			.text();
 
@@ -22,9 +20,9 @@ class BsToController extends BaseClass
 			.parseFromString( htmlString, ContentTypes.TEXT_HTML );
 	}
 
-	async readSeriesAll( uri )
+	async readSeriesAllAsync( uri )
 	{
-		const htmlDocument = await this.#readAsHtmlDocument( uri );
+		const htmlDocument = await this.#readAsHtmlDocumentAsync( uri );
 
 		return [
 			...DomHelper.querySelectorAll( '#seriesContainer .genre > ul > li a', htmlDocument, false )
@@ -40,18 +38,18 @@ class BsToController extends BaseClass
 			);
 	}
 
-	async readEpisodes( uri )
+	async readEpisodesAsync( uri )
 	{
-		const htmlDocument = await this.#readAsHtmlDocument( uri );
+		const htmlDocument = await this.#readAsHtmlDocumentAsync( uri );
 
 		return [
 			...DomHelper.querySelectorAll( 'table.episodes tbody tr td:nth-child( 1 ) a', htmlDocument, false )
 		];
 	}
 
-	async readWatchStates( uri )
+	async readWatchStatesAsync( uri )
 	{
-		const htmlDocument = await this.#readAsHtmlDocument( uri );
+		const htmlDocument = await this.#readAsHtmlDocumentAsync( uri );
 
 		return [
 			...DomHelper.querySelectorAll( 'table.episodes tr', htmlDocument, false )
@@ -64,19 +62,30 @@ class BsToController extends BaseClass
 			);
 	}
 
-	async readSeriesAbstract( uri )
+	async readSeriesAbstractAsync( uri )
 	{
-		const htmlDocument = await this.#readAsHtmlDocument( uri );
+		const htmlDocument = await this.#readAsHtmlDocumentAsync( uri );
+		const genres       = [
+			...DomHelper.querySelectorAll( '#sp_left .infos div:nth-child(1) p span', htmlDocument, false )
+		]
+			.map(
+				( genre ) =>
+				{
+					return genre.textContent;
+				}
+			)
+			.join( ' ' );
+
 		return {
-			description: DomHelper.querySelector( '#sp_left p', htmlDocument, false ).textContent,
-			image:       DomHelper.querySelector( '#sp_right img', htmlDocument, false ).src
+			image:       DomHelper.querySelector( '#sp_right img', htmlDocument ).src,
+			genres:      genres,
+			releaseTime: DomHelper.querySelector( '#sp_left .infos div:nth-child(2) p em', htmlDocument ).textContent,
+			description: DomHelper.querySelector( '#sp_left p', htmlDocument ).textContent
 		};
 	}
 
-	async toggleWatchState( uri )
+	async toggleWatchStateAsync( uri )
 	{
-		return await this
-			.#_ajaxController
-			.get( uri, [] );
+		return await this.#_ajaxController.getAsync( uri, [] );
 	}
 }

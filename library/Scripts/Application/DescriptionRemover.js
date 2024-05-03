@@ -11,7 +11,7 @@ class DescriptionRemover extends BaseClass
 		this.#_selector = selector;
 	}
 
-	remove()
+	async removeDescriptionAsync()
 	{
 		DomHelper.remove( this.#_selector );
 	}

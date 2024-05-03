@@ -24,33 +24,33 @@ class AjaxController extends BaseClass
 		return requestOptions;
 	}
 
-	get( uri, headers )
+	async getAsync( uri, headers )
 	{
-		return fetch(
+		return await fetch(
 			uri,
 			this.#getRequestOptions( HttpMethods.GET, headers )
 		);
 	}
 
-	put( uri, headers, data )
+	async putAsync( uri, headers, data )
 	{
-		return fetch(
+		return await fetch(
 			uri,
 			this.#getRequestOptions( HttpMethods.PUT, headers, data )
 		);
 	}
 
-	post( uri, headers, data )
+	async postAsync( uri, headers, data )
 	{
-		return fetch(
+		return await fetch(
 			uri,
 			this.#getRequestOptions( HttpMethods.POST, headers, data )
 		);
 	}
 
-	delete( uri, headers )
+	async deleteAsync( uri, headers )
 	{
-		return fetch(
+		return await fetch(
 			uri,
 			this.#getRequestOptions( HttpMethods.DELETE, headers )
 		);

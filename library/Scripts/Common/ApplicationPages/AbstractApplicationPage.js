@@ -41,8 +41,8 @@ class AbstractApplicationPage extends BaseClass
 		return this.#_applicationPageArguments;
 	}
 
-	async execute()
+	async executeAsync()
 	{
-		throw MethodIsAbstractException.with_objectAndMethod( this, this.execute );
+		throw MethodIsAbstractException.with_objectAndMethod( this, this.executeAsync );
 	}
 }

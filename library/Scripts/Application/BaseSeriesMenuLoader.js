@@ -12,19 +12,19 @@ class BaseSeriesMenuLoader extends BaseClass
 		this.#_selector = selector;
 	}
 
-	#appendMenuFilter()
+	async #appendMenuFilterAsync()
 	{
 		const menuFilterItem = DomHelper.createElementFromString( '<li><input data-control-type="MENU_FILTER" type="text" placeholder="Filter"/></li>' );
 		const menuFilter     = DomHelper.querySelector( '[data-control-type="MENU_FILTER"]', menuFilterItem );
 		( new MenuFilterProvider( menuFilter, this.#_menuContainer ) )
-			.append();
+			.appendAsync();
 
 		DomHelper.appendChild( this.#_menuContainer, menuFilterItem );
 
 		menuFilter.focus();
 	}
 
-	#appendMenuItems( series )
+	async #appendMenuItemsAsync( series )
 	{
 		const menuItems = DomHelper.createElementsFromString(
 			series
@@ -39,6 +39,7 @@ class BaseSeriesMenuLoader extends BaseClass
 						{
 							return 1;
 						}
+
 						return 0;
 					}
 				)
@@ -54,10 +55,10 @@ class BaseSeriesMenuLoader extends BaseClass
 		DomHelper.appendChildren( this.#_menuContainer, [ ...menuItems ] );
 	}
 
-	_addSeries( series )
+	async _addSeriesAsync( series )
 	{
 		this.#_menuContainer = DomHelper.querySelector( this.#_selector );
-		this.#appendMenuFilter();
-		this.#appendMenuItems( series );
+		this.#appendMenuFilterAsync();
+		this.#appendMenuItemsAsync( series );
 	}
 }

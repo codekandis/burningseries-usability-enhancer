@@ -11,7 +11,7 @@ class MenuAdder extends BaseClass
 		this.#_presets = presets;
 	}
 
-	add()
+	async addMenuAsync()
 	{
 		this.#_presets.forEach(
 			( preset ) =>

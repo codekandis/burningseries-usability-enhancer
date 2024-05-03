@@ -11,7 +11,7 @@ class FooterRemover extends BaseClass
 		this.#_targetSelector = targetSelector;
 	}
 
-	remove()
+	async removeFooterAsync()
 	{
 		DomHelper.remove( this.#_targetSelector );
 	}

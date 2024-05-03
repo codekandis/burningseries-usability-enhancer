@@ -11,9 +11,9 @@ class SeriesFavoritesMenuLoader extends BaseSeriesMenuLoader
 		this.#_apiController = apiController;
 	}
 
-	async load()
+	async loadSeriesFavoritesAsync()
 	{
-		const responseData = await this.#_apiController.readUserSeriesFavorites();
-		this._addSeries( responseData.data.seriesFavorites );
+		const responseData = await this.#_apiController.readUserSeriesFavoritesAsync();
+		this._addSeriesAsync( responseData.data.seriesFavorites );
 	}
 }

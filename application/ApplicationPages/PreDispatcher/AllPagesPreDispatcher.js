@@ -6,7 +6,7 @@ class AllPagesPreDispatcher extends AbstractPreDispatcher
 		all:       {
 			selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_ALL ),
 			activatorSelector: '> a',
-			loader:            this.#loadAll.bind( this ),
+			loader:            this.#loadAllAsync.bind( this ),
 			filter:            {
 				denials:   true,
 				interests: true,
@@ -17,7 +17,7 @@ class AllPagesPreDispatcher extends AbstractPreDispatcher
 		denials:   {
 			selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_DENIALS ),
 			activatorSelector: '> a',
-			loader:            this.#loadDenials.bind( this ),
+			loader:            this.#loadDenialsAsync.bind( this ),
 			filter:            {
 				denials:   false,
 				interests: true,
@@ -28,7 +28,7 @@ class AllPagesPreDispatcher extends AbstractPreDispatcher
 		interests: {
 			selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_INTERESTS ),
 			activatorSelector: '> a',
-			loader:            this.#loadInterests.bind( this ),
+			loader:            this.#loadInterestsAsync.bind( this ),
 			filter:            {
 				denials:   true,
 				interests: false,
@@ -39,7 +39,7 @@ class AllPagesPreDispatcher extends AbstractPreDispatcher
 		favorites: {
 			selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_FAVORITES ),
 			activatorSelector: '> a',
-			loader:            this.#loadFavorites.bind( this ),
+			loader:            this.#loadFavoritesAsync.bind( this ),
 			filter:            {
 				denials:   true,
 				interests: true,
@@ -50,7 +50,7 @@ class AllPagesPreDispatcher extends AbstractPreDispatcher
 		watched:   {
 			selector:          String.format`[data-menu-type='${ 0 }'][data-menu-purpose='${ 1 }']`( MenuTypes.DROPDOWN, MenuPurposes.SERIES_WATCHED ),
 			activatorSelector: '> a',
-			loader:            this.#loadWatched.bind( this ),
+			loader:            this.#loadWatchedAsync.bind( this ),
 			filter:            {
 				denials:   true,
 				interests: true,
@@ -187,39 +187,39 @@ class AllPagesPreDispatcher extends AbstractPreDispatcher
 		}
 	}
 
-	#markMouse()
+	async #markMouseAsync()
 	{
-		this.#_mouseMarker.markMouse();
+		this.#_mouseMarker.markMouseAsync();
 	}
 
-	#modifyHeader()
+	async #modifyHeaderAsync()
 	{
-		this.#_headerModifier.modify();
+		this.#_headerModifier.modifyHeaderAsync();
 	}
 
-	#removeFooter()
+	async #removeFooterAsync()
 	{
-		this.#_footerRemover.remove();
+		this.#_footerRemover.removeFooterAsync();
 	}
 
-	#removeMenus()
+	async #removeMenusAsync()
 	{
-		this.#_menuRemover.remove();
+		this.#_menuRemover.removeMenuAsync();
 	}
 
-	#addMenus()
+	async #addMenusAsync()
 	{
-		this.#_menuAdder.add();
+		this.#_menuAdder.addMenuAsync();
 	}
 
-	#handleMenus()
+	async #handleMenusAsync()
 	{
-		this.#_menuHandler.handle();
+		this.#_menuHandler.handleMenuAsync();
 	}
 
-	async #load( loader, menuSettings )
+	async #loadAsync( loader, menuSettings )
 	{
-		await loader.load();
+		await loader();
 
 		const episodes          = new Episodes(
 			String.format`${ 0 } ul li`( menuSettings.selector ),
@@ -237,73 +237,98 @@ class AllPagesPreDispatcher extends AbstractPreDispatcher
 
 		if ( true === menuSettings.filter.denials )
 		{
-			denialsFilter.filter();
+			denialsFilter.filterSeriesDenialsAsync();
 		}
 		else
 		{
-			denialsSwitcher.switch();
+			denialsSwitcher.switchSeriesDenialsAsync();
 		}
 		if ( true === menuSettings.filter.interests )
 		{
-			interestsFilter.filter();
+			interestsFilter.filterSeriesInterestsAsync();
 		}
 		else
 		{
-			interestsSwitcher.switch();
+			interestsSwitcher.switchSeriesInterestsAsync();
 		}
 		if ( true === menuSettings.filter.favorites )
 		{
-			favoritesFilter.filter();
+			favoritesFilter.filterSeriesFavoritesAsync();
 		}
 		else
 		{
-			favoritesSwitcher.switch();
+			favoritesSwitcher.switchSeriesFavoritesAsync();
 		}
 		if ( true === menuSettings.filter.watched )
 		{
-			watchedFilter.filter();
+			watchedFilter.filterSeriesWatchedAsync();
 		}
 		else
 		{
-			watchedSwitcher.switch();
+			watchedSwitcher.switchSeriesWatchedAsync();
 		}
 
 		( new ActionAdder( episodes, this.#_apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsFilter, interestsSwitcher, favoritesFilter, favoritesSwitcher, watchedFilter, watchedSwitcher ) )
-			.addActions();
+			.addActionsAsync();
 	}
 
-	#loadAll()
+	async #loadAllAsync()
 	{
-		this.#load( this.#_allLoader, this.#_menuSettings.all );
+		this.#loadAsync(
+			this.#_allLoader
+				.loadSeriesAllAsync
+				.bind( this.#_allLoader ),
+			this.#_menuSettings.all
+		);
 	}
 
-	#loadDenials()
+	async #loadDenialsAsync()
 	{
-		this.#load( this.#_denialsLoader, this.#_menuSettings.denials );
+		this.#loadAsync(
+			this.#_denialsLoader
+				.loadSeriesDenialsAsync
+				.bind( this.#_denialsLoader ),
+			this.#_menuSettings.denials
+		);
 	}
 
-	#loadInterests()
+	async #loadInterestsAsync()
 	{
-		this.#load( this.#_interestsLoader, this.#_menuSettings.interests );
+		this.#loadAsync(
+			this.#_interestsLoader
+				.loadSeriesInterestsAsync
+				.bind( this.#_interestsLoader ),
+			this.#_menuSettings.interests
+		);
 	}
 
-	#loadFavorites()
+	async #loadFavoritesAsync()
 	{
-		this.#load( this.#_favoritesLoader, this.#_menuSettings.favorites );
+		this.#loadAsync(
+			this.#_favoritesLoader
+				.loadSeriesFavoritesAsync
+				.bind( this.#_favoritesLoader ),
+			this.#_menuSettings.favorites
+		);
 	}
 
-	#loadWatched()
+	async #loadWatchedAsync()
 	{
-		this.#load( this.#_watchedLoader, this.#_menuSettings.watched );
+		this.#loadAsync(
+			this.#_watchedLoader
+				.loadSeriesWatchedAsync
+				.bind( this.#_watchedLoader ),
+			this.#_menuSettings.watched
+		);
 	}
 
-	preDispatch( requestedUri, dispatchmentState )
+	async preDispatchAsync( requestedUri, dispatchmentState )
 	{
-		this.#markMouse();
-		this.#modifyHeader();
-		this.#removeFooter();
-		this.#removeMenus();
-		this.#addMenus();
-		this.#handleMenus();
+		this.#markMouseAsync();
+		this.#modifyHeaderAsync();
+		this.#removeFooterAsync();
+		this.#removeMenusAsync();
+		this.#addMenusAsync();
+		this.#handleMenusAsync();
 	}
 }

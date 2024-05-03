@@ -11,7 +11,7 @@ class MetaLinksRemover extends BaseClass
 		this.#_targetSelector = targetSelector;
 	}
 
-	remove()
+	async removeMetaLinksAsync()
 	{
 		DomHelper.remove( this.#_targetSelector );
 	}
