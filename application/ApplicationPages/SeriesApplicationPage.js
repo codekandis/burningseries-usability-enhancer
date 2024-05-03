@@ -50,94 +50,94 @@ class SeriesApplicationPage extends AbstractApplicationPage
 		}
 	}
 
-	#filterDenials()
+	async #filterDenialsAsync()
 	{
-		return this.#_denialsFilter.filter();
+		return this.#_denialsFilter.filterSeriesDenialsAsync();
 	}
 
-	#switchDenials()
+	async #switchDenialsAsync()
 	{
-		this.#_denialsSwitcher.switch();
+		this.#_denialsSwitcher.switchSeriesDenialsAsync();
 	}
 
-	#switchInterests()
+	async #switchInterestsAsync()
 	{
-		this.#_interestsSwitcher.switch();
+		this.#_interestsSwitcher.switchSeriesInterestsAsync();
 	}
 
-	#switchFavorites()
+	async #switchFavoritesAsync()
 	{
-		this.#_favoritesSwitcher.switch();
+		this.#_favoritesSwitcher.switchSeriesFavoritesAsync();
 	}
 
-	#switchWatched()
+	async #switchWatchedAsync()
 	{
-		this.#_watchedSwitcher.switch();
+		this.#_watchedSwitcher.switchSeriesWatchedAsync();
 	}
 
-	#extendEpisodesLinks()
+	async #extendEpisodesLinksAsync()
 	{
-		this.#_linkExtender.extendList(
+		this.#_linkExtender.extendLinkListAsync(
 			DomHelper.querySelectorAll( '.episodes tbody tr td:nth-child( 1 ) a, .episodes tbody tr td:nth-child( 2 ) a:nth-child( 2 ), #episodes ul li a', document, false )
 		);
 	}
 
-	#addActions()
+	async #addActionsAsync()
 	{
 		( new ActionAdder( this.#_episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, null, this.#_interestsSwitcher, null, this.#_favoritesSwitcher, null, this.#_watchedSwitcher ) )
-			.addActions();
+			.addActionsAsync();
 	}
 
-	#addNavigation()
+	async #addNavigationAsync()
 	{
 		if ( false === ( new SeasonPageDeterminator( window.location.href ) ).isSeasonPage )
 		{
 			( new EpisodesController( this.#_linkExtender ) )
-				.addActions();
+				.addActionsAsync();
 		}
 	}
 
-	#removeMetaLinks()
+	async #removeMetaLinksAsync()
 	{
 		( new MetaLinksRemover( '#sp_right > a' ) )
-			.remove();
+			.removeMetaLinksAsync();
 	}
 
-	#removeDescription()
+	async #removeDescriptionAsync()
 	{
 		( new DescriptionRemover( '#description' ) )
-			.remove();
+			.removeDescriptionAsync();
 	}
 
-	#scrollToBottom()
+	async #scrollToBottomAsync()
 	{
 		if ( false === ( new SeasonPageDeterminator( window.location.href ) ).isSeasonPage )
 		{
 			( new Scroller() )
-				.scrollToElementTop(
+				.scrollToElementTopAsync(
 					DomHelper.querySelector( '[data-control-type="EPISODES_NAVIGATOR"]', document )
 				);
 		}
 	}
 
-	async execute()
+	async executeAsync()
 	{
 		this
-			.#filterDenials()
+			.#filterDenialsAsync()
 			.then(
-				() =>
+				async () =>
 				{
-					this.#switchDenials();
-					this.#switchInterests();
-					this.#switchFavorites();
-					this.#switchWatched();
-					this.#addActions();
+					this.#switchDenialsAsync();
+					this.#switchInterestsAsync();
+					this.#switchFavoritesAsync();
+					this.#switchWatchedAsync();
+					this.#addActionsAsync();
 				}
 			);
-		this.#extendEpisodesLinks();
-		this.#addNavigation();
-		this.#removeMetaLinks();
-		this.#removeDescription();
-		this.#scrollToBottom();
+		this.#extendEpisodesLinksAsync();
+		this.#addNavigationAsync();
+		this.#removeMetaLinksAsync();
+		this.#removeDescriptionAsync();
+		this.#scrollToBottomAsync();
 	}
 }

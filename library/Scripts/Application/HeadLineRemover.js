@@ -11,7 +11,7 @@ class HeadLineRemover extends BaseClass
 		this.#_targetSelector = targetSelector;
 	}
 
-	remove()
+	async removeHeadLineAsync()
 	{
 		DomHelper.remove( this.#_targetSelector );
 	}

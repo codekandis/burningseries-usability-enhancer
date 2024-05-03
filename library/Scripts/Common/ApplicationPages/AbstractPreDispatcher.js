@@ -16,8 +16,8 @@ class AbstractPreDispatcher extends BaseClass
 		return this.#_settings;
 	}
 
-	async preDispatch( requestedUri, dispatchmentState )
+	async preDispatchAsync( requestedUri, dispatchmentState )
 	{
-		throw MethodIsAbstractException.with_objectAndMethod( this, this.preDispatch );
+		throw MethodIsAbstractException.with_objectAndMethod( this, this.preDispatchAsync );
 	}
 }

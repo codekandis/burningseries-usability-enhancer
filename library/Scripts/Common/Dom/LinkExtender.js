@@ -11,17 +11,17 @@ class LinkExtender extends BaseClass
 		this.#_extension = extension;
 	}
 
-	extend( link )
+	async extendLinkAsync( link )
 	{
 		link.href = link.href + this.#_extension;
 	}
 
-	extendList( links )
+	async extendLinkListAsync( links )
 	{
 		links.forEach(
 			( link ) =>
 			{
-				this.extend( link );
+				this.extendLinkAsync( link );
 			}
 		);
 	}

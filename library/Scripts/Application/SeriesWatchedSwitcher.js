@@ -13,23 +13,23 @@ class SeriesWatchedSwitcher extends BaseClass
 		this.#_apiController = apiController;
 	}
 
-	async switch()
+	async switchSeriesWatchedAsync()
 	{
 		this.#_episodes.series.forEach(
 			( series ) =>
 			{
-				this.#_episodes.switchWatch( series, false );
+				this.#_episodes.switchWatchAsync( series, false );
 			}
 		);
 
-		const responseData = await this.#_apiController.readUserSeriesWatchedFiltered( this.#_episodes.series );
+		const responseData = await this.#_apiController.readUserSeriesWatchedFilteredAsync( this.#_episodes.series );
 		responseData
 			.data
 			.seriesWatched
 			.forEach(
 				( series ) =>
 				{
-					this.#_episodes.switchWatch( series, true );
+					this.#_episodes.switchWatchAsync( series, true );
 				}
 			);
 	}

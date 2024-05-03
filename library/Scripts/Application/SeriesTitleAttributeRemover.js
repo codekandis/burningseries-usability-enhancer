@@ -11,7 +11,7 @@ class SeriesTitleAttributeRemover extends BaseClass
 		this.#_episodes = episodes;
 	}
 
-	removeTitleAttributes()
+	async removeTitleAttributesAsync()
 	{
 		this
 			.#_episodes

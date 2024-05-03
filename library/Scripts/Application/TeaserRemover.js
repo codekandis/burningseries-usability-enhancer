@@ -11,7 +11,7 @@ class TeaserRemover extends BaseClass
 		this.#_targetSelector = targetSelector;
 	}
 
-	remove()
+	async removeTeaserAsync()
 	{
 		DomHelper.remove( this.#_targetSelector );
 	}

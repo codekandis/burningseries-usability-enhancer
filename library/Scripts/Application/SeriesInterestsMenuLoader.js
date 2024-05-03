@@ -11,9 +11,9 @@ class SeriesInterestsMenuLoader extends BaseSeriesMenuLoader
 		this.#_apiController = apiController;
 	}
 
-	async load()
+	async loadSeriesInterestsAsync()
 	{
-		const responseData = await this.#_apiController.readUserSeriesInterests();
-		this._addSeries( responseData.data.seriesInterests );
+		const responseData = await this.#_apiController.readUserSeriesInterestsAsync();
+		this._addSeriesAsync( responseData.data.seriesInterests );
 	}
 }

@@ -3,12 +3,12 @@
 DomHelper.addEventHandler(
 	document,
 	DocumentDomEvents.DOM_CONTENT_LOADED,
-	( event ) =>
+	async ( event ) =>
 	{
 		( new Settings() )
-			.load()
+			.loadAsync()
 			.then(
-				( settings ) =>
+				async ( settings ) =>
 				{
 					new PreferencesPage(
 						settings,

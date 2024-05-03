@@ -13,7 +13,7 @@ class MenuFilterProvider extends BaseClass
 		this.#_menuContainer = menuContainer;
 	}
 
-	append()
+	async appendAsync()
 	{
 		DomHelper.addEventHandler( this.#_menuFilter, 'click', this.#inputElement_click );
 		DomHelper.addEventHandler( this.#_menuFilter, 'input', this.#inputElement_change );

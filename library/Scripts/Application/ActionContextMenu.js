@@ -16,7 +16,7 @@ class ActionContextMenu extends BaseClass
 		this.#_actions   = actions;
 	}
 
-	#hideMenu()
+	async #hideMenuAsync()
 	{
 		if ( null !== ActionContextMenu.#_currentContextMenu )
 		{
@@ -25,7 +25,7 @@ class ActionContextMenu extends BaseClass
 		}
 	}
 
-	#showMenu()
+	async #showMenuAsync()
 	{
 		ActionContextMenu.#_currentContextMenu = DomHelper.createElementFromString( '<ul data-control-type="ACTION_CONTEXT_MENU"></ul>' );
 
@@ -38,7 +38,7 @@ class ActionContextMenu extends BaseClass
 				DomHelper.addEventHandler(
 					subMenu,
 					'click',
-					( event ) =>
+					async ( event ) =>
 					{
 						event.preventDefault();
 						event.stopPropagation();
@@ -56,14 +56,14 @@ class ActionContextMenu extends BaseClass
 		DomHelper.appendChild( this.#_container, ActionContextMenu.#_currentContextMenu );
 	}
 
-	hide()
+	async hideAsync()
 	{
-		this.#hideMenu();
+		this.#hideMenuAsync();
 	}
 
-	show()
+	async showAsync()
 	{
-		this.#hideMenu();
-		this.#showMenu();
+		this.#hideMenuAsync();
+		this.#showMenuAsync();
 	}
 }

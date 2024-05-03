@@ -33,15 +33,15 @@ class ActionAdder extends BaseClass
 		this.#_watchedSwitcher   = watchedSwitcher;
 	}
 
-	#switchAll()
+	async #switchAllAsync()
 	{
-		this.#_denialsSwitcher.switch();
-		this.#_interestsSwitcher.switch();
-		this.#_favoritesSwitcher.switch();
-		this.#_watchedSwitcher.switch();
+		this.#_denialsSwitcher.switchSeriesDenialsAsync();
+		this.#_interestsSwitcher.switchSeriesInterestsAsync();
+		this.#_favoritesSwitcher.switchSeriesFavoritesAsync();
+		this.#_watchedSwitcher.switchSeriesWatchedAsync();
 	}
 
-	#denySeries( series )
+	async #denySeriesAsync( series )
 	{
 		switch ( series.isDenial )
 		{
@@ -49,15 +49,15 @@ class ActionAdder extends BaseClass
 			{
 				this
 					.#_apiController
-					.addUserSeriesDenial( series )
+					.addUserSeriesDenialAsync( series )
 					.then(
-						( responseData ) =>
+						async ( responseData ) =>
 						{
 							if ( null !== this.#_denialsFilter )
 							{
-								this.#_denialsFilter.filter();
+								this.#_denialsFilter.filterSeriesDenialsAsync();
 							}
-							this.#switchAll();
+							this.#switchAllAsync();
 						}
 					);
 
@@ -67,11 +67,11 @@ class ActionAdder extends BaseClass
 			{
 				this
 					.#_apiController
-					.deleteUserSeriesDenial( series )
+					.deleteUserSeriesDenialAsync( series )
 					.then(
-						( responseData ) =>
+						async ( responseData ) =>
 						{
-							this.#switchAll();
+							this.#switchAllAsync();
 						}
 					);
 
@@ -80,7 +80,7 @@ class ActionAdder extends BaseClass
 		}
 	}
 
-	#interestSeries( series )
+	async #interestSeriesAsync( series )
 	{
 		switch ( series.isInterest )
 		{
@@ -88,15 +88,15 @@ class ActionAdder extends BaseClass
 			{
 				this
 					.#_apiController
-					.addUserSeriesInterest( series )
+					.addUserSeriesInterestAsync( series )
 					.then(
-						( responseData ) =>
+						async ( responseData ) =>
 						{
 							if ( null !== this.#_interestsFilter )
 							{
-								this.#_interestsFilter.filter();
+								this.#_interestsFilter.filterSeriesInterestsAsync();
 							}
-							this.#switchAll();
+							this.#switchAllAsync();
 						}
 					);
 
@@ -106,11 +106,11 @@ class ActionAdder extends BaseClass
 			{
 				this
 					.#_apiController
-					.deleteUserSeriesInterest( series )
+					.deleteUserSeriesInterestAsync( series )
 					.then(
-						( responseData ) =>
+						async ( responseData ) =>
 						{
-							this.#switchAll();
+							this.#switchAllAsync();
 						}
 					);
 
@@ -119,7 +119,7 @@ class ActionAdder extends BaseClass
 		}
 	}
 
-	#favorSeries( series )
+	async #favorSeriesAsync( series )
 	{
 		switch ( series.isFavorite )
 		{
@@ -127,15 +127,15 @@ class ActionAdder extends BaseClass
 			{
 				this
 					.#_apiController
-					.addUserSeriesFavorite( series )
+					.addUserSeriesFavoriteAsync( series )
 					.then(
-						( responseData ) =>
+						async ( responseData ) =>
 						{
 							if ( null !== this.#_favoritesFilter )
 							{
-								this.#_favoritesFilter.filter();
+								this.#_favoritesFilter.filterSeriesFavoritesAsync();
 							}
-							this.#switchAll();
+							this.#switchAllAsync();
 						}
 					);
 
@@ -145,11 +145,11 @@ class ActionAdder extends BaseClass
 			{
 				this
 					.#_apiController
-					.deleteUserSeriesFavorite( series )
+					.deleteUserSeriesFavoriteAsync( series )
 					.then(
-						( responseData ) =>
+						async ( responseData ) =>
 						{
-							this.#switchAll();
+							this.#switchAllAsync();
 						}
 					);
 
@@ -158,7 +158,7 @@ class ActionAdder extends BaseClass
 		}
 	}
 
-	#watchSeries( series )
+	async #watchSeriesAsync( series )
 	{
 		switch ( series.isWatch )
 		{
@@ -166,15 +166,15 @@ class ActionAdder extends BaseClass
 			{
 				this
 					.#_apiController
-					.addUserSeriesWatch( series )
+					.addUserSeriesWatchAsync( series )
 					.then(
-						( responseData ) =>
+						async ( responseData ) =>
 						{
 							if ( null !== this.#_watchedFilter )
 							{
-								this.#_watchedFilter.filter();
+								this.#_watchedFilter.filterSeriesWatchedAsync();
 							}
-							this.#switchAll();
+							this.#switchAllAsync();
 						}
 					);
 
@@ -184,11 +184,11 @@ class ActionAdder extends BaseClass
 			{
 				this
 					.#_apiController
-					.deleteUserSeriesWatch( series )
+					.deleteUserSeriesWatchAsync( series )
 					.then(
-						( responseData ) =>
+						async ( responseData ) =>
 						{
-							this.#switchAll();
+							this.#switchAllAsync();
 						}
 					);
 
@@ -197,46 +197,46 @@ class ActionAdder extends BaseClass
 		}
 	}
 
-	#invokeAction( button, series )
+	async #invokeActionAsync( button, series )
 	{
 		switch ( this.#_currentActionType )
 		{
 			case ActionTypes.DENIAL:
 			{
-				this.#denySeries( series );
+				this.#denySeriesAsync( series );
 
 				return;
 			}
 			case ActionTypes.INTEREST:
 			{
-				this.#interestSeries( series );
+				this.#interestSeriesAsync( series );
 
 				return;
 			}
 			case ActionTypes.FAVORITE:
 			{
-				this.#favorSeries( series );
+				this.#favorSeriesAsync( series );
 
 				return;
 			}
 			case ActionTypes.WATCH:
 			{
-				this.#watchSeries( series );
+				this.#watchSeriesAsync( series );
 
 				return;
 			}
 		}
 	}
 
-	#hideContextMenu()
+	async #hideContextMenuAsync()
 	{
 		if ( null !== this.#_contextMenu )
 		{
-			this.#_contextMenu.hide();
+			this.#_contextMenu.hideAsync();
 		}
 	}
 
-	#showContextMenu( button, series )
+	async #showContextMenuAsync( button, series )
 	{
 		this.#_contextMenu = new ActionContextMenu(
 			button.parentNode,
@@ -247,56 +247,56 @@ class ActionAdder extends BaseClass
 						            ? 'Permit'
 						            : 'Deny',
 					actionType: ActionTypes.DENIAL,
-					action:     this.#denySeries.bind( this )
+					action:     this.#denySeriesAsync.bind( this )
 				},
 				{
 					caption:    true === series.isInterest
 						            ? 'Deinterest'
 						            : 'Interest',
 					actionType: ActionTypes.INTEREST,
-					action:     this.#interestSeries.bind( this )
+					action:     this.#interestSeriesAsync.bind( this )
 				},
 				{
 					caption:    true === series.isFavorite
 						            ? 'Defavorite'
 						            : 'Favorite',
 					actionType: ActionTypes.FAVORITE,
-					action:     this.#favorSeries.bind( this )
+					action:     this.#favorSeriesAsync.bind( this )
 				},
 				{
 					caption:    true === series.isWatch
 						            ? 'Unwatch'
 						            : 'Watch',
 					actionType: ActionTypes.WATCH,
-					action:     this.#watchSeries.bind( this )
+					action:     this.#watchSeriesAsync.bind( this )
 				}
 			],
 			button.parentNode
 		);
-		this.#_contextMenu.show();
+		this.#_contextMenu.showAsync();
 	}
 
 	#getButtonEventHandlerMappings( button, series )
 	{
 		return {
-			click:       ( event ) =>
+			click:       async ( event ) =>
 			             {
 				             event.preventDefault();
 				             event.stopPropagation();
 
-				             this.#invokeAction( button, series );
+				             this.#invokeActionAsync( button, series );
 			             },
-			contextmenu: ( event ) =>
+			contextmenu: async ( event ) =>
 			             {
 				             event.preventDefault();
 				             event.stopPropagation();
 
-				             this.#showContextMenu( button, series );
+				             this.#showContextMenuAsync( button, series );
 			             }
 		};
 	}
 
-	#setActionType( button, modifierKeys )
+	async #setActionTypeAsync( button, modifierKeys )
 	{
 		if ( false === modifierKeys.ctrl && false === modifierKeys.shift && false === modifierKeys.alt )
 		{
@@ -318,11 +318,11 @@ class ActionAdder extends BaseClass
 		DomHelper.setAttribute( button, 'data-action-type', this.#_currentActionType );
 	}
 
-	#getHtmlEventHandlerMappings( button )
+	async #getHtmlEventHandlerMappingsAsync( button )
 	{
-		const eventHandler = ( event ) =>
+		const eventHandler = async ( event ) =>
 		{
-			this.#setActionType(
+			this.#setActionTypeAsync(
 				button,
 				{
 					ctrl:  event.ctrlKey,
@@ -338,7 +338,7 @@ class ActionAdder extends BaseClass
 		};
 	}
 
-	addActions()
+	async addActionsAsync()
 	{
 		DomHelper.addEventHandler( document, 'click', this.#document_click );
 
@@ -357,7 +357,7 @@ class ActionAdder extends BaseClass
 					);
 					DomHelper.addEventHandlersBySelector(
 						'html',
-						this.#getHtmlEventHandlerMappings( button )
+						this.#getHtmlEventHandlerMappingsAsync( button )
 					);
 
 					series.container.insertAdjacentElement( this.#_actionPosition, button );
@@ -365,8 +365,8 @@ class ActionAdder extends BaseClass
 			);
 	}
 
-	#document_click = ( event ) =>
+	#document_click = async ( event ) =>
 	{
-		this.#hideContextMenu();
+		this.#hideContextMenuAsync();
 	}
 }

@@ -15,9 +15,9 @@ class SeriesFavoritesFilter extends BaseClass
 		this.#_removeIfFiltered = removeIfFiltered;
 	}
 
-	async filter()
+	async filterSeriesFavoritesAsync()
 	{
-		const responseData = await this.#_apiController.readUserSeriesFavoritesFiltered( this.#_episodes.series );
+		const responseData = await this.#_apiController.readUserSeriesFavoritesFilteredAsync( this.#_episodes.series );
 
 		if ( true === this.#_removeIfFiltered )
 		{
@@ -27,7 +27,7 @@ class SeriesFavoritesFilter extends BaseClass
 				.forEach(
 					( series ) =>
 					{
-						this.#_episodes.remove( series );
+						this.#_episodes.removeEpisodeAsync( series );
 					}
 				);
 		}

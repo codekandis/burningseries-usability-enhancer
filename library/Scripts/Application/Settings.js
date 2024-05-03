@@ -19,92 +19,49 @@ class Settings extends BaseClass
 		this.#_settingsData[ name ] = value;
 	}
 
-	async load()
+	async loadAsync()
 	{
-		const loadHandler = ( resolvedHandler, storedSettings ) =>
+		const storage      = await browser.storage.local.get( 'settings' );
+		let storedSettings = storage.settings;
+
+		if ( undefined === storedSettings )
 		{
-			storedSettings.forEach(
-				( value, name ) =>
-				{
-					if ( undefined !== this.#_settingsData[ name ] )
-					{
-						this.#_settingsData[ name ] = value;
-					}
-				}
-			);
+			await this.saveAsync();
+			storedSettings = this.#_settingsData;
+		}
 
-			resolvedHandler( this );
-		};
-
-		return await new Promise(
-			( resolvedHandler, rejectedHandler ) =>
+		storedSettings.forEach(
+			( value, name ) =>
 			{
-				browser
-					.storage
-					.local
-					.get( 'settings' )
-					.then(
-						( storage ) =>
-						{
-							const storedSettings = storage.settings;
-							if ( undefined === storedSettings )
-							{
-								this
-									.save()
-									.then(
-										( settings ) =>
-										{
-											loadHandler( resolvedHandler, this.#_settingsData );
-										}
-									);
-							}
-							else
-							{
-								loadHandler( resolvedHandler, storedSettings );
-							}
-						}
-					);
+				if ( undefined !== this.#_settingsData[ name ] )
+				{
+					this.#_settingsData[ name ] = value;
+				}
 			}
 		);
+
+		return this;
 	}
 
-	async save()
+	async saveAsync()
 	{
-		return await new Promise(
-			( resolvedHandler, rejectedHandler ) =>
-			{
-				browser
-					.storage
-					.local
-					.get( 'settings' )
-					.then(
-						( storage ) =>
-						{
-							const storedSettings = storage.settings ?? {};
-							{
-								this.#_settingsData.forEach(
-									( value, name ) =>
-									{
-										storedSettings[ name ] = this.#_settingsData[ name ];
-									}
-								);
-							}
+		const storage        = await browser.storage.local.get( 'settings' );
+		const storedSettings = storage.settings ?? {};
+		{
+			this.#_settingsData.forEach(
+				( value, name ) =>
+				{
+					storedSettings[ name ] = this.#_settingsData[ name ];
+				}
+			);
+		}
 
-							browser
-								.storage
-								.local
-								.set(
-									{ settings: storedSettings }
-								)
-								.then(
-									( settings ) =>
-									{
-										resolvedHandler( this );
-									}
-								)
-						}
-					);
+		await browser.storage.local.set(
+			{
+				settings: storedSettings
 			}
 		);
+
+		return this;
 	}
 }

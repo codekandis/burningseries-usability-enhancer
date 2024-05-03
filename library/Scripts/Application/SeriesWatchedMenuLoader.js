@@ -11,9 +11,9 @@ class SeriesWatchedMenuLoader extends BaseSeriesMenuLoader
 		this.#_apiController = apiController;
 	}
 
-	async load()
+	async loadSeriesWatchedAsync()
 	{
-		const responseData = await this.#_apiController.readUserSeriesWatched();
-		this._addSeries( responseData.data.seriesWatched );
+		const responseData = await this.#_apiController.readUserSeriesWatchedAsync();
+		this._addSeriesAsync( responseData.data.seriesWatched );
 	}
 }

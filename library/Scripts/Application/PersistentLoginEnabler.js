@@ -11,12 +11,12 @@ class PersistentLoginEnabler extends BaseClass
 		this.#_checkboxContainer = DomHelper.querySelector( selector, null, false );
 	}
 
-	#hideCheckbox()
+	async #hideCheckboxAsync()
 	{
 		this.#_checkboxContainer.style.display = 'none';
 	}
 
-	#makeCheckboxSubmittable()
+	async #makeCheckboxSubmittableAsync()
 	{
 		const checkbox = DomHelper.querySelector(
 			'input[type="checkbox"]',
@@ -25,12 +25,12 @@ class PersistentLoginEnabler extends BaseClass
 		checkbox.setAttribute( 'type', 'hidden' );
 	}
 
-	enable()
+	async enablePersistentLoginAsync()
 	{
 		if ( null !== this.#_checkboxContainer )
 		{
-			this.#hideCheckbox();
-			this.#makeCheckboxSubmittable();
+			this.#hideCheckboxAsync();
+			this.#makeCheckboxSubmittableAsync();
 		}
 	}
 }

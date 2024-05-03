@@ -15,9 +15,9 @@ class SeriesInterestsFilter extends BaseClass
 		this.#_removeIfFiltered = removeIfFiltered;
 	}
 
-	async filter()
+	async filterSeriesInterestsAsync()
 	{
-		const responseData = await this.#_apiController.readUserSeriesInterestsFiltered( this.#_episodes.series );
+		const responseData = await this.#_apiController.readUserSeriesInterestsFilteredAsync( this.#_episodes.series );
 
 		if ( true === this.#_removeIfFiltered )
 		{
@@ -27,7 +27,7 @@ class SeriesInterestsFilter extends BaseClass
 				.forEach(
 					( series ) =>
 					{
-						this.#_episodes.remove( series );
+						this.#_episodes.removeEpisodeAsync( series );
 					}
 				);
 		}

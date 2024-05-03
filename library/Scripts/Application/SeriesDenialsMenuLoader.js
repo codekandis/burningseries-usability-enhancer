@@ -11,9 +11,9 @@ class SeriesDenialsMenuLoader extends BaseSeriesMenuLoader
 		this.#_apiController = apiController;
 	}
 
-	async load()
+	async loadSeriesDenialsAsync()
 	{
-		const responseData = await this.#_apiController.readUserSeriesDenials();
-		this._addSeries( responseData.data.seriesDenials );
+		const responseData = await this.#_apiController.readUserSeriesDenialsAsync();
+		this._addSeriesAsync( responseData.data.seriesDenials );
 	}
 }

@@ -31,10 +31,10 @@ class ApiController extends BaseClass
 		return JSON.stringify( data );
 	}
 
-	async readUserSeriesDenials()
+	async readUserSeriesDenialsAsync()
 	{
 		return await (
-			await this.#_ajaxController.get(
+			await this.#_ajaxController.getAsync(
 				this.#_apiUris.userSeriesDenials,
 				this.#getHeaders()
 			)
@@ -42,7 +42,7 @@ class ApiController extends BaseClass
 			.json();
 	}
 
-	async readUserSeriesDenialsFiltered( series )
+	async readUserSeriesDenialsFilteredAsync( series )
 	{
 		const requestData = this.#createJsonData(
 			{
@@ -59,7 +59,7 @@ class ApiController extends BaseClass
 		);
 
 		return await (
-			await this.#_ajaxController.put(
+			await this.#_ajaxController.putAsync(
 				this.#_apiUris.userSeriesDenialsFiltered,
 				this.#getHeaders(),
 				requestData
@@ -68,7 +68,7 @@ class ApiController extends BaseClass
 			.json();
 	}
 
-	async addUserSeriesDenial( series )
+	async addUserSeriesDenialAsync( series )
 	{
 		const requestData = this.#createJsonData(
 			{
@@ -81,7 +81,7 @@ class ApiController extends BaseClass
 		);
 
 		return await (
-			await this.#_ajaxController.put(
+			await this.#_ajaxController.putAsync(
 				this.#_apiUris.userSeriesDenials,
 				this.#getHeaders(),
 				requestData
@@ -90,10 +90,10 @@ class ApiController extends BaseClass
 			.json();
 	}
 
-	async deleteUserSeriesDenial( series )
+	async deleteUserSeriesDenialAsync( series )
 	{
 		return await (
-			await this.#_ajaxController.delete(
+			await this.#_ajaxController.deleteAsync(
 				this.#_apiUris.userSeriesDenials + '/' + series.denialId,
 				this.#getHeaders()
 			)
@@ -101,10 +101,10 @@ class ApiController extends BaseClass
 			.json();
 	}
 
-	async readUserSeriesInterests()
+	async readUserSeriesInterestsAsync()
 	{
 		return await (
-			await this.#_ajaxController.get(
+			await this.#_ajaxController.getAsync(
 				this.#_apiUris.userSeriesInterests,
 				this.#getHeaders()
 			)
@@ -112,7 +112,7 @@ class ApiController extends BaseClass
 			.json();
 	}
 
-	async readUserSeriesInterestsFiltered( series )
+	async readUserSeriesInterestsFilteredAsync( series )
 	{
 		const requestData = this.#createJsonData(
 			{
@@ -129,7 +129,7 @@ class ApiController extends BaseClass
 		);
 
 		return await (
-			await this.#_ajaxController.put(
+			await this.#_ajaxController.putAsync(
 				this.#_apiUris.userSeriesInterestsFiltered,
 				this.#getHeaders(),
 				requestData
@@ -138,7 +138,7 @@ class ApiController extends BaseClass
 			.json();
 	}
 
-	async addUserSeriesInterest( series )
+	async addUserSeriesInterestAsync( series )
 	{
 		const requestData = this.#createJsonData(
 			{
@@ -151,7 +151,7 @@ class ApiController extends BaseClass
 		);
 
 		return await (
-			await this.#_ajaxController.put(
+			await this.#_ajaxController.putAsync(
 				this.#_apiUris.userSeriesInterests,
 				this.#getHeaders(),
 				requestData
@@ -160,10 +160,10 @@ class ApiController extends BaseClass
 			.json();
 	}
 
-	async deleteUserSeriesInterest( series )
+	async deleteUserSeriesInterestAsync( series )
 	{
 		return await (
-			await this.#_ajaxController.delete(
+			await this.#_ajaxController.deleteAsync(
 				this.#_apiUris.userSeriesInterests + '/' + series.interestId,
 				this.#getHeaders()
 			)
@@ -171,10 +171,10 @@ class ApiController extends BaseClass
 			.json();
 	}
 
-	async readUserSeriesFavorites()
+	async readUserSeriesFavoritesAsync()
 	{
 		return await (
-			await this.#_ajaxController.get(
+			await this.#_ajaxController.getAsync(
 				this.#_apiUris.userSeriesFavorites,
 				this.#getHeaders()
 			)
@@ -182,7 +182,7 @@ class ApiController extends BaseClass
 			.json();
 	}
 
-	async readUserSeriesFavoritesFiltered( series )
+	async readUserSeriesFavoritesFilteredAsync( series )
 	{
 		const requestData = this.#createJsonData(
 			{
@@ -199,7 +199,7 @@ class ApiController extends BaseClass
 		);
 
 		return await (
-			await this.#_ajaxController.put(
+			await this.#_ajaxController.putAsync(
 				this.#_apiUris.userSeriesFavoritesFiltered,
 				this.#getHeaders(),
 				requestData
@@ -208,7 +208,7 @@ class ApiController extends BaseClass
 			.json();
 	}
 
-	async addUserSeriesFavorite( series )
+	async addUserSeriesFavoriteAsync( series )
 	{
 		const requestData = this.#createJsonData(
 			{
@@ -221,7 +221,7 @@ class ApiController extends BaseClass
 		);
 
 		return await (
-			await this.#_ajaxController.put(
+			await this.#_ajaxController.putAsync(
 				this.#_apiUris.userSeriesFavorites,
 				this.#getHeaders(),
 				requestData
@@ -230,10 +230,10 @@ class ApiController extends BaseClass
 			.json();
 	}
 
-	async deleteUserSeriesFavorite( series )
+	async deleteUserSeriesFavoriteAsync( series )
 	{
 		return await (
-			await this.#_ajaxController.delete(
+			await this.#_ajaxController.deleteAsync(
 				this.#_apiUris.userSeriesFavorites + '/' + series.favoriteId,
 				this.#getHeaders()
 			)
@@ -241,10 +241,10 @@ class ApiController extends BaseClass
 			.json();
 	}
 
-	async readUserSeriesWatched()
+	async readUserSeriesWatchedAsync()
 	{
 		return await (
-			await this.#_ajaxController.get(
+			await this.#_ajaxController.getAsync(
 				this.#_apiUris.userSeriesWatched,
 				this.#getHeaders()
 			)
@@ -252,7 +252,7 @@ class ApiController extends BaseClass
 			.json();
 	}
 
-	async readUserSeriesWatchedFiltered( series )
+	async readUserSeriesWatchedFilteredAsync( series )
 	{
 		const requestData = this.#createJsonData(
 			{
@@ -269,7 +269,7 @@ class ApiController extends BaseClass
 		);
 
 		return await (
-			await this.#_ajaxController.put(
+			await this.#_ajaxController.putAsync(
 				this.#_apiUris.userSeriesWatchedFiltered,
 				this.#getHeaders(),
 				requestData
@@ -278,7 +278,7 @@ class ApiController extends BaseClass
 			.json();
 	}
 
-	async addUserSeriesWatch( series )
+	async addUserSeriesWatchAsync( series )
 	{
 		const requestData = this.#createJsonData(
 			{
@@ -291,7 +291,7 @@ class ApiController extends BaseClass
 		);
 
 		return await (
-			await this.#_ajaxController.put(
+			await this.#_ajaxController.putAsync(
 				this.#_apiUris.userSeriesWatched,
 				this.#getHeaders(),
 				requestData
@@ -300,10 +300,10 @@ class ApiController extends BaseClass
 			.json();
 	}
 
-	async deleteUserSeriesWatch( series )
+	async deleteUserSeriesWatchAsync( series )
 	{
 		return await (
-			await this.#_ajaxController.delete(
+			await this.#_ajaxController.deleteAsync(
 				this.#_apiUris.userSeriesWatched + '/' + series.watchId,
 				this.#getHeaders()
 			)

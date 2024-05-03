@@ -11,16 +11,16 @@ class RegistrationLinkHider extends BaseClass
 		this.#_link = DomHelper.querySelector( selector, null, false );
 	}
 
-	#hideLink()
+	async #hideLinkAsync()
 	{
 		this.#_link.style.display = 'none';
 	}
 
-	hide()
+	async hideRegistrationLinkAsync()
 	{
 		if ( null !== this.#_link )
 		{
-			this.#hideLink();
+			this.#hideLinkAsync();
 		}
 	}
 }

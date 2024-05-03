@@ -268,7 +268,7 @@ class Series extends BaseClass
 		}
 	}
 
-	remove()
+	async removeSeriesAsync()
 	{
 		this.#_container.remove();
 	}

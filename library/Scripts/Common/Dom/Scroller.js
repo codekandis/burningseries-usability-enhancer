@@ -2,17 +2,17 @@
 
 class Scroller extends BaseClass
 {
-	scrollTo( x, y )
+	async scrollToAsync( x, y )
 	{
 		window.scrollTo( x, y );
 	}
 
-	scrollToElement( element, x, y )
+	async scrollToElementAsync( element, x, y )
 	{
 		element.scrollTo( x, y );
 	}
 
-	scrollToElementLeft( element )
+	async scrollToElementLeftAsync( element )
 	{
 		window.scrollTo(
 			element
@@ -22,7 +22,7 @@ class Scroller extends BaseClass
 		);
 	}
 
-	scrollToElementRight( element )
+	async scrollToElementRightAsync( element )
 	{
 		window.scrollTo(
 			element
@@ -32,7 +32,7 @@ class Scroller extends BaseClass
 		);
 	}
 
-	scrollToElementTop( element )
+	async scrollToElementTopAsync( element )
 	{
 		window.scrollTo(
 			window.scrollX,
@@ -42,7 +42,7 @@ class Scroller extends BaseClass
 		);
 	}
 
-	scrollToElementBottom( element )
+	async scrollToElementBottomAsync( element )
 	{
 		window.scrollTo(
 			window.scrollX,

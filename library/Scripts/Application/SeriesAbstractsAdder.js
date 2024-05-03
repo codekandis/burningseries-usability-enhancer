@@ -13,7 +13,7 @@ class SeriesAbstractsAdder extends BaseClass
 		this.#_bsToController = bsToController;
 	}
 
-	#getSeriesEventHandlerMappings( series, seriesAbstract )
+	async #getSeriesEventHandlerMappingsAsync( series, seriesAbstract )
 	{
 		return {
 			mouseenter: ( event ) =>
@@ -34,7 +34,7 @@ class SeriesAbstractsAdder extends BaseClass
 		};
 	}
 
-	async addSeriesAbstracts()
+	async addSeriesAbstractsAsync()
 	{
 		this
 			.#_episodes
@@ -43,13 +43,13 @@ class SeriesAbstractsAdder extends BaseClass
 				( series ) =>
 				{
 					const uri = series.container.querySelector( 'a' ).href;
-					this.#_bsToController.readSeriesAbstract( uri )
+					this.#_bsToController.readSeriesAbstractAsync( uri )
 						.then(
-							( seriesAbstract ) =>
+							async ( seriesAbstract ) =>
 							{
 								DomHelper.addEventHandlers(
 									series.container,
-									this.#getSeriesEventHandlerMappings( series, seriesAbstract )
+									await this.#getSeriesEventHandlerMappingsAsync( series, seriesAbstract )
 								);
 							}
 						);

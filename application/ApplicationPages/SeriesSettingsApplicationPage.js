@@ -40,28 +40,28 @@ class SeriesSettingsApplicationPage extends AbstractApplicationPage
 		}
 	}
 
-	#filterDenials()
+	async #filterDenialsAsync()
 	{
-		return this.#_denialsFilter.filter();
+		return this.#_denialsFilter.filterSeriesDenialsAsync();
 	}
 
-	#addActions()
+	async #addActionsAsync()
 	{
 		( new ActionAdder( this.#_episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, null, this.#_interestsSwitcher, null, this.#_favoritesSwitcher, null, this.#_watchedSwitcher ) )
-			.addActions();
+			.addActionsAsync();
 	}
 
-	async execute()
+	async executeAsync()
 	{
-		this.#filterDenials()
+		this.#filterDenialsAsync()
 			.then(
-				() =>
+				async () =>
 				{
-					this.#_denialsSwitcher.switch();
-					this.#_interestsSwitcher.switch();
-					this.#_favoritesSwitcher.switch();
-					this.#_watchedSwitcher.switch();
-					this.#addActions();
+					this.#_denialsSwitcher.switchSeriesDenialsAsync();
+					this.#_interestsSwitcher.switchSeriesInterestsAsync();
+					this.#_favoritesSwitcher.switchSeriesFavoritesAsync();
+					this.#_watchedSwitcher.switchSeriesWatchedAsync();
+					this.#addActionsAsync();
 				}
 			);
 	}
