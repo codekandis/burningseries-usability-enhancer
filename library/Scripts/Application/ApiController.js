@@ -33,7 +33,7 @@ class ApiController extends BaseClass
 
 	async readUserSeriesDenialsAsync()
 	{
-		return await (
+		return (
 			await this.#_ajaxController.getAsync(
 				this.#_apiUris.userSeriesDenials,
 				this.#getHeaders()
@@ -58,7 +58,7 @@ class ApiController extends BaseClass
 			}
 		);
 
-		return await (
+		return (
 			await this.#_ajaxController.putAsync(
 				this.#_apiUris.userSeriesDenialsFiltered,
 				this.#getHeaders(),
@@ -80,7 +80,7 @@ class ApiController extends BaseClass
 			}
 		);
 
-		return await (
+		return (
 			await this.#_ajaxController.putAsync(
 				this.#_apiUris.userSeriesDenials,
 				this.#getHeaders(),
@@ -92,7 +92,7 @@ class ApiController extends BaseClass
 
 	async deleteUserSeriesDenialAsync( series )
 	{
-		return await (
+		return (
 			await this.#_ajaxController.deleteAsync(
 				this.#_apiUris.userSeriesDenials + '/' + series.denialId,
 				this.#getHeaders()
@@ -103,7 +103,7 @@ class ApiController extends BaseClass
 
 	async readUserSeriesInterestsAsync()
 	{
-		return await (
+		return (
 			await this.#_ajaxController.getAsync(
 				this.#_apiUris.userSeriesInterests,
 				this.#getHeaders()
@@ -128,7 +128,7 @@ class ApiController extends BaseClass
 			}
 		);
 
-		return await (
+		return (
 			await this.#_ajaxController.putAsync(
 				this.#_apiUris.userSeriesInterestsFiltered,
 				this.#getHeaders(),
@@ -150,7 +150,7 @@ class ApiController extends BaseClass
 			}
 		);
 
-		return await (
+		return (
 			await this.#_ajaxController.putAsync(
 				this.#_apiUris.userSeriesInterests,
 				this.#getHeaders(),
@@ -162,7 +162,7 @@ class ApiController extends BaseClass
 
 	async deleteUserSeriesInterestAsync( series )
 	{
-		return await (
+		return (
 			await this.#_ajaxController.deleteAsync(
 				this.#_apiUris.userSeriesInterests + '/' + series.interestId,
 				this.#getHeaders()
@@ -173,7 +173,7 @@ class ApiController extends BaseClass
 
 	async readUserSeriesFavoritesAsync()
 	{
-		return await (
+		return (
 			await this.#_ajaxController.getAsync(
 				this.#_apiUris.userSeriesFavorites,
 				this.#getHeaders()
@@ -198,7 +198,7 @@ class ApiController extends BaseClass
 			}
 		);
 
-		return await (
+		return (
 			await this.#_ajaxController.putAsync(
 				this.#_apiUris.userSeriesFavoritesFiltered,
 				this.#getHeaders(),
@@ -220,7 +220,7 @@ class ApiController extends BaseClass
 			}
 		);
 
-		return await (
+		return (
 			await this.#_ajaxController.putAsync(
 				this.#_apiUris.userSeriesFavorites,
 				this.#getHeaders(),
@@ -232,7 +232,7 @@ class ApiController extends BaseClass
 
 	async deleteUserSeriesFavoriteAsync( series )
 	{
-		return await (
+		return (
 			await this.#_ajaxController.deleteAsync(
 				this.#_apiUris.userSeriesFavorites + '/' + series.favoriteId,
 				this.#getHeaders()
@@ -243,7 +243,7 @@ class ApiController extends BaseClass
 
 	async readUserSeriesWatchedAsync()
 	{
-		return await (
+		return (
 			await this.#_ajaxController.getAsync(
 				this.#_apiUris.userSeriesWatched,
 				this.#getHeaders()
@@ -268,7 +268,7 @@ class ApiController extends BaseClass
 			}
 		);
 
-		return await (
+		return (
 			await this.#_ajaxController.putAsync(
 				this.#_apiUris.userSeriesWatchedFiltered,
 				this.#getHeaders(),
@@ -290,7 +290,7 @@ class ApiController extends BaseClass
 			}
 		);
 
-		return await (
+		return (
 			await this.#_ajaxController.putAsync(
 				this.#_apiUris.userSeriesWatched,
 				this.#getHeaders(),
@@ -302,7 +302,7 @@ class ApiController extends BaseClass
 
 	async deleteUserSeriesWatchAsync( series )
 	{
-		return await (
+		return (
 			await this.#_ajaxController.deleteAsync(
 				this.#_apiUris.userSeriesWatched + '/' + series.watchId,
 				this.#getHeaders()

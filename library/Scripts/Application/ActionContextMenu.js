@@ -29,27 +29,29 @@ class ActionContextMenu extends BaseClass
 	{
 		ActionContextMenu.#_currentContextMenu = DomHelper.createElementFromString( '<ul data-control-type="ACTION_CONTEXT_MENU"></ul>' );
 
-		this.#_actions.forEach(
-			( action ) =>
-			{
-				const subMenu = DomHelper.createElementFromString(
-					String.format`<li data-control-type="ACTION_CONTEXT_MENU_ITEM" data-action-type="${ 0 }">${ 1 }</li>`( action.actionType, action.caption )
-				);
-				DomHelper.addEventHandler(
-					subMenu,
-					'click',
-					async ( event ) =>
-					{
-						event.preventDefault();
-						event.stopPropagation();
+		this
+			.#_actions
+			.forEach(
+				( action ) =>
+				{
+					const subMenu = DomHelper.createElementFromString(
+						String.format`<li data-control-type="ACTION_CONTEXT_MENU_ITEM" data-action-type="${ 0 }">${ 1 }</li>`( action.actionType, action.caption )
+					);
+					DomHelper.addEventHandler(
+						subMenu,
+						'click',
+						async ( event ) =>
+						{
+							event.preventDefault();
+							event.stopPropagation();
 
-						action.action( this.#_series );
-					}
-				);
+							action.action( this.#_series );
+						}
+					);
 
-				DomHelper.appendChild( ActionContextMenu.#_currentContextMenu, subMenu );
-			}
-		);
+					DomHelper.appendChild( ActionContextMenu.#_currentContextMenu, subMenu );
+				}
+			);
 
 		ActionContextMenu.#_currentContextMenu.style.top  = this.#_container.offsetTop + 'px';
 		ActionContextMenu.#_currentContextMenu.style.left = this.#_container.offsetLeft + 'px';

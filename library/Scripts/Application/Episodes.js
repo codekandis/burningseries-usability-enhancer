@@ -25,12 +25,13 @@ class Episodes extends BaseClass
 
 	async #findAllSeriesAsync( series )
 	{
-		return this.#_series.filter(
-			( seriesFetched ) =>
-			{
-				return seriesFetched.name === series.name.toLowerCase();
-			}
-		);
+		return this.#_series
+			.filter(
+				( seriesFetched ) =>
+				{
+					return seriesFetched.name === series.name.toLowerCase();
+				}
+			);
 	}
 
 	async #determineEpisodesAsync()
@@ -141,20 +142,21 @@ class Episodes extends BaseClass
 
 	async removeEpisodeAsync( series )
 	{
-		const indices = [];
 		this
 			.#_series
-			.forEach(
-				( seriesFetched, index ) =>
+			.reduce(
+				( filteredIndices, seriesFetched, index ) =>
 				{
 					if ( seriesFetched.name === series.name.toLowerCase() )
 					{
-						indices.push( index );
+						filteredIndices.push( index );
 						seriesFetched.removeSeriesAsync();
 					}
-				}
-			);
-		indices
+
+					return filteredIndices;
+				},
+				[]
+			)
 			.reverse()
 			.forEach(
 				( index ) =>

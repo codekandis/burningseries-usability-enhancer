@@ -106,20 +106,18 @@ class EpisodesController extends BaseClass
 	async #getEnclosingEpisodesOfSeasonAsync( seasonUri )
 	{
 		const seasonsEpisodes   = await this.#_bsToController.readEpisodesAsync( seasonUri );
-		const enclosingEpisodes = await Promise.all(
-			[
-				seasonsEpisodes[ 0 ],
-				seasonsEpisodes[ seasonsEpisodes.length - 1 ]
-			]
-				.map(
-					async ( element ) =>
-					{
-						this.#_linkExtender.extendLinkAsync( element );
+		const enclosingEpisodes = [
+			seasonsEpisodes[ 0 ],
+			seasonsEpisodes[ seasonsEpisodes.length - 1 ]
+		]
+			.map(
+				( element ) =>
+				{
+					this.#_linkExtender.extendLinkAsync( element );
 
-						return element.href;
-					}
-				)
-		);
+					return element.href;
+				}
+			);
 
 		return {
 			first: enclosingEpisodes[ 0 ],
