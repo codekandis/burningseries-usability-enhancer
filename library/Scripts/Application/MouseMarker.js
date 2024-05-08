@@ -44,7 +44,7 @@ class MouseMarker extends BaseClass
 		return {
 			keydown:   ( event ) =>
 			           {
-				           if ( true === event.ctrlKey && false === event.shiftKey && false === event.altKey )
+				           if ( false === event.ctrlKey && true === event.shiftKey && false === event.altKey )
 				           {
 					           this.#showAsync();
 
