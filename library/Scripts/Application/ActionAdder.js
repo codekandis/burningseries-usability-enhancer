@@ -318,7 +318,7 @@ class ActionAdder extends BaseClass
 		DomHelper.setAttribute( button, 'data-action-type', this.#_currentActionType );
 	}
 
-	async #getHtmlEventHandlerMappingsAsync( button )
+	#getHtmlEventHandlerMappings( button )
 	{
 		const eventHandler = async ( event ) =>
 		{
@@ -355,9 +355,9 @@ class ActionAdder extends BaseClass
 						button,
 						this.#getButtonEventHandlerMappings( button, series )
 					);
-					DomHelper.addEventHandlersBySelector(
-						'html',
-						this.#getHtmlEventHandlerMappingsAsync( button )
+					DomHelper.addEventHandlers(
+						document,
+						this.#getHtmlEventHandlerMappings( button )
 					);
 
 					series.container.insertAdjacentElement( this.#_actionPosition, button );

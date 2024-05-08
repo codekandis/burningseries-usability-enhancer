@@ -34,26 +34,25 @@ class HeaderModifier extends BaseClass
 	{
 		if ( null !== this.#_navigationSection )
 		{
-			const whiteSpaceNodes = [];
-
-			this.#_navigationSection
-				.childNodes
-				.forEach(
-					( menuItem ) =>
+			[ ...this.#_navigationSection.childNodes ]
+				.reduce(
+					( filteredWhitespaceNodes, menuItem ) =>
 					{
 						if ( '#text' === menuItem.nodeName )
 						{
-							whiteSpaceNodes.push( menuItem );
+							filteredWhitespaceNodes.push( menuItem );
 						}
+
+						return filteredWhitespaceNodes;
+					},
+					[]
+				)
+				.forEach(
+					( whiteSpaceNode ) =>
+					{
+						whiteSpaceNode.remove();
 					}
 				);
-
-			whiteSpaceNodes.forEach(
-				( whiteSpaceNode ) =>
-				{
-					whiteSpaceNode.remove();
-				}
-			);
 		}
 	}
 
