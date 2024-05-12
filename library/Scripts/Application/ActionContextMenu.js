@@ -46,6 +46,8 @@ class ActionContextMenu extends BaseClass
 							event.stopPropagation();
 
 							action.action( this.#_series );
+
+							this.hideAsync();
 						}
 					);
 
