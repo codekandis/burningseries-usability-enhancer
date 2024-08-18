@@ -239,34 +239,23 @@ class AllPagesPreDispatcher extends AbstractPreDispatcher
 		{
 			denialsFilter.filterSeriesDenialsAsync();
 		}
-		else
-		{
-			denialsSwitcher.switchSeriesDenialsAsync();
-		}
 		if ( true === menuSettings.filter.interests )
 		{
 			interestsFilter.filterSeriesInterestsAsync();
-		}
-		else
-		{
-			interestsSwitcher.switchSeriesInterestsAsync();
 		}
 		if ( true === menuSettings.filter.favorites )
 		{
 			favoritesFilter.filterSeriesFavoritesAsync();
 		}
-		else
-		{
-			favoritesSwitcher.switchSeriesFavoritesAsync();
-		}
 		if ( true === menuSettings.filter.watched )
 		{
 			watchedFilter.filterSeriesWatchedAsync();
 		}
-		else
-		{
-			watchedSwitcher.switchSeriesWatchedAsync();
-		}
+
+		denialsSwitcher.switchSeriesDenialsAsync();
+		interestsSwitcher.switchSeriesInterestsAsync();
+		favoritesSwitcher.switchSeriesFavoritesAsync();
+		watchedSwitcher.switchSeriesWatchedAsync();
 
 		( new ActionAdder( episodes, this.#_apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, interestsFilter, interestsSwitcher, favoritesFilter, favoritesSwitcher, watchedFilter, watchedSwitcher ) )
 			.addActionsAsync();
