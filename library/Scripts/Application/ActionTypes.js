@@ -2,6 +2,11 @@
 
 class ActionTypes extends StaticBaseClass
 {
+	static get TAB_OPENER()
+	{
+		return 'TAB_OPENER';
+	}
+
 	static get DENIAL()
 	{
 		return 'DENIAL';

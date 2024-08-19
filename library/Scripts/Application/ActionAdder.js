@@ -41,6 +41,16 @@ class ActionAdder extends BaseClass
 		this.#_watchedSwitcher.switchSeriesWatchedAsync();
 	}
 
+	async #openInTab( series )
+	{
+		window.open(
+			DomHelper
+				.querySelector( 'a', series.container )
+				.href,
+			'_blank'
+		);
+	}
+
 	async #denySeriesAsync( series )
 	{
 		switch ( series.isDenial )
@@ -242,6 +252,11 @@ class ActionAdder extends BaseClass
 			button.parentNode,
 			series,
 			[
+				{
+					caption:    'Open In Tab',
+					actionType: ActionTypes.TAB_OPENER,
+					action:     this.#openInTab.bind( this )
+				},
 				{
 					caption:    true === series.isDenial
 						            ? 'Permit'

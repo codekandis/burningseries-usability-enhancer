@@ -51,6 +51,13 @@
 	background: #ffffff !important;
 }
 
+[data-control-type='ACTION_CONTEXT_MENU_ITEM'][data-action-type='TAB_OPENER']:before
+{
+	top:       -1px !important;
+	font-size: 8pt !important;
+	content:   '🗖' !important;
+}
+
 [data-is-denial='FALSE'] [data-control-type='ACTION_CONTEXT_MENU_ITEM'][data-action-type='DENIAL']:before
 {
 	top:       1px !important;
