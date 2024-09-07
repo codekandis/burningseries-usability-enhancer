@@ -75,20 +75,40 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 
 	async #extendEpisodesLinksAsync()
 	{
-		this.#_linkExtender.extendLinkListAsync(
+		await this.#_linkExtender.extendLinkListAsync(
 			DomHelper.querySelectorAll( '#newest_episodes ul li a', document, false )
 		);
 	}
 
+	async #switchDenialsAsync()
+	{
+		await this.#_denialsSwitcher.switchSeriesDenialsAsync();
+	}
+
+	async #switchInterestsAsync()
+	{
+		await this.#_interestsSwitcher.switchSeriesInterestsAsync();
+	}
+
+	async #switchFavoritesAsync()
+	{
+		await this.#_favoritesSwitcher.switchSeriesFavoritesAsync();
+	}
+
+	async #switchWatchedAsync()
+	{
+		await this.#_watchedSwitcher.switchSeriesWatchedAsync();
+	}
+
 	async #removeSeriesTitleAttributesAsync()
 	{
-		( new SeriesTitleAttributeRemover( this.#_episodes ) )
+		await ( new SeriesTitleAttributeRemover( this.#_episodes ) )
 			.removeTitleAttributesAsync();
 	}
 
 	async #addActionsAsync()
 	{
-		( new ActionAdder( this.#_episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, null, this.#_interestsSwitcher, null, this.#_favoritesSwitcher, null, this.#_watchedSwitcher ) )
+		await ( new ActionAdder( this.#_episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, null, this.#_interestsSwitcher, null, this.#_favoritesSwitcher, null, this.#_watchedSwitcher ) )
 			.addActionsAsync();
 	}
 
@@ -96,26 +116,6 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 	{
 		await ( new SeriesAbstractsAdder( this.#_episodes, this._bsToController ) )
 			.addSeriesAbstractsAsync();
-	}
-
-	async #switchDenialsAsync()
-	{
-		this.#_denialsSwitcher.switchSeriesDenialsAsync();
-	}
-
-	async #switchInterestsAsync()
-	{
-		this.#_interestsSwitcher.switchSeriesInterestsAsync();
-	}
-
-	async #switchFavoritesAsync()
-	{
-		this.#_favoritesSwitcher.switchSeriesFavoritesAsync();
-	}
-
-	async #switchWatchedAsync()
-	{
-		this.#_watchedSwitcher.switchSeriesWatchedAsync();
 	}
 
 	async executeAsync()

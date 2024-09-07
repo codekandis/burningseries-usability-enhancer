@@ -57,22 +57,22 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 
 	async #switchDenialsAsync()
 	{
-		this.#_denialsSwitcher.switchSeriesDenialsAsync();
+		await this.#_denialsSwitcher.switchSeriesDenialsAsync();
 	}
 
 	async #switchInterestsAsync()
 	{
-		this.#_interestsSwitcher.switchSeriesInterestsAsync();
+		await this.#_interestsSwitcher.switchSeriesInterestsAsync();
 	}
 
 	async #switchFavoritesAsync()
 	{
-		this.#_favoritesSwitcher.switchSeriesFavoritesAsync();
+		await this.#_favoritesSwitcher.switchSeriesFavoritesAsync();
 	}
 
 	async #switchWatchedAsync()
 	{
-		this.#_watchedSwitcher.switchSeriesWatchedAsync();
+		await this.#_watchedSwitcher.switchSeriesWatchedAsync();
 	}
 
 	async #addActionsAsync()
