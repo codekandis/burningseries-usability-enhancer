@@ -11,6 +11,7 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 	#_watchedSwitcher;
 	#_teaserRemover;
 	#_headLineRemover;
+	#_newsRemover;
 
 	constructor( settings, applicationPageArguments )
 	{
@@ -27,6 +28,7 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 		this.#_watchedSwitcher   = new SeriesWatchedSwitcher( this.#_episodes, this._apiController );
 		this.#_teaserRemover     = new TeaserRemover( '#teaser' );
 		this.#_headLineRemover   = new HeadLineRemover( '.home > h2' );
+		this.#_newsRemover       = new NewsRemover( '#news' );
 	}
 
 	get #episodeNameHandler()
@@ -61,6 +63,11 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 	async #removeTeaserAsync()
 	{
 		this.#_teaserRemover.removeTeaserAsync();
+	}
+
+	async #removeNewsAsync()
+	{
+		this.#_newsRemover.removeNewsAsync();
 	}
 
 	async #removeHeadLineAsync()
@@ -122,6 +129,7 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 	{
 		this.#removeTeaserAsync();
 		this.#removeHeadLineAsync();
+		this.#removeNewsAsync();
 		this.#filterDenialsAsync()
 			.then(
 				async () =>
