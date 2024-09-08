@@ -41,6 +41,16 @@ class ActionAdder extends BaseClass
 		this.#_watchedSwitcher.switchSeriesWatchedAsync();
 	}
 
+	async #openInTab( series )
+	{
+		window.open(
+			DomHelper
+				.querySelector( 'a', series.container )
+				.href,
+			'_blank'
+		);
+	}
+
 	async #denySeriesAsync( series )
 	{
 		switch ( series.isDenial )
@@ -243,6 +253,11 @@ class ActionAdder extends BaseClass
 			series,
 			[
 				{
+					caption:    'Open In Tab',
+					actionType: ActionTypes.TAB_OPENER,
+					action:     this.#openInTab.bind( this )
+				},
+				{
 					caption:    true === series.isDenial
 						            ? 'Permit'
 						            : 'Deny',
@@ -318,7 +333,7 @@ class ActionAdder extends BaseClass
 		DomHelper.setAttribute( button, 'data-action-type', this.#_currentActionType );
 	}
 
-	async #getHtmlEventHandlerMappingsAsync( button )
+	#getHtmlEventHandlerMappings( button )
 	{
 		const eventHandler = async ( event ) =>
 		{
@@ -355,9 +370,9 @@ class ActionAdder extends BaseClass
 						button,
 						this.#getButtonEventHandlerMappings( button, series )
 					);
-					DomHelper.addEventHandlersBySelector(
-						'html',
-						this.#getHtmlEventHandlerMappingsAsync( button )
+					DomHelper.addEventHandlers(
+						document,
+						this.#getHtmlEventHandlerMappings( button )
 					);
 
 					series.container.insertAdjacentElement( this.#_actionPosition, button );

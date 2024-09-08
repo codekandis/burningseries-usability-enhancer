@@ -45,6 +45,26 @@ class SeriesSettingsApplicationPage extends AbstractApplicationPage
 		return this.#_denialsFilter.filterSeriesDenialsAsync();
 	}
 
+	async #switchDenialsAsync()
+	{
+		await this.#_denialsSwitcher.switchSeriesDenialsAsync();
+	}
+
+	async #switchInterestsAsync()
+	{
+		await this.#_interestsSwitcher.switchSeriesInterestsAsync();
+	}
+
+	async #switchFavoritesAsync()
+	{
+		await this.#_favoritesSwitcher.switchSeriesFavoritesAsync();
+	}
+
+	async #switchWatchedAsync()
+	{
+		await this.#_watchedSwitcher.switchSeriesWatchedAsync();
+	}
+
 	async #addActionsAsync()
 	{
 		( new ActionAdder( this.#_episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, null, this.#_interestsSwitcher, null, this.#_favoritesSwitcher, null, this.#_watchedSwitcher ) )
@@ -57,10 +77,11 @@ class SeriesSettingsApplicationPage extends AbstractApplicationPage
 			.then(
 				async () =>
 				{
-					this.#_denialsSwitcher.switchSeriesDenialsAsync();
-					this.#_interestsSwitcher.switchSeriesInterestsAsync();
-					this.#_favoritesSwitcher.switchSeriesFavoritesAsync();
-					this.#_watchedSwitcher.switchSeriesWatchedAsync();
+					this.#switchDenialsAsync();
+					this.#switchInterestsAsync();
+					this.#switchFavoritesAsync();
+					this.#switchWatchedAsync();
+					this.#addActionsAsync();
 					this.#addActionsAsync();
 				}
 			);

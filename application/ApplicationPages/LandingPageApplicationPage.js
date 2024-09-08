@@ -11,6 +11,7 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 	#_watchedSwitcher;
 	#_teaserRemover;
 	#_headLineRemover;
+	#_newsRemover;
 
 	constructor( settings, applicationPageArguments )
 	{
@@ -27,6 +28,7 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 		this.#_watchedSwitcher   = new SeriesWatchedSwitcher( this.#_episodes, this._apiController );
 		this.#_teaserRemover     = new TeaserRemover( '#teaser' );
 		this.#_headLineRemover   = new HeadLineRemover( '.home > h2' );
+		this.#_newsRemover       = new NewsRemover( '#news' );
 	}
 
 	get #episodeNameHandler()
@@ -63,6 +65,11 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 		this.#_teaserRemover.removeTeaserAsync();
 	}
 
+	async #removeNewsAsync()
+	{
+		this.#_newsRemover.removeNewsAsync();
+	}
+
 	async #removeHeadLineAsync()
 	{
 		this.#_headLineRemover.removeHeadLineAsync();
@@ -75,20 +82,40 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 
 	async #extendEpisodesLinksAsync()
 	{
-		this.#_linkExtender.extendLinkListAsync(
+		await this.#_linkExtender.extendLinkListAsync(
 			DomHelper.querySelectorAll( '#newest_episodes ul li a', document, false )
 		);
 	}
 
+	async #switchDenialsAsync()
+	{
+		await this.#_denialsSwitcher.switchSeriesDenialsAsync();
+	}
+
+	async #switchInterestsAsync()
+	{
+		await this.#_interestsSwitcher.switchSeriesInterestsAsync();
+	}
+
+	async #switchFavoritesAsync()
+	{
+		await this.#_favoritesSwitcher.switchSeriesFavoritesAsync();
+	}
+
+	async #switchWatchedAsync()
+	{
+		await this.#_watchedSwitcher.switchSeriesWatchedAsync();
+	}
+
 	async #removeSeriesTitleAttributesAsync()
 	{
-		( new SeriesTitleAttributeRemover( this.#_episodes ) )
+		await ( new SeriesTitleAttributeRemover( this.#_episodes ) )
 			.removeTitleAttributesAsync();
 	}
 
 	async #addActionsAsync()
 	{
-		( new ActionAdder( this.#_episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, null, this.#_interestsSwitcher, null, this.#_favoritesSwitcher, null, this.#_watchedSwitcher ) )
+		await ( new ActionAdder( this.#_episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, null, this.#_interestsSwitcher, null, this.#_favoritesSwitcher, null, this.#_watchedSwitcher ) )
 			.addActionsAsync();
 	}
 
@@ -98,30 +125,11 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 			.addSeriesAbstractsAsync();
 	}
 
-	async #switchDenialsAsync()
-	{
-		this.#_denialsSwitcher.switchSeriesDenialsAsync();
-	}
-
-	async #switchInterestsAsync()
-	{
-		this.#_interestsSwitcher.switchSeriesInterestsAsync();
-	}
-
-	async #switchFavoritesAsync()
-	{
-		this.#_favoritesSwitcher.switchSeriesFavoritesAsync();
-	}
-
-	async #switchWatchedAsync()
-	{
-		this.#_watchedSwitcher.switchSeriesWatchedAsync();
-	}
-
 	async executeAsync()
 	{
 		this.#removeTeaserAsync();
 		this.#removeHeadLineAsync();
+		this.#removeNewsAsync();
 		this.#filterDenialsAsync()
 			.then(
 				async () =>

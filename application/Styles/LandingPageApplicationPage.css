@@ -1,8 +1,8 @@
 @charset "utf-8";
 
-#news .lSPager a
+body h3
 {
-	z-index: auto !important;
+	font-size: 14px !important;
 }
 
 #newest_series a
@@ -42,7 +42,7 @@
 #newest_episodes [data-control-type='SERIES_ABSTRACT'],
 #newest_series [data-control-type='SERIES_ABSTRACT']
 {
-	margin-left:      174px !important;
+	margin-left: 174px !important;
 }
 
 #newest_episodes [data-control-type='SERIES_ABSTRACT']

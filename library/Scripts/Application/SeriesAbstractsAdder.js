@@ -16,7 +16,7 @@ class SeriesAbstractsAdder extends BaseClass
 	async #getSeriesEventHandlerMappingsAsync( series, seriesAbstract )
 	{
 		return {
-			mouseenter: ( event ) =>
+			mouseenter: async ( event ) =>
 			            {
 				            DomHelper.appendChild(
 					            series.container,
@@ -25,7 +25,7 @@ class SeriesAbstractsAdder extends BaseClass
 					            )
 				            );
 			            },
-			mouseleave: ( event ) =>
+			mouseleave: async ( event ) =>
 			            {
 				            DomHelper
 					            .querySelector( '[data-control-type="SERIES_ABSTRACT"]', series.container, false )

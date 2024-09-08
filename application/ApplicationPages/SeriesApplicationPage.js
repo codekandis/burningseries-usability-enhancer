@@ -57,55 +57,55 @@ class SeriesApplicationPage extends AbstractApplicationPage
 
 	async #switchDenialsAsync()
 	{
-		this.#_denialsSwitcher.switchSeriesDenialsAsync();
+		await this.#_denialsSwitcher.switchSeriesDenialsAsync();
 	}
 
 	async #switchInterestsAsync()
 	{
-		this.#_interestsSwitcher.switchSeriesInterestsAsync();
+		await this.#_interestsSwitcher.switchSeriesInterestsAsync();
 	}
 
 	async #switchFavoritesAsync()
 	{
-		this.#_favoritesSwitcher.switchSeriesFavoritesAsync();
+		await this.#_favoritesSwitcher.switchSeriesFavoritesAsync();
 	}
 
 	async #switchWatchedAsync()
 	{
-		this.#_watchedSwitcher.switchSeriesWatchedAsync();
-	}
-
-	async #extendEpisodesLinksAsync()
-	{
-		this.#_linkExtender.extendLinkListAsync(
-			DomHelper.querySelectorAll( '.episodes tbody tr td:nth-child( 1 ) a, .episodes tbody tr td:nth-child( 2 ) a:nth-child( 2 ), #episodes ul li a', document, false )
-		);
+		await this.#_watchedSwitcher.switchSeriesWatchedAsync();
 	}
 
 	async #addActionsAsync()
 	{
-		( new ActionAdder( this.#_episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, null, this.#_interestsSwitcher, null, this.#_favoritesSwitcher, null, this.#_watchedSwitcher ) )
+		await ( new ActionAdder( this.#_episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, null, this.#_interestsSwitcher, null, this.#_favoritesSwitcher, null, this.#_watchedSwitcher ) )
 			.addActionsAsync();
+	}
+
+	async #extendEpisodesLinksAsync()
+	{
+		await this.#_linkExtender.extendLinkListAsync(
+			DomHelper.querySelectorAll( '.episodes tbody tr td:nth-child( 1 ) a, .episodes tbody tr td:nth-child( 2 ) a:nth-child( 2 ), #episodes ul li a', document, false )
+		);
 	}
 
 	async #addNavigationAsync()
 	{
 		if ( false === ( new SeasonPageDeterminator( window.location.href ) ).isSeasonPage )
 		{
-			( new EpisodesController( this.#_linkExtender ) )
+			await ( new EpisodesController( this.#_linkExtender ) )
 				.addActionsAsync();
 		}
 	}
 
 	async #removeMetaLinksAsync()
 	{
-		( new MetaLinksRemover( '#sp_right > a' ) )
+		await ( new MetaLinksRemover( '#sp_right > a' ) )
 			.removeMetaLinksAsync();
 	}
 
 	async #removeDescriptionAsync()
 	{
-		( new DescriptionRemover( '#description' ) )
+		await ( new DescriptionRemover( '#description' ) )
 			.removeDescriptionAsync();
 	}
 
@@ -113,7 +113,7 @@ class SeriesApplicationPage extends AbstractApplicationPage
 	{
 		if ( false === ( new SeasonPageDeterminator( window.location.href ) ).isSeasonPage )
 		{
-			( new Scroller() )
+			await ( new Scroller() )
 				.scrollToElementTopAsync(
 					DomHelper.querySelector( '[data-control-type="EPISODES_NAVIGATOR"]', document )
 				);

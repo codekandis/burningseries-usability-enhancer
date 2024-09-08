@@ -55,24 +55,36 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 		return this.#_denialsFilter.filterSeriesDenialsAsync();
 	}
 
+	async #removeHeadLineAsync()
+	{
+		( new HeadLineRemover( '#root section h2' ) )
+			.removeHeadLineAsync();
+	}
+
+	async #removeSorterAsync()
+	{
+		await ( new SorterRemover( '#root section p' ) )
+			.removeSorterAsync();
+	}
+
 	async #switchDenialsAsync()
 	{
-		this.#_denialsSwitcher.switchSeriesDenialsAsync();
+		await this.#_denialsSwitcher.switchSeriesDenialsAsync();
 	}
 
 	async #switchInterestsAsync()
 	{
-		this.#_interestsSwitcher.switchSeriesInterestsAsync();
+		await this.#_interestsSwitcher.switchSeriesInterestsAsync();
 	}
 
 	async #switchFavoritesAsync()
 	{
-		this.#_favoritesSwitcher.switchSeriesFavoritesAsync();
+		await this.#_favoritesSwitcher.switchSeriesFavoritesAsync();
 	}
 
 	async #switchWatchedAsync()
 	{
-		this.#_watchedSwitcher.switchSeriesWatchedAsync();
+		await this.#_watchedSwitcher.switchSeriesWatchedAsync();
 	}
 
 	async #addActionsAsync()
@@ -81,18 +93,34 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 			.addActionsAsync();
 	}
 
+	async #addVisibilityTogglerAsync()
+	{
+		( new VisibilityTogglerAdder( this.#_episodes ) )
+			.addVisibilityTogglerAsync();
+	}
+
 	async executeAsync()
 	{
+		this.#removeHeadLineAsync();
+		this.#removeSorterAsync();
 		this
 			.#filterDenialsAsync()
 			.then(
 				async () =>
 				{
-					this.#switchDenialsAsync();
-					this.#switchInterestsAsync();
-					this.#switchFavoritesAsync();
-					this.#switchWatchedAsync();
+
+					const switchDenialsAwaiter   = this.#switchDenialsAsync();
+					const switchInterestAwaiter  = this.#switchInterestsAsync();
+					const switchFavoritesAwaiter = this.#switchFavoritesAsync();
+					const switchWatchedAwaiter   = this.#switchWatchedAsync();
 					this.#addActionsAsync();
+
+					await switchDenialsAwaiter;
+					await switchInterestAwaiter;
+					await switchFavoritesAwaiter;
+					await switchWatchedAwaiter;
+
+					this.#addVisibilityTogglerAsync();
 				}
 			);
 	}

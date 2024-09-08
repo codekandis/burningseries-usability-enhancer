@@ -13,11 +13,27 @@ class MenuFilterProvider extends BaseClass
 		this.#_menuContainer = menuContainer;
 	}
 
+	#resetFilter( filter )
+	{
+		filter.value = '';
+		filter.dispatchEvent( new Event( 'input' ) );
+	}
+
 	async appendAsync()
 	{
+		DomHelper.addEventHandler( this.#_menuFilter, 'keyup', this.#inputElement_keyup );
 		DomHelper.addEventHandler( this.#_menuFilter, 'click', this.#inputElement_click );
-		DomHelper.addEventHandler( this.#_menuFilter, 'input', this.#inputElement_change );
+		DomHelper.addEventHandler( this.#_menuFilter, 'dblclick', this.#inputElement_dblclick );
+		DomHelper.addEventHandler( this.#_menuFilter, 'input', this.#inputElement_input );
 	}
+
+	#inputElement_keyup = ( event ) =>
+	{
+		if ( 'Escape' === event.key )
+		{
+			this.#resetFilter( event.target );
+		}
+	};
 
 	#inputElement_click = ( event ) =>
 	{
@@ -25,7 +41,15 @@ class MenuFilterProvider extends BaseClass
 		event.stopPropagation();
 	};
 
-	#inputElement_change = ( event ) =>
+	#inputElement_dblclick = ( event ) =>
+	{
+		event.preventDefault();
+		event.stopPropagation();
+
+		this.#resetFilter( event.target );
+	};
+
+	#inputElement_input = ( event ) =>
 	{
 		const keywords = [
 			...new Set(

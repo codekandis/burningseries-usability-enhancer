@@ -22,7 +22,7 @@
 	"browser_specific_settings": {
 		"gecko": {
 			"id": "{51455496-052f-4d64-b4a4-8c7da562f64f}",
-			"strict_min_version": "57.0"
+			"strict_min_version": "58.0"
 		}
 	},
 	"content_scripts": [
@@ -89,6 +89,7 @@
 				"library/Scripts/Application/MenuTypes.js",
 				"library/Scripts/Application/MetaLinksRemover.js",
 				"library/Scripts/Application/MouseMarker.js",
+				"library/Scripts/Application/NewsRemover.js",
 				"library/Scripts/Application/PersistentLoginEnabler.js",
 				"library/Scripts/Application/RegistrationLinkHider.js",
 				"library/Scripts/Application/SeasonPageDeterminator.js",
@@ -119,7 +120,9 @@
 				"library/Scripts/Application/SeriesTitleAttributeRemover.js",
 				"library/Scripts/Application/Settings.js",
 				"library/Scripts/Application/SettingsData.js",
+				"library/Scripts/Application/SorterRemover.js",
 				"library/Scripts/Application/TeaserRemover.js",
+				"library/Scripts/Application/VisibilityTogglerAdder.js",
 				"application/ApplicationPages/PreDispatcher/AllPagesPreDispatcher.js",
 				"application/ApplicationPages/AllSeriesApplicationPage.js",
 				"application/ApplicationPages/LandingPageApplicationPage.js",

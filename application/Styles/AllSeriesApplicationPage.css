@@ -1,5 +1,62 @@
 @charset "utf-8";
 
+[data-control-type='VISIBILITY_TOGGLER']
+{
+	box-sizing:       border-box !important;
+	display:          inline-block !important;
+	position:         absolute !important;
+	margin-top:       12px !important;
+	width:            27px !important;
+	line-height:      23px !important;
+	font-size:        12px !important;
+	font-weight:      bold !important;
+	color:            #ffffff !important;
+	text-align:       center !important;
+	background-color: var(--color-cyan) !important;
+	border-style:     solid !important;
+	border-width:     2px !important;
+	border-color:     transparent !important;
+	border-radius:    3px !important;
+	cursor:           pointer !important;
+}
+
+[data-control-type='VISIBILITY_TOGGLER']:after
+{
+	display: block !important;
+}
+
+[data-control-type='VISIBILITY_TOGGLER']:hover
+{
+	background-color: var(--color-orange) !important;
+}
+
+[data-control-type='VISIBILITY_TOGGLER'][data-is-visible='TRUE']
+{
+	border-color: var(--color-orange) !important;
+}
+
+#serForm #serInput
+{
+	display:     inline-block !important;
+	margin-left: 33px !important;
+	width:       843px !important;
+}
+
+#seriesContainer .genre *
+{
+	font-size: 14px !important;
+}
+
+#seriesContainer [data-is-series='TRUE'][data-is-visible='FALSE']
+{
+	display: none !important;
+}
+
+#seriesContainer [data-is-series='TRUE'][data-is-visible='TRUE']
+{
+	display: block !important;
+}
+
 #seriesContainer [data-control-type='ACTION']
 {
 	margin-top:  4px !important;
