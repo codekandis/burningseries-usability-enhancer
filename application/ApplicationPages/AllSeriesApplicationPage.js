@@ -63,7 +63,7 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 
 	async #removeSorterAsync()
 	{
-		await ( new SorterRemover('#root section p') )
+		await ( new SorterRemover( '#root section p' ) )
 			.removeSorterAsync();
 	}
 
@@ -101,13 +101,13 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 
 	async executeAsync()
 	{
+		this.#removeHeadLineAsync();
+		this.#removeSorterAsync();
 		this
 			.#filterDenialsAsync()
 			.then(
 				async () =>
 				{
-					this.#removeHeadLineAsync();
-					this.#removeSorterAsync();
 
 					const switchDenialsAwaiter   = this.#switchDenialsAsync();
 					const switchInterestAwaiter  = this.#switchInterestsAsync();
@@ -120,7 +120,6 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 					await switchFavoritesAwaiter;
 					await switchWatchedAwaiter;
 
-					this.#removeHeadLineAsync();
 					this.#addVisibilityTogglerAsync();
 				}
 			);
