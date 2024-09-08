@@ -81,6 +81,12 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 			.addActionsAsync();
 	}
 
+	async #addVisibilityTogglerAsync()
+	{
+		( new VisibilityTogglerAdder( this.#_episodes ) )
+			.addVisibilityTogglerAsync();
+	}
+
 	async executeAsync()
 	{
 		this
@@ -88,11 +94,18 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 			.then(
 				async () =>
 				{
-					this.#switchDenialsAsync();
-					this.#switchInterestsAsync();
-					this.#switchFavoritesAsync();
-					this.#switchWatchedAsync();
+					const switchDenialsAwaiter   = this.#switchDenialsAsync();
+					const switchInterestAwaiter  = this.#switchInterestsAsync();
+					const switchFavoritesAwaiter = this.#switchFavoritesAsync();
+					const switchWatchedAwaiter   = this.#switchWatchedAsync();
 					this.#addActionsAsync();
+
+					await switchDenialsAwaiter;
+					await switchInterestAwaiter;
+					await switchFavoritesAwaiter;
+					await switchWatchedAwaiter;
+
+					this.#addVisibilityTogglerAsync();
 				}
 			);
 	}
