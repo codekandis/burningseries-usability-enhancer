@@ -1,5 +1,10 @@
 @charset "utf-8";
 
+body h3
+{
+	font-size: 14px !important;
+}
+
 #news .lSPager a
 {
 	z-index: auto !important;
@@ -42,7 +47,7 @@
 #newest_episodes [data-control-type='SERIES_ABSTRACT'],
 #newest_series [data-control-type='SERIES_ABSTRACT']
 {
-	margin-left:      174px !important;
+	margin-left: 174px !important;
 }
 
 #newest_episodes [data-control-type='SERIES_ABSTRACT']

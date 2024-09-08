@@ -42,6 +42,11 @@
 	width:       843px !important;
 }
 
+#seriesContainer .genre *
+{
+	font-size: 14px !important;
+}
+
 #seriesContainer [data-is-series='TRUE'][data-is-visible='FALSE']
 {
 	display: none !important;
