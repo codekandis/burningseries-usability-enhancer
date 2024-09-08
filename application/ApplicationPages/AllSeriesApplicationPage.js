@@ -55,6 +55,12 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 		return this.#_denialsFilter.filterSeriesDenialsAsync();
 	}
 
+	async #removeSorterAsync()
+	{
+		await ( new SorterRemover('#root section p') )
+			.removeSorterAsync();
+	}
+
 	async #switchDenialsAsync()
 	{
 		await this.#_denialsSwitcher.switchSeriesDenialsAsync();
@@ -94,6 +100,8 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 			.then(
 				async () =>
 				{
+					this.#removeSorterAsync();
+
 					const switchDenialsAwaiter   = this.#switchDenialsAsync();
 					const switchInterestAwaiter  = this.#switchInterestsAsync();
 					const switchFavoritesAwaiter = this.#switchFavoritesAsync();
