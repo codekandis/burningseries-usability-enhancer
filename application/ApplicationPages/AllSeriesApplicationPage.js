@@ -55,6 +55,12 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 		return this.#_denialsFilter.filterSeriesDenialsAsync();
 	}
 
+	async #removeHeadLineAsync()
+	{
+		( new HeadLineRemover( '#root section h2' ) )
+			.removeHeadLineAsync();
+	}
+
 	async #removeSorterAsync()
 	{
 		await ( new SorterRemover('#root section p') )
@@ -100,6 +106,7 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 			.then(
 				async () =>
 				{
+					this.#removeHeadLineAsync();
 					this.#removeSorterAsync();
 
 					const switchDenialsAwaiter   = this.#switchDenialsAsync();
@@ -113,6 +120,7 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 					await switchFavoritesAwaiter;
 					await switchWatchedAwaiter;
 
+					this.#removeHeadLineAsync();
 					this.#addVisibilityTogglerAsync();
 				}
 			);
