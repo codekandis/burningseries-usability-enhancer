@@ -22,7 +22,7 @@
 	"browser_specific_settings": {
 		"gecko": {
 			"id": "burningseries-usability-enhancer@codekandis",
-			"strict_min_version": "58.0"
+			"strict_min_version": "130.0"
 		}
 	},
 	"content_scripts": [
