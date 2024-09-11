@@ -68,6 +68,7 @@
 				"library/Scripts/Common/Net/AjaxController.js",
 				"library/Scripts/Common/Net/ContentTypes.js",
 				"library/Scripts/Common/Net/HttpMethods.js",
+				"library/Scripts/Common/Utils/IntervalExecutor.js",
 				"library/Scripts/Application/ActionAdder.js",
 				"library/Scripts/Application/ActionContextMenu.js",
 				"library/Scripts/Application/ActionTypes.js",
