@@ -91,6 +91,7 @@
 				"library/Scripts/Application/MetaLinksRemover.js",
 				"library/Scripts/Application/MouseMarker.js",
 				"library/Scripts/Application/NewestEpisodesLoader.js",
+				"library/Scripts/Application/NewestSeriesLoader.js",
 				"library/Scripts/Application/NewsRemover.js",
 				"library/Scripts/Application/PersistentLoginEnabler.js",
 				"library/Scripts/Application/RegistrationLinkHider.js",
