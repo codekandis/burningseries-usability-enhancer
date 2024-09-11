@@ -64,6 +64,7 @@
 				"library/Scripts/Common/Dom/DomInsertPositions.js",
 				"library/Scripts/Common/Dom/Element.js",
 				"library/Scripts/Common/Dom/LinkExtender.js",
+				"library/Scripts/Common/Dom/Replacer.js",
 				"library/Scripts/Common/Dom/Scroller.js",
 				"library/Scripts/Common/Net/AjaxController.js",
 				"library/Scripts/Common/Net/ContentTypes.js",
