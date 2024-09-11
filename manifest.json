@@ -22,7 +22,7 @@
 	"browser_specific_settings": {
 		"gecko": {
 			"id": "{51455496-052f-4d64-b4a4-8c7da562f64f}",
-			"strict_min_version": "58.0"
+			"strict_min_version": "130.0"
 		}
 	},
 	"content_scripts": [
@@ -68,6 +68,7 @@
 				"library/Scripts/Common/Net/AjaxController.js",
 				"library/Scripts/Common/Net/ContentTypes.js",
 				"library/Scripts/Common/Net/HttpMethods.js",
+				"library/Scripts/Common/Utils/IntervalExecutor.js",
 				"library/Scripts/Application/ActionAdder.js",
 				"library/Scripts/Application/ActionContextMenu.js",
 				"library/Scripts/Application/ActionTypes.js",
@@ -89,6 +90,8 @@
 				"library/Scripts/Application/MenuTypes.js",
 				"library/Scripts/Application/MetaLinksRemover.js",
 				"library/Scripts/Application/MouseMarker.js",
+				"library/Scripts/Application/NewestEpisodesLoader.js",
+				"library/Scripts/Application/NewestSeriesLoader.js",
 				"library/Scripts/Application/NewsRemover.js",
 				"library/Scripts/Application/PersistentLoginEnabler.js",
 				"library/Scripts/Application/RegistrationLinkHider.js",

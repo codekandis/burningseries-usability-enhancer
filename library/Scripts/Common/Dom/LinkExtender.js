@@ -2,27 +2,35 @@
 
 class LinkExtender extends BaseClass
 {
+	#_episodes;
+	#_subSelector;
 	#_extension;
 
-	constructor( extension )
+	constructor( episodes, subSelector, extension )
 	{
 		super();
 
-		this.#_extension = extension;
+		this.#_episodes    = episodes;
+		this.#_subSelector = subSelector;
+		this.#_extension   = extension;
 	}
 
 	async extendLinkAsync( link )
 	{
-		link.href = link.href + this.#_extension;
+		link.href = String.format`${ 0 }${ 1 }`( link.href, this.#_extension );
 	}
 
-	async extendLinkListAsync( links )
+	async extendLinkListAsync()
 	{
-		links.forEach(
-			( link ) =>
-			{
-				this.extendLinkAsync( link );
-			}
-		);
+		this.#_episodes
+			.series
+			.forEach(
+				( series ) =>
+				{
+					this.extendLinkAsync(
+						DomHelper.querySelector( 'a', series.container, false )
+					);
+				}
+			);
 	}
 }
