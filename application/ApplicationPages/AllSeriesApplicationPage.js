@@ -13,7 +13,7 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 	{
 		super( settings, applicationPageArguments );
 
-		this.#_episodes          = new Episodes( '#seriesContainer ul li', this.#episodeNameHandler, this.#episodeUriHandler );
+		this.#_episodes          = new Episodes( '#seriesContainer ul li', null, this.#episodeNameHandler, this.#episodeUriHandler );
 		this.#_denialsFilter     = new SeriesDenialsFilter( this.#_episodes, this._apiController, true );
 		this.#_denialsSwitcher   = new SeriesDenialsSwitcher( this.#_episodes, this._apiController );
 		this.#_interestsSwitcher = new SeriesInterestsSwitcher( this.#_episodes, this._apiController );

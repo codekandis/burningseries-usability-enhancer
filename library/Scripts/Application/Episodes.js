@@ -3,15 +3,17 @@
 class Episodes extends BaseClass
 {
 	#_selector;
+	#_context;
 	#_nameHandler;
 	#_uriHandler;
 	#_series = [];
 
-	constructor( selector, nameHandler, uriHandler )
+	constructor( selector, context, nameHandler, uriHandler )
 	{
 		super();
 
 		this.#_selector    = selector;
+		this.#_context     = context;
 		this.#_nameHandler = nameHandler;
 		this.#_uriHandler  = uriHandler;
 
@@ -37,7 +39,13 @@ class Episodes extends BaseClass
 	async #determineEpisodesAsync()
 	{
 		DomHelper
-			.querySelectorAll( this.#_selector, document, false )
+			.querySelectorAll(
+				this.#_selector,
+				null === this.#_context
+					? document
+					: this.#_context,
+				false
+			)
 			.forEach(
 				( series ) =>
 				{

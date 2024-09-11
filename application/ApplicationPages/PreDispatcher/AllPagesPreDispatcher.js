@@ -223,6 +223,7 @@ class AllPagesPreDispatcher extends AbstractPreDispatcher
 
 		const episodes          = new Episodes(
 			String.format`${ 0 } ul li`( menuSettings.selector ),
+			null,
 			this.#episodeNameHandler,
 			this.#episodeUriHandler
 		);
