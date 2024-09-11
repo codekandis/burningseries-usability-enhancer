@@ -17,7 +17,7 @@ class SeriesApplicationPage extends AbstractApplicationPage
 		this.#_linkExtender      = new LinkExtender(
 			'/' + this._settings.get( 'defaultPlayer' )
 		);
-		this.#_episodes          = new Episodes( '#sp_left h2', this.#episodeNameHandler, this.#episodeUriHandler );
+		this.#_episodes          = new Episodes( '#sp_left h2', null, this.#episodeNameHandler, this.#episodeUriHandler );
 		this.#_denialsFilter     = new SeriesDenialsFilter( this.#_episodes, this._apiController, false );
 		this.#_denialsSwitcher   = new SeriesDenialsSwitcher( this.#_episodes, this._apiController );
 		this.#_interestsSwitcher = new SeriesInterestsSwitcher( this.#_episodes, this._apiController );
