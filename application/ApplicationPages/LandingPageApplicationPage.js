@@ -61,21 +61,27 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 
 	async #loadNewestEpisodesAsync()
 	{
-		await ( new NewestEpisodesLoader( this._bsToController ) )
+		return await ( new NewestEpisodesLoader( this._bsToController ) )
 			.loadAsync();
 	}
 
 	async #loadNewestSeriesAsync()
 	{
-		await ( new NewestSeriesLoader( this._bsToController ) )
+		return await ( new NewestSeriesLoader( this._bsToController ) )
 			.loadAsync();
 	}
 
-	#determineEpisodes()
+	#determineEpisodesConfigurations( newestEpisodes, newestSeries )
 	{
 		return [
-			new Episodes( '#newest_episodes ul li', this.#episodeNameHandler, this.#episodeUriHandler ),
-			new Episodes( '#newest_series ul li', this.#episodeNameHandler, this.#episodeUriHandler )
+			{
+				episodes: new Episodes( '#newest_episodes ul li', newestEpisodes, this.#episodeNameHandler, this.#episodeUriHandler ),
+				replacer: new Replacer( '#newest_episodes', newestEpisodes )
+			},
+			{
+				episodes: new Episodes( '#newest_series ul li', newestSeries, this.#episodeNameHandler, this.#episodeUriHandler ),
+				replacer: new Replacer( '#newest_series', newestSeries )
+			}
 		];
 	}
 
@@ -144,35 +150,37 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 		this.#removeNewsAsync();
 
 		( new IntervalExecutor(
-			5000,
+			10000,
 			async () =>
 			{
 				const loadNewestEpisodesAwaiter = this.#loadNewestEpisodesAsync();
 				const loadNewestSeriesAwaiter   = this.#loadNewestSeriesAsync();
 
-				await loadNewestEpisodesAwaiter;
-				await loadNewestSeriesAwaiter;
+				const newestEpisodes = await loadNewestEpisodesAwaiter;
+				const newestSeries   = await loadNewestSeriesAwaiter;
 
-				const episodes = this.#determineEpisodes();
-				this.#extendEpisodesLinksAsync( episodes[ 0 ] );
+				const episodes = this.#determineEpisodesConfigurations( newestEpisodes, newestSeries );
+				this.#extendEpisodesLinksAsync( episodes[ 0 ].episodes );
 				episodes.forEach(
-					async ( episodes ) =>
+					async ( episodesConfiguration ) =>
 					{
-						const denialsFilter          = await this.#filterDenialsAsync( episodes );
-						const switchDenialsAwaiter   = this.#switchDenialsAsync( episodes );
-						const switchInterestsAwaiter = this.#switchInterestsAsync( episodes );
-						const switchFavoritesAwaiter = this.#switchFavoritesAsync( episodes );
-						const switchWatchedAwaiter   = this.#switchWatchedAsync( episodes );
+						const denialsFilter          = await this.#filterDenialsAsync( episodesConfiguration.episodes );
+						const switchDenialsAwaiter   = this.#switchDenialsAsync( episodesConfiguration.episodes );
+						const switchInterestsAwaiter = this.#switchInterestsAsync( episodesConfiguration.episodes );
+						const switchFavoritesAwaiter = this.#switchFavoritesAsync( episodesConfiguration.episodes );
+						const switchWatchedAwaiter   = this.#switchWatchedAsync( episodesConfiguration.episodes );
 
 						const denialsSwitcher   = await switchDenialsAwaiter;
 						const interestsSwitcher = await switchInterestsAwaiter;
 						const favoritesSwitcher = await switchFavoritesAwaiter;
 						const watchedSwitcher   = await switchWatchedAwaiter;
 
-						this.#addActionsAsync( episodes, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher );
+						episodesConfiguration.replacer.replaceAsync();
 
-						this.#removeSeriesTitleAttributesAsync( episodes );
-						this.#addSeriesAbstractsAsync( episodes );
+						this.#addActionsAsync( episodesConfiguration.episodes, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher );
+
+						this.#removeSeriesTitleAttributesAsync( episodesConfiguration.episodes );
+						this.#addSeriesAbstractsAsync( episodesConfiguration.episodes );
 					}
 				);
 			}

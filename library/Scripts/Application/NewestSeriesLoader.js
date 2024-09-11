@@ -19,8 +19,8 @@ class NewestSeriesLoader extends BaseClass
 
 	async loadAsync()
 	{
-		const uri          = String.format`${ 0 }//${ 1 }`( window.location.protocol, window.location.hostname );
-		const newestSeries = await this.#_bsToController.readNewestSeriesAsync( uri );
-		this.#replaceNewestSeriesAsync( newestSeries );
+		const uri = String.format`${ 0 }//${ 1 }`( window.location.protocol, window.location.hostname );
+
+		return await this.#_bsToController.readNewestSeriesAsync( uri );
 	}
 }
