@@ -20,6 +20,13 @@ class BsToController extends BaseClass
 			.parseFromString( htmlString, ContentTypes.TEXT_HTML );
 	}
 
+	async readNewestEpisodesAsync( uri )
+	{
+		const htmlDocument = await this.#readAsHtmlDocumentAsync( uri );
+
+		return DomHelper.querySelector( '#newest_episodes', htmlDocument, false );
+	}
+
 	async readSeriesAllAsync( uri )
 	{
 		const htmlDocument = await this.#readAsHtmlDocumentAsync( uri );
