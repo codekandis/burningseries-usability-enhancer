@@ -80,7 +80,7 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 				linkSelector: '#newest_series ul li a',
 				linkExtender: new LinkExtender(
 					String.format`/${ 0 }`(
-						this._settings.get( 'defaultLanguage' )
+						this._settings.get( 'preferredLanguage' )
 					)
 				)
 			}
