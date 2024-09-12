@@ -2,29 +2,6 @@
 
 class SeriesApplicationPage extends AbstractApplicationPage
 {
-	#_linkExtender;
-	#_episodes;
-	#_denialsFilter;
-	#_denialsSwitcher;
-	#_interestsSwitcher;
-	#_favoritesSwitcher;
-	#_watchedSwitcher;
-
-	constructor( settings, applicationPageArguments )
-	{
-		super( settings, applicationPageArguments );
-
-		this.#_linkExtender      = new LinkExtender(
-			'/' + this._settings.get( 'defaultPlayer' )
-		);
-		this.#_episodes          = new Episodes( '#sp_left h2', null, this.#episodeNameHandler, this.#episodeUriHandler );
-		this.#_denialsFilter     = new SeriesDenialsFilter( this.#_episodes, this._apiController, false );
-		this.#_denialsSwitcher   = new SeriesDenialsSwitcher( this.#_episodes, this._apiController );
-		this.#_interestsSwitcher = new SeriesInterestsSwitcher( this.#_episodes, this._apiController );
-		this.#_favoritesSwitcher = new SeriesFavoritesSwitcher( this.#_episodes, this._apiController );
-		this.#_watchedSwitcher   = new SeriesWatchedSwitcher( this.#_episodes, this._apiController );
-	}
-
 	get #episodeNameHandler()
 	{
 		return ( container ) =>
@@ -50,49 +27,76 @@ class SeriesApplicationPage extends AbstractApplicationPage
 		}
 	}
 
-	async #filterDenialsAsync()
+	#determineEpisodes()
 	{
-		return this.#_denialsFilter.filterSeriesDenialsAsync();
+		return new Episodes( '#sp_left h2', null, this.#episodeNameHandler, this.#episodeUriHandler );
 	}
 
-	async #switchDenialsAsync()
+	async #filterDenialsAsync( episodes )
 	{
-		await this.#_denialsSwitcher.switchSeriesDenialsAsync();
+		const seriesDenialsFilter = new SeriesDenialsFilter( episodes, this._apiController, true );
+		await seriesDenialsFilter.filterSeriesDenialsAsync();
+
+		return seriesDenialsFilter;
 	}
 
-	async #switchInterestsAsync()
+	async #switchDenialsAsync( episodes )
 	{
-		await this.#_interestsSwitcher.switchSeriesInterestsAsync();
+		const seriesDenialsSwitcher = new SeriesDenialsSwitcher( episodes, this._apiController );
+		seriesDenialsSwitcher.switchSeriesDenialsAsync();
+
+		return seriesDenialsSwitcher;
 	}
 
-	async #switchFavoritesAsync()
+	async #switchInterestsAsync( episodes )
 	{
-		await this.#_favoritesSwitcher.switchSeriesFavoritesAsync();
+		const seriesInterestsSwitcher = new SeriesInterestsSwitcher( episodes, this._apiController );
+		seriesInterestsSwitcher.switchSeriesInterestsAsync();
+
+		return seriesInterestsSwitcher;
 	}
 
-	async #switchWatchedAsync()
+	async #switchFavoritesAsync( episodes )
 	{
-		await this.#_watchedSwitcher.switchSeriesWatchedAsync();
+		const seriesFavoritesSwitcher = new SeriesFavoritesSwitcher( episodes, this._apiController );
+		seriesFavoritesSwitcher.switchSeriesFavoritesAsync();
+
+		return seriesFavoritesSwitcher;
 	}
 
-	async #addActionsAsync()
+	async #switchWatchedAsync( episodes )
 	{
-		await ( new ActionAdder( this.#_episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, null, this.#_interestsSwitcher, null, this.#_favoritesSwitcher, null, this.#_watchedSwitcher ) )
+		const seriesWatchedSwitcher = new SeriesWatchedSwitcher( episodes, this._apiController );
+		seriesWatchedSwitcher.switchSeriesWatchedAsync();
+
+		return seriesWatchedSwitcher;
+	}
+
+	async #extendEpisodesLinksAsync( episodes )
+	{
+		const linkExtender = new LinkExtender(
+			String.format`/${ 0 }`(
+				this._settings.get( 'defaultPlayer' )
+			)
+		);
+		await linkExtender.extendLinkListAsync(
+			DomHelper.querySelectorAll( '.episodes tbody tr td:nth-child( 1 ) a, .episodes tbody tr td:nth-child( 2 ) a:nth-child( 2 ), #episodes ul li a', document, false )
+		);
+
+		return linkExtender;
+	}
+
+	async #addActionsAsync( episodes, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher )
+	{
+		await ( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, null, interestsSwitcher, null, favoritesSwitcher, null, watchedSwitcher ) )
 			.addActionsAsync();
 	}
 
-	async #extendEpisodesLinksAsync()
-	{
-		await this.#_linkExtender.extendLinkListAsync(
-			DomHelper.querySelectorAll( '.episodes tbody tr td:nth-child( 1 ) a, .episodes tbody tr td:nth-child( 2 ) a:nth-child( 2 ), #episodes ul li a', document, false )
-		);
-	}
-
-	async #addNavigationAsync()
+	async #addNavigationAsync( linkExtender )
 	{
 		if ( false === ( new SeasonPageDeterminator( window.location.href ) ).isSeasonPage )
 		{
-			await ( new EpisodesController( this.#_linkExtender ) )
+			await ( new EpisodesController( linkExtender ) )
 				.addActionsAsync();
 		}
 	}
@@ -122,20 +126,23 @@ class SeriesApplicationPage extends AbstractApplicationPage
 
 	async executeAsync()
 	{
-		this
-			.#filterDenialsAsync()
-			.then(
-				async () =>
-				{
-					this.#switchDenialsAsync();
-					this.#switchInterestsAsync();
-					this.#switchFavoritesAsync();
-					this.#switchWatchedAsync();
-					this.#addActionsAsync();
-				}
-			);
-		this.#extendEpisodesLinksAsync();
-		this.#addNavigationAsync();
+		const episodes = this.#determineEpisodes();
+
+		const denialsFilter          = await this.#filterDenialsAsync( episodes );
+		const switchDenialsAwaiter   = this.#switchDenialsAsync( episodes );
+		const switchInterestsAwaiter = this.#switchInterestsAsync( episodes );
+		const switchFavoritesAwaiter = this.#switchFavoritesAsync( episodes );
+		const switchWatchedAwaiter   = this.#switchWatchedAsync( episodes );
+
+		const denialsSwitcher   = await switchDenialsAwaiter;
+		const interestsSwitcher = await switchInterestsAwaiter;
+		const favoritesSwitcher = await switchFavoritesAwaiter;
+		const watchedSwitcher   = await switchWatchedAwaiter;
+
+		this.#addActionsAsync( episodes, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher );
+
+		const linkExtender = await this.#extendEpisodesLinksAsync( episodes );
+		this.#addNavigationAsync( linkExtender );
 		this.#removeMetaLinksAsync();
 		this.#removeDescriptionAsync();
 		this.#scrollToBottomAsync();
