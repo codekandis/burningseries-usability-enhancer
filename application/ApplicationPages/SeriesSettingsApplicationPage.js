@@ -2,25 +2,6 @@
 
 class SeriesSettingsApplicationPage extends AbstractApplicationPage
 {
-	#_episodes;
-	#_denialsFilter;
-	#_denialsSwitcher;
-	#_interestsSwitcher;
-	#_favoritesSwitcher;
-	#_watchedSwitcher;
-
-	constructor( settings, applicationPageArguments )
-	{
-		super( settings, applicationPageArguments );
-
-		this.#_episodes          = new Episodes( '#usrCnt li', null, this.#episodeNameHandler, this.#episodeUriHandler );
-		this.#_denialsFilter     = new SeriesDenialsFilter( this.#_episodes, this._apiController, true );
-		this.#_denialsSwitcher   = new SeriesDenialsSwitcher( this.#_episodes, this._apiController );
-		this.#_interestsSwitcher = new SeriesInterestsSwitcher( this.#_episodes, this._apiController );
-		this.#_favoritesSwitcher = new SeriesFavoritesSwitcher( this.#_episodes, this._apiController );
-		this.#_watchedSwitcher   = new SeriesWatchedSwitcher( this.#_episodes, this._apiController );
-	}
-
 	get #episodeNameHandler()
 	{
 		return ( container ) =>
@@ -40,50 +21,72 @@ class SeriesSettingsApplicationPage extends AbstractApplicationPage
 		}
 	}
 
-	async #filterDenialsAsync()
+	#determineEpisodes()
 	{
-		return this.#_denialsFilter.filterSeriesDenialsAsync();
+		return new Episodes( '#usrCnt li', null, this.#episodeNameHandler, this.#episodeUriHandler );
 	}
 
-	async #switchDenialsAsync()
+	async #filterDenialsAsync( episodes )
 	{
-		await this.#_denialsSwitcher.switchSeriesDenialsAsync();
+		const seriesDenialsFilter = new SeriesDenialsFilter( episodes, this._apiController, true );
+		await seriesDenialsFilter.filterSeriesDenialsAsync();
+
+		return seriesDenialsFilter;
 	}
 
-	async #switchInterestsAsync()
+	async #switchDenialsAsync( episodes )
 	{
-		await this.#_interestsSwitcher.switchSeriesInterestsAsync();
+		const seriesDenialsSwitcher = new SeriesDenialsSwitcher( episodes, this._apiController );
+		seriesDenialsSwitcher.switchSeriesDenialsAsync();
+
+		return seriesDenialsSwitcher;
 	}
 
-	async #switchFavoritesAsync()
+	async #switchInterestsAsync( episodes )
 	{
-		await this.#_favoritesSwitcher.switchSeriesFavoritesAsync();
+		const seriesInterestsSwitcher = new SeriesInterestsSwitcher( episodes, this._apiController );
+		seriesInterestsSwitcher.switchSeriesInterestsAsync();
+
+		return seriesInterestsSwitcher;
 	}
 
-	async #switchWatchedAsync()
+	async #switchFavoritesAsync( episodes )
 	{
-		await this.#_watchedSwitcher.switchSeriesWatchedAsync();
+		const seriesFavoritesSwitcher = new SeriesFavoritesSwitcher( episodes, this._apiController );
+		seriesFavoritesSwitcher.switchSeriesFavoritesAsync();
+
+		return seriesFavoritesSwitcher;
 	}
 
-	async #addActionsAsync()
+	async #switchWatchedAsync( episodes )
 	{
-		( new ActionAdder( this.#_episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, this.#_denialsFilter, this.#_denialsSwitcher, null, this.#_interestsSwitcher, null, this.#_favoritesSwitcher, null, this.#_watchedSwitcher ) )
+		const seriesWatchedSwitcher = new SeriesWatchedSwitcher( episodes, this._apiController );
+		seriesWatchedSwitcher.switchSeriesWatchedAsync();
+
+		return seriesWatchedSwitcher;
+	}
+
+	async #addActionsAsync( episodes, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher )
+	{
+		await ( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, null, interestsSwitcher, null, favoritesSwitcher, null, watchedSwitcher ) )
 			.addActionsAsync();
 	}
 
 	async executeAsync()
 	{
-		this.#filterDenialsAsync()
-			.then(
-				async () =>
-				{
-					this.#switchDenialsAsync();
-					this.#switchInterestsAsync();
-					this.#switchFavoritesAsync();
-					this.#switchWatchedAsync();
-					this.#addActionsAsync();
-					this.#addActionsAsync();
-				}
-			);
+		const episodes = this.#determineEpisodes();
+
+		const denialsFilter          = await this.#filterDenialsAsync( episodes );
+		const switchDenialsAwaiter   = this.#switchDenialsAsync( episodes );
+		const switchInterestsAwaiter = this.#switchInterestsAsync( episodes );
+		const switchFavoritesAwaiter = this.#switchFavoritesAsync( episodes );
+		const switchWatchedAwaiter   = this.#switchWatchedAsync( episodes );
+
+		const denialsSwitcher   = await switchDenialsAwaiter;
+		const interestsSwitcher = await switchInterestsAwaiter;
+		const favoritesSwitcher = await switchFavoritesAwaiter;
+		const watchedSwitcher   = await switchWatchedAwaiter;
+
+		this.#addActionsAsync( episodes, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher );
 	}
 }
