@@ -92,7 +92,7 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 	{
 		( new LinkExtender(
 			String.format`/${ 0 }`(
-				this._settings.get( 'defaultLanguage' )
+				this._settings.get( 'preferredLanguage' )
 			)
 		) )
 			.extendLinkListAsync(
