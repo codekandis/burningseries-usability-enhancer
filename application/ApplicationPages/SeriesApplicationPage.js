@@ -34,7 +34,7 @@ class SeriesApplicationPage extends AbstractApplicationPage
 
 	async #filterDenialsAsync( episodes )
 	{
-		const seriesDenialsFilter = new SeriesDenialsFilter( episodes, this._apiController, true );
+		const seriesDenialsFilter = new SeriesDenialsFilter( episodes, this._apiController, false );
 		await seriesDenialsFilter.filterSeriesDenialsAsync();
 
 		return seriesDenialsFilter;
