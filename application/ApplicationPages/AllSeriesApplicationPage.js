@@ -88,6 +88,18 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 		return seriesWatchedSwitcher;
 	}
 
+	async #extendEpisodesLinksAsync( episodes )
+	{
+		( new LinkExtender(
+			String.format`/${ 0 }`(
+				this._settings.get( 'defaultLanguage' )
+			)
+		) )
+			.extendLinkListAsync(
+				DomHelper.querySelectorAll( '#seriesContainer ul li a', document, false )
+			);
+	}
+
 	async #addActionsAsync( episodes, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher )
 	{
 		await ( new ActionAdder( episodes, this._apiController, DomInsertPositions.AFTER_BEGIN, denialsFilter, denialsSwitcher, null, interestsSwitcher, null, favoritesSwitcher, null, watchedSwitcher ) )
@@ -117,6 +129,7 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 		const favoritesSwitcher = await switchFavoritesAwaiter;
 		const watchedSwitcher   = await switchWatchedAwaiter;
 
+		this.#extendEpisodesLinksAsync( episodes );
 		this.#addActionsAsync( episodes, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher );
 
 		this.#addVisibilityTogglerAsync( episodes );
