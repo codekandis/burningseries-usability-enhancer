@@ -90,13 +90,21 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 
 	async #extendEpisodesLinksAsync( episodes )
 	{
-		( new LinkExtender(
+		const linkExtender = ( new LinkExtender(
 			String.format`/${ 0 }`(
 				this._settings.get( 'preferredLanguage' )
 			)
-		) )
-			.extendLinkListAsync(
-				DomHelper.querySelectorAll( '#seriesContainer ul li a', document, false )
+		) );
+
+		episodes
+			.series
+			.forEach(
+				async ( series ) =>
+				{
+					linkExtender.extendLinkAsync(
+						DomHelper.querySelector( 'a', series.container, true )
+					);
+				}
 			);
 	}
 
@@ -130,8 +138,8 @@ class AllSeriesApplicationPage extends AbstractApplicationPage
 		const watchedSwitcher   = await switchWatchedAwaiter;
 
 		this.#extendEpisodesLinksAsync( episodes );
-		this.#addActionsAsync( episodes, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher );
-
 		this.#addVisibilityTogglerAsync( episodes );
+
+		this.#addActionsAsync( episodes, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher );
 	}
 }
