@@ -129,9 +129,16 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 
 	async #extendEpisodesLinksAsync( episodes, linkSelector, linkExtender )
 	{
-		linkExtender.extendLinkListAsync(
-			DomHelper.querySelectorAll( linkSelector, episodes )
-		);
+		episodes
+			.series
+			.forEach(
+				async ( series ) =>
+				{
+					linkExtender.extendLinkListAsync(
+						DomHelper.querySelectorAll( 'a', series.container )
+					);
+				}
+			);
 	}
 
 	async #addActionsAsync( episodes, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher )
@@ -188,7 +195,7 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 							const favoritesSwitcher = await switchFavoritesAwaiter;
 							const watchedSwitcher   = await switchWatchedAwaiter;
 
-							this.#extendEpisodesLinksAsync( episodesConfiguration.linkSelector, episodesConfiguration.linkExtender );
+							this.#extendEpisodesLinksAsync( episodesConfiguration.episodes, episodesConfiguration.linkSelector, episodesConfiguration.linkExtender );
 							this.#addActionsAsync( episodesConfiguration.episodes, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher );
 							this.#removeSeriesTitleAttributesAsync( episodesConfiguration.episodes );
 							this.#addSeriesAbstractsAsync( episodesConfiguration.episodes );
