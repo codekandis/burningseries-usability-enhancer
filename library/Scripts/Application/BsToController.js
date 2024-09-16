@@ -98,6 +98,23 @@ class BsToController extends BaseClass
 		};
 	}
 
+	async readSeriesPlayersAsync( uri )
+	{
+		const htmlDocument = await this.#readAsHtmlDocumentAsync( uri );
+
+		return [
+			...DomHelper.querySelectorAll( '.hoster-tabs.top li a', htmlDocument, false )
+		]
+			.map(
+				( link ) =>
+				{
+					return link.textContent
+						.trim()
+						.ucFirst();
+				}
+			);
+	}
+
 	async toggleWatchStateAsync( uri )
 	{
 		return await this.#_ajaxController.getAsync( uri, [] );

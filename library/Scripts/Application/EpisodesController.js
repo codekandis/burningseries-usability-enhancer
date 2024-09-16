@@ -5,13 +5,13 @@ class EpisodesController extends BaseClass
 	#_bsToController     = new BsToController();
 	#_buttonNavigators   = null;
 	#_keyboardNavigators = null;
-	#_linkExtender;
+	#_settings;
 
-	constructor( linkExtender )
+	constructor( settings )
 	{
 		super();
 
-		this.#_linkExtender = linkExtender;
+		this.#_settings = settings;
 
 		this.#initialize();
 	}
@@ -105,23 +105,34 @@ class EpisodesController extends BaseClass
 
 	async #getEnclosingEpisodesOfSeasonAsync( seasonUri )
 	{
+		const defaultPlayers                  = ( new SettingsDefaultPlayersArrayizer( this.#_settings ) )
+			.arrayize();
+		const seriesDefaultPlayerDeterminator = new SeriesDefaultPlayerDeterminator( defaultPlayers );
+
 		const seasonsEpisodes   = await this.#_bsToController.readEpisodesAsync( seasonUri );
-		const enclosingEpisodes = [
+		const enclosingEpisodesAwaiter = [
 			seasonsEpisodes[ 0 ],
 			seasonsEpisodes[ seasonsEpisodes.length - 1 ]
 		]
 			.map(
-				( element ) =>
+				async ( link ) =>
 				{
-					this.#_linkExtender.extendLinkAsync( element );
+					const seriesPlayers       = await ( new SeriesPlayersDeterminator( this.#_bsToController ) )
+						.determineSeriesPlayersAsync( link );
+					const seriesDefaultPlayer = seriesDefaultPlayerDeterminator.determineSeriesDefaultPlayer( seriesPlayers );
 
-					return element.href;
+					await ( new LinkExtender(
+						String.format`/${ 0 }`( seriesDefaultPlayer )
+					) )
+						.extendLinkAsync( link );
+
+					return link.href;
 				}
 			);
 
 		return {
-			first: enclosingEpisodes[ 0 ],
-			last:  enclosingEpisodes[ 1 ],
+			first: await enclosingEpisodesAwaiter[ 0 ],
+			last:  await enclosingEpisodesAwaiter[ 1 ],
 		};
 	}
 

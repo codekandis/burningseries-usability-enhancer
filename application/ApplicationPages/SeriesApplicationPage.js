@@ -72,18 +72,26 @@ class SeriesApplicationPage extends AbstractApplicationPage
 		return seriesWatchedSwitcher;
 	}
 
-	async #extendEpisodesLinksAsync( episodes )
+	async #extendEpisodesLinksAsync()
 	{
-		const linkExtender = new LinkExtender(
-			String.format`/${ 0 }`(
-				this._settings.get( 'defaultPlayer' )
-			)
-		);
-		await linkExtender.extendLinkListAsync(
-			DomHelper.querySelectorAll( '.episodes tbody tr td:nth-child( 1 ) a, .episodes tbody tr td:nth-child( 2 ) a:nth-child( 2 ), #episodes ul li a', document, false )
-		);
+		const defaultPlayers                  = ( new SettingsDefaultPlayersArrayizer( this._settings ) )
+			.arrayize();
+		const seriesDefaultPlayerDeterminator = new SeriesDefaultPlayerDeterminator( defaultPlayers );
 
-		return linkExtender;
+		DomHelper.querySelectorAll( '.episodes tbody tr td:nth-child( 1 ) a, .episodes tbody tr td:nth-child( 2 ) a:nth-child( 2 ), #episodes ul li a', document, false )
+			.forEach(
+				async ( link ) =>
+				{
+					const seriesPlayers       = await ( new SeriesPlayersDeterminator( this._bsToController ) )
+						.determineSeriesPlayersAsync( link );
+					const seriesDefaultPlayer = seriesDefaultPlayerDeterminator.determineSeriesDefaultPlayer( seriesPlayers );
+
+					await ( new LinkExtender(
+						String.format`/${ 0 }`( seriesDefaultPlayer )
+					) )
+						.extendLinkAsync( link );
+				}
+			);
 	}
 
 	async #addActionsAsync( episodes, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher )
@@ -92,11 +100,11 @@ class SeriesApplicationPage extends AbstractApplicationPage
 			.addActionsAsync();
 	}
 
-	async #addNavigationAsync( linkExtender )
+	async #addNavigationAsync()
 	{
 		if ( false === ( new SeasonPageDeterminator( window.location.href ) ).isSeasonPage )
 		{
-			await ( new EpisodesController( linkExtender ) )
+			await ( new EpisodesController(this._settings) )
 				.addActionsAsync();
 		}
 	}
@@ -141,8 +149,12 @@ class SeriesApplicationPage extends AbstractApplicationPage
 
 		this.#addActionsAsync( episodes, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher );
 
-		const linkExtender = await this.#extendEpisodesLinksAsync( episodes );
-		this.#addNavigationAsync( linkExtender );
+		const extendEpisodesLinksAwaiter = this.#extendEpisodesLinksAsync();
+		const addNavigationAwaiter       = this.#addNavigationAsync();
+
+		await extendEpisodesLinksAwaiter;
+		await addNavigationAwaiter;
+
 		this.#removeMetaLinksAsync();
 		this.#removeDescriptionAsync();
 		this.#scrollToBottomAsync();

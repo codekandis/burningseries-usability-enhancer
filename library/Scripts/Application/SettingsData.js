@@ -6,5 +6,5 @@ class SettingsData extends BaseClass
 	apiUserId         = '';
 	apiKey            = '';
 	preferredLanguage = '';
-	defaultPlayer     = '';
+	defaultPlayers    = '';
 }
