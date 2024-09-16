@@ -65,24 +65,16 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 	{
 		return [
 			{
-				episodes:     new Episodes( '#newest_episodes ul li', newestEpisodes, this.#episodeNameHandler, this.#episodeUriHandler ),
-				replacer:     new Replacer( '#newest_episodes', newestEpisodes ),
-				linkSelector: '#newest_episodes ul li a',
-				linkExtender: new LinkExtender(
-					String.format`/${ 0 }`(
-						this._settings.get( 'defaultPlayer' )
-					)
-				)
+				episodes:         new Episodes( '#newest_episodes ul li', newestEpisodes, this.#episodeNameHandler, this.#episodeUriHandler ),
+				replacer:         new Replacer( '#newest_episodes', newestEpisodes ),
+				linkSelector:     'a',
+				linkExtenderType: LinkExtensionTypes.PREFERRED_PLAYER
 			},
 			{
-				episodes:     new Episodes( '#newest_series ul li', newestSeries, this.#episodeNameHandler, this.#episodeUriHandler ),
-				replacer:     new Replacer( '#newest_series', newestSeries ),
-				linkSelector: '#newest_series ul li a',
-				linkExtender: new LinkExtender(
-					String.format`/${ 0 }`(
-						this._settings.get( 'preferredLanguage' )
-					)
-				)
+				episodes:         new Episodes( '#newest_series ul li', newestSeries, this.#episodeNameHandler, this.#episodeUriHandler ),
+				replacer:         new Replacer( '#newest_series', newestSeries ),
+				linkSelector:     'a',
+				linkExtenderType: LinkExtensionTypes.DEFAULT_LANGUAGE
 			}
 		];
 	}
@@ -127,18 +119,53 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 		return seriesWatchedSwitcher;
 	}
 
-	async #extendEpisodesLinksAsync( episodes, linkSelector, linkExtender )
+	async #extendEpisodesLinksAsync( episodes, linkSelector, linkExtenderType )
 	{
-		episodes
+		const links = episodes
 			.series
-			.forEach(
-				async ( series ) =>
+			.map(
+				( series ) =>
 				{
-					linkExtender.extendLinkListAsync(
-						DomHelper.querySelectorAll( 'a', series.container )
-					);
+					return DomHelper.querySelector( linkSelector, series.container );
 				}
 			);
+
+		switch ( linkExtenderType )
+		{
+			case LinkExtensionTypes.DEFAULT_LANGUAGE:
+			{
+				( new LinkExtender(
+					String.format`/${ 0 }`(
+						this._settings.get( 'preferredLanguage' )
+					)
+				) )
+					.extendLinkListAsync( links );
+
+				break;
+			}
+			case LinkExtensionTypes.PREFERRED_PLAYER:
+			{
+				const defaultPlayers                  = ( new SettingsDefaultPlayersArrayizer( this._settings ) )
+					.arrayize();
+				const seriesDefaultPlayerDeterminator = new SeriesDefaultPlayerDeterminator( defaultPlayers, this._settings );
+
+				links.forEach(
+					async ( link ) =>
+					{
+						const seriesPlayers       = await ( new SeriesPlayersDeterminator( this._bsToController ) )
+							.determineSeriesPlayersAsync( link );
+						const seriesDefaultPlayer = seriesDefaultPlayerDeterminator.determineSeriesDefaultPlayer( seriesPlayers );
+
+						( new LinkExtender(
+							String.format`/${ 0 }`( seriesDefaultPlayer )
+						) )
+							.extendLinkAsync( link );
+					}
+				);
+
+				break;
+			}
+		}
 	}
 
 	async #addActionsAsync( episodes, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher )
@@ -195,7 +222,7 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 							const favoritesSwitcher = await switchFavoritesAwaiter;
 							const watchedSwitcher   = await switchWatchedAwaiter;
 
-							this.#extendEpisodesLinksAsync( episodesConfiguration.episodes, episodesConfiguration.linkSelector, episodesConfiguration.linkExtender );
+							await this.#extendEpisodesLinksAsync( episodesConfiguration.episodes, episodesConfiguration.linkSelector, episodesConfiguration.linkExtenderType );
 							this.#addActionsAsync( episodesConfiguration.episodes, denialsFilter, denialsSwitcher, interestsSwitcher, favoritesSwitcher, watchedSwitcher );
 							this.#removeSeriesTitleAttributesAsync( episodesConfiguration.episodes );
 							this.#addSeriesAbstractsAsync( episodesConfiguration.episodes );
