@@ -83,6 +83,7 @@
 				"library/Scripts/Application/FooterRemover.js",
 				"library/Scripts/Application/HeaderModifier.js",
 				"library/Scripts/Application/HeadLineRemover.js",
+				"library/Scripts/Application/LinkExtensionTypes.js",
 				"library/Scripts/Application/MenuAdder.js",
 				"library/Scripts/Application/MenuFilterProvider.js",
 				"library/Scripts/Application/MenuHandler.js",
