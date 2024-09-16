@@ -19,9 +19,9 @@ class LinkExtender extends BaseClass
 	async extendLinkListAsync( links )
 	{
 		links.forEach(
-			( link ) =>
+			async ( link ) =>
 			{
-				this.extendLinkAsync( link );
+				await this.extendLinkAsync( link );
 			}
 		);
 	}
