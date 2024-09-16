@@ -198,7 +198,7 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 		this.#removeNewsAsync();
 
 		( new IntervalExecutor(
-			5000,
+			10000,
 			async () =>
 			{
 				const loadNewestEpisodesAwaiter = this.#loadNewestEpisodesAsync();
