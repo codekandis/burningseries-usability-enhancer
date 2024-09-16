@@ -124,6 +124,7 @@
 				"library/Scripts/Application/SeriesTitleAttributeRemover.js",
 				"library/Scripts/Application/Settings.js",
 				"library/Scripts/Application/SettingsData.js",
+				"library/Scripts/Application/SettingsDefaultPlayersArrayizer.js",
 				"library/Scripts/Application/SorterRemover.js",
 				"library/Scripts/Application/TeaserRemover.js",
 				"library/Scripts/Application/VisibilityTogglerAdder.js",
