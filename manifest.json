@@ -121,6 +121,7 @@
 				"library/Scripts/Application/SeriesWatchedMenuLoader.js",
 				"library/Scripts/Application/SeriesWatchedSwitcher.js",
 				"library/Scripts/Application/SeriesAbstractsAdder.js",
+				"library/Scripts/Application/SeriesPlayersDeterminator.js",
 				"library/Scripts/Application/SeriesTitleAttributeRemover.js",
 				"library/Scripts/Application/Settings.js",
 				"library/Scripts/Application/SettingsData.js",
