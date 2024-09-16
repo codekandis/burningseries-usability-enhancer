@@ -317,7 +317,15 @@ class EpisodesController extends BaseClass
 				const seasons  = this.#seasons;
 				const episodes = this.#episodes;
 
-				this.#setWatchStateAsync( buttons.watchStateToggler, seasons, episodes );
+				( new IntervalExecutor(
+					1000,
+					() =>
+					{
+						this.#setWatchStateAsync( buttons.watchStateToggler, seasons, episodes );
+					}
+				) )
+					.executeAsync( true );
+
 				this.#addButtonEventsAsync( buttons, seasons, episodes );
 				this.#addKeyEventsAsync( seasons, episodes );
 
