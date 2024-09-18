@@ -83,7 +83,7 @@ class SeriesApplicationPage extends AbstractApplicationPage
 				async ( link ) =>
 				{
 					const seriesPlayers       = await ( new SeriesPlayersDeterminator( this._bsToController ) )
-						.determineSeriesPlayersAsync( link );
+						.determineSeriesPlayersAsync( link.href );
 					const seriesDefaultPlayer = seriesDefaultPlayerDeterminator.determineSeriesDefaultPlayer( seriesPlayers );
 
 					await ( new LinkExtender(
