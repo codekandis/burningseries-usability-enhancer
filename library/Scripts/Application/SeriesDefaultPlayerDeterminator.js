@@ -13,7 +13,7 @@ class SeriesDefaultPlayerDeterminator extends BaseClass
 
 	determineSeriesDefaultPlayer( seriesPlayers )
 	{
-		const existendDefaultPlayer = this
+		const existentDefaultPlayer = this
 			.#_defaultPlayers
 			.find(
 				( defaultPlayer ) =>
@@ -22,6 +22,6 @@ class SeriesDefaultPlayerDeterminator extends BaseClass
 				}
 			);
 
-		return existendDefaultPlayer ?? seriesPlayers[ 0 ];
+		return existentDefaultPlayer ?? seriesPlayers[ 0 ];
 	}
 }

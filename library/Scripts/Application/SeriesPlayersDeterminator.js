@@ -11,8 +11,8 @@ class SeriesPlayersDeterminator extends BaseClass
 		this.#_bsToController = bsToController;
 	}
 
-	async determineSeriesPlayersAsync( link )
+	async determineSeriesPlayersAsync( uri )
 	{
-		return await this.#_bsToController.readSeriesPlayersAsync( link.href );
+		return await this.#_bsToController.readSeriesPlayersAsync( uri );
 	}
 }

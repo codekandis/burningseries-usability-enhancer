@@ -105,34 +105,15 @@ class EpisodesController extends BaseClass
 
 	async #getEnclosingEpisodesOfSeasonAsync( seasonUri )
 	{
-		const defaultPlayers                  = ( new SettingsDefaultPlayersArrayizer( this.#_settings ) )
-			.arrayize();
-		const seriesDefaultPlayerDeterminator = new SeriesDefaultPlayerDeterminator( defaultPlayers );
-
 		const seasonsEpisodes   = await this.#_bsToController.readEpisodesAsync( seasonUri );
-		const enclosingEpisodesAwaiter = [
-			seasonsEpisodes[ 0 ],
-			seasonsEpisodes[ seasonsEpisodes.length - 1 ]
-		]
-			.map(
-				async ( link ) =>
-				{
-					const seriesPlayers       = await ( new SeriesPlayersDeterminator( this.#_bsToController ) )
-						.determineSeriesPlayersAsync( link );
-					const seriesDefaultPlayer = seriesDefaultPlayerDeterminator.determineSeriesDefaultPlayer( seriesPlayers );
-
-					await ( new LinkExtender(
-						String.format`/${ 0 }`( seriesDefaultPlayer )
-					) )
-						.extendLinkAsync( link );
-
-					return link.href;
-				}
-			);
+		const enclosingEpisodes = [
+			seasonsEpisodes[ 0 ].href,
+			seasonsEpisodes[ seasonsEpisodes.length - 1 ].href
+		];
 
 		return {
-			first: await enclosingEpisodesAwaiter[ 0 ],
-			last:  await enclosingEpisodesAwaiter[ 1 ],
+			first: enclosingEpisodes[ 0 ],
+			last:  enclosingEpisodes[ 1 ],
 		};
 	}
 
@@ -182,40 +163,46 @@ class EpisodesController extends BaseClass
 			);
 	}
 
+	async #navigateToAsync( href )
+	{
+		const defaultPlayers                  = ( new SettingsDefaultPlayersArrayizer( this.#_settings ) )
+			.arrayize();
+		const seriesDefaultPlayerDeterminator = new SeriesDefaultPlayerDeterminator( defaultPlayers );
+
+		const seriesPlayers       = await ( new SeriesPlayersDeterminator( this.#_bsToController ) )
+			.determineSeriesPlayersAsync( href );
+		const seriesDefaultPlayer = seriesDefaultPlayerDeterminator.determineSeriesDefaultPlayer( seriesPlayers );
+
+		window.location.href = await ( new LinkExtender(
+			String.format`/${ 0 }`( seriesDefaultPlayer )
+		) )
+			.extendHrefAsync( href );
+	}
+
 	async #navigateBackwardAsync( seasons, episodes )
 	{
-		if ( 0 !== episodes.currentIndex )
+		if ( 0 === episodes.currentIndex )
 		{
-			window.location.href = episodes.list[ episodes.currentIndex - 1 ];
+			const enclosingEpisodes = await this.#getEnclosingEpisodesOfSeasonAsync( seasons.list[ seasons.currentIndex - 1 ] );
+			this.#navigateToAsync( enclosingEpisodes.last );
 
 			return;
 		}
 
-		this.#getEnclosingEpisodesOfSeasonAsync( seasons.list[ seasons.currentIndex - 1 ] )
-			.then(
-				async ( enclosingEpisodes ) =>
-				{
-					window.location.href = enclosingEpisodes.last;
-				}
-			);
+		this.#navigateToAsync( episodes.list[ episodes.currentIndex - 1 ] );
 	}
 
 	async #navigateForwardAsync( seasons, episodes )
 	{
-		if ( episodes.list.length - 1 !== episodes.currentIndex )
+		if ( episodes.list.length - 1 === episodes.currentIndex )
 		{
-			window.location.href = episodes.list[ episodes.currentIndex + 1 ];
+			const enclosingEpisodes = await this.#getEnclosingEpisodesOfSeasonAsync( seasons.list[ seasons.currentIndex + 1 ] );
+			this.#navigateToAsync( enclosingEpisodes.first );
 
 			return;
 		}
 
-		this.#getEnclosingEpisodesOfSeasonAsync( seasons.list[ seasons.currentIndex + 1 ] )
-			.then(
-				async ( enclosingEpisodes ) =>
-				{
-					window.location.href = enclosingEpisodes.first;
-				}
-			);
+		this.#navigateToAsync( episodes.list[ episodes.currentIndex + 1 ] );
 	}
 
 	async #addButtonEventsAsync( buttons, seasons, episodes )
@@ -330,7 +317,15 @@ class EpisodesController extends BaseClass
 				const seasons  = this.#seasons;
 				const episodes = this.#episodes;
 
-				this.#setWatchStateAsync( buttons.watchStateToggler, seasons, episodes );
+				( new IntervalExecutor(
+					1000,
+					() =>
+					{
+						this.#setWatchStateAsync( buttons.watchStateToggler, seasons, episodes );
+					}
+				) )
+					.executeAsync( true );
+
 				this.#addButtonEventsAsync( buttons, seasons, episodes );
 				this.#addKeyEventsAsync( seasons, episodes );
 

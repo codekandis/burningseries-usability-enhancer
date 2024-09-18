@@ -11,9 +11,28 @@ class LinkExtender extends BaseClass
 		this.#_extension = extension;
 	}
 
+	async extendHrefAsync( href )
+	{
+		return href + this.#_extension;
+	}
+
+	async extendHrefListAsync( hrefs )
+	{
+		hrefs.forEach(
+			async ( href ) =>
+			{
+				await this.extendHrefAsync( href );
+			}
+		);
+
+		return hrefs;
+	}
+
 	async extendLinkAsync( link )
 	{
 		link.href = link.href + this.#_extension;
+
+		return link;
 	}
 
 	async extendLinkListAsync( links )
@@ -24,5 +43,7 @@ class LinkExtender extends BaseClass
 				await this.extendLinkAsync( link );
 			}
 		);
+
+		return links;
 	}
 }

@@ -153,7 +153,7 @@ class LandingPageApplicationPage extends AbstractApplicationPage
 					async ( link ) =>
 					{
 						const seriesPlayers       = await ( new SeriesPlayersDeterminator( this._bsToController ) )
-							.determineSeriesPlayersAsync( link );
+							.determineSeriesPlayersAsync( link.href );
 						const seriesDefaultPlayer = seriesDefaultPlayerDeterminator.determineSeriesDefaultPlayer( seriesPlayers );
 
 						( new LinkExtender(
